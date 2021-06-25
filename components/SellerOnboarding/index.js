@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import Head from "next/head";
+
 import Nav from "shared/Nav";
 import Footer from "shared/Footer";
 
@@ -31,6 +33,9 @@ const SellerOnboarding = () => {
 
   return (
     <>
+      <Head>
+        <title> Seller Onboarding | Greeen Cloud Nine </title> 
+      </Head> 
       <Nav />
 
       {/* Let's get Started  */}
