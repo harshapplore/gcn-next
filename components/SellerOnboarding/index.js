@@ -19,11 +19,13 @@ const SellerOnboarding = () => {
   const [activeSection, setActiveSection] = useState(1);
 
   const nextPage = () => {
+    window.scrollTo(0, 0);
     setActiveSection(1);
     setActivePage(activePage + 1);
   };
 
   const nextSection = () => {
+    window.scrollTo(0, 0);
     setActiveSection(activeSection + 1);
   };
 
