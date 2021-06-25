@@ -1,0 +1,23 @@
+/* Globaler Style */
+html {
+  font-size: 0.875rem;
+}
+.potw-like.active .orange-heart {
+  opacity: 1;
+}
+/* Container padden in dem Bereich wo er zu groß sein würde (zw. Desktop u. Tablet, max-w +20px) */
+@media only screen and (min-width: 991px) and (max-width: 1220px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+/* Tablet */
+@media screen and (max-width: 991px) {
+}
+/* Mobile - Portrait */
+@media screen and (max-width: 767px) {
+}
+/* Mobile */
+@media screen and (max-width: 479px) {
+}
