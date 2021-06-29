@@ -5,7 +5,7 @@
 }
 
 .w-checkbox::before {
-  content: ' ';
+  content: " ";
   display: table;
   -ms-grid-column-span: 1;
   grid-column-end: 2;
@@ -18,7 +18,7 @@
 }
 
 .w-checkbox::after {
-  content: ' ';
+  content: " ";
   display: table;
   -ms-grid-column-span: 1;
   grid-column-end: 2;
@@ -67,7 +67,7 @@
   border-bottom-color: #3898ec;
   border-left-color: #3898ec;
   border-right-color: #3898ec;
-  background-image: url('https://d3e54v103j8qbb.cloudfront.net/static/custom-checkbox-checkmark.589d534424.svg');
+  background-image: url("https://d3e54v103j8qbb.cloudfront.net/static/custom-checkbox-checkmark.589d534424.svg");
   background-position: 50% 50%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -178,7 +178,13 @@ a {
 
 .page-section.blue-gradient {
   padding-bottom: 200px;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#91d2e6), color-stop(98%, #fff));
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#91d2e6),
+    color-stop(98%, #fff)
+  );
   background-image: linear-gradient(180deg, #91d2e6, #fff 98%);
 }
 
@@ -197,7 +203,7 @@ a {
   -webkit-align-items: flex-end;
   -ms-flex-align: end;
   align-items: flex-end;
-  background-image: url('../images/bild-header2x.jpg');
+  background-image: url("../images/bild-header2x.jpg");
   background-position: 0px 0px;
   background-size: cover;
 }
@@ -212,14 +218,20 @@ a {
 }
 
 .button {
+  cursor: pointer;
+
   display: inline-block;
   padding: 20px 30px;
   border-radius: 5px;
   background-color: #80a647;
-  -webkit-transition: background-color 100ms ease, color 100ms ease, -webkit-transform 100ms ease;
-  transition: background-color 100ms ease, color 100ms ease, -webkit-transform 100ms ease;
-  transition: transform 100ms ease, background-color 100ms ease, color 100ms ease;
-  transition: transform 100ms ease, background-color 100ms ease, color 100ms ease, -webkit-transform 100ms ease;
+  -webkit-transition: background-color 100ms ease, color 100ms ease,
+    -webkit-transform 100ms ease;
+  transition: background-color 100ms ease, color 100ms ease,
+    -webkit-transform 100ms ease;
+  transition: transform 100ms ease, background-color 100ms ease,
+    color 100ms ease;
+  transition: transform 100ms ease, background-color 100ms ease,
+    color 100ms ease, -webkit-transform 100ms ease;
   font-family: Rubik, sans-serif;
   color: #fff;
   line-height: 24px;
@@ -241,10 +253,13 @@ a {
 .button.secondary {
   background-color: transparent;
   box-shadow: inset 0 0 0 1.5px #80a647;
-  -webkit-transition: box-shadow 200ms ease, color 100ms ease, -webkit-transform 100ms ease;
-  transition: box-shadow 200ms ease, color 100ms ease, -webkit-transform 100ms ease;
+  -webkit-transition: box-shadow 200ms ease, color 100ms ease,
+    -webkit-transform 100ms ease;
+  transition: box-shadow 200ms ease, color 100ms ease,
+    -webkit-transform 100ms ease;
   transition: box-shadow 200ms ease, transform 100ms ease, color 100ms ease;
-  transition: box-shadow 200ms ease, transform 100ms ease, color 100ms ease, -webkit-transform 100ms ease;
+  transition: box-shadow 200ms ease, transform 100ms ease, color 100ms ease,
+    -webkit-transform 100ms ease;
   color: #80a647;
 }
 
@@ -727,7 +742,7 @@ a {
   border-width: 2px;
   border-color: #5e5855;
   background-color: transparent;
-  background-image: url('../images/path.svg');
+  background-image: url("../images/path.svg");
   background-size: auto;
 }
 
@@ -1470,15 +1485,15 @@ a {
 }
 
 @font-face {
-  font-family: 'Now';
-  src: url('../fonts/Now-Medium.otf') format('opentype');
+  font-family: "Now";
+  src: url("../fonts/Now-Medium.otf") format("opentype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Now';
-  src: url('../fonts/Now-Bold.otf') format('opentype');
+  font-family: "Now";
+  src: url("../fonts/Now-Bold.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;

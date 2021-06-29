@@ -5,8 +5,8 @@ import Head from "next/head";
 import Nav from "shared/Nav";
 import Footer from "shared/Footer";
 
-import PS1 from "./PS1";
-import PS2 from "./PS2";
+import GetStarted from "./PS1";
+import Pricing from "./PS2";
 import ShopInfo from "./PS3";
 import ContactInfo from "./PS4";
 import GetPaidInfo from "./PS5";
@@ -39,10 +39,10 @@ const SellerOnboarding = () => {
       <Nav />
 
       {/* Let's get Started  */}
-      {activePage === 1 && <PS1 nextPage={nextPage} />}
+      {activePage === 1 && <GetStarted nextPage={nextPage} />}
 
       {/* Choose Pricing Plan */}
-      {activePage === 2 && <PS2 nextPage={nextPage} />}
+      {activePage === 2 && <Pricing nextPage={nextPage} />}
 
       {/* Page 3 */}
 
