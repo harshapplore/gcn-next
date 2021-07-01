@@ -5,6 +5,10 @@ html {
 .potw-like.active .orange-heart {
   opacity: 1;
 }
+.pickup-switch-wrapper.active .switch-switcher {
+  margin-left: auto;
+  background-color: #f8931f;
+}
 /* Container padden in dem Bereich wo er zu groß sein würde (zw. Desktop u. Tablet, max-w +20px) */
 @media only screen and (min-width: 991px) and (max-width: 1220px) {
   .container {
@@ -12,12 +16,6 @@ html {
     padding-right: 20px;
   }
 }
-/* Tablet */
-@media screen and (max-width: 991px) {
-}
-/* Mobile - Portrait */
-@media screen and (max-width: 767px) {
-}
-/* Mobile */
-@media screen and (max-width: 479px) {
+.order-item:nth-child(even) {
+  background-color: transparent;
 }

@@ -1,4 +1,4 @@
-const Select = ({ choices, required, value, setValue }) => {
+const Select = ({ choices, required, value, setValue, defaultValue }) => {
   return (
     <div className="select-wrapper">
       <select
@@ -7,9 +7,11 @@ const Select = ({ choices, required, value, setValue }) => {
         value={value}
         onChange={(e) => setValue(e.target.value)}
       >
-        <option value> Select One </option>
+        <option value> {defaultValue || "Select One"} </option>
         {choices.map((choice) => (
-          <option key={choice} value={choice}> {choice} </option>
+          <option key={choice} value={choice}>
+            {choice}
+          </option>
         ))}
       </select>
     </div>

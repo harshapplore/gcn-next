@@ -1,7 +1,62 @@
+import { useEffect, useState } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+
+import { fetchUser, fetchSeller } from "slices/user";
+import authAxios from "setups/axios";
+
+const PlanBox = ({heading, text, onSubmit}) => {
+  return <> 
+  </>;
+}
+
+
 const PS2 = ({ nextPage }) => {
-  const submit = (e) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const { isLoggedIn, user, seller } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      dispatch(fetchUser());
+
+      // show login Dialog
+    }
+
+    if (!user.id) {
+      dispatch(fetchUser());
+      return;
+    }
+
+    if (isLoggedIn && user.role && user.role.type !== "seller") {
+      router.push("/");
+      return;
+    }
+
+    if (!seller.id) {
+      dispatch(fetchSeller());
+      return;
+    }
+  }, []);
+
+  const submit = async (e, planType) => {
     e.preventDefault();
-    nextPage();
+
+    const response = await authAxios()({
+      url: `sellers/${seller.id}`,
+      method: "PUT",
+      data: {
+        onboardStatus: 2,
+        planType,
+      },
+    });
+
+    if (response) {
+      console.log(response);
+      nextPage();
+    }
   };
 
   return (
@@ -27,6 +82,7 @@ const PS2 = ({ nextPage }) => {
             >
               <div className="swiper-container">
                 <div className="swiper-wrapper">
+                
                   <div className="swiper-slide">
                     <div className="pricing-item">
                       <div className="mb-40">
@@ -46,7 +102,7 @@ const PS2 = ({ nextPage }) => {
                           defaultValue="Select"
                           data-wait="Please wait..."
                           className="button blue w-button"
-                          onClick={submit}
+                          onClick={(e) => submit(e, "Plan A")}
                         />
                       </div>
                     </div>
@@ -77,13 +133,13 @@ const PS2 = ({ nextPage }) => {
                           defaultValue="Select"
                           data-wait="Please wait..."
                           className="button blue w-button"
-                          onClick={submit}
+                          onClick={(e) => submit(e, "Plan B")}
                         />
                       </div>
                     </div>
                   </div>
                   <div className="swiper-slide">
-                    <div className="pricing-item">
+                    <div className="pricing-item">  
                       <div className="mb-40">
                         <h2>Pricing Option 3</h2>
                         <p>
@@ -104,11 +160,12 @@ const PS2 = ({ nextPage }) => {
                           defaultValue="Select"
                           data-wait="Please wait..."
                           className="button blue w-button"
-                          onClick={submit}
+                          onClick={(e) => submit(e, "Plan C")}
                         />
                       </div>
                     </div>
                   </div>
+                
                 </div>
                 <div className="swiper-pagination" />
               </div>

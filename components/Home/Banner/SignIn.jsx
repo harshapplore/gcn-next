@@ -59,6 +59,9 @@ const SignIn = ({ close, showRegister }) => {
 
     if (response) {
       console.log(response);
+
+      localStorage.setItem("token", response.data.jwt);
+
       return response.data;
     }
   };
@@ -108,7 +111,7 @@ const SignIn = ({ close, showRegister }) => {
             </form>
 
             {errors &&
-              errors.length>0 &&
+              errors.length > 0 &&
               errors.map((err) => <Message text={err} status={-1} />)}
           </div>
           <div className="center">

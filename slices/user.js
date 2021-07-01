@@ -4,32 +4,43 @@ import { authAxios } from "setups/axios";
 export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
   const response = await authAxios()({
     url: "users/me",
-    method: "GET"
+    method: "GET",
   });
 
-  console.log(response, response.data)
+  console.log(response, response.data);
 
   return response.data;
 });
 
+export const fetchSeller = createAsyncThunk(
+  "user/fetchSeller",
+  async () => {
+    const response = await authAxios()({
+      url: "/sellers/me",
+    });
+
+    return response.data;
+  }
+);
+
 export const updateRole = createAsyncThunk("users/updateRole", async () => {
   const response = await authAxios()({
     url: "users/me",
-    method: "GET"
+    method: "GET",
   });
 
   const user = response.data;
 
-  if(user.role.type === 'authenticated'){
+  if (user.role.type === "authenticated") {
     const res = await authAxios()({
       url: "users/role",
       method: "put",
       data: {
-        role: user.type
-      }
-    })
+        role: user.type,
+      },
+    });
 
-    if(!res) return user;
+    if (!res) return user;
 
     return res.data;
   }
@@ -42,6 +53,7 @@ export const userSlice = createSlice({
   initialState: {
     isLoggedIn: false,
     user: {},
+    seller: {},
   },
   extraReducers: {
     [fetchUser.fulfilled]: (state, action) => {
@@ -64,12 +76,24 @@ export const userSlice = createSlice({
     },
 
     [updateRole.pending]: (state, _) => {
-      state.user = {}
+      state.user = {};
     },
 
     [updateRole.rejected]: (state, _) => {
-      // Do nothing... 
-    }
+      state.user = {};
+    },
+
+    [fetchSeller.fulfilled]: (state, action) => {
+      state.seller = action.payload;
+    },
+
+    [fetchSeller.pending]: (state, _) => {
+      state.seller = {};
+    },
+
+    [fetchSeller.rejected]: (state, _) => {
+      state.seller = {};
+    },
   },
 });
 

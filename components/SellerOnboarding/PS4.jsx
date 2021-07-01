@@ -1,4 +1,45 @@
+import { useEffect, useState } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+
+import { fetchSeller } from "slices/user";
+import authAxios from "setups/axios";
+
 const PS4 = ({ next }) => {
+  const dispatch = useDispatch();
+
+  const { seller } = useSelector((state) => state.user);
+
+  const [contact, setContact] = useState(seller || {});
+
+  useEffect(() => {
+    if (!seller.id) {
+      dispatch(fetchSeller());
+    }
+  });
+
+  const updateContact = (key, value) => {
+    const newContact = { ...contact };
+    newContact[key] = value;
+    setContact(newContact);
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
+
+    const res = authAxios()({
+      url: `/sellers/${seller.id}`,
+      method: "PUT",
+      data: contact,
+    });
+
+    if (res) {
+      dispatch(fetchSeller());
+      next();
+    }
+  };
+
   return (
     <div className="page-section">
       <div className="container">
@@ -11,65 +52,70 @@ const PS4 = ({ next }) => {
               <input
                 type="text"
                 className="text-field w-input"
-                maxLength={256}
-                data-name
+                maxLength={80}
                 placeholder="First name*"
-                id="node-3"
                 required
+                value={contact.firstName || ""}
+                onChange={(e) => updateContact("firstName", e.target.value)}
               />
               <input
                 type="text"
                 className="text-field w-input"
-                maxLength={256}
-                data-name
+                maxLength={80}
                 placeholder="Last name*"
-                id="node"
                 required
+                value={contact.lastName || ""}
+                onChange={(e) => updateContact("lastName", e.target.value)}
               />
               <input
                 type="tel"
                 className="text-field w-input"
-                maxLength={256}
-                data-name
+                maxLength={20}
                 placeholder="Phone number*"
-                id="node"
                 required
+                value={contact.phone || ""}
+                onChange={(e) => updateContact("phone", e.target.value)}
               />
               <input
                 type="email"
                 className="text-field w-input"
-                maxLength={256}
-                data-name
+                maxLength={80}
                 placeholder="Email contact person*"
-                id="node"
                 required
+                value={contact.contactEmail || ""}
+                onChange={(e) => updateContact("contactEmail", e.target.value)}
               />
               <input
                 type="email"
                 className="text-field w-input"
-                maxLength={256}
+                maxLength={80}
                 data-name
                 placeholder="Email order management*"
-                id="node"
                 required
+                value={contact.orderManagementEmail || ""}
+                onChange={(e) =>
+                  updateContact("orderManagementEmail", e.target.value)
+                }
               />
               <input
                 type="email"
                 className="text-field w-input"
-                maxLength={256}
-                data-name
+                maxLength={80}
                 placeholder="Email customer service*"
-                id="node"
                 required
+                value={contact.customerServiceEmail || ""}
+                onChange={(e) =>
+                  updateContact("customerServiceEmail", e.target.value)
+                }
               />
               <input
                 type="email"
                 className="text-field w-input"
                 maxLength={256}
-                data-name
                 placeholder="Email returns*"
-                id="node"
                 required
+                value={contact.returnsEmail || ""}
+                onChange={(e) => updateContact("returnsEmail", e.target.value)}
               />
             </div>
             <div className="center">
@@ -78,10 +124,7 @@ const PS4 = ({ next }) => {
                 defaultValue="Save & Continue"
                 data-wait="Please wait..."
                 className="button blue w-button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  next();
-                }}
+                onClick={submit}
               />
             </div>
           </form>

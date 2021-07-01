@@ -1,4 +1,51 @@
+import { useEffect, useState } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+
+import { fetchSeller } from "slices/user";
+import authAxios from "setups/axios";
+
+import CheckBox from "shared/Checkbox";
+
 const PS5 = ({ next }) => {
+  const { seller } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const [payInfo, setPayInfo] = useState(seller || {});
+
+  console.log(payInfo);
+
+  useEffect(() => {
+    if (!seller.id) {
+      dispatch(fetchSeller());
+    }
+  }, []);
+
+  const updatePayInfo = (key, value) => {
+    const newPayInfo = { ...payInfo };
+    newPayInfo[key] = value;
+    setPayInfo(newPayInfo);
+
+    console.log(payInfo);
+  };
+
+  const submit = async (e) => {
+    e.preventDefault();
+
+    const res = await authAxios()({
+      url: `/sellers/${seller.id}`,
+      method: "PUT",
+      data: payInfo,
+    });
+
+    if (res) {
+      console.log(res);
+      dispatch(fetchSeller());
+      next();
+    }
+  };
+
   return (
     <div className="page-section">
       <div className="container">
@@ -11,65 +58,54 @@ const PS5 = ({ next }) => {
               <input
                 type="text"
                 className="text-field w-input"
-                maxLength={256}
-                data-name
+                maxLength={80}
                 placeholder="Bank Account Owner"
-                id="node-2"
                 required
+                value={payInfo.bankAccountOwner}
+                onChange={(e) =>
+                  updatePayInfo("bankAccountOwner", e.target.value)
+                }
               />
               <input
                 type="text"
                 className="text-field w-input"
-                maxLength={256}
-                data-name
+                maxLength={80}
                 placeholder="IBAN"
-                id="node"
                 required
+                value={payInfo.iban}
+                onChange={(e) => updatePayInfo("iban", e.target.value)}
               />
               <input
                 type="text"
                 className="text-field w-input"
-                maxLength={256}
-                data-name
+                maxLength={80}
                 placeholder="BIC/SWIFT"
-                id="node"
                 required
+                value={payInfo.bicOrSwift}
+                onChange={(e) => updatePayInfo("bicOrSwift", e.target.value)}
               />
             </div>
+
             <div className="mb-40">
-              <label className="w-checkbox checkbox-field">
-                <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox" />
-                <input
-                  type="checkbox"
-                  id="checkbox-3"
-                  name="checkbox-3"
-                  data-name="Checkbox 3"
-                  style={{ opacity: 0, position: "absolute", zIndex: -1 }}
-                />
-                <span className="checkbox-label w-form-label">
-                  Use a different account for the Green Cloud Nine pricing plan
-                </span>
-              </label>
+              <CheckBox
+                text="Use a different account for the Green Cloud Nine pricing plan"
+                value={payInfo.useDifferentAccountPricing}
+                setValue={(value) =>
+                  updatePayInfo("useDifferentAccountPricing", value)
+                }
+              />
             </div>
+
             <div className="center">
               <input
                 type="submit"
                 defaultValue="Save & Continue"
                 data-wait="Please wait..."
                 className="button blue w-button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  next();
-                }}
+                onClick={submit}
               />
             </div>
           </form>
-          <div className="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-          <div className="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form.</div>
-          </div>
         </div>
       </div>
     </div>

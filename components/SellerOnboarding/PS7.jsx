@@ -1,4 +1,53 @@
-const PS7 = ({next}) => {
+import { useEffect, useState } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+
+import { fetchSeller } from "slices/user";
+import authAxios from "setups/axios";
+
+const PS7 = ({ next }) => {
+  const dispatch = useDispatch();
+
+  const { seller } = useSelector((state) => state.user);
+
+  const [legalities, setLegalities] = useState({});
+  const [activeTab, setActiveTab] = useState({
+    returnsNRefunds: 1,
+    generalConditions: 1,
+    privacyPolicy: 1,
+  });
+
+  useEffect(() => {
+    if (!seller.id) dispatch(fetchSeller());
+  }, []);
+
+  const updateLegalities = (key, value) => {
+    const newLegalities = { ...legalities };
+    newLegalities[key] = value;
+    setLegalities(newLegalities);
+
+    console.log(newLegalities);
+  };
+
+  const submit = async (e) => {
+    e.preventDefault();
+
+    const res = await authAxios()({
+      url: `/sellers/${seller.id}`,
+      method: "PUT",
+      data: {
+        onboardStatus: 7,
+        ...legalities
+      }
+    })
+
+    if(res){
+      dispatch(fetchSeller());
+      next();
+    }
+  }
+
   return (
     <div className="page-section">
       <div className="container">
@@ -19,42 +68,69 @@ const PS7 = ({next}) => {
                 <div className="tabs-menu inline w-tab-menu">
                   <a
                     data-w-tab="Tab 1"
-                    className="terms-lang w-inline-block w-tab-link w--current"
+                    className={
+                      "terms-lang w-inline-block w-tab-link" +
+                      (activeTab.returnsNRefunds === 1 ? " w--current" : "")
+                    }
+                    onClick={() =>
+                      setActiveTab({ ...activeTab, returnsNRefunds: 1 })
+                    }
                   >
                     <div>English</div>
                   </a>
                   <a
                     data-w-tab="Tab 2"
-                    className="terms-lang w-inline-block w-tab-link"
+                    className={
+                      "terms-lang w-inline-block w-tab-link" +
+                      (activeTab.returnsNRefunds === 2 ? " w--current" : "")
+                    }
+                    onClick={() =>
+                      setActiveTab({ ...activeTab, returnsNRefunds: 2 })
+                    }
                   >
                     <div>German</div>
                   </a>
                 </div>
                 <div className="w-tab-content">
-                  <div data-w-tab="Tab 1" className="w-tab-pane w--tab-active">
+                  <div
+                    data-w-tab="Tab 1"
+                    className={
+                      "w-tab-pane " +
+                      (activeTab.returnsNRefunds === 1 ? " w--tab-active" : "")
+                    }
+                  >
                     <textarea
                       placeholder="Short Description (max. XX)"
                       maxLength={5000}
-                      id="node-4"
-                      data-name
                       required
                       className="text-field area w-input"
-                      defaultValue={""}
+                      value={legalities.returnsNRefunds || ""}
+                      onChange={(e) =>
+                        updateLegalities("returnsNRefunds", e.target.value)
+                      }
                     />
                   </div>
-                  <div data-w-tab="Tab 2" className="w-tab-pane">
+                  <div
+                    data-w-tab="Tab 2"
+                    className={
+                      "w-tab-pane " +
+                      (activeTab.returnsNRefunds === 2 ? " w--tab-active" : "")
+                    }
+                  >
                     <textarea
                       placeholder="Kurze Beschreibung (max. XX)"
                       maxLength={5000}
-                      id="node-4"
-                      data-name
                       className="text-field area w-input"
-                      defaultValue={""}
+                      value={legalities.returnsNRefundsGerman || ""}
+                      onChange={(e) =>
+                        updateLegalities("returnsNRefundsGerman", e.target.value)
+                      }
                     />
                   </div>
                 </div>
               </div>
             </div>
+
             <div className="mb-60">
               <h2 className="mb-20">General Conditions (AGB)</h2>
               <div
@@ -65,43 +141,77 @@ const PS7 = ({next}) => {
                 <div className="tabs-menu inline w-tab-menu">
                   <a
                     data-w-tab="Tab 1"
-                    className="terms-lang w-inline-block w-tab-link w--current"
+                    className={
+                      "terms-lang w-inline-block w-tab-link" +
+                      (activeTab.generalConditions === 1 ? " w--current" : "")
+                    }
+                    onClick={() =>
+                      setActiveTab({ ...activeTab, generalConditions: 1 })
+                    }
                   >
                     <div>English</div>
                   </a>
                   <a
                     data-w-tab="Tab 2"
-                    className="terms-lang w-inline-block w-tab-link"
+                    className={
+                      "terms-lang w-inline-block w-tab-link" +
+                      (activeTab.generalConditions === 2 ? " w--current" : "")
+                    }
+                    onClick={() =>
+                      setActiveTab({ ...activeTab, generalConditions: 2 })
+                    }
                   >
                     <div>German</div>
                   </a>
                 </div>
                 <div className="w-tab-content">
-                  <div data-w-tab="Tab 1" className="w-tab-pane w--tab-active">
+                  <div
+                    data-w-tab="Tab 1"
+                    className={
+                      "w-tab-pane " +
+                      (activeTab.generalConditions === 1
+                        ? " w--tab-active"
+                        : "")
+                    }
+                  >
                     <textarea
                       placeholder="Short Description (max. XX)"
                       maxLength={5000}
-                      id="node-4"
-                      data-name
                       required
                       className="text-field area w-input"
-                      defaultValue={""}
+                      value={legalities.generalConditions || ""}
+                      onChange={(e) =>
+                        updateLegalities("generalConditions", e.target.value)
+                      }
                     />
                   </div>
-                  <div data-w-tab="Tab 2" className="w-tab-pane">
+                  <div
+                    data-w-tab="Tab 2"
+                    className={
+                      "w-tab-pane " +
+                      (activeTab.generalConditions === 2
+                        ? " w--tab-active"
+                        : "")
+                    }
+                  >
                     <textarea
                       placeholder="Kurze Beschreibung (max. XX)"
                       maxLength={5000}
-                      id="node-4"
-                      data-name
                       className="text-field area w-input"
-                      defaultValue={""}
+                      value={legalities.generalConditionsGerman || ""}
+                      onChange={(e) =>
+                        updateLegalities(
+                          "generalConditionsGerman",
+                          e.target.value
+                        )
+                      }
                     />
                   </div>
                 </div>
               </div>
             </div>
-            <div className="mb-40">
+
+            <div className="mb-60">
               <h2 className="mb-20">Privacy Policy (Datenschutz)</h2>
               <div
                 data-duration-in={300}
@@ -111,52 +221,76 @@ const PS7 = ({next}) => {
                 <div className="tabs-menu inline w-tab-menu">
                   <a
                     data-w-tab="Tab 1"
-                    className="terms-lang w-inline-block w-tab-link w--current"
+                    className={
+                      "terms-lang w-inline-block w-tab-link" +
+                      (activeTab.privacyPolicy === 1 ? " w--current" : "")
+                    }
+                    onClick={() =>
+                      setActiveTab({ ...activeTab, privacyPolicy: 1 })
+                    }
                   >
                     <div>English</div>
                   </a>
                   <a
                     data-w-tab="Tab 2"
-                    className="terms-lang w-inline-block w-tab-link"
+                    className={
+                      "terms-lang w-inline-block w-tab-link" +
+                      (activeTab.privacyPolicy === 2 ? " w--current" : "")
+                    }
+                    onClick={() =>
+                      setActiveTab({ ...activeTab, privacyPolicy: 2 })
+                    }
                   >
                     <div>German</div>
                   </a>
                 </div>
                 <div className="w-tab-content">
-                  <div data-w-tab="Tab 1" className="w-tab-pane w--tab-active">
+                  <div
+                    data-w-tab="Tab 1"
+                    className={
+                      "w-tab-pane " +
+                      (activeTab.privacyPolicy === 1 ? " w--tab-active" : "")
+                    }
+                  >
                     <textarea
                       placeholder="Short Description (max. XX)"
                       maxLength={5000}
-                      id="node-4"
-                      data-name
                       required
                       className="text-field area w-input"
-                      defaultValue={""}
+                      value={legalities.privacyPolicy || ""}
+                      onChange={(e) =>
+                        updateLegalities("privacyPolicy", e.target.value)
+                      }
                     />
                   </div>
-                  <div data-w-tab="Tab 2" className="w-tab-pane">
+                  <div
+                    data-w-tab="Tab 2"
+                    className={
+                      "w-tab-pane " +
+                      (activeTab.privacyPolicy === 2 ? " w--tab-active" : "")
+                    }
+                  >
                     <textarea
                       placeholder="Kurze Beschreibung (max. XX)"
                       maxLength={5000}
-                      id="node-4"
-                      data-name
                       className="text-field area w-input"
-                      defaultValue={""}
+                      value={legalities.privacyPolicyGerman || ""}
+                      onChange={(e) =>
+                        updateLegalities("privacyPolicyGerman", e.target.value)
+                      }
                     />
                   </div>
                 </div>
               </div>
             </div>
+
             <div className="center">
               <input
                 type="submit"
                 defaultValue="Save & Continue"
                 data-wait="Please wait..."
                 className="button blue w-button"
-                onClick = {e => {
-                  e.preventDefault();
-                  next();
-                }}
+                onClick={submit}
               />
             </div>
           </form>

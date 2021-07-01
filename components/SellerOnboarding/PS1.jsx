@@ -1,7 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
+import { useRouter } from "next/router";
+
+import { authAxios } from "setups/axios";
+
+import { fetchUser, fetchSeller } from "slices/user";
 import Select from "shared/Select";
 import CheckBox from "shared/Checkbox";
+import Message from "shared/Message";
+import axios from "axios";
 
 const data = {
   heading: "Hello Thomas, let's get started!",
@@ -24,22 +32,79 @@ const data = {
     "Next Choice",
     "Last Choice",
   ],
+  choices: ["Sample Answer 1", "Sample Answer 2", "Sample Answer 3"],
 };
 
 const PS1 = ({ nextPage }) => {
-  const [answers, setAnswers] = useState({});
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-  const updateAnswer = (key, value) => {
-    const newAnswers = { ...answers };
-    newAnswers[key] = value;
-    setAnswers(newAnswers);
+  const { seller } = useSelector((state) => state.user);
 
-    console.log(newAnswers);
+  const [answers, setAnswers] = useState(() => {
+    let len = data.questions.length;
+    const arr = [];
+
+    while (len > 0 && len--) arr.push({});
+
+    return arr;
+  });
+
+  const [errors, setErrors] = useState([]);
+
+  useEffect(() => {
+    if (!seller.id) {
+      dispatch(fetchSeller());
+      return;
+    }
+  }, []);
+
+  const validate = () => {
+    const err = [];
+
+    answers.map((answer) =>
+      !answer.answer
+        ? err.push("One or more questions have not been answered.")
+        : ""
+    );
+
+    setErrors(err);
+
+    if (err.length) return false;
+
+    return true;
   };
 
-  const updateCertificates = () => {
+  const submit = async (e) => {
+    e.preventDefault();
 
-  }
+    if (!validate()) return;
+
+    const response = await authAxios()({
+      url: `sellers/${seller.id}`,
+      method: "PUT",
+      data: {
+        onboardStatus: 1,
+        questionaire: answers,
+      },
+    });
+
+    if (response) {
+      console.log(response.data);
+      nextPage();
+    }
+  };
+
+  const updateAnswer = (index, value) => {
+    setAnswers([
+      ...answers.slice(0, index),
+      {
+        question: data.questions[index],
+        answer: value,
+      },
+      ...answers.slice(index + 1),
+    ]);
+  };
 
   return (
     <div className="page-section">
@@ -61,7 +126,8 @@ const PS1 = ({ nextPage }) => {
                 id="field"
                 name="field"
                 className="text-field area w-input"
-                defaultValue={""}
+                value={answers[0].answer}
+                onChange={(e) => updateAnswer(0, e.target.value)}
               />
             </div>
             <div className="mb-60">
@@ -75,7 +141,8 @@ const PS1 = ({ nextPage }) => {
                 name="field-3"
                 data-name="Field 3"
                 className="text-field area w-input"
-                defaultValue={""}
+                value={answers[1].answer}
+                onChange={(e) => updateAnswer(1, e.target.value)}
               />
             </div>
             <div className="mb-60">
@@ -85,8 +152,8 @@ const PS1 = ({ nextPage }) => {
               <Select
                 choices={data.certificates}
                 required={true}
-                value={answers.certificates}
-                setValue={(value) => updateAnswer("choices", value)}
+                value={answers[2].answer}
+                setValue={(value) => updateAnswer(2, value)}
               />
             </div>
             <div className="mb-60">
@@ -94,37 +161,33 @@ const PS1 = ({ nextPage }) => {
                 {data.questions[3]}
               </label>
               <CheckBox
-                text="Sample Answer"
-                value={answers.q3One}
-                setValue={(value) => updateAnswer("q3One", value)}
+                text="Sample Answer One"
+                value={answers[3].answer === data.choices[0]}
+                setValue={() => updateAnswer(3, data.choices[0])}
               />
               <CheckBox
-                text="Sample Answer"
-                value={answers.q3Two}
-                setValue={(value) => updateAnswer("q3Two", value)}
+                text="Sample Answer Two"
+                value={answers[3].answer === data.choices[1]}
+                setValue={() => updateAnswer(3, data.choices[1])}
               />
               <CheckBox
-                text="Sample Answer"
-                value={answers.q3Three}
-                setValue={(value) => updateAnswer("q3Three", value)}
+                text="Sample Answer Three"
+                value={answers[3].answer === data.choices[2]}
+                setValue={() => updateAnswer(3, data.choices[2])}
               />
             </div>
+
+            {errors && errors.length > 0 && (
+              <Message text={errors[0]} status={-1} />
+            )}
+
             <input
               type="submit"
               value="Continue"
               className="button blue w-button"
-              onClick={(e) => {
-                e.preventDefault();
-                nextPage();
-              }}
+              onClick={submit}
             />
           </form>
-          <div className="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-          <div className="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form.</div>
-          </div>
         </div>
       </div>
     </div>

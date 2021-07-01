@@ -1,4 +1,42 @@
+import { useEffect, useState } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+
+import { fetchSeller } from "slices/user";
+import authAxios from "setups/axios";
+
+import Message from "shared/Message";
+
 const PS8 = ({ next }) => {
+  const dispatch = useDispatch();
+
+  const { seller } = useSelector((state) => state.user);
+
+  const [shop, setShop] = useState(seller.shop || "");
+
+  const [err, setErr] = useState("");
+
+  const submit = async () => {
+    if (!shop.name) {
+      setErr("Shop Name cannot be empty");
+      return;
+    }
+
+    const res = await authAxios()({
+      url: `/shops/${seller.shop.id}`,
+      method: "PUT",
+      data: {
+        name: shop.name,
+      },
+    });
+
+    if (res) {
+      dispatch(fetchSeller());
+      next();
+    }
+  };
+
   return (
     <div className="page-section">
       <div className="container">
@@ -10,10 +48,10 @@ const PS8 = ({ next }) => {
             <input
               type="text"
               className="text-field mb-20 w-input"
-              maxLength={256}
-              data-name
+              maxLength={80}
               placeholder="Thomas' Soap Shop"
-              id="node"
+              value={shop.name || ""}
+              onChange={(e) => setShop({ ...shop, name: e.target.value })}
               required
             />
             <input
@@ -27,12 +65,7 @@ const PS8 = ({ next }) => {
               }}
             />
           </form>
-          <div className="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-          <div className="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form.</div>
-          </div>
+          {err && <Message text={err} status={-1} />}
         </div>
       </div>
     </div>

@@ -1,4 +1,45 @@
-const PS6 = ({next}) => {
+import { useEffect, useState } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+
+import { fetchSeller } from "slices/user";
+import authAxios from "setups/axios";
+
+import CheckBox from "shared/Checkbox";
+
+const PS6 = ({ next }) => {
+  const dispatch = useDispatch();
+  const { seller } = useSelector((state) => state.user);
+
+  const [options, setOptions] = useState(seller.acceptedPaymentOptions || {});
+
+  useEffect(() => {
+    if (!seller.id) {
+      dispatch(fetchSeller());
+    }
+  }, []);
+
+  const updateOptions = (key, value) => {
+    const newOptions = { ...options };
+    newOptions[key] = value;
+    setOptions(newOptions);
+    console.log(newOptions);
+  };
+
+  const submit = async (e) => {
+    e.preventDefault();
+
+    const res = await authAxios()({
+      url: `/sellers/${seller.id}`,
+      method: "PUT",
+      data: {
+        onboardStatus: 6,
+        acceptedPaymentOptions: options
+      }
+    })
+  };
+
   return (
     <div className="page-section">
       <div className="container">
@@ -17,19 +58,11 @@ const PS6 = ({next}) => {
                     className="payment-icon"
                   />
                   <div className="inline-text">
-                    <label className="w-checkbox checkbox-field">
-                      <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox" />
-                      <input
-                        type="checkbox"
-                        id="checkbox-3"
-                        name="checkbox-3"
-                        data-name="Checkbox 3"
-                        style={{ opacity: 0, position: "absolute", zIndex: -1 }}
-                      />
-                      <span className="checkbox-label w-form-label">
-                        Credit Card
-                      </span>
-                    </label>
+                    <CheckBox
+                      text="Credit Card"
+                      value={options.creditCard}
+                      setValue={(value) => updateOptions("creditCard", value)}
+                    />
                   </div>
                 </div>
               </div>
@@ -42,19 +75,11 @@ const PS6 = ({next}) => {
                     className="payment-icon"
                   />
                   <div className="inline-text">
-                    <label className="w-checkbox checkbox-field">
-                      <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox" />
-                      <input
-                        type="checkbox"
-                        id="checkbox-3"
-                        name="checkbox-3"
-                        data-name="Checkbox 3"
-                        style={{ opacity: 0, position: "absolute", zIndex: -1 }}
-                      />
-                      <span className="checkbox-label w-form-label">
-                        Stripe
-                      </span>
-                    </label>
+                    <CheckBox
+                      text="Stripe"
+                      value={options.stripe}
+                      setValue={(value) => updateOptions("stripe", value)}
+                    />
                   </div>
                 </div>
                 <div className="payment-button">
@@ -72,19 +97,11 @@ const PS6 = ({next}) => {
                     className="payment-icon"
                   />
                   <div className="inline-text">
-                    <label className="w-checkbox checkbox-field">
-                      <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox" />
-                      <input
-                        type="checkbox"
-                        id="checkbox-3"
-                        name="checkbox-3"
-                        data-name="Checkbox 3"
-                        style={{ opacity: 0, position: "absolute", zIndex: -1 }}
-                      />
-                      <span className="checkbox-label w-form-label">
-                        Apple Pay
-                      </span>
-                    </label>
+                    <CheckBox
+                      text="Apple Pay"
+                      value={options.applePay}
+                      setValue={(value) => updateOptions("applePay", value)}
+                    />
                   </div>
                 </div>
                 <div className="payment-button">
@@ -102,19 +119,11 @@ const PS6 = ({next}) => {
                     className="payment-icon"
                   />
                   <div className="inline-text">
-                    <label className="w-checkbox checkbox-field">
-                      <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox" />
-                      <input
-                        type="checkbox"
-                        id="checkbox-3"
-                        name="checkbox-3"
-                        data-name="Checkbox 3"
-                        style={{ opacity: 0, position: "absolute", zIndex: -1 }}
-                      />
-                      <span className="checkbox-label w-form-label">
-                        Credite Crd
-                      </span>
-                    </label>
+                  <CheckBox
+                      text="Paypal"
+                      value={options.paypal}
+                      setValue={(value) => updateOptions("paypal", value)}
+                    />
                   </div>
                 </div>
                 <div className="payment-button">
@@ -130,7 +139,7 @@ const PS6 = ({next}) => {
                 defaultValue="Save & Continue"
                 data-wait="Please wait..."
                 className="button blue w-button"
-                onClick = {e => {
+                onClick={(e) => {
                   e.preventDefault();
                   next();
                 }}
