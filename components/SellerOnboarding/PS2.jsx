@@ -1,45 +1,8 @@
-import { useEffect, useState } from "react";
-
-import { useSelector, useDispatch } from "react-redux";
-import { useRouter } from "next/router";
-
-import { fetchUser, fetchSeller } from "slices/user";
+import { useSelector } from "react-redux";
 import authAxios from "setups/axios";
 
-const PlanBox = ({heading, text, onSubmit}) => {
-  return <> 
-  </>;
-}
-
-
 const PS2 = ({ nextPage }) => {
-  const dispatch = useDispatch();
-  const router = useRouter();
-
-  const { isLoggedIn, user, seller } = useSelector((state) => state.user);
-
-  useEffect(() => {
-    if (!isLoggedIn) {
-      dispatch(fetchUser());
-
-      // show login Dialog
-    }
-
-    if (!user.id) {
-      dispatch(fetchUser());
-      return;
-    }
-
-    if (isLoggedIn && user.role && user.role.type !== "seller") {
-      router.push("/");
-      return;
-    }
-
-    if (!seller.id) {
-      dispatch(fetchSeller());
-      return;
-    }
-  }, []);
+  const { seller } = useSelector((state) => state.user);
 
   const submit = async (e, planType) => {
     e.preventDefault();
@@ -82,7 +45,6 @@ const PS2 = ({ nextPage }) => {
             >
               <div className="swiper-container">
                 <div className="swiper-wrapper">
-                
                   <div className="swiper-slide">
                     <div className="pricing-item">
                       <div className="mb-40">
@@ -139,7 +101,7 @@ const PS2 = ({ nextPage }) => {
                     </div>
                   </div>
                   <div className="swiper-slide">
-                    <div className="pricing-item">  
+                    <div className="pricing-item">
                       <div className="mb-40">
                         <h2>Pricing Option 3</h2>
                         <p>
@@ -165,7 +127,6 @@ const PS2 = ({ nextPage }) => {
                       </div>
                     </div>
                   </div>
-                
                 </div>
                 <div className="swiper-pagination" />
               </div>

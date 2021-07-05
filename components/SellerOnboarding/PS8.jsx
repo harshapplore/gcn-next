@@ -1,16 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
-import { useRouter } from "next/router";
-
-import { fetchSeller } from "slices/user";
+import { useSelector } from "react-redux";
 import authAxios from "setups/axios";
 
 import Message from "shared/Message";
 
 const PS8 = ({ next }) => {
-  const dispatch = useDispatch();
-
   const { seller } = useSelector((state) => state.user);
 
   const [shop, setShop] = useState(seller.shop || "");
@@ -31,10 +26,7 @@ const PS8 = ({ next }) => {
       },
     });
 
-    if (res) {
-      dispatch(fetchSeller());
-      next();
-    }
+    if (res) next();
   };
 
   return (
@@ -59,10 +51,7 @@ const PS8 = ({ next }) => {
               defaultValue="Save & Continue"
               data-wait="Please wait..."
               className="button blue w-button"
-              onClick={(e) => {
-                e.preventDefault();
-                next();
-              }}
+              onClick={submit}
             />
           </form>
           {err && <Message text={err} status={-1} />}

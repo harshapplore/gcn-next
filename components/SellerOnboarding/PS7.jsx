@@ -1,14 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
-import { useSelector, useDispatch } from "react-redux";
-import { useRouter } from "next/router";
-
-import { fetchSeller } from "slices/user";
 import authAxios from "setups/axios";
 
 const PS7 = ({ next }) => {
-  const dispatch = useDispatch();
-
   const { seller } = useSelector((state) => state.user);
 
   const [legalities, setLegalities] = useState({});
@@ -26,8 +21,6 @@ const PS7 = ({ next }) => {
     const newLegalities = { ...legalities };
     newLegalities[key] = value;
     setLegalities(newLegalities);
-
-    console.log(newLegalities);
   };
 
   const submit = async (e) => {
@@ -38,15 +31,12 @@ const PS7 = ({ next }) => {
       method: "PUT",
       data: {
         onboardStatus: 7,
-        ...legalities
-      }
-    })
+        ...legalities,
+      },
+    });
 
-    if(res){
-      dispatch(fetchSeller());
-      next();
-    }
-  }
+    if (res) next();
+  };
 
   return (
     <div className="page-section">
@@ -123,7 +113,10 @@ const PS7 = ({ next }) => {
                       className="text-field area w-input"
                       value={legalities.returnsNRefundsGerman || ""}
                       onChange={(e) =>
-                        updateLegalities("returnsNRefundsGerman", e.target.value)
+                        updateLegalities(
+                          "returnsNRefundsGerman",
+                          e.target.value
+                        )
                       }
                     />
                   </div>

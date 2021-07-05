@@ -1,30 +1,19 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
-import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
-import { fetchSeller } from "slices/user";
 import authAxios from "setups/axios";
-
 import CheckBox from "shared/Checkbox";
 
 const PS6 = ({ next }) => {
-  const dispatch = useDispatch();
   const { seller } = useSelector((state) => state.user);
 
   const [options, setOptions] = useState(seller.acceptedPaymentOptions || {});
-
-  useEffect(() => {
-    if (!seller.id) {
-      dispatch(fetchSeller());
-    }
-  }, []);
 
   const updateOptions = (key, value) => {
     const newOptions = { ...options };
     newOptions[key] = value;
     setOptions(newOptions);
-    console.log(newOptions);
   };
 
   const submit = async (e) => {
@@ -35,9 +24,11 @@ const PS6 = ({ next }) => {
       method: "PUT",
       data: {
         onboardStatus: 6,
-        acceptedPaymentOptions: options
-      }
-    })
+        acceptedPaymentOptions: options,
+      },
+    });
+
+    if (res) next();
   };
 
   return (
@@ -119,7 +110,7 @@ const PS6 = ({ next }) => {
                     className="payment-icon"
                   />
                   <div className="inline-text">
-                  <CheckBox
+                    <CheckBox
                       text="Paypal"
                       value={options.paypal}
                       setValue={(value) => updateOptions("paypal", value)}
@@ -139,10 +130,7 @@ const PS6 = ({ next }) => {
                 defaultValue="Save & Continue"
                 data-wait="Please wait..."
                 className="button blue w-button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  next();
-                }}
+                onClick={submit}
               />
             </div>
           </form>

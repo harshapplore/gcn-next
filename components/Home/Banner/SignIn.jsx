@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-import { axios, authAxios } from "setups/axios";
+import { axios } from "setups/axios";
 import CheckBox from "shared/Checkbox";
 
 import Message from "shared/Message";
@@ -8,6 +8,7 @@ import Message from "shared/Message";
 const SignIn = ({ close, showRegister }) => {
   const [data, setData] = useState({});
   const [errors, setErrors] = useState([]);
+  const [success, setSuccess] = useState("");
 
   const updateData = (key, value) => {
     const newData = { ...data };
@@ -59,9 +60,9 @@ const SignIn = ({ close, showRegister }) => {
 
     if (response) {
       console.log(response);
-
       localStorage.setItem("token", response.data.jwt);
-
+      setErrors([]);
+      setSuccess("You have logged in successfully");
       return response.data;
     }
   };
@@ -113,6 +114,8 @@ const SignIn = ({ close, showRegister }) => {
             {errors &&
               errors.length > 0 &&
               errors.map((err) => <Message text={err} status={-1} />)}
+
+            {success && <Message text={success} status={1} />}
           </div>
           <div className="center">
             <div className="mb-20">or</div>

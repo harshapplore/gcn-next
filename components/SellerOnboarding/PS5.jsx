@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
-import { useRouter } from "next/router";
-
-import { fetchSeller } from "slices/user";
+import { useSelector } from "react-redux";
 import authAxios from "setups/axios";
 
 import CheckBox from "shared/Checkbox";
@@ -14,20 +11,10 @@ const PS5 = ({ next }) => {
 
   const [payInfo, setPayInfo] = useState(seller || {});
 
-  console.log(payInfo);
-
-  useEffect(() => {
-    if (!seller.id) {
-      dispatch(fetchSeller());
-    }
-  }, []);
-
   const updatePayInfo = (key, value) => {
     const newPayInfo = { ...payInfo };
     newPayInfo[key] = value;
     setPayInfo(newPayInfo);
-
-    console.log(payInfo);
   };
 
   const submit = async (e) => {
@@ -39,11 +26,7 @@ const PS5 = ({ next }) => {
       data: payInfo,
     });
 
-    if (res) {
-      console.log(res);
-      dispatch(fetchSeller());
-      next();
-    }
+    if (res) next();
   };
 
   return (

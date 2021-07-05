@@ -1,23 +1,12 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-import { useSelector, useDispatch } from "react-redux";
-import { useRouter } from "next/router";
-
-import { fetchSeller } from "slices/user";
 import authAxios from "setups/axios";
 
 const PS4 = ({ next }) => {
-  const dispatch = useDispatch();
-
   const { seller } = useSelector((state) => state.user);
 
   const [contact, setContact] = useState(seller || {});
-
-  useEffect(() => {
-    if (!seller.id) {
-      dispatch(fetchSeller());
-    }
-  });
 
   const updateContact = (key, value) => {
     const newContact = { ...contact };
@@ -34,10 +23,7 @@ const PS4 = ({ next }) => {
       data: contact,
     });
 
-    if (res) {
-      dispatch(fetchSeller());
-      next();
-    }
+    if (res) next();
   };
 
   return (

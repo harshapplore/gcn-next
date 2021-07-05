@@ -145,7 +145,7 @@ const Register = ({ close }) => {
                       maxLength={256}
                       placeholder="Email Address"
                       required
-                      value={data.email}
+                      value={data.email || ""}
                       onChange={(e) => updateData("email", e.target.value)}
                     />
 
@@ -155,6 +155,7 @@ const Register = ({ close }) => {
                       maxLength={256}
                       placeholder="Password"
                       required
+                      value={data.password || ""}
                       onChange={(e) => updateData("password", e.target.value)}
                     />
 

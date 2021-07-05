@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Head from "next/head";
+import { useRouter } from "next/router";
+
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUser, fetchSeller } from "slices/user";
 
 import Nav from "shared/Nav";
 import Footer from "shared/Footer";
@@ -15,54 +19,59 @@ import TermsNConditions from "./PS7";
 import ShopName from "./PS8";
 import ShopDetails from "./PS9";
 
+import { pages } from "./router";
+
 const SellerOnboarding = () => {
-  const [data, setData] = useState();
-  const [activePage, setActivePage] = useState(1);
-  const [activeSection, setActiveSection] = useState(1);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { user, seller } = useSelector((state) => state.user);
+
+  const [activePageIndex, setActivePageIndex] = useState(0);
+
+  useEffect(() => {
+    const { section } = router.query;
+
+    const index = pages.findIndex((page) => page === section);
+
+    if (!user.id) dispatch(fetchUser());
+    if (!seller.id) dispatch(fetchSeller());
+
+    if (index === -1) {
+      setActivePageIndex(0);
+      return;
+    }
+
+    setActivePageIndex(index);
+  }, [router]);
 
   const nextPage = () => {
-    window.scrollTo(0, 0);
-    setActiveSection(1);
-    setActivePage(activePage + 1);
-  };
+    activePageIndex < pages.length
+      ? router.push("/seller-onboarding/" + pages[activePageIndex + 1])
+      : router.push("/seller-onboarding/" + pages[activePageIndex]);
 
-  const nextSection = () => {
-    window.scrollTo(0, 0);
-    setActiveSection(activeSection + 1);
+    dispatch(fetchSeller());
   };
 
   return (
     <>
       <Head>
-        <title> Seller Onboarding | Greeen Cloud Nine </title> 
-      </Head> 
+        <title> Seller Onboarding | Greeen Cloud Nine </title>
+      </Head>
       <Nav />
-
       {/* Let's get Started  */}
-      {activePage === 1 && <GetStarted nextPage={nextPage} />}
-
+      {activePageIndex === 0 && <GetStarted nextPage={nextPage} />}
       {/* Choose Pricing Plan */}
-      {activePage === 2 && <Pricing nextPage={nextPage} />}
-
+      {activePageIndex === 1 && <Pricing nextPage={nextPage} />}
       {/* Page 3 */}
-
-      {activePage === 3 && (
-        <>
-          {activeSection === 1 && <ShopInfo next={nextSection} />}
-          {activeSection === 2 && <ContactInfo next={nextSection} />}
-          {activeSection === 3 && <GetPaidInfo next={nextSection} />}
-          {activeSection === 4 && <PaymentOptionsInfo next={nextPage} />}
-        </>
-      )}
-
-      {activePage === 4 && <TermsNConditions next={nextPage} />}
-
-      {activePage === 5 && (
-        <>
-          {activeSection === 1 && <ShopName next={nextSection} />}
-          {activeSection === 2 && <ShopDetails />}
-        </>
-      )}
+      {activePageIndex === 2 && <ShopInfo next={nextPage} />}
+      {activePageIndex === 3 && <ContactInfo next={nextPage} />}
+      {activePageIndex === 4 && <GetPaidInfo next={nextPage} />}
+      {activePageIndex === 5 && <PaymentOptionsInfo next={nextPage} />}
+      {/* Page 4 */}
+      {activePageIndex === 6 && <TermsNConditions next={nextPage} />}
+      {/* Page 5 */}
+      {activePageIndex === 7 && <ShopName next={nextPage} />}
+      {activePageIndex === 8 && <ShopDetails />}
       <Footer />
     </>
   );

@@ -1,15 +1,11 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-
-import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 import { authAxios } from "setups/axios";
 
-import { fetchUser, fetchSeller } from "slices/user";
 import Select from "shared/Select";
 import CheckBox from "shared/Checkbox";
 import Message from "shared/Message";
-import axios from "axios";
 
 const data = {
   heading: "Hello Thomas, let's get started!",
@@ -36,9 +32,6 @@ const data = {
 };
 
 const PS1 = ({ nextPage }) => {
-  const router = useRouter();
-  const dispatch = useDispatch();
-
   const { seller } = useSelector((state) => state.user);
 
   const [answers, setAnswers] = useState(() => {
@@ -53,11 +46,8 @@ const PS1 = ({ nextPage }) => {
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
-    if (!seller.id) {
-      dispatch(fetchSeller());
-      return;
-    }
-  }, []);
+    if (seller.questionaire) setAnswers(seller.questionaire);
+  }, [seller]);
 
   const validate = () => {
     const err = [];
@@ -90,7 +80,6 @@ const PS1 = ({ nextPage }) => {
     });
 
     if (response) {
-      console.log(response.data);
       nextPage();
     }
   };

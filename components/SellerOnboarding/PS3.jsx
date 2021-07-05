@@ -1,29 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
-import { useSelector, useDispatch } from "react-redux";
-import { useRouter } from "next/router";
-
-import { fetchUser, fetchSeller } from "slices/user";
 import authAxios from "setups/axios";
-
 import Select from "shared/Select";
-import { data } from "browserslist";
 
 const PS3 = ({ next }) => {
   const { seller } = useSelector((state) => state.user);
 
-  const dispatch = useDispatch();
-
   const [shop, setShop] = useState(seller.shop || {});
   const [errors, setErrors] = useState([]);
 
-  console.log(shop);
-
-  useEffect(() => {
-    if (!seller || !seller.id) {
-      dispatch(fetchSeller());
-    }
-  }, [seller]);
+  useEffect(() =>{
+    if(seller.shop) setShop(seller.shop);
+  }, [seller])
 
   const validate = () => {
     const errs = [];
@@ -48,8 +37,6 @@ const PS3 = ({ next }) => {
   const submit = async (e) => {
     e.preventDefault();
 
-    console.log("--", seller);
-
     if (!validate()) return;
 
     if (!seller.shop) {
@@ -65,26 +52,27 @@ const PS3 = ({ next }) => {
           method: "PUT",
           data: {
             onboardStatus: 3,
-            shop: shop.data.id,
+            shop: resShop.data.id,
           },
         });
 
         if (resSeller) {
-          dispatch(fetchSeller());
           next();
         }
       }
       return;
     }
 
-    const resShop = await authAxios()({
-      url: `/shops/${seller.shop.id}`,
-      method: "PUT",
-      data: shop,
-    });
+    if (seller.shop) {
+      const resShop = await authAxios()({
+        url: `/shops/${seller.shop.id}`,
+        method: "PUT",
+        data: shop,
+      });
 
-    if (resShop && resShop.data) {
-      next();
+      if (resShop && resShop.data) {
+        next();
+      }
     }
   };
 
@@ -156,7 +144,7 @@ const PS3 = ({ next }) => {
                   "England",
                   "Greece",
                 ]}
-                value={data.country}
+                value={shop.country}
                 setValue={(value) => updateShopData("country", value)}
               />
 
@@ -172,7 +160,7 @@ const PS3 = ({ next }) => {
               <Select
                 defaultValue={shop.defaultLanguage || "Select Language"}
                 choices={["English", "German"]}
-                value={data.defaultLanguage}
+                value={shop.defaultLanguage}
                 setValue={(value) => updateShopData("defaultLanguage", value)}
               />
 
@@ -184,19 +172,21 @@ const PS3 = ({ next }) => {
                   "Third Choice",
                   "Fourth Choice",
                 ]}
-                value={data.currency}
+                value={shop.currency}
                 setValue={(value) => updateShopData("currency", value)}
               />
 
               <Select
-                defaultValue={ shop.serviceableCountries || "Serviceable Countries" }
+                defaultValue={
+                  shop.serviceableCountries || "Serviceable Countries"
+                }
                 choices={[
                   "First Choice",
                   "Second Choice",
                   "Third Choice",
                   "Fourth Choice",
                 ]}
-                value={data.serviceableCountries}
+                value={shop.serviceableCountries}
                 setValue={(value) =>
                   updateShopData("serviceableCountries", value)
                 }
@@ -212,12 +202,10 @@ const PS3 = ({ next }) => {
               />
             </div>
           </form>
-          <div className="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-          <div className="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form.</div>
-          </div>
+
+          {errors &&
+            errors.length > 0 &&
+            errors.map((err) => <Message text={err} status={-1} />)}
         </div>
       </div>
     </div>

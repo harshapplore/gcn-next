@@ -1,0 +1,27 @@
+.popup-wrapper {
+  display: initial;
+  overflow-y: scroll;
+}
+
+.popup-wrapper.sign-in {
+  display: initial;
+  opacity: 1;
+}
+
+.popup-wrapper.register {
+  display: initial;
+  opacity: 1;
+}
+
+/* .overlay{
+  overflow-y: scroll;
+}
+
+.sign-in-popup{
+  position: initial;
+  top: 50%;
+} */
+
+.button {
+  cursor: pointer;
+}
