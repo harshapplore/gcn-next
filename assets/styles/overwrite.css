@@ -1,3 +1,11 @@
+a{
+  text-decoration: none;
+}
+
+a:hover{
+  text-decoration: none;
+}
+
 .popup-wrapper {
   display: initial;
   overflow-y: scroll;
@@ -13,15 +21,10 @@
   opacity: 1;
 }
 
-/* .overlay{
-  overflow-y: scroll;
-}
-
-.sign-in-popup{
-  position: initial;
-  top: 50%;
-} */
-
 .button {
   cursor: pointer;
+}
+
+.hidden-input{
+  display: none;
 }

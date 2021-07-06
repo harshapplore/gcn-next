@@ -7,7 +7,6 @@ import CheckBox from "shared/Checkbox";
 
 const PS5 = ({ next }) => {
   const { seller } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
 
   const [payInfo, setPayInfo] = useState(seller || {});
 

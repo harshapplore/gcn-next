@@ -12,7 +12,9 @@ const PS8 = ({ next }) => {
 
   const [err, setErr] = useState("");
 
-  const submit = async () => {
+  const submit = async (e) => {
+    e.preventDefault();
+
     if (!shop.name) {
       setErr("Shop Name cannot be empty");
       return;

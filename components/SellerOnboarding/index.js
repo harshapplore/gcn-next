@@ -45,7 +45,7 @@ const SellerOnboarding = () => {
   }, [router]);
 
   const nextPage = () => {
-    activePageIndex < pages.length
+    activePageIndex <= pages.length
       ? router.push("/seller-onboarding/" + pages[activePageIndex + 1])
       : router.push("/seller-onboarding/" + pages[activePageIndex]);
 

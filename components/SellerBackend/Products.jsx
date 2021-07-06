@@ -21,7 +21,7 @@ const BasicInfo = () => {
                 required
               />
               <img
-                src="images/search-black-24-dp.svg"
+                src="/images/search-black-24-dp.svg"
                 loading="lazy"
                 alt=""
                 className="search-icon"
@@ -68,7 +68,7 @@ const BasicInfo = () => {
             className="shop-product-img w-inline-block"
           >
             <img
-              src="images/bild-header2x.jpg"
+              src="/images/bild-header2x.jpg"
               loading="lazy"
               sizes="(max-width: 479px) 83vw, (max-width: 767px) 45vw, (max-width: 991px) 30vw, (max-width: 1279px) 17vw, 218.40000915527344px"
               srcSet="images/bild-header2x-p-500.jpeg 500w, images/bild-header2x-p-800.jpeg 800w, images/bild-header2x-p-2000.jpeg 2000w, images/bild-header2x-p-2600.jpeg 2600w, images/bild-header2x.jpg 2880w"
@@ -78,7 +78,7 @@ const BasicInfo = () => {
           </a>
           <div className="check-floater">
             <img
-              src="images/check-circle-black-24-dp.svg"
+              src="/images/check-circle-black-24-dp.svg"
               loading="lazy"
               width={24}
               alt=""
@@ -100,7 +100,7 @@ const BasicInfo = () => {
               </a>
             </div>
             <img
-              src="images/expand-more-black-24-dp-copy-6.svg"
+              src="/images/expand-more-black-24-dp-copy-6.svg"
               loading="lazy"
               alt=""
               className="heart"
@@ -119,7 +119,7 @@ const BasicInfo = () => {
             className="shop-product-img w-inline-block"
           >
             <img
-              src="images/bild-header2x.jpg"
+              src="/images/bild-header2x.jpg"
               loading="lazy"
               sizes="(max-width: 479px) 83vw, (max-width: 767px) 45vw, (max-width: 991px) 30vw, (max-width: 1279px) 17vw, 218.40000915527344px"
               srcSet="images/bild-header2x-p-500.jpeg 500w, images/bild-header2x-p-800.jpeg 800w, images/bild-header2x-p-2000.jpeg 2000w, images/bild-header2x-p-2600.jpeg 2600w, images/bild-header2x.jpg 2880w"
@@ -128,11 +128,11 @@ const BasicInfo = () => {
             />
           </a>
           <div className="check-floater">
-            <img src="images/cancel-black-24-dp-2.svg" loading="lazy" alt="" />
+            <img src="/images/cancel-black-24-dp-2.svg" loading="lazy" alt="" />
           </div>
           <div className="potw-like">
             <img
-              src="images/expand-more-black-24-dp-copy-6.svg"
+              src="/images/expand-more-black-24-dp-copy-6.svg"
               loading="lazy"
               alt=""
               className="heart"
@@ -165,7 +165,7 @@ const BasicInfo = () => {
             className="shop-product-img w-inline-block"
           >
             <img
-              src="images/bild-header2x.jpg"
+              src="/images/bild-header2x.jpg"
               loading="lazy"
               sizes="(max-width: 479px) 83vw, (max-width: 767px) 45vw, (max-width: 991px) 30vw, (max-width: 1279px) 17vw, 218.40000915527344px"
               srcSet="images/bild-header2x-p-500.jpeg 500w, images/bild-header2x-p-800.jpeg 800w, images/bild-header2x-p-2000.jpeg 2000w, images/bild-header2x-p-2600.jpeg 2600w, images/bild-header2x.jpg 2880w"
@@ -174,11 +174,11 @@ const BasicInfo = () => {
             />
           </a>
           <div className="check-floater">
-            <img src="images/cancel-black-24-dp-2.svg" loading="lazy" alt="" />
+            <img src="/images/cancel-black-24-dp-2.svg" loading="lazy" alt="" />
           </div>
           <div className="potw-like">
             <img
-              src="images/expand-more-black-24-dp-copy-6.svg"
+              src="/images/expand-more-black-24-dp-copy-6.svg"
               loading="lazy"
               alt=""
               className="heart"

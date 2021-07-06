@@ -13,10 +13,6 @@ const PS7 = ({ next }) => {
     privacyPolicy: 1,
   });
 
-  useEffect(() => {
-    if (!seller.id) dispatch(fetchSeller());
-  }, []);
-
   const updateLegalities = (key, value) => {
     const newLegalities = { ...legalities };
     newLegalities[key] = value;
