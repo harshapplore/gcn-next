@@ -6,7 +6,6 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
     url: "users/me",
     method: "GET",
   });
-
   console.log(response, response.data);
 
   return response.data;
@@ -60,7 +59,6 @@ export const userSlice = createSlice({
       state.isLoggedIn = true;
       state.user = action.payload;
 
-      console.log(action);
     },
     [fetchUser.rejected]: (state, _) => {
       state.isLoggedIn = false;

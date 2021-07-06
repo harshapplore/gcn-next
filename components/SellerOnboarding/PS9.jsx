@@ -33,6 +33,8 @@ const PS9 = () => {
   const { seller } = useSelector((state) => state.user);
 
   const [shop, setShop] = useState({});
+  const [activeTab, setActiveTab] = useState(1);
+  const [data, setData] = useState({});
 
   const coverInputRef = useRef();
   const profileRef = useRef();
@@ -44,8 +46,6 @@ const PS9 = () => {
 
   const triggerInput = (ref) => {
     const input = ref.current;
-
-    console.log(input);
     input.click();
   };
 
@@ -94,8 +94,6 @@ const PS9 = () => {
     });
 
     if (res) {
-      console.log(res);
-
       const newImages = (res.data && res.data.map((image) => image.id)) || [];
 
       const shopRes = authAxios()({
@@ -112,9 +110,15 @@ const PS9 = () => {
     }
   };
 
-  const updateShop =  async (e, data) => {
+  const submit = async (e, data) => {
+    e.preventDefault();
 
-  }
+    const res = await authAxios()({
+      url: `/shops/${seller.shop.id}`,
+      method: "PUT",
+      data: data,
+    });
+  };
 
   return (
     <div className="page-section">
@@ -167,7 +171,9 @@ const PS9 = () => {
             <h1 className="mb-40"> {shop.name} </h1>
             <div className="flex left mb-40">
               {shop.images &&
-                shop.images.map((image) => <ProductImage key={image.id} url={image.url} />)}
+                shop.images.map((image) => (
+                  <ProductImage key={image.id} url={image.url} />
+                ))}
 
               <div className="shop-img-link w-inline-block">
                 <input
@@ -201,39 +207,65 @@ const PS9 = () => {
                   <div className="tabs-menu w-tab-menu">
                     <a
                       data-w-tab="Tab 1"
-                      className="terms-lang w-inline-block w-tab-link w--current"
+                      className={
+                        "terms-lang w-inline-block w-tab-link" +
+                        (activeTab === 1 ? " w--current" : "")
+                      }
+                      onClick={() => setActiveTab(1)}
                     >
                       <div>English</div>
                     </a>
                     <a
                       data-w-tab="Tab 2"
-                      className="terms-lang w-inline-block w-tab-link"
+                      className={
+                        "terms-lang w-inline-block w-tab-link" +
+                        (activeTab === 2 ? " w--current" : "")
+                      }
+                      onClick={() => setActiveTab(2)}
                     >
                       <div>German</div>
                     </a>
                   </div>
                   <div className="w-tab-content">
                     <div
-                      data-w-tab="Tab 1"
-                      className="w-tab-pane w--tab-active"
+                      className={
+                        "w-tab-pane" + (activeTab === 1 ? " w--tab-active" : "")
+                      }
                     >
                       <textarea
                         placeholder="Short Description (max. XX)"
                         maxLength={5000}
                         required
                         className="text-field area w-input"
+                        onChange={(e) =>
+                          setData({ ...data, description: e.target.value })
+                        }
                       />
                     </div>
-                    <div data-w-tab="Tab 2" className="w-tab-pane">
+                    <div
+                      className={
+                        "w-tab-pane" + (activeTab === 2 ? " w--tab-active" : "")
+                      }
+                    >
                       <textarea
                         placeholder="Kurze Beschreibung (max. XX)"
                         maxLength={5000}
                         className="text-field area w-input"
+                        onChange={(e) =>
+                          setData({
+                            ...data,
+                            descriptionInGerman: e.target.value,
+                          })
+                        }
                       />
                     </div>
                   </div>
                 </div>
-                <input type="submit" className="button blue w-button" />
+                <input
+                  type="submit"
+                  className="button blue w-button"
+                  onClick={submit}
+                />
               </form>
             </div>
           </div>

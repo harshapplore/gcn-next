@@ -10,8 +10,6 @@ const Banner = () => {
   const [showSignIn, setShowSignIn] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
-  console.log(showSignIn, showRegister);
-
   return (
     <div className="page-section banner">
       <img

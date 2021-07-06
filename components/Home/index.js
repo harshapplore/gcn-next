@@ -17,7 +17,6 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(user);
 
     if(!isLoggedIn) {
       dispatch(fetchUser());

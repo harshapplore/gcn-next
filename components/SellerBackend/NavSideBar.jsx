@@ -28,8 +28,6 @@ const NavLink = ({ to, text, current }) => {
 const NavSidebar = ({ activePage }) => {
   const router = useRouter();
 
-  console.log(activePage);
-
   return (
     <div className="shop-filter popup-mobile">
       <div className="scroll-y">

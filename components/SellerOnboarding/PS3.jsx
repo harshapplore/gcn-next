@@ -80,8 +80,6 @@ const PS3 = ({ next }) => {
     const newShop = { ...shop };
     newShop[key] = value;
     setShop(newShop);
-
-    console.log(newShop);
   };
 
   return (

@@ -2,6 +2,9 @@ import Nav from "shared/Nav";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
+import { useSelector, useDispatch } from "react-redux";
+import { fetchSeller } from "slices/user";
+
 import ShopBanner from "./ShopBanner";
 import TopNav from "./TopNav";
 import NavSidebar from "./NavSideBar";
@@ -26,17 +29,21 @@ import ConfigProduct from "./ConfigProduct";
 
 const SellerBackend = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const { seller } = useSelector((state) => state.user);
 
   const [activePage, setActivePage] = useState();
 
   useEffect(() => {
-    window.scrollTo(0,0);
-  }, [])
+    window.scrollTo(0, 0);
+
+    if (!seller.id) dispatch(fetchSeller());
+  }, []);
 
   useEffect(() => {
     const { query } = router;
 
-    const section = "/"+query.section;
+    const section = "/" + query.section;
 
     if (!section) setActivePage(PRODUCTS);
     if (section === PRODUCTS) setActivePage(PRODUCTS);
@@ -53,7 +60,7 @@ const SellerBackend = () => {
 
         <div className="container">
           <div className="flex top">
-            <NavSidebar activePage={activePage}/>
+            <NavSidebar activePage={activePage} />
             <div className="shop-content">
               <ShopHeading />
 
