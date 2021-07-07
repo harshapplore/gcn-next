@@ -1,4 +1,10 @@
-const BasicInfo = () => {
+import { useRouter } from "next/router";
+
+import { BASE_ROUTE, PRODUCTS, ADD_ACTION } from "./routes";
+
+const Products = () => {
+  const router = useRouter();
+
   return (
     <div className="dynamic-content">
       <div>
@@ -39,20 +45,14 @@ const BasicInfo = () => {
               <option value="Third">Third Choice</option>
             </select>
           </form>
-          <div className="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-          <div className="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form.</div>
-          </div>
         </div>
       </div>
       <div className="flex top mb-40">
-        <div className="shop-product-item">
-          <a
-            href="item-detail.html"
-            className="shop-product-img w-inline-block"
-          >
+        <div
+          className="shop-product-item"
+          onClick={() => router.push(BASE_ROUTE + PRODUCTS + ADD_ACTION)}
+        >
+          <a className="shop-product-img w-inline-block">
             <div className="new-img-wrapper">
               <div className="cross-wrapper">
                 <div className="cross-line" />
@@ -230,4 +230,4 @@ const BasicInfo = () => {
   );
 };
 
-export default BasicInfo;
+export default Products;

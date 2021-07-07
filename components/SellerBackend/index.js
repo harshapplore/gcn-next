@@ -33,6 +33,7 @@ const SellerBackend = () => {
   const { seller } = useSelector((state) => state.user);
 
   const [activePage, setActivePage] = useState();
+  const [activeAction, setActiveAction] = useState();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -44,11 +45,14 @@ const SellerBackend = () => {
     const { query } = router;
 
     const section = "/" + query.section;
+    const { action } = query;
 
     if (!section) setActivePage(PRODUCTS);
     if (section === PRODUCTS) setActivePage(PRODUCTS);
     if (section === SHIPPING) setActivePage(SHIPPING);
     if (section === ORDER_HISTORY) setActivePage(ORDER_HISTORY);
+
+    setActiveAction(action);
   }, [router]);
 
   return (
@@ -66,7 +70,11 @@ const SellerBackend = () => {
 
               {/* <!-- Add here --> */}
 
-              {activePage === PRODUCTS && <Products />}
+              {!activeAction && activePage === PRODUCTS && <Products />}
+              {activeAction && activePage === PRODUCTS && (
+                <ConfigProduct action={activeAction} />
+              )}
+
               {activePage === SHIPPING && <Shipping />}
               {activePage === ORDER_HISTORY && <OrderHistory />}
             </div>

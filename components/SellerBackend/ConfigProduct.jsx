@@ -1,10 +1,43 @@
-const ConfigProduct = () => {
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import Select from "shared/Select";
+import CheckBox from "shared/Checkbox";
+import { triggerInput } from "libs/upload";
+
+const ProductImage = ({url}) => {
+  return <div className="shop-img-link grab">
+  <img
+    src={url}
+    loading="lazy"
+    sizes="(max-width: 479px) 42vw, 150px"
+    alt="Handcrafted stuff"
+    className="back-img"
+  />
+</div>
+}
+
+
+const ConfigProduct = ({ action, id }) => {
+  const dispatch = useDispatch();
+  const { seller } = useSelector((state) => state.user);
+
+  const [product, setProduct] = useState({});
+  const [filters, setFilters] = useState({});
+
+  const [activeDescriptionTab, setActiveDescriptionTab] = useState(1);
+
+  useEffect(() => {
+    console.log(filters, product);
+  }, [product, filters]);
+
   return (
     <div className="dynamic-content">
       <div className="heading-wrapper mb-40">
         <h2>Add product</h2>
-        <div className="overline-text">30 Products</div>
       </div>
+
+      {/* Add Image Section */}
       <div className="product-add-block">
         <div className="heading-wrapper mb-40">
           <h3>Add Photos &amp; Videos</h3>
@@ -17,18 +50,18 @@ const ConfigProduct = () => {
           </p>
         </div>
         <div className="flex left mb-40">
-          <div className="shop-img-link grab">
+          {/* <div className="shop-img-link grab">
             <img
-              src="images/bild-header2x.jpg"
+              src="/images/bild-header2x.jpg"
               loading="lazy"
               sizes="(max-width: 479px) 42vw, 150px"
-              srcSet="images/bild-header2x-p-500.jpeg 500w, images/bild-header2x-p-800.jpeg 800w, images/bild-header2x-p-2000.jpeg 2000w, images/bild-header2x-p-2600.jpeg 2600w, images/bild-header2x.jpg 2880w"
+              // srcSet="images/bild-header2x-p-500.jpeg 500w, images/bild-header2x-p-800.jpeg 800w, images/bild-header2x-p-2000.jpeg 2000w, images/bild-header2x-p-2600.jpeg 2600w, images/bild-header2x.jpg 2880w"
               alt="Handcrafted stuff"
               className="back-img"
             />
             <div className="check-floater">
               <img
-                src="images/check-circle-black-24-dp.svg"
+                src="/images/check-circle-black-24-dp.svg"
                 loading="lazy"
                 width={24}
                 alt=""
@@ -36,29 +69,22 @@ const ConfigProduct = () => {
               <div className="inline-text">Main</div>
             </div>
           </div>
-          <div className="shop-img-link grab">
-            <img
-              src="images/bild-header2x.jpg"
-              loading="lazy"
-              sizes="(max-width: 479px) 42vw, 150px"
-              srcSet="images/bild-header2x-p-500.jpeg 500w, images/bild-header2x-p-800.jpeg 800w, images/bild-header2x-p-2000.jpeg 2000w, images/bild-header2x-p-2600.jpeg 2600w, images/bild-header2x.jpg 2880w"
-              alt="Handcrafted stuff"
-              className="back-img"
-            />
-          </div>
-          <a href="#" className="shop-img-link w-inline-block">
+           */}
+          
+          
+          <a className="shop-img-link w-inline-block">
             <div className="new-img-wrapper">
               <img
-                src="images/expand-more-black-24-dp.svg"
+                src="/images/expand-more-black-24-dp.svg"
                 loading="lazy"
-                alt="Next"
+                alt="icon"
                 className="mb-10"
               />
               <div>Add image</div>
             </div>
           </a>
         </div>
-        <a href="#" className="button icon blue w-inline-block">
+        <a className="button icon blue w-inline-block">
           <div className="button-icon w-embed">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -79,8 +105,12 @@ const ConfigProduct = () => {
           <div className="text-block">Bulk Upload</div>
         </a>
       </div>
+      
+      
       <div className="w-form">
-        <form id="email-form-3" name="email-form-3" data-name="Email Form 3">
+        <form>
+
+          {/* Description Section */}
           <div className="product-add-block">
             <div className="heading-wrapper mb-20">
               <h3>Description</h3>
@@ -90,140 +120,144 @@ const ConfigProduct = () => {
                 type="text"
                 className="text-field grow w-input"
                 maxLength={256}
-                name="field-5"
-                data-name="Field 5"
                 placeholder="Product name*"
-                id="field-5"
-                required
+                value={product.name || ""}
+                onChange={(e) =>
+                  setProduct({ ...product, name: e.target.value })
+                }
               />
-              <div className="select-wrapper">
-                <select
-                  name="Select"
-                  data-name="Select"
-                  id="Select"
-                  required
-                  className="text-field select w-select"
-                >
-                  <option value>Select one...</option>
-                  <option value="First">First Choice</option>
-                  <option value="Second">Second Choice</option>
-                  <option value="Third">Third Choice</option>
-                </select>
-              </div>
-              <div className="select-wrapper">
-                <select
-                  name="Select-3"
-                  data-name="Select 3"
-                  id="Select-3"
-                  required
-                  className="text-field pills w-select"
-                >
-                  <option value>Select one...</option>
-                  <option value="First">First Choice</option>
-                  <option value="Second">Second Choice</option>
-                  <option value="Third">Third Choice</option>
-                </select>
-              </div>
+              <Select
+                choices={["Category 1", "Category 2", "Category 3"]}
+                value={product.category}
+                defaultValue="Category"
+                setValue={(value) =>
+                  setProduct({ ...product, category: value })
+                }
+              />
+
+              <Select
+                choices={[
+                  "Sustain One",
+                  "Sustain Two",
+                  "Sustain Three",
+                  "Sustain Four",
+                ]}
+                value={product.sustainability}
+                defaultValue={"Sustainability"}
+                setValue={(value) =>
+                  setProduct({ ...product, sustainability: value })
+                }
+              />
             </div>
             <div className="mb-40">
               <label htmlFor="name" className="mb-20">
                 Filters
               </label>
-              <label className="w-checkbox checkbox-field">
-                <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox" />
-                <input
-                  type="checkbox"
-                  id="checkbox"
-                  name="checkbox"
-                  data-name="Checkbox"
-                  style={{
-                    opacity: 0,
-                    position: "absolute",
-                    zIndex: -1,
-                  }}
-                />
-                <span className="checkbox-label w-form-label">
-                  Sample Answer
-                </span>
-              </label>
-              <label className="w-checkbox checkbox-field">
-                <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox" />
-                <input
-                  type="checkbox"
-                  id="checkbox-3"
-                  name="checkbox-3"
-                  data-name="Checkbox 3"
-                  style={{
-                    opacity: 0,
-                    position: "absolute",
-                    zIndex: -1,
-                  }}
-                />
-                <span className="checkbox-label w-form-label">
-                  Sample Answer
-                </span>
-              </label>
-              <label className="w-checkbox checkbox-field">
-                <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox" />
-                <input
-                  type="checkbox"
-                  id="checkbox-2"
-                  name="checkbox-2"
-                  data-name="Checkbox 2"
-                  style={{
-                    opacity: 0,
-                    position: "absolute",
-                    zIndex: -1,
-                  }}
-                />
-                <span className="checkbox-label w-form-label">
-                  Sample Answer
-                </span>
-              </label>
+
+              <CheckBox
+                text="For Him"
+                value={filters.forHim}
+                setValue={(value) => setFilters({ ...filters, forHim: value })}
+              />
+              <CheckBox
+                text="For Her"
+                value={filters.forHer}
+                setValue={(value) => setFilters({ ...filters, forHer: value })}
+              />
+              <CheckBox
+                text="For Children"
+                value={filters.forChildren}
+                setValue={(value) =>
+                  setFilters({ ...filters, forChildren: value })
+                }
+              />
+              <CheckBox
+                text="For Babies"
+                value={filters.forBabies}
+                setValue={(value) =>
+                  setFilters({ ...filters, forBabies: value })
+                }
+              />
+              <CheckBox
+                text="Sale"
+                value={filters.onSale}
+                setValue={(value) => setFilters({ ...filters, onSale: value })}
+              />
             </div>
             <div className="tabs-menu">
-              <div className="terms-lang active">
-                <div>Deutsch</div>
+              <div
+                className={
+                  "terms-lang" + (activeDescriptionTab === 1 ? " active" : "")
+                }
+                onClick={() => setActiveDescriptionTab(1)}
+              >
+                <div>German</div>
               </div>
-              <div className="terms-lang">
+              <div
+                className={
+                  "terms-lang" + (activeDescriptionTab === 2 ? " active" : "")
+                }
+                onClick={() => setActiveDescriptionTab(2)}
+              >
                 <div>English</div>
               </div>
             </div>
             <div className="mb-20">
-              <textarea
-                placeholder="Description"
-                maxLength={5000}
-                id="Description"
-                name="Description"
-                data-name="Description"
-                className="text-field area w-input"
-                defaultValue={""}
-              />
+              <div
+                className={
+                  "w-tab-pane" +
+                  (activeDescriptionTab === 1 ? " w--tab-active" : "")
+                }
+              >
+                <textarea
+                  placeholder="Description (max. XX)"
+                  maxLength={5000}
+                  required
+                  className="text-field area w-input"
+                  onChange={(e) =>
+                    setProduct({ ...data, description: e.target.value })
+                  }
+                />
+              </div>
+              <div
+                className={
+                  "w-tab-pane" +
+                  (activeDescriptionTab === 2 ? " w--tab-active" : "")
+                }
+              >
+                <textarea
+                  placeholder="Kurze Beschreibung (max. XX)"
+                  maxLength={5000}
+                  className="text-field area w-input"
+                  onChange={(e) =>
+                    setProduct({
+                      ...data,
+                      descriptionInGerman: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
               <div className="flex">
-                <div className="select-wrapper">
-                  <select
-                    name="Select-4"
-                    data-name="Select 4"
-                    id="Select-4"
-                    required
-                    className="text-field select w-select"
-                  >
-                    <option value>Select one...</option>
-                    <option value="First">First Choice</option>
-                    <option value="Second">Second Choice</option>
-                    <option value="Third">Third Choice</option>
-                  </select>
-                </div>
+                <Select
+                  choices={[]}
+                  defaultValue="Country of Production"
+                  value={product.countryOfProduction}
+                  setValue={(value) =>
+                    setProduct({ ...product, countryOfProduction: value })
+                  }
+                />
+
                 <input
                   type="text"
                   className="text-field w-input"
                   maxLength={256}
-                  name="field-5"
-                  data-name="Field 5"
-                  placeholder="Product name*"
-                  id="field-5"
+                  placeholder="Weight (in Kgs)"
                   required
+                  value={product.weight}
+                  onChange={(e) => setProduct(e.target.value)}
                 />
+
                 <div className="select-wrapper">
                   <select
                     name="Select-3"
@@ -254,22 +288,21 @@ const ConfigProduct = () => {
                 </div>
               </div>
             </div>
-            <label className="w-checkbox checkbox-field">
-              <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox" />
-              <input
-                type="checkbox"
-                id="checkbox-5"
-                name="checkbox-5"
-                data-name="Checkbox 5"
-                style={{
-                  opacity: 0,
-                  position: "absolute",
-                  zIndex: -1,
-                }}
-              />
-              <span className="checkbox-label w-form-label">Sample Answer</span>
-            </label>
+
+            <CheckBox
+              text="Personalization Available"
+              value={filters.personalizationAvailable}
+              setValue={(value) =>
+                setFilters({ ...filters, personalizationAvailable: value })
+              }
+            />
           </div>
+
+
+
+
+          
+          {/* Price Section */}
           <div className="product-add-block">
             <div className="heading-wrapper mb-20">
               <h3>Price</h3>
@@ -281,75 +314,46 @@ const ConfigProduct = () => {
                 maxLength={256}
                 name="field-5"
                 data-name="Field 5"
-                placeholder="Product name*"
+                placeholder="Product Price*"
                 id="field-5"
                 required
               />
-              <div className="select-wrapper">
-                <select
-                  name="Select-5"
-                  data-name="Select 5"
-                  id="Select-5"
-                  required
-                  className="text-field select w-select"
-                >
-                  <option value>Select one...</option>
-                  <option value="First">First Choice</option>
-                  <option value="Second">Second Choice</option>
-                  <option value="Third">Third Choice</option>
-                </select>
-              </div>
+              <Select
+                choices={["Euro"]}
+                defaultValue="Currency"
+                value={product.currency}
+                setValue={(value) =>
+                  setProduct({ ...product, currency: value })
+                }
+              />
             </div>
-            <label className="w-checkbox checkbox-field">
-              <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox" />
-              <input
-                type="checkbox"
-                id="checkbox-5"
-                name="checkbox-5"
-                data-name="Checkbox 5"
-                style={{
-                  opacity: 0,
-                  position: "absolute",
-                  zIndex: -1,
-                }}
-              />
-              <span className="checkbox-label w-form-label">Sample Answer</span>
-            </label>
-            <label className="w-checkbox checkbox-field">
-              <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox" />
-              <input
-                type="checkbox"
-                id="checkbox-5"
-                name="checkbox-5"
-                data-name="Checkbox 5"
-                style={{
-                  opacity: 0,
-                  position: "absolute",
-                  zIndex: -1,
-                }}
-              />
-              <span className="checkbox-label w-form-label">Sample Answer</span>
-            </label>
+
+            <CheckBox
+              text="In Stock"
+              value={filters.inStock}
+              setValue={(value) => setFilters({ ...filters, inStock: value })}
+            />
+
+            <CheckBox
+              text="Pick Up Available"
+              value={filters.pickUpAvailable}
+              setValue={(value) =>
+                setFilters({ ...filters, pickUpAvailable: value })
+              }
+            />
           </div>
+          
           <input
             type="submit"
-            defaultValue="Save"
-            data-wait="Please wait..."
+            value="Save"
             className="button blue mr-10 w-button"
           />
           <input
             type="submit"
-            defaultValue="Next Product"
-            data-wait="Please wait..."
+            value="Save & Add New Product"
             className="button blue secondary w-button"
           />
         </form>
-        <div className="w-form-done">
-          <div>Thank you! Your submission has been received!</div>
-        </div>
-        <div className="w-form-fail">
-          <div>Oops! Something went wrong while submitting the form.</div>
-        </div>
       </div>
     </div>
   );

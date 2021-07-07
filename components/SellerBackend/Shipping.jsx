@@ -1,4 +1,12 @@
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import { authAxios } from "setups/axios";
+import { fetchSeller } from "slices/user";
+
 const Shipping = () => {
+  const [] = useState();
+
   return (
     <div className="dynamic-content">
       <div className="heading-wrapper mb-40">

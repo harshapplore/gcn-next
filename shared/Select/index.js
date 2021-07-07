@@ -7,7 +7,7 @@ const Select = ({ choices, required, value, setValue, defaultValue }) => {
         value={value}
         onChange={(e) => setValue(e.target.value)}
       >
-        <option value> {defaultValue || "Select One"} </option>
+        <option value=""> {defaultValue || "Select One"} </option>
         {choices.map((choice) => (
           <option key={choice} value={choice}>
             {choice}

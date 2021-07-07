@@ -1,8 +1,8 @@
-a{
+a {
   text-decoration: none;
 }
 
-a:hover{
+a:hover {
   text-decoration: none;
 }
 
@@ -25,6 +25,10 @@ a:hover{
   cursor: pointer;
 }
 
-.hidden-input{
+.hidden-input {
   display: none;
+}
+
+.tabs-menu {
+  cursor: pointer;
 }
