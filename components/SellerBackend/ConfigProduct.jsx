@@ -1,35 +1,93 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import Select from "shared/Select";
+import { fetchCategories } from "slices/categories";
+
+import { Select, Select2 } from "shared/Select";
 import CheckBox from "shared/Checkbox";
 import { triggerInput } from "libs/upload";
+import { authAxios } from "setups/axios";
 
-const ProductImage = ({url}) => {
-  return <div className="shop-img-link grab">
-  <img
-    src={url}
-    loading="lazy"
-    sizes="(max-width: 479px) 42vw, 150px"
-    alt="Handcrafted stuff"
-    className="back-img"
-  />
-</div>
-}
-
+const ProductImage = ({ url }) => {
+  return (
+    <div className="shop-img-link grab">
+      <img
+        src={url}
+        loading="lazy"
+        sizes="(max-width: 479px) 42vw, 150px"
+        alt="Product Image"
+        className="back-img"
+      />
+    </div>
+  );
+};
 
 const ConfigProduct = ({ action, id }) => {
   const dispatch = useDispatch();
   const { seller } = useSelector((state) => state.user);
+  const { categories } = useSelector((state) => state.categories);
+
+  const inputRef = useRef();
+  const multiInputRef = useRef();
 
   const [product, setProduct] = useState({});
   const [filters, setFilters] = useState({});
 
   const [activeDescriptionTab, setActiveDescriptionTab] = useState(1);
 
+  const [files, setFiles] = useState([]);
+  const [filesData, setFilesData] = useState();
+
+  useEffect(() => {
+    if (!categories || !categories.length) dispatch(fetchCategories());
+  }, []);
+
   useEffect(() => {
     console.log(filters, product);
   }, [product, filters]);
+
+  const readFiles = (files) => {
+    const f = files.map((file) => {
+      const reader = new FileReader();
+
+      return new Promise((resolve, reject) => {
+        reader.onload = () => resolve(reader.result);
+
+        reader.onerror = (e) => {
+          console.log(e);
+          reject("Error Occured while reading file.");
+        };
+
+        reader.readAsDataURL(file);
+      });
+    });
+
+    return Promise.all(f);
+  };
+
+  useMemo(async () => {
+    const fData = await readFiles(files);
+    setFilesData(fData);
+  }, [files]);
+
+  const save = async (e) => {
+    e.preventDefault();
+
+    const productData = {
+      ...product,
+      filters,
+      shop: seller.shop.id,
+      seller: seller.id,
+    };
+
+    const res = await authAxios()({
+      url: "/products",
+      method: "POST",
+      data: productData,
+    });
+
+    if (res) console.log(res);
+  };
 
   return (
     <div className="dynamic-content">
@@ -70,9 +128,23 @@ const ConfigProduct = ({ action, id }) => {
             </div>
           </div>
            */}
-          
-          
-          <a className="shop-img-link w-inline-block">
+
+          {filesData &&
+            filesData.length > 0 &&
+            filesData.map((data, index) => (
+              <ProductImage key={"image-" + index} url={data} />
+            ))}
+
+          <a
+            className="shop-img-link w-inline-block"
+            onClick={() => triggerInput(inputRef)}
+          >
+            <input
+              ref={inputRef}
+              type="file"
+              className="hidden-input"
+              onChange={(e) => setFiles([...files, e.target.files[0]])}
+            />
             <div className="new-img-wrapper">
               <img
                 src="/images/expand-more-black-24-dp.svg"
@@ -84,7 +156,10 @@ const ConfigProduct = ({ action, id }) => {
             </div>
           </a>
         </div>
-        <a className="button icon blue w-inline-block">
+        <a
+          className="button icon blue w-inline-block"
+          onClick={() => triggerInput(multiInputRef)}
+        >
           <div className="button-icon w-embed">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -102,14 +177,19 @@ const ConfigProduct = ({ action, id }) => {
               </g>
             </svg>
           </div>
+          <input
+            ref={multiInputRef}
+            type="file"
+            multiple
+            className="hidden-input"
+            onChange={(e) => setFiles([...e.target.files])}
+          />
           <div className="text-block">Bulk Upload</div>
         </a>
       </div>
-      
-      
+
       <div className="w-form">
         <form>
-
           {/* Description Section */}
           <div className="product-add-block">
             <div className="heading-wrapper mb-20">
@@ -126,12 +206,12 @@ const ConfigProduct = ({ action, id }) => {
                   setProduct({ ...product, name: e.target.value })
                 }
               />
-              <Select
-                choices={["Category 1", "Category 2", "Category 3"]}
+              <Select2
+                choices={categories.map((cat) => cat.name)}
                 value={product.category}
                 defaultValue="Category"
                 setValue={(value) =>
-                  setProduct({ ...product, category: value })
+                  setProduct({ ...product, category: categories[value].id })
                 }
               />
 
@@ -215,7 +295,7 @@ const ConfigProduct = ({ action, id }) => {
                   required
                   className="text-field area w-input"
                   onChange={(e) =>
-                    setProduct({ ...data, description: e.target.value })
+                    setProduct({ ...product, description: e.target.value })
                   }
                 />
               </div>
@@ -231,7 +311,7 @@ const ConfigProduct = ({ action, id }) => {
                   className="text-field area w-input"
                   onChange={(e) =>
                     setProduct({
-                      ...data,
+                      ...product,
                       descriptionInGerman: e.target.value,
                     })
                   }
@@ -298,10 +378,6 @@ const ConfigProduct = ({ action, id }) => {
             />
           </div>
 
-
-
-
-          
           {/* Price Section */}
           <div className="product-add-block">
             <div className="heading-wrapper mb-20">
@@ -312,10 +388,11 @@ const ConfigProduct = ({ action, id }) => {
                 type="text"
                 className="text-field w-input"
                 maxLength={256}
-                name="field-5"
-                data-name="Field 5"
                 placeholder="Product Price*"
-                id="field-5"
+                value={product.price}
+                onChange={(e) =>
+                  setProduct({ ...product, price: e.target.value })
+                }
                 required
               />
               <Select
@@ -342,11 +419,12 @@ const ConfigProduct = ({ action, id }) => {
               }
             />
           </div>
-          
+
           <input
             type="submit"
             value="Save"
             className="button blue mr-10 w-button"
+            onClick={save}
           />
           <input
             type="submit"
