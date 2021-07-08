@@ -1,9 +1,77 @@
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useSelector, useDispatch } from "react-redux";
+
+import qS from "query-string";
 
 import { BASE_ROUTE, PRODUCTS, ADD_ACTION } from "./routes";
 
+import { authAxios } from "setups/axios";
+
+const ProductCard = ({ name, image, id }) => {
+  return (
+    <div className="shop-product-item">
+      <a href="item-detail.html" className="shop-product-img w-inline-block">
+        <img
+          src={image && image.url}
+          loading="lazy"
+          sizes="(max-width: 479px) 83vw, (max-width: 767px) 45vw, (max-width: 991px) 30vw, (max-width: 1279px) 17vw, 218.40000915527344px"
+          // srcSet="images/bild-header2x-p-500.jpeg 500w, images/bild-header2x-p-800.jpeg 800w, images/bild-header2x-p-2000.jpeg 2000w, images/bild-header2x-p-2600.jpeg 2600w, images/bild-header2x.jpg 2880w"
+          alt="Handcrafted stuff"
+          className="back-img"
+        />
+      </a>
+      <div className="check-floater">
+        <img src="/images/cancel-black-24-dp-2.svg" loading="lazy" alt="" />
+      </div>
+      <div className="potw-like">
+        <img
+          src="/images/expand-more-black-24-dp-copy-6.svg"
+          loading="lazy"
+          alt=""
+          className="heart"
+        />
+        <div className="product-context-menu">
+          <a href="#" className="context-link">
+            View
+          </a>
+          <a href="#" className="context-link">
+            Edit
+          </a>
+          <a href="#" className="context-link">
+            Duplicate
+          </a>
+          <a href="#" className="context-link">
+            Delete
+          </a>
+        </div>
+      </div>
+      <div className="shop-product-info">
+        <a className="link">{name}</a>
+        <div>Add image</div>
+      </div>
+    </div>
+  );
+};
+
 const Products = () => {
   const router = useRouter();
+  const { seller } = useSelector((state) => state.user);
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(async () => {
+    if (seller.shop && seller.shop.id) {
+      const query = { shop: seller.shop.id };
+
+      const res = await authAxios()({
+        url: `/products?${qS.stringify(query)}`,
+        method: "GET",
+      });
+
+      if (res) setProducts(res.data);
+    }
+  }, [seller]);
 
   return (
     <div className="dynamic-content">
@@ -62,149 +130,17 @@ const Products = () => {
             </div>
           </a>
         </div>
-        <div className="shop-product-item">
-          <a
-            href="item-detail.html"
-            className="shop-product-img w-inline-block"
-          >
-            <img
-              src="/images/bild-header2x.jpg"
-              loading="lazy"
-              sizes="(max-width: 479px) 83vw, (max-width: 767px) 45vw, (max-width: 991px) 30vw, (max-width: 1279px) 17vw, 218.40000915527344px"
-              srcSet="images/bild-header2x-p-500.jpeg 500w, images/bild-header2x-p-800.jpeg 800w, images/bild-header2x-p-2000.jpeg 2000w, images/bild-header2x-p-2600.jpeg 2600w, images/bild-header2x.jpg 2880w"
-              alt="Handcrafted stuff"
-              className="back-img"
+
+        {products &&
+          products.length > 0 &&
+          products.map((product) => (
+            <ProductCard
+              key={product.id}
+              image={product.images[0]}
+              name={product.name}
+              id={product.id}
             />
-          </a>
-          <div className="check-floater">
-            <img
-              src="/images/check-circle-black-24-dp.svg"
-              loading="lazy"
-              width={24}
-              alt=""
-            />
-          </div>
-          <div className="potw-like">
-            <div className="product-context-menu active">
-              <a href="#" className="context-link">
-                View
-              </a>
-              <a href="#" className="context-link">
-                Edit
-              </a>
-              <a href="#" className="context-link">
-                Duplicate
-              </a>
-              <a href="#" className="context-link">
-                Delete
-              </a>
-            </div>
-            <img
-              src="/images/expand-more-black-24-dp-copy-6.svg"
-              loading="lazy"
-              alt=""
-              className="heart"
-            />
-          </div>
-          <div className="shop-product-info">
-            <a href="#" className="link">
-              Skyboats: Hängende Laterne String Lights
-            </a>
-            <div>Add image</div>
-          </div>
-        </div>
-        <div className="shop-product-item">
-          <a
-            href="item-detail.html"
-            className="shop-product-img w-inline-block"
-          >
-            <img
-              src="/images/bild-header2x.jpg"
-              loading="lazy"
-              sizes="(max-width: 479px) 83vw, (max-width: 767px) 45vw, (max-width: 991px) 30vw, (max-width: 1279px) 17vw, 218.40000915527344px"
-              srcSet="images/bild-header2x-p-500.jpeg 500w, images/bild-header2x-p-800.jpeg 800w, images/bild-header2x-p-2000.jpeg 2000w, images/bild-header2x-p-2600.jpeg 2600w, images/bild-header2x.jpg 2880w"
-              alt="Handcrafted stuff"
-              className="back-img"
-            />
-          </a>
-          <div className="check-floater">
-            <img src="/images/cancel-black-24-dp-2.svg" loading="lazy" alt="" />
-          </div>
-          <div className="potw-like">
-            <img
-              src="/images/expand-more-black-24-dp-copy-6.svg"
-              loading="lazy"
-              alt=""
-              className="heart"
-            />
-            <div className="product-context-menu">
-              <a href="#" className="context-link">
-                View
-              </a>
-              <a href="#" className="context-link">
-                Edit
-              </a>
-              <a href="#" className="context-link">
-                Duplicate
-              </a>
-              <a href="#" className="context-link">
-                Delete
-              </a>
-            </div>
-          </div>
-          <div className="shop-product-info">
-            <a href="#" className="link">
-              Skyboats: Hängende Laterne String Lights
-            </a>
-            <div>Add image</div>
-          </div>
-        </div>
-        <div className="shop-product-item">
-          <a
-            href="item-detail.html"
-            className="shop-product-img w-inline-block"
-          >
-            <img
-              src="/images/bild-header2x.jpg"
-              loading="lazy"
-              sizes="(max-width: 479px) 83vw, (max-width: 767px) 45vw, (max-width: 991px) 30vw, (max-width: 1279px) 17vw, 218.40000915527344px"
-              srcSet="images/bild-header2x-p-500.jpeg 500w, images/bild-header2x-p-800.jpeg 800w, images/bild-header2x-p-2000.jpeg 2000w, images/bild-header2x-p-2600.jpeg 2600w, images/bild-header2x.jpg 2880w"
-              alt="Handcrafted stuff"
-              className="back-img"
-            />
-          </a>
-          <div className="check-floater">
-            <img src="/images/cancel-black-24-dp-2.svg" loading="lazy" alt="" />
-          </div>
-          <div className="potw-like">
-            <img
-              src="/images/expand-more-black-24-dp-copy-6.svg"
-              loading="lazy"
-              alt=""
-              className="heart"
-            />
-            <div className="product-context-menu">
-              <a href="#" className="context-link">
-                View
-              </a>
-              <a href="#" className="context-link">
-                Edit
-              </a>
-              <a href="#" className="context-link">
-                Duplicate
-              </a>
-              <a href="#" className="context-link">
-                Delete
-              </a>
-            </div>
-          </div>
-          <div className="shop-product-info">
-            <a href="#" className="link">
-              Skyboats: Hängende Laterne String Lights
-            </a>
-            <div>Add image</div>
-          </div>
-        </div>
+          ))}
       </div>
       <a href="#" className="button icon blue w-inline-block">
         <div className="button-icon w-embed">

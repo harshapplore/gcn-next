@@ -49,7 +49,7 @@ const PS9 = () => {
     input.click();
   };
 
-  const upload = async (e, data) => {
+  const upload =  async (e, data) => {
     e.preventDefault();
 
     const file = e.target.files[0];

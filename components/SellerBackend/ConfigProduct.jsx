@@ -70,6 +70,35 @@ const ConfigProduct = ({ action, id }) => {
     setFilesData(fData);
   }, [files]);
 
+  const uploadFiles = async (productId) => {
+    const formData = new FormData();
+    files.map((file) => formData.append("files", file));
+
+    const res = await authAxios()({
+      url: "/upload",
+      method: "POST",
+      data: formData,
+    });
+
+    console.log(res);
+
+    if (res) {
+      const images = res.data.map((image) => image.id);
+
+      console.log(images);
+
+      const proD = await authAxios()({
+        url: `/products/${productId}`,
+        method: "PUT",
+        data: {
+          images
+        },
+      });
+
+      console.log(proD);
+    }
+  };
+
   const save = async (e) => {
     e.preventDefault();
 
@@ -86,7 +115,12 @@ const ConfigProduct = ({ action, id }) => {
       data: productData,
     });
 
-    if (res) console.log(res);
+    if (res) {
+      console.log(res.data);
+
+      const pro = { ...product, id: res.data.id };
+      uploadFiles(res.data.id);
+    }
   };
 
   return (
@@ -334,8 +368,10 @@ const ConfigProduct = ({ action, id }) => {
                   maxLength={256}
                   placeholder="Weight (in Kgs)"
                   required
-                  value={product.weight}
-                  onChange={(e) => setProduct(e.target.value)}
+                  value={product.weight || ""}
+                  onChange={(e) =>
+                    setProduct({ ...product, weight: e.target.value })
+                  }
                 />
 
                 <div className="select-wrapper">
@@ -389,7 +425,7 @@ const ConfigProduct = ({ action, id }) => {
                 className="text-field w-input"
                 maxLength={256}
                 placeholder="Product Price*"
-                value={product.price}
+                value={product.price || ""}
                 onChange={(e) =>
                   setProduct({ ...product, price: e.target.value })
                 }
