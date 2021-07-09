@@ -97,14 +97,25 @@ const ConfigProduct = () => {
       seller: seller.id,
     };
 
-    const prod = await (action === "edit"
-      ? putProduct(id, productData)
-      : addProduct(productData));
+    if (action === "add") {
+      const prod = await addProduct(productData);
 
-    console.log("prod", prod);
+      if (!files.length) {
+        router.push(BASE_ROUTE + PRODUCTS);
+        return;
+      }
 
-    if (prod) {
-      console.log("##", prod);
+      const uploadedFiles = (await uploadFiles(files)).map((file) => file.id);
+
+      await putProduct(prod.id, {
+        images: [...product.images, ...uploadedFiles],
+      });
+
+      router.push(BASE_ROUTE + PRODUCTS);
+    }
+
+    if (action === "edit") {
+      const prod = await putProduct(id, productData);
 
       if (!files.length) {
         router.push(BASE_ROUTE + PRODUCTS);
