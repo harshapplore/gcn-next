@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from "react";
+import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 
 import { fetchCategories } from "slices/categories";
@@ -7,6 +8,15 @@ import { Select, Select2 } from "shared/Select";
 import CheckBox from "shared/Checkbox";
 import { triggerInput } from "libs/upload";
 import { authAxios } from "setups/axios";
+
+import { BASE_ROUTE, PRODUCTS } from "./routes";
+
+import {
+  getProduct,
+  addProduct,
+  putProduct,
+  uploadFiles,
+} from "controllers/product";
 
 const ProductImage = ({ url }) => {
   return (
@@ -22,10 +32,13 @@ const ProductImage = ({ url }) => {
   );
 };
 
-const ConfigProduct = ({ action, id }) => {
+const ConfigProduct = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const { seller } = useSelector((state) => state.user);
   const { categories } = useSelector((state) => state.categories);
+
+  const { action, id } = router.query;
 
   const inputRef = useRef();
   const multiInputRef = useRef();
@@ -38,13 +51,17 @@ const ConfigProduct = ({ action, id }) => {
   const [files, setFiles] = useState([]);
   const [filesData, setFilesData] = useState();
 
-  useEffect(() => {
+  useEffect(async () => {
     if (!categories || !categories.length) dispatch(fetchCategories());
-  }, []);
+    const { action, id } = router.query;
 
-  useEffect(() => {
-    console.log(filters, product);
-  }, [product, filters]);
+    if (action === "edit") {
+      const product = await getProduct(id);
+      console.log("//", product);
+      setProduct(product);
+      setFilters(product.filters);
+    }
+  }, []);
 
   const readFiles = (files) => {
     const f = files.map((file) => {
@@ -70,35 +87,6 @@ const ConfigProduct = ({ action, id }) => {
     setFilesData(fData);
   }, [files]);
 
-  const uploadFiles = async (productId) => {
-    const formData = new FormData();
-    files.map((file) => formData.append("files", file));
-
-    const res = await authAxios()({
-      url: "/upload",
-      method: "POST",
-      data: formData,
-    });
-
-    console.log(res);
-
-    if (res) {
-      const images = res.data.map((image) => image.id);
-
-      console.log(images);
-
-      const proD = await authAxios()({
-        url: `/products/${productId}`,
-        method: "PUT",
-        data: {
-          images
-        },
-      });
-
-      console.log(proD);
-    }
-  };
-
   const save = async (e) => {
     e.preventDefault();
 
@@ -109,17 +97,27 @@ const ConfigProduct = ({ action, id }) => {
       seller: seller.id,
     };
 
-    const res = await authAxios()({
-      url: "/products",
-      method: "POST",
-      data: productData,
-    });
+    const prod = await (action === "edit"
+      ? putProduct(id, productData)
+      : addProduct(productData));
 
-    if (res) {
-      console.log(res.data);
+    console.log("prod", prod);
 
-      const pro = { ...product, id: res.data.id };
-      uploadFiles(res.data.id);
+    if (prod) {
+      console.log("##", prod);
+
+      if (!files.length) {
+        router.push(BASE_ROUTE + PRODUCTS);
+        return;
+      }
+
+      const uploadedFiles = (await uploadFiles(files)).map((file) => file.id);
+
+      await putProduct(prod.id, {
+        images: [...product.images, ...uploadedFiles],
+      });
+
+      router.push(BASE_ROUTE + PRODUCTS);
     }
   };
 
@@ -162,6 +160,12 @@ const ConfigProduct = ({ action, id }) => {
             </div>
           </div>
            */}
+
+          {product.images &&
+            product.images.length > 0 &&
+            product.images.map((data, index) => (
+              <ProductImage key={"image-" + index} url={data.url} />
+            ))}
 
           {filesData &&
             filesData.length > 0 &&
@@ -328,6 +332,7 @@ const ConfigProduct = ({ action, id }) => {
                   maxLength={5000}
                   required
                   className="text-field area w-input"
+                  value={product.description || ""}
                   onChange={(e) =>
                     setProduct({ ...product, description: e.target.value })
                   }
@@ -343,6 +348,7 @@ const ConfigProduct = ({ action, id }) => {
                   placeholder="Kurze Beschreibung (max. XX)"
                   maxLength={5000}
                   className="text-field area w-input"
+                  value={product.descriptionInGerman || ""}
                   onChange={(e) =>
                     setProduct({
                       ...product,
@@ -374,34 +380,21 @@ const ConfigProduct = ({ action, id }) => {
                   }
                 />
 
-                <div className="select-wrapper">
-                  <select
-                    name="Select-3"
-                    data-name="Select 3"
-                    id="Select-3"
-                    required
-                    className="text-field pills w-select"
-                  >
-                    <option value>Select one...</option>
-                    <option value="First">First Choice</option>
-                    <option value="Second">Second Choice</option>
-                    <option value="Third">Third Choice</option>
-                  </select>
-                </div>
-                <div className="select-wrapper">
-                  <select
-                    name="Select-3"
-                    data-name="Select 3"
-                    id="Select-3"
-                    required
-                    className="text-field pills w-select"
-                  >
-                    <option value>Select one...</option>
-                    <option value="First">First Choice</option>
-                    <option value="Second">Second Choice</option>
-                    <option value="Third">Third Choice</option>
-                  </select>
-                </div>
+                <Select
+                  defaultValue="Sizes"
+                  choices={["First", "Second", "Third"]}
+                  value={product.sizes || ""}
+                  setValue={(value) => setProduct({ ...product, sizes: value })}
+                />
+
+                <Select
+                  defaultValue="Colors"
+                  choices={["First", "Second", "Third"]}
+                  value={product.colors || ""}
+                  setValue={(value) =>
+                    setProduct({ ...product, colors: value })
+                  }
+                />
               </div>
             </div>
 

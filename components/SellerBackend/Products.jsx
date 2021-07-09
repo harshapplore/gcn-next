@@ -4,14 +4,27 @@ import { useSelector, useDispatch } from "react-redux";
 
 import qS from "query-string";
 
-import { BASE_ROUTE, PRODUCTS, ADD_ACTION } from "./routes";
+import { BASE_ROUTE, PRODUCTS, ADD_ACTION, EDIT_ACTION } from "./routes";
 
 import { authAxios } from "setups/axios";
+import { fetchShopProducts } from "slices/shop";
 
 const ProductCard = ({ name, image, id }) => {
+  const router = useRouter();
+
+  const query = {
+    action: "edit",
+    id,
+  };
+
   return (
-    <div className="shop-product-item">
-      <a href="item-detail.html" className="shop-product-img w-inline-block">
+    <div
+      className="shop-product-item"
+      onClick={() =>
+        router.push(BASE_ROUTE + PRODUCTS + `?${qS.stringify(query)}`)
+      }
+    >
+      <a className="shop-product-img w-inline-block">
         <img
           src={image && image.url}
           loading="lazy"
@@ -56,21 +69,12 @@ const ProductCard = ({ name, image, id }) => {
 
 const Products = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { seller } = useSelector((state) => state.user);
+  const { products } = useSelector((state) => state.shop);
 
-  const [products, setProducts] = useState([]);
-
-  useEffect(async () => {
-    if (seller.shop && seller.shop.id) {
-      const query = { shop: seller.shop.id };
-
-      const res = await authAxios()({
-        url: `/products?${qS.stringify(query)}`,
-        method: "GET",
-      });
-
-      if (res) setProducts(res.data);
-    }
+  useEffect(() => {
+    if (seller.id && !products.length) dispatch(fetchShopProducts(seller.shop.id));
   }, [seller]);
 
   return (

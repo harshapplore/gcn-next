@@ -1,4 +1,5 @@
 import { useState } from "react";
+import router, { useRouter } from "next/router";
 import { v4 } from "uuid";
 
 import { UPDATE_ROLE_URL } from "config/constants";
@@ -79,6 +80,9 @@ const Register = ({ close }) => {
 
       if (res) {
         setSuccess(true);
+        if (data.type === "seller")
+          setTimeout(() => router.push("/seller-onboarding"), 2000);
+        if (data.type === "customer") setTimeout(() => router.push("/"), 2000);
       }
     }
   };
@@ -195,7 +199,7 @@ const Register = ({ close }) => {
                 </div>
 
                 {errors &&
-                  errors.length>0 &&
+                  errors.length > 0 &&
                   errors.map((err) => (
                     <Message key={err} text={err} status={-1} />
                   ))}

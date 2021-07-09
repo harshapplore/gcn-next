@@ -71,8 +71,12 @@ const SellerBackend = () => {
               {/* <!-- Add here --> */}
 
               {!activeAction && activePage === PRODUCTS && <Products />}
-              {activeAction && activePage === PRODUCTS && (
+              {activeAction === 'add' && activePage === PRODUCTS && (
                 <ConfigProduct action={activeAction} />
+              )}
+
+              {activeAction=== 'edit' && activePage === PRODUCTS && (
+                <ConfigProduct action={activeAction}  />
               )}
 
               {activePage === SHIPPING && <Shipping />}
