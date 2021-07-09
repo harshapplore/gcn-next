@@ -43,7 +43,7 @@ const ConfigProduct = () => {
   const inputRef = useRef();
   const multiInputRef = useRef();
 
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState({ images: [], filters: {} });
   const [filters, setFilters] = useState({});
 
   const [activeDescriptionTab, setActiveDescriptionTab] = useState(1);

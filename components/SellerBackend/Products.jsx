@@ -74,7 +74,7 @@ const Products = () => {
   const { products } = useSelector((state) => state.shop);
 
   useEffect(() => {
-    if (seller.id && !products.length) dispatch(fetchShopProducts(seller.shop.id));
+    if (seller.id && seller.shop && !products.length) dispatch(fetchShopProducts(seller.shop.id));
   }, [seller]);
 
   return (

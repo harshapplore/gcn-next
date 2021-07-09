@@ -15,6 +15,8 @@ export const addProduct = async (data) => {
     method: "POST",
     data
   })
+
+  return res.data;
 }
 
 export const putProduct = async (id, data) => {
