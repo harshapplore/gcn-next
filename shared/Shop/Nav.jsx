@@ -5,7 +5,7 @@ import { triggerInput } from "libs/upload";
 import { authAxios } from "setups/axios";
 import { fetchSeller } from "slices/user";
 
-const TopNav = () => {
+const ShopNav = () => {
   const dispatch = useDispatch();
   const { seller } = useSelector((state) => state.user);
 
@@ -97,4 +97,4 @@ const TopNav = () => {
   );
 };
 
-export default TopNav;
+export default ShopNav;

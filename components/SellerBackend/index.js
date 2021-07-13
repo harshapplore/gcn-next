@@ -5,10 +5,12 @@ import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSeller } from "slices/user";
 
-import ShopBanner from "./ShopBanner";
-import TopNav from "./TopNav";
+import ShopBanner from "shared/Shop/Banner";
+
+import ShopHeading from "shared/Shop/Heading";
+import ShopNav from "shared/Shop/Nav";
 import NavSidebar from "./NavSideBar";
-import ShopHeading from "./ShopHeading";
+
 
 import {
   BASE_ROUTE,
@@ -60,7 +62,7 @@ const SellerBackend = () => {
       <Nav />
       <div className="page-section pt-0">
         <ShopBanner />
-        <TopNav />
+        <ShopNav />
 
         <div className="container">
           <div className="flex top">

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { triggerInput, constructUploader } from "libs/upload";
+import { triggerInput } from "libs/upload";
 
 import { fetchSeller } from "slices/user";
 import { authAxios } from "setups/axios";
