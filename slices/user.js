@@ -50,6 +50,8 @@ export const updateRole = createAsyncThunk("users/updateRole", async () => {
 export const userSlice = createSlice({
   name: "user",
   initialState: {
+    loading: false,
+    authenticating: false,
     isLoggedIn: false,
     user: {},
     seller: {},
@@ -58,39 +60,51 @@ export const userSlice = createSlice({
     [fetchUser.fulfilled]: (state, action) => {
       state.isLoggedIn = true;
       state.user = action.payload;
+      state.loading = false;
+      state.authenticating = false;
 
     },
     [fetchUser.rejected]: (state, _) => {
       state.isLoggedIn = false;
       state.user = {};
+      state.loading = false;
+      state.authenticating = false;
     },
     [fetchUser.pending]: (state, _) => {
       state.isLoggedIn = false;
       state.user = {};
+      state.loading = true;
+      state.authenticating = true;
     },
 
     [updateRole.fulfilled]: (state, action) => {
       state.user = action.payload;
+      state.loading = false;
     },
 
     [updateRole.pending]: (state, _) => {
       state.user = {};
+      state.loading = true;
     },
 
     [updateRole.rejected]: (state, _) => {
       state.user = {};
+      state.loading = false;
     },
 
     [fetchSeller.fulfilled]: (state, action) => {
       state.seller = action.payload;
+      state.loading = false;
     },
 
     [fetchSeller.pending]: (state, _) => {
       state.seller = {};
+      state.loading = true;
     },
 
     [fetchSeller.rejected]: (state, _) => {
       state.seller = {};
+      state.loading = false;
     },
   },
 });

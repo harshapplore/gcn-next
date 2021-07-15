@@ -32,3 +32,27 @@ a:hover {
 .tabs-menu {
   cursor: pointer;
 }
+
+select {
+  appearance: none;
+  background-image: url("/icons/arrow-down.svg");
+  background-position-x: 94%;
+  background-position-y: 45%;
+
+  background-repeat: no-repeat;
+}
+
+.tab-link-shop, .nav-link-shop {
+  cursor: pointer;
+}
+
+.loader-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  padding: 0;
+
+  display: absolute;
+  z-index: 1000;
+}

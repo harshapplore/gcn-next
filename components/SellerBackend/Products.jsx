@@ -6,7 +6,6 @@ import qS from "query-string";
 
 import { BASE_ROUTE, PRODUCTS, ADD_ACTION, EDIT_ACTION } from "./routes";
 
-import { authAxios } from "setups/axios";
 import { fetchShopProducts } from "slices/shop";
 
 const ProductCard = ({ name, image, id }) => {

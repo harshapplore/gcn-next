@@ -5,7 +5,7 @@ import { triggerInput } from "libs/upload";
 import { authAxios } from "setups/axios";
 import { fetchSeller } from "slices/user";
 
-const ShopNav = () => {
+const ShopNav = ({ children }) => {
   const dispatch = useDispatch();
   const { seller } = useSelector((state) => state.user);
 
@@ -81,16 +81,7 @@ const ShopNav = () => {
               </div>
             </div>
           </div>
-          <div className="shop-content pt-0">
-            <div className="scroll-x">
-              <a href="#" className="nav-link-shop current w-inline-block">
-                <div>Edit Profile</div>
-              </a>
-              <a href="#" className="nav-link-shop w-inline-block">
-                <div>Sign out</div>
-              </a>
-            </div>
-          </div>
+          {children}
         </div>
       </div>
     </div>

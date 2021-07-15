@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -28,13 +28,16 @@ const SellerOnboarding = () => {
 
   const [activePageIndex, setActivePageIndex] = useState(0);
 
+  const getUser = useCallback(() => dispatch(fetchUser()), [dispatch]);
+  const getSeller = useCallback(() => dispatch(fetchSeller()), [dispatch]);
+
   useEffect(() => {
     const { section } = router.query;
 
     const index = pages.findIndex((page) => page === section);
 
-    if (!user.id) dispatch(fetchUser());
-    if (!seller.id) dispatch(fetchSeller());
+    if (!user.id) getUser();
+    if (!seller.id) getSeller();
 
     if (index === -1) {
       setActivePageIndex(0);
