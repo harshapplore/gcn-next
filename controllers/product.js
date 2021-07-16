@@ -1,8 +1,31 @@
 import { authAxios } from "setups/axios";
+import QS from "query-string";
 
 export const getProduct = async (id) => {
   const res = await authAxios()({
     url: `/products/${id}`,
+    method: "GET",
+  });    
+
+  return res.data;
+};
+
+export const getProducts = async (id, filters) => {
+  const res = await authAxios()({
+    url: `/products?${QS.stringify(filters)}`,
+    method: "GET",
+  });
+
+  return res.data;
+};
+
+export const getProductsFromShop = async (id) => {
+  const query = {
+    shop: id,
+  };
+
+  const res = await authAxios()({
+    url: `/products?${QS.stringify(query)}`,
     method: "GET",
   });
 
@@ -13,11 +36,11 @@ export const addProduct = async (data) => {
   const res = await authAxios()({
     url: `/products`,
     method: "POST",
-    data
-  })
+    data,
+  });
 
   return res.data;
-}
+};
 
 export const putProduct = async (id, data) => {
   const res = await authAxios()({
@@ -29,17 +52,15 @@ export const putProduct = async (id, data) => {
   return res.data;
 };
 
-export const uploadFiles = async (files) =>{
+export const uploadFiles = async (files) => {
   const formData = new FormData();
-    files.map((file) => formData.append("files", file));
+  files.map((file) => formData.append("files", file));
 
-    const res = await authAxios()({
-      url: "/upload",
-      method: "POST",
-      data: formData,
-    });
+  const res = await authAxios()({
+    url: "/upload",
+    method: "POST",
+    data: formData,
+  });
 
-    return res.data;
-}
-
-
+  return res.data;
+};

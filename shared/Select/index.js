@@ -4,6 +4,7 @@ export const Select = ({
   value,
   setValue,
   defaultValue,
+  width
 }) => {
   return (
     <div className="select-wrapper">
@@ -12,6 +13,7 @@ export const Select = ({
         className="text-field pills w-select"
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        width={width || 'auto'}
       >
         {!value && <option value=""> {defaultValue || "Select One"} </option>}
         {choices.map((choice) => (
