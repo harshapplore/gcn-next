@@ -9,7 +9,7 @@ import Select from "shared/Select";
 
 const ProductDetail = () => {
   const router = useRouter();
-  const [activeImage, setActiveImage] = useState();
+  const [activeImage, setActiveImage] = useState("");
   const [product, setProduct] = useState({});
 
   const [data, setData] = useState({});
@@ -24,7 +24,7 @@ const ProductDetail = () => {
   }, [router]);
 
   useEffect(() => {
-    if (product && product.images) {
+    if (product && product.images && product.images.length > 0) {
       setActiveImage(product.images[0].url);
     }
   }, [product]);
