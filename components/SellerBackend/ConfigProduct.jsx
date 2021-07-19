@@ -12,7 +12,7 @@ import { authAxios } from "setups/axios";
 import { BASE_ROUTE, PRODUCTS } from "./routes";
 
 import {
-  getProducts,
+  getProduct,
   addProduct,
   putProduct,
   uploadFiles,
@@ -56,10 +56,10 @@ const ConfigProduct = () => {
     const { action, id } = router.query;
 
     if (action === "edit") {
-      const product = await getProducts(id);
+      const product = await getProduct(id);
       console.log("//", product);
       setProduct(product);
-      setFilters(product.filters);
+      setFilters(product.filters || {});
     }
   }, []);
 

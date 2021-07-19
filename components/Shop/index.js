@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 import Nav from "shared/Nav";
 
@@ -20,9 +21,12 @@ const Shop = () => {
 
   return (
     <>
+      <Head> 
+        Shop 
+      </Head>
       <Nav />
       <div className="page-section pt-0">
-        <ShopBanner />
+        <ShopBa     nner />
         <ShopNav>
           <ShopNavBlocks />
         </ShopNav>

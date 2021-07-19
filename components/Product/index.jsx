@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 
 import { getProduct } from "controllers/product";
 import DetailsPane from "./DetailsPane";
+import Slider from "./Slider";
 
 import Nav from "shared/Nav";
 import Select from "shared/Select";
@@ -31,47 +33,14 @@ const ProductDetail = () => {
 
   return (
     <>
+      <Head>
+        <title> {product.name} | Green Cloud Nine</title>
+      </Head>
       <Nav />
       <div className="page-section">
         <div className="container w-clearfix">
           <div className="product-image-wrapper">
-            <div id="main" className="swiper-container">
-              <div className="swiper-wrapper">
-                <div className="swiper-slide">
-                  <img
-                    src={activeImage}
-                    loading="lazy"
-                    sizes="(max-width: 767px) 92vw, (max-width: 1279px) 58vw, 720px"
-                    alt={product.name}
-                    className="product-image"
-                  />
-                </div>
-                <div className="swiper-slide">
-                  <img
-                    src="/images/bild-header2x.jpg"
-                    loading="lazy"
-                    sizes="(max-width: 767px) 92vw, (max-width: 1279px) 58vw, 720px"
-                    alt="Handcrafted stuff"
-                    className="product-image"
-                  />
-                </div>
-              </div>
-            </div>
-            <div id="thumbs" className="swiper-container">
-              <div className="swiper-wrapper">
-                <div className="swiper-slide">
-                  <img
-                    src="/images/bild-header2x.jpg"
-                    loading="lazy"
-                    sizes="(max-width: 767px) 92vw, (max-width: 1279px) 58vw, 720px"
-                    alt="Handcrafted stuff"
-                    className="product-image"
-                  />
-                </div>
-
-                {/* Create Gallery Selection   */}
-              </div>
-            </div>
+            <Slider images={product.images} />
           </div>
 
           <div className="product-info-wrapper">
@@ -129,7 +98,7 @@ const ProductDetail = () => {
                     </g>
                   </svg>
                 </div>
-                <div className="text-block">Our Promise</div>
+                <div className="text-block">Add To Cart</div>
               </span>
             </div>
             <div className="mb-10">
