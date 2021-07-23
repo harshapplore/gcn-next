@@ -4,10 +4,10 @@ const CustomerBackend = () => {
       <div className="page-section-alert">
         <div className="container">
           <div>
-            This is some text inside of a{" "}
+            This is some text inside of a 
             <a href="#" className="white-link">
               div
-            </a>{" "}
+            </a>
             block.
           </div>
         </div>

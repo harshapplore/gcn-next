@@ -145,13 +145,14 @@ const Products = () => {
 
           {products &&
             products.length > 0 &&
-            products.map((product) => (
+            products.map((product, index) => (
               <ShopProduct
+                key={product.name+index}
                 id={product.id}
                 name={product.name}
                 seller={product.seller && product.seller.firstName}
                 price={product.price}
-                image={product.images.length > 0 && product.images[0].url}
+                image={product.images.length > 0 && product.images[0].url || ""}
               />
             ))}
         </div>

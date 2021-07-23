@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "sourceMap": true
+    "sourceMap": true,
+    "paths": {
+      "@/*": "./*"
+    }
   },
 }

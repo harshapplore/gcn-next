@@ -7,8 +7,7 @@ import { useRouter } from "next/router";
 
 import { fetchUser } from "slices/user";
 
-import Login from "./Login";
-import Register from "./Register";
+import AuthForm from "./AuthForm";
 
 const routes = {
   "/seller-backend/[section]": {
@@ -16,7 +15,11 @@ const routes = {
     type: "seller",
   },
   "/shop/[id]": {
-    auth: false
+    auth: false,
+  },
+  "/customer/[section]":{
+    auth: true,
+    type: "customer"
   }
 };
 
@@ -34,6 +37,8 @@ const Auth = ({ children }) => {
   const getUser = useCallback(() => dispatch(fetchUser()), [dispatch]);
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) return;
+
     if (!user._id) getUser();
   }, []);
 
@@ -67,7 +72,7 @@ const Auth = ({ children }) => {
         <>
           {!activeRoute.auth && children}
 
-          {!isLoggedIn && <Login />}
+          {!isLoggedIn && <AuthForm />}
 
           {isLoggedIn && !activeRoute.type && children}
 

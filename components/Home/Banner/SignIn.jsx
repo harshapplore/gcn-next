@@ -59,10 +59,15 @@ const SignIn = ({ close, showRegister }) => {
     });
 
     if (response) {
-      console.log(response);
+      const user = response.data;
       localStorage.setItem("token", response.data.jwt);
+
+      localStorage.setItem("data", JSON.stringify(user));
+
+      console.log(user);
       setErrors([]);
       setSuccess("You have logged in successfully");
+
       return response.data;
     }
   };

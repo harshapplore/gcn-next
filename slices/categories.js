@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { authAxios } from "setups/axios";
+import { axios, authAxios } from "setups/axios";
 
 export const fetchCategories = createAsyncThunk(
   "categories/fetchCategories",
   async () => {
-    const response = await authAxios()({
+    const response = await axios()({
       url: "/categories",
       method: "GET",
     });

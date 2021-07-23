@@ -1,8 +1,8 @@
-import { authAxios } from "setups/axios";
+import { axios, authAxios } from "setups/axios";
 import QS from "query-string";
 
 export const getProduct = async (id) => {
-  const res = await authAxios()({
+  const res = await axios()({
     url: `/products/${id}`,
     method: "GET",
   });    
@@ -11,7 +11,7 @@ export const getProduct = async (id) => {
 };
 
 export const getProducts = async (id, filters) => {
-  const res = await authAxios()({
+  const res = await axios()({
     url: `/products?${QS.stringify(filters)}`,
     method: "GET",
   });
@@ -24,7 +24,7 @@ export const getProductsFromShop = async (id) => {
     shop: id,
   };
 
-  const res = await authAxios()({
+  const res = await axios()({
     url: `/products?${QS.stringify(query)}`,
     method: "GET",
   });
@@ -41,6 +41,7 @@ export const addProduct = async (data) => {
 
   return res.data;
 };
+
 
 export const putProduct = async (id, data) => {
   const res = await authAxios()({

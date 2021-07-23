@@ -26,7 +26,7 @@ const Shop = () => {
       </Head>
       <Nav />
       <div className="page-section pt-0">
-        <ShopBa     nner />
+        <ShopBanner />
         <ShopNav>
           <ShopNavBlocks />
         </ShopNav>

@@ -49,8 +49,9 @@ const NavBlock = () => {
   return (
     <div className="shop-content pt-0">
       <div className="scroll-x">
-        {blocks.map((block) => (
+        {blocks.map((block, index) => (
           <Block
+            key={"block-" + index}
             text={block.text}
             active={
               query.tab ? block.tab === query.tab : block.tab === "products"

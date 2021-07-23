@@ -61,6 +61,7 @@ const SignIn = ({ close, showRegister }) => {
     if (response) {
       console.log(response);
       localStorage.setItem("token", response.data.jwt);
+      localStorage.setItem("data", JSON.stringify(response.data.user));
       setErrors([]);
       setSuccess("You have logged in successfully");
 

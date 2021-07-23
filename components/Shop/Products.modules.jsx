@@ -31,6 +31,7 @@ const Rating = ({ rating }) => {
   while (filled > 0) {
     ele.push(
       <img
+        key={"filled-" + filled}
         src="/images/star-black-24-dp-copy-4.svg"
         loading="lazy"
         alt="Filled star"
@@ -44,6 +45,7 @@ const Rating = ({ rating }) => {
   while (empty > 0) {
     ele.push(
       <img
+        key={"empty-" + empty}
         src="/images/star-black-24-dp-copy.svg"
         loading="lazy"
         alt="Empty star"
@@ -111,17 +113,8 @@ export const Filters = () => {
     <div className="hide-mobile">
       <div>
         <div className="w-form">
-          <form
-            id="email-form-3"
-            name="email-form-3"
-            data-name="Email Form 3"
-            className="flex"
-          >
-            <select
-              id="field"
-              name="field"
-              className="text-field select width-24 w-select"
-            >
+          <form className="flex">
+            <select className="text-field select width-24 w-select">
               <option value>Sustainability</option>
               <option value="First">First Choice</option>
               <option value="Second">Second Choice</option>
@@ -193,8 +186,6 @@ export const ShopSidebar = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  console.log(router);
-
   const [filters, setFilters] = useState({});
   const { categories } = useSelector((state) => state.categories);
   const [activeCategory, setActiveCategory] = useState("");
@@ -222,9 +213,10 @@ export const ShopSidebar = () => {
     <div className="shop-filter popup-mobile">
       <div className="scroll-y">
         <div className="mb-80">
-          {categories.map((category) => (
+          {categories.map((category, index) => (
             <TabLink
               name={category.name}
+              key={"cat-" + index}
               onClick={() => onCategoryClick(category.id)}
               active={activeCategory === category.id}
             />

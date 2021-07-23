@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchSeller } from "slices/user";
 
 import ShopBanner from "shared/Shop/Banner";
+import Fetcher from "shared/Fetcher";
 
 import ShopHeading from "shared/Shop/Heading";
 import ShopNav from "shared/Shop/Nav";
