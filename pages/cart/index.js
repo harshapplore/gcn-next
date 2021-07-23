@@ -11,4 +11,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPagae;  
+export default CartPage;  
