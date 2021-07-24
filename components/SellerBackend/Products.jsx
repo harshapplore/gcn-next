@@ -6,7 +6,7 @@ import qS from "query-string";
 
 import { BASE_ROUTE, PRODUCTS, ADD_ACTION, EDIT_ACTION } from "./routes";
 
-import { fetchShopProducts } from "slices/shop";
+import { fetchShopProducts } from "@/slices/shop";
 
 const ProductCard = ({ name, image, id }) => {
   const router = useRouter();
@@ -28,8 +28,7 @@ const ProductCard = ({ name, image, id }) => {
           src={image && image.url}
           loading="lazy"
           sizes="(max-width: 479px) 83vw, (max-width: 767px) 45vw, (max-width: 991px) 30vw, (max-width: 1279px) 17vw, 218.40000915527344px"
-          // srcSet="images/bild-header2x-p-500.jpeg 500w, images/bild-header2x-p-800.jpeg 800w, images/bild-header2x-p-2000.jpeg 2000w, images/bild-header2x-p-2600.jpeg 2600w, images/bild-header2x.jpg 2880w"
-          alt="Handcrafted stuff"
+          alt="Handicrafted stuff"
           className="back-img"
         />
       </a>

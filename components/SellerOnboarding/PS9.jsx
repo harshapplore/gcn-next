@@ -2,9 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 } from "uuid";
 
-import { fetchSeller } from "slices/user";
+import { fetchSeller } from "@/slices/user";
 
-import { authAxios, axios } from "setups/axios";
+import { authAxios, axios } from "@/setups/axios";
 
 const ProductImage = ({ url }) => {
   return (

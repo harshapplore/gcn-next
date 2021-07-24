@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-import authAxios from "setups/axios";
+import authAxios from "@/setups/axios";
 
 const PS7 = ({ next }) => {
   const { seller } = useSelector((state) => state.user);

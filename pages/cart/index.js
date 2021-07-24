@@ -1,5 +1,5 @@
-import Cart from "components/Checkout";
-import Auth from "shared/Auth/Auth";
+import Cart from "@/components/Checkout";
+import Auth from "@/shared/Auth/Auth";
 
 const CartPage = () => {
   return (

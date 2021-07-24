@@ -3,6 +3,6 @@ import Image from "next/image";
 
 import { useEffect, useState } from "react";
 
-import Home from "components/Home";
+import Home from "@/components/Home";
 
 export default Home;

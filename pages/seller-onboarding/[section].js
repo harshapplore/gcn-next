@@ -1,4 +1,4 @@
-import SellerOnboarding from "components/SellerOnboarding";
+import SellerOnboarding from "@/components/SellerOnboarding";
 
 const SellerOnboardingPage = () => {
   return <SellerOnboarding />

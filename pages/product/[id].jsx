@@ -1,6 +1,6 @@
 
 
 
-import ProductDetail from "components/Product"
+import ProductDetail from "@/components/Product"
 
 export default ProductDetail;

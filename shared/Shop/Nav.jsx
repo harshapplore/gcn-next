@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { triggerInput } from "libs/upload";
-import { authAxios } from "setups/axios";
-import { fetchSeller } from "slices/user";
+import { authAxios } from "@/setups/axios";
+import { fetchSeller } from "@/slices/user";
 
 const ShopNav = ({ children }) => {
   const dispatch = useDispatch();

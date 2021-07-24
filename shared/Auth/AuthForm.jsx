@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Register from "./Register";
 import Login from "./Login";
 
-import { loginUser, registerUser, putRole } from "controllers/auth";
+import { loginUser, registerUser, putRole } from "@/controllers/auth";
 
 const Form = () => {
   const [showForm, setShowForm] = useState("login");

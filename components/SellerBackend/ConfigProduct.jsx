@@ -2,12 +2,12 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 
-import { fetchCategories } from "slices/categories";
+import { fetchCategories } from "@/slices/categories";
 
-import { Select, Select2 } from "shared/Select";
-import CheckBox from "shared/Checkbox";
+import { Select, Select2 } from "@/shared/Select";
+import CheckBox from "@/shared/Checkbox";
 import { triggerInput } from "libs/upload";
-import { authAxios } from "setups/axios";
+import { authAxios } from "@/setups/axios";
 
 import { BASE_ROUTE, PRODUCTS } from "./routes";
 
@@ -16,7 +16,7 @@ import {
   addProduct,
   putProduct,
   uploadFiles,
-} from "controllers/product";
+} from "@/controllers/product";
 
 const ProductImage = ({ url }) => {
   return (

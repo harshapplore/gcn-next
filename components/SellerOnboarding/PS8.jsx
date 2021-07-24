@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 import { useSelector } from "react-redux";
-import authAxios from "setups/axios";
+import authAxios from "@/setups/axios";
 
-import Message from "shared/Message";
+import Message from "@/shared/Message";
 
 const PS8 = ({ next }) => {
   const { seller } = useSelector((state) => state.user);

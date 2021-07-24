@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
-import authAxios from "setups/axios";
+import authAxios from "@/setups/axios";
 
-import CheckBox from "shared/Checkbox";
+import CheckBox from "@/shared/Checkbox";
 
 const PS5 = ({ next }) => {
   const { seller } = useSelector((state) => state.user);

@@ -1,4 +1,4 @@
-import { axios } from "setups/axios";
+import { axios } from "@/setups/axios";
 
 export const loginUser = ({}) => {
   

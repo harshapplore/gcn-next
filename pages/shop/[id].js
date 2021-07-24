@@ -1,6 +1,6 @@
-import Shop from "components/Shop";
+import Shop from "@/components/Shop";
 
-import Auth from "shared/Auth/Auth";
+import Auth from "@/shared/Auth/Auth";
 
 export const ShopPage = () => {
   return (

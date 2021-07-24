@@ -1,14 +1,15 @@
+import React from "react";
 import { Provider } from "react-redux";
 
 import Head from "next/head";
 
 import store from "store";
 
-import "assets/styles/reset.css";
-import "assets/styles/globals.css";
-import "assets/styles/webflow.css";
-import "assets/styles/gc9-webflow.css";
-import "assets/styles/overwrite.css";
+import "@/assets/styles/reset.css";
+import "@/assets/styles/globals.css";
+import "@/assets/styles/webflow.css";
+import "@/assets/styles/gc9-webflow.css";
+import "@/assets/styles/overwrite.css";
 
 function MyApp({ Component, pageProps }) {
   return (

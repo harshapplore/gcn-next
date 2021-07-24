@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import authAxios from "setups/axios";
+import authAxios from "@/setups/axios";
 
 const PS2 = ({ nextPage }) => {
   const { seller } = useSelector((state) => state.user);

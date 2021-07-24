@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { authAxios } from "setups/axios";
-import { fetchSeller } from "slices/user";
+import { authAxios } from "@/setups/axios";
+import { fetchSeller } from "@/slices/user";
 
 const Shipping = () => {
   const [] = useState();

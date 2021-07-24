@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import { axios } from "setups/axios";
+import { axios } from "@/setups/axios";
 
-import CheckBox from "shared/Checkbox";
-import Message from "shared/Message";
+import CheckBox from "@/shared/Checkbox";
+import Message from "@/shared/Message";
 
 const SignIn = ({ close, showRegister }) => {
   const [data, setData] = useState({});

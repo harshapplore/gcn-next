@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import Nav from "shared/Nav";
+import Nav from "@/shared/Nav";
 
-import ShopBanner from "shared/Shop/Banner";
-import ShopNav from "shared/Shop/Nav";
-import ShopHeading from "shared/Shop/Heading";
+import ShopBanner from "@/shared/Shop/Banner";
+import ShopNav from "@/shared/Shop/Nav";
+import ShopHeading from "@/shared/Shop/Heading";
 
 import ShopNavBlocks from "./ShopNav";
 

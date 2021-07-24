@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { authAxios } from "setups/axios";
+import { authAxios } from "@/setups/axios";
 
-import Select from "shared/Select";
-import CheckBox from "shared/Checkbox";
-import Message from "shared/Message";
+import Select from "@/shared/Select";
+import CheckBox from "@/shared/Checkbox";
+import Message from "@/shared/Message";
 
 const data = {
   heading: "Hello Thomas, let's get started!",

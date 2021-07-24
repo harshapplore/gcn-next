@@ -1,4 +1,4 @@
-import { axios, authAxios } from "setups/axios";
+import { axios, authAxios } from "@/setups/axios";
 import QS from "query-string";
 
 export const getProduct = async (id) => {

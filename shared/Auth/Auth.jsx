@@ -5,7 +5,7 @@ import Loader from "react-loader-spinner";
 
 import { useRouter } from "next/router";
 
-import { fetchUser } from "slices/user";
+import { fetchUser } from "@/slices/user";
 
 import AuthForm from "./AuthForm";
 

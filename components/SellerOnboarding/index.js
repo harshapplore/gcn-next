@@ -4,10 +4,10 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 import { useSelector, useDispatch } from "react-redux";
-import { fetchUser, fetchSeller } from "slices/user";
+import { fetchUser, fetchSeller } from "@/slices/user";
 
-import Nav from "shared/Nav";
-import Footer from "shared/Footer";
+import Nav from "@/shared/Nav";
+import Footer from "@/shared/Footer";
 
 import GetStarted from "./PS1";
 import Pricing from "./PS2";

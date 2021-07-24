@@ -4,12 +4,12 @@ import { v4 } from "uuid";
 
 import { UPDATE_ROLE_URL } from "config/constants";
 
-import { axios, authAxios } from "setups/axios";
+import { axios, authAxios } from "@/setups/axios";
 
-import Select from "shared/Select";
-import Checkbox from "shared/Checkbox";
-import Message from "shared/Message";
-import CheckBox from "shared/Checkbox";
+import Select from "@/shared/Select";
+import Checkbox from "@/shared/Checkbox";
+import Message from "@/shared/Message";
+import CheckBox from "@/shared/Checkbox";
 
 const Register = ({ close }) => {
   const [data, setData] = useState({ type: "seller" });

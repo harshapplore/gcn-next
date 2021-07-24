@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { getCart } from "controllers/customer";
-import { getShop } from "controllers/shop";
-import shop from "slices/shop";
+import { getCart } from "@/controllers/customer";
+import { getShop } from "@/controllers/shop";
+import shop from "@/slices/shop";
 
-import { Toggle2 } from "shared/Toggle";
+import { Toggle2 } from "@/shared/Toggle";
 
 const CartItem = ({ item, shop }) => {
   return (

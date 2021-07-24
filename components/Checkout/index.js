@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-import Nav from "shared/Nav";
+import Nav from "@/shared/Nav";
 
 import CartShopView from "./CartShopView";
 import SND from "./ShippingNDelivery";

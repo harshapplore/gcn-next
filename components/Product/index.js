@@ -3,15 +3,15 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 
-import { addToCart } from "controllers/customer";
+import { addToCart } from "@/controllers/customer";
 
-import { getProduct } from "controllers/product";
+import { getProduct } from "@/controllers/product";
 import DetailsPane from "./DetailsPane";
 import Slider from "./Slider";
 
-import Nav from "shared/Nav";
-import Select from "shared/Select";
-import Fetcher from "shared/Fetcher";
+import Nav from "@/shared/Nav";
+import Select from "@/shared/Select";
+import Fetcher from "@/shared/Fetcher";
 
 const ProductDetail = () => {
   const router = useRouter();

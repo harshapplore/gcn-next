@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import authAxios from "setups/axios";
-import Select from "shared/Select";
+import authAxios from "@/setups/axios";
+import Select from "@/shared/Select";
 
 const PS3 = ({ next }) => {
   const { seller } = useSelector((state) => state.user);

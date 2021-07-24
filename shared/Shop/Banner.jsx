@@ -2,8 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { triggerInput } from "libs/upload";
 
-import { fetchSeller } from "slices/user";
-import { authAxios } from "setups/axios";
+import { fetchSeller } from "@/slices/user";
+import { authAxios } from "@/setups/axios";
 
 const ShopBanner = () => {
   const dispatch = useDispatch();

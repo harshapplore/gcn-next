@@ -3,9 +3,9 @@
 import { useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { fetchUser } from "slices/user";
-import { fetchCustomer } from "slices/customer";
-import { fetchSeller } from "slices/seller";
+import { fetchUser } from "@/slices/user";
+import { fetchCustomer } from "@/slices/customer";
+import { fetchSeller } from "@/slices/seller";
 
 const Fetcher = () => {
   const dispatch = useDispatch();

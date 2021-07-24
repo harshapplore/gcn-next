@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Image from "next/image";
 
-import SignIn from "shared/Auth/Login";
-import Register from "shared/Auth/Register";
+import SignIn from "@/shared/Auth/Login";
+import Register from "@/shared/Auth/Register";
 
-import UpIcon from "assets/images/up-icon.svg";
+import UpIcon from "@/assets/images/up-icon.svg";
 
 const Banner = () => {
   const [showSignIn, setShowSignIn] = useState(false);

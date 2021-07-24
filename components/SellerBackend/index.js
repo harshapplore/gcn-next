@@ -1,15 +1,15 @@
-import Nav from "shared/Nav";
+import Nav from "@/shared/Nav";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import { useSelector, useDispatch } from "react-redux";
-import { fetchSeller } from "slices/user";
+import { fetchSeller } from "@/slices/user";
 
-import ShopBanner from "shared/Shop/Banner";
-import Fetcher from "shared/Fetcher";
+import ShopBanner from "@/shared/Shop/Banner";
+import Fetcher from "@/shared/Fetcher";
 
-import ShopHeading from "shared/Shop/Heading";
-import ShopNav from "shared/Shop/Nav";
+import ShopHeading from "@/shared/Shop/Heading";
+import ShopNav from "@/shared/Shop/Nav";
 import NavSidebar from "./NavSideBar";
 
 

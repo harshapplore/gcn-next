@@ -1,4 +1,4 @@
-import { authAxios } from "setups/axios";
+import { authAxios } from "@/setups/axios";
 
 export const triggerInput = (ref) => {
   const input = ref.current;

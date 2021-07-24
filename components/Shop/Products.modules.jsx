@@ -6,10 +6,10 @@ import Link from "next/link";
 
 import QS from "query-string";
 
-import { fetchCategories } from "slices/categories";
+import { fetchCategories } from "@/slices/categories";
 
-import Select from "shared/Select";
-import Toggle from "shared/Toggle";
+import Select from "@/shared/Select";
+import Toggle from "@/shared/Toggle";
 
 const TabLink = ({ name, active, onClick }) => {
   return (

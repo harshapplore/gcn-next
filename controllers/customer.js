@@ -1,4 +1,4 @@
-import { authAxios } from "setups/axios";
+import { authAxios } from "@/setups/axios";
 
 export const addToCart = async ({ productId, quantity }) => {
   const res = await authAxios()({
