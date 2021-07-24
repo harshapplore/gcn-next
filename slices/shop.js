@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { authAxios } from "setups/axios";
+import { authAxios } from "@/setups/axios";
 
 import QS from "query-string";
 

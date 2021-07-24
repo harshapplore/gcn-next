@@ -88,6 +88,10 @@ const ProductDetail = () => {
                   });
 
                   console.log(res);
+
+                  setTimeout(() => {
+                    router.push("/customer/cart");
+                  }, 2000);
                 }}
               >
                 <div className="text-block">Add To Cart</div>

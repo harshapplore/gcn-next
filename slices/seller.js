@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { authAxios } from "setups/axios";
+import { authAxios } from "@/setups/axios";
 
 export const fetchSeller = createAsyncThunk("user/fetchSeller", async () => {
   const response = await authAxios()({

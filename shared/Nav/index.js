@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import GC9Logo from "assets/images/gc9-logo.svg";
-import SearchIcon from "assets/images/search.svg";
-import AccountIcon from "assets/images/account-icon.svg";
-import CartIcon from "assets/images/cart-icon.svg";
-import FavIcon from "assets/images/favorite-border.svg";
-import ButtonIcon from "assets/images/button-icon.svg";
+import GC9Logo from "@/assets/images/gc9-logo.svg";
+import SearchIcon from "@/assets/images/search.svg";
+import AccountIcon from "@/assets/images/account-icon.svg";
+import CartIcon from "@/assets/images/cart-icon.svg";
+import FavIcon from "@/assets/images/favorite-border.svg";
+import ButtonIcon from "@/assets/images/button-icon.svg";
 
 const NavLink = ({ text, route }) => {
   return (

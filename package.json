@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.0",
@@ -19,12 +20,14 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-do-expressions": "^7.14.5",
     "@babel/plugin-syntax-jsx": "^7.14.5",
     "@babel/plugin-transform-modules-commonjs": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "jest": "^27.0.6",
     "jest-enzyme": "^7.1.2",
+    "jsconfig-paths-jest-mapper": "^1.0.0",
     "react-test-renderer": "^17.0.2",
     "redux-mock-store": "^1.5.4"
   }
