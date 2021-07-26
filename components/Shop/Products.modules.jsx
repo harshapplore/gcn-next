@@ -75,7 +75,7 @@ export const ShopProduct = ({ id, name, seller, price, image }) => {
           <img
             src="/images/favorite-border-black-24-dp-2.svg"
             loading="lazy"
-            width={25}
+            width={25}  
             alt="Like"
             className="orange-heart"
           />
