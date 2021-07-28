@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchUser, fetchSeller } from "@/slices/user";
 
 import Nav from "@/shared/Nav";
-import Footer from "@/shared/Footer";
+import Footer from "@/shared/Footer2";
 
 import GetStarted from "./PS1";
 import Pricing from "./PS2";

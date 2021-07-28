@@ -5,11 +5,14 @@ import authAxios from "@/setups/axios";
 
 import CheckBox from "@/shared/Checkbox";
 import Button from "@/shared/Button";
+import Message from "@/shared/Message";
 
 const PS5 = ({ next }) => {
   const { seller } = useSelector((state) => state.user);
 
   const [payInfo, setPayInfo] = useState(seller || {});
+
+  const [errors, setErrors] = useState([]);
 
   const updatePayInfo = (key, value) => {
     const newPayInfo = { ...payInfo };
@@ -17,8 +20,25 @@ const PS5 = ({ next }) => {
     setPayInfo(newPayInfo);
   };
 
+  const validate = () => {
+    const errors = [];
+
+    if (!payInfo.bicOrSwift) errors.push("Please input BIC/Swift details.");
+    if (!payInfo.iban) errors.push("Please enter IBAN");
+    if (!payInfo.bankAccountOwner)
+      errors.push("Bank Account Owner name cannot be empty.");
+
+    setErrors(errors);
+
+    if (errors.length) return false;
+
+    return true;
+  };
+
   const submit = async (e) => {
     e.preventDefault();
+
+    if (!validate()) return;
 
     const res = await authAxios()({
       url: `/sellers/${seller.id}`,
@@ -83,6 +103,10 @@ const PS5 = ({ next }) => {
               <Button type="secondary" action={submit} name="Save & Continue" />
             </div>
           </form>
+
+          {errors &&
+            errors.length > 0 &&
+            errors.map((error) => <Message text={error} status={-1} />)}
         </div>
       </div>
     </div>

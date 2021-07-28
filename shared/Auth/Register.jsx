@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { v4 } from "uuid";
+import router, { useRouter } from "next/router";
 
 import { UPDATE_ROLE_URL } from "@/config/constants";
 
@@ -10,6 +11,8 @@ import Message from "@/shared/Message";
 import CheckBox from "@/shared/Checkbox";
 
 const Register = ({ close }) => {
+  const router = useRouter();
+
   const [data, setData] = useState({ type: "seller" });
 
   const [errors, setErrors] = useState();
@@ -59,8 +62,9 @@ const Register = ({ close }) => {
     });
 
     if (response) {
-      const { jwt } = response.data;
+      const { jwt, user } = response.data;
       localStorage.setItem("token", jwt);
+      localStorage.setItem("data", user);
 
       const res = await axios()({
         url: UPDATE_ROLE_URL,
@@ -70,6 +74,11 @@ const Register = ({ close }) => {
         },
         data: {
           role: data.type,
+        },
+
+        if(res) {
+          if (user.type === "seller") router.push("/seller-onboarding");
+          else router.push("/");
         },
       }).catch((error) => {
         setErrors(["Error occured while updating role."]);
@@ -180,7 +189,7 @@ const Register = ({ close }) => {
                         value={data.terms}
                         setValue={(value) => updateData("terms", value)}
                       />
-                      <div className="privacy-lorem-ipsum"> 
+                      <div className="privacy-lorem-ipsum">
                         Lorem Ipsum is simply dummy text of the printing and
                         typesetting industry. Lorem Ipsum has been the
                         industry's standard dummy text ever since the 1500s,
@@ -236,7 +245,10 @@ const Register = ({ close }) => {
                 {data.type === "seller" && (
                   <div className="sell">
                     <div className="mb-20">Sell on Green Cloud Nine</div>
-                    <a href="#" className="button secondary w-button">
+                    <a
+                      href="/seller-info"
+                      className="button secondary w-button"
+                    >
                       How it works
                     </a>
                   </div>

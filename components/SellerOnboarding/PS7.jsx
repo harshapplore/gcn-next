@@ -4,9 +4,12 @@ import { useSelector } from "react-redux";
 import authAxios from "@/setups/axios";
 
 import Button from "@/shared/Button";
+import Message from "@/shared/Message";
 
 const PS7 = ({ next }) => {
   const { seller } = useSelector((state) => state.user);
+
+  const [errors, setErrors] = useState();
 
   const [legalities, setLegalities] = useState({});
   const [activeTab, setActiveTab] = useState({
@@ -21,8 +24,24 @@ const PS7 = ({ next }) => {
     setLegalities(newLegalities);
   };
 
+  const validate = () => {
+    const errors = [];
+
+    if(!legalities.generalConditions) errors.push("General Conditions cannot be empty.");
+    if(!legalities.returnsNRefunds) errors.push("Returns & Refunds policy cannot be empty.");
+    if(!legalities.privacyPolicy) errors.push("Privacy Policy cannot be empty.");
+
+    setErrors(errors);
+
+    if(errors.length) return false;
+
+    return true;
+  }
+
   const submit = async (e) => {
     e.preventDefault();
+
+    if(!validate()) return;
 
     const res = await authAxios()({
       url: `/sellers/${seller.id}`,
@@ -49,14 +68,11 @@ const PS7 = ({ next }) => {
                 Returns &amp;&nbsp;Refunds (Widerrufsbelehrung)
               </h2>
               <div
-                data-duration-in={300}
-                data-duration-out={100}
                 className="w-tabs"
               >
                 <div className="tabs-menu inline w-tab-menu">
                   <a
-                    data-w-tab="Tab 1"
-                    className={
+                    className={ 
                       "terms-lang w-inline-block w-tab-link" +
                       (activeTab.returnsNRefunds === 1 ? " w--current" : "")
                     }
@@ -67,7 +83,6 @@ const PS7 = ({ next }) => {
                     <div>English</div>
                   </a>
                   <a
-                    data-w-tab="Tab 2"
                     className={
                       "terms-lang w-inline-block w-tab-link" +
                       (activeTab.returnsNRefunds === 2 ? " w--current" : "")
@@ -81,7 +96,6 @@ const PS7 = ({ next }) => {
                 </div>
                 <div className="w-tab-content">
                   <div
-                    data-w-tab="Tab 1"
                     className={
                       "w-tab-pane " +
                       (activeTab.returnsNRefunds === 1 ? " w--tab-active" : "")
@@ -274,6 +288,10 @@ const PS7 = ({ next }) => {
                 </div>
               </div>
             </div>
+
+            {errors &&
+            errors.length > 0 &&
+            errors.map((error) => <Message text={error} status={-1} />)}
 
             <div className="center">
               <Button type="secondary" action={submit} name="Save & Continue" />

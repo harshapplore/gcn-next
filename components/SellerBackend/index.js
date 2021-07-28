@@ -10,6 +10,7 @@ import Fetcher from "@/shared/Fetcher";
 
 import ShopHeading from "@/shared/Shop/Heading";
 import ShopNav from "@/shared/Shop/Nav";
+import Footer from "@/shared/Footer2";
 import NavSidebar from "./NavSideBar";
 
 
@@ -88,6 +89,7 @@ const SellerBackend = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

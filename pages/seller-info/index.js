@@ -2,16 +2,7 @@ import styles from "./seller-info.module.scss";
 
 import Button from "@/shared/Button";
 import Footer from "@/shared/Footer2";
-
-const Header = () => {
-  return (
-    <div className={styles.header}>
-      <div className="logo">
-        <img src="" />
-      </div>
-    </div>
-  );
-};
+import Header from "@/shared/Header";
 
 const Nav = () => {
   return (
@@ -106,6 +97,7 @@ const SellerInfo = () => {
   return (
     <>
       <div className={styles.headerWrapper}>
+        <Header />
         <Nav />
       </div>
       <Banner />
