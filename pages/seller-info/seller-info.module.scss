@@ -1,0 +1,114 @@
+.headerWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  .tab {
+    padding: 15px 20px;
+  }
+}
+
+.banner {
+  height: 50vh;
+  background: #e5e5e5;
+
+  display: flex;
+  justify-content: center;
+
+  .ctaButton {
+    position: relative;
+    top: 70%;
+  }
+}
+
+.howItWorks {
+  min-height: 400px;
+  padding-inline: 25px;
+  padding-block: 50px;
+
+  .content {
+    display: flex;
+    justify-content: space-around;
+
+    padding-block: 24px;
+
+    .placeholder {
+      max-width: 250px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      gap: 30px;
+
+      .circle {
+        height: 150px;
+        width: 150px;
+        background: #e5e5e5;
+        border-radius: 100%;
+      }
+
+      .text {
+        text-align: center;
+      }
+    }
+  }
+}
+
+.pricing {
+  padding-inline: 24px;
+  padding-block: 48px;
+
+  .content {
+    padding-block: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    
+    .box {
+      background: #e5e5e5;
+      height: 400px;
+      width: 300px;
+
+      padding: 12px 36px;
+
+      .box-header{
+        height: 100px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-weight: 700;
+        font-size: 24px;
+      }
+
+      .box-header-active{
+        height: 100px;
+        padding-top: 25px;
+      }
+
+      h4{
+        padding-left: 5px;
+      }
+
+      .text{
+        margin-top: 25px;
+      }
+    }
+
+    .active{
+      background: #cee741;
+    }
+  }
+}
