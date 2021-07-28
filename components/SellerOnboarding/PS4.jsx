@@ -1,12 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
 import authAxios from "@/setups/axios";
+import Message from "@/shared/Message";
+import Button from "@/shared/Button";
+
+import { isEmail } from "@/utils/validators";
 
 const PS4 = ({ next }) => {
   const { seller } = useSelector((state) => state.user);
 
   const [contact, setContact] = useState(seller || {});
+  const [errors, setErrors] = useState([]);
 
   const updateContact = (key, value) => {
     const newContact = { ...contact };
@@ -14,8 +19,39 @@ const PS4 = ({ next }) => {
     setContact(newContact);
   };
 
+  const validate = () => {
+    const errors = [];
+
+    if (!contact.firstName) errors.push("Field First Name cannot be empty");
+    if (!contact.lastName) errors.push("Field Last Name cannot be empty");
+    if (!contact.phone) errors.push("Please enter a phone number");
+
+    if (!contact.contactEmail) errors.push("Please enter a phone number");
+    if (!contact.orderManagementEmail)
+      errors.push("Order Management Email cannot be empty.");
+    if (!contact.customerServiceEmail)
+      errors.push("Customer Service email cannot be empty.");
+    if (!contact.returnsEmail) errors.push("Returns email cannot be empty.");
+
+    if (contact.contactEmail && !isEmail(contact.contactEmail))
+      errors.push("Please input a valid contact email");
+    if (contact.orderManagementEmail && !isEmail(contact.orderManagementEmail))
+      errors.push("Please input a valid Order Management Email.");
+    if (contact.customerServiceEmail && !isEmail(contact.customerServiceEmail))
+      errors.push("Please enter a valid Customer Service Email.");
+    if (contact.required && !isEmail(contact.returnsEmail))
+      errors.push("Please input a valid returns email.");
+
+    setErrors(errors);
+    if (errors.length) return false;
+
+    return true;
+  };
+
   const submit = (e) => {
     e.preventDefault();
+
+    if (!validate()) return;
 
     const res = authAxios()({
       url: `/sellers/${seller.id}`,
@@ -105,21 +141,13 @@ const PS4 = ({ next }) => {
               />
             </div>
             <div className="center">
-              <input
-                type="submit"
-                defaultValue="Save & Continue"
-                data-wait="Please wait..."
-                className="button blue w-button"
-                onClick={submit}
-              />
+              <Button type="secondary" action={submit} name="Save & Continue" />
             </div>
           </form>
-          <div className="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-          <div className="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form.</div>
-          </div>
+
+          {errors &&
+            errors.length > 0 &&
+            errors.map((error) => <Message text={error} status={-1} />)}
         </div>
       </div>
     </div>

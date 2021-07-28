@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import authAxios from "@/setups/axios";
+
 import Select from "@/shared/Select";
+import Message from "@/shared/Message";
+
+import Button from "@/shared/Button";
 
 const PS3 = ({ next }) => {
   const { seller } = useSelector((state) => state.user);
@@ -18,6 +22,7 @@ const PS3 = ({ next }) => {
     const errs = [];
 
     if (!shop.name) errs.push("Shop Name Cannot be empty");
+    if(!shop.postalCode) errs.push("Postal Code cannot be empty.");
     if (!shop.streetAddress) errs.push("Street Address cannot be empty.");
     if (!shop.city) errs.push("City cannot be empty. Please fill in.");
     if (!shop.country) errs.push("Country cannot be empty.");
@@ -26,6 +31,9 @@ const PS3 = ({ next }) => {
     if (!shop.currency) errs.push("Please choose your preffered currency.");
     if (!shop.serviceableCountries)
       errs.push("Please choose Serviceable Countries");
+
+    // Check Postal Code Format
+    // Check VAT Format
 
     setErrors(errs);
 
@@ -191,13 +199,7 @@ const PS3 = ({ next }) => {
               />
             </div>
             <div className="center">
-              <input
-                type="submit"
-                defaultValue="Save & Continue"
-                data-wait="Please wait..."
-                className="button blue w-button"
-                onClick={submit}
-              />
+              <Button type="secondary" action={submit} name="Save & Continue"/>
             </div>
           </form>
 

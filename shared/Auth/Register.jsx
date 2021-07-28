@@ -6,7 +6,6 @@ import { UPDATE_ROLE_URL } from "@/config/constants";
 import { axios } from "@/setups/axios";
 
 import Select from "@/shared/Select";
-import Checkbox from "@/shared/Checkbox";
 import Message from "@/shared/Message";
 import CheckBox from "@/shared/Checkbox";
 
@@ -136,7 +135,6 @@ const Register = ({ close }) => {
                     <input
                       type="text"
                       className="text-field w-input"
-                      maxLength={256}
                       placeholder="Name"
                       value={data.name}
                       onChange={(e) => updateData("name", e.target.value)}
@@ -145,9 +143,7 @@ const Register = ({ close }) => {
                     <input
                       type="text"
                       className="text-field w-input"
-                      maxLength={256}
                       placeholder="Email Address"
-                      required
                       value={data.email || ""}
                       onChange={(e) => updateData("email", e.target.value)}
                     />
@@ -155,9 +151,7 @@ const Register = ({ close }) => {
                     <input
                       type="text"
                       className="text-field w-input"
-                      maxLength={256}
                       placeholder="Password"
-                      required
                       value={data.password || ""}
                       onChange={(e) => updateData("password", e.target.value)}
                     />
@@ -168,6 +162,7 @@ const Register = ({ close }) => {
                         "Second Choice",
                         "Third Choice",
                       ]}
+                      defaultValue="Region"
                       value={data.choice}
                       setValue={(value) => updateData("choice", value)}
                     />
@@ -185,6 +180,13 @@ const Register = ({ close }) => {
                         value={data.terms}
                         setValue={(value) => updateData("terms", value)}
                       />
+                      <div className="privacy-lorem-ipsum"> 
+                        Lorem Ipsum is simply dummy text of the printing and
+                        typesetting industry. Lorem Ipsum has been the
+                        industry's standard dummy text ever since the 1500s,
+                        when an unknown printer took a galley of type and
+                        scrambled it to make a type specimen book.
+                      </div>
                     </div>
                     <div className="center">
                       <input

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import authAxios from "@/setups/axios";
 
 import CheckBox from "@/shared/Checkbox";
+import Button from "@/shared/Button";
 
 const PS5 = ({ next }) => {
   const { seller } = useSelector((state) => state.user);
@@ -79,13 +80,7 @@ const PS5 = ({ next }) => {
             </div>
 
             <div className="center">
-              <input
-                type="submit"
-                defaultValue="Save & Continue"
-                data-wait="Please wait..."
-                className="button blue w-button"
-                onClick={submit}
-              />
+              <Button type="secondary" action={submit} name="Save & Continue" />
             </div>
           </form>
         </div>

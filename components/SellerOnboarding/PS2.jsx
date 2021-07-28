@@ -1,6 +1,15 @@
 import { useSelector } from "react-redux";
 import authAxios from "@/setups/axios";
 
+
+const PricingOptionBox = () => {
+  return <div className="">
+    <div className="">Heading 1X </div>
+    
+  </div>
+}
+
+
 const PS2 = ({ nextPage }) => {
   const { seller } = useSelector((state) => state.user);
 
@@ -39,9 +48,6 @@ const PS2 = ({ nextPage }) => {
         <div className="mb-60">
           <div className="w-form">
             <form
-              id="email-form-6"
-              name="email-form-6"
-              data-name="Email Form 6"
             >
               <div className="swiper-container">
                 <div className="swiper-wrapper">
@@ -62,7 +68,6 @@ const PS2 = ({ nextPage }) => {
                         <input
                           type="submit"
                           defaultValue="Select"
-                          data-wait="Please wait..."
                           className="button blue w-button"
                           onClick={(e) => submit(e, "Plan A")}
                         />
@@ -93,7 +98,6 @@ const PS2 = ({ nextPage }) => {
                         <input
                           type="submit"
                           defaultValue="Select"
-                          data-wait="Please wait..."
                           className="button blue w-button"
                           onClick={(e) => submit(e, "Plan B")}
                         />
@@ -120,7 +124,6 @@ const PS2 = ({ nextPage }) => {
                         <input
                           type="submit"
                           defaultValue="Select"
-                          data-wait="Please wait..."
                           className="button blue w-button"
                           onClick={(e) => submit(e, "Plan C")}
                         />
@@ -131,12 +134,6 @@ const PS2 = ({ nextPage }) => {
                 <div className="swiper-pagination" />
               </div>
             </form>
-            <div className="w-form-done">
-              <div>Thank you! Your submission has been received!</div>
-            </div>
-            <div className="w-form-fail">
-              <div>Oops! Something went wrong while submitting the form.</div>
-            </div>
           </div>
         </div>
       </div>

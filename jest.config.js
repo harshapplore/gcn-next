@@ -7,6 +7,6 @@ module.exports = {
   }),
   transform: {
     "^.+\\.(js|jsx)$": "babel-jest",
-    "^.+\\.svg$": "<rootDir>/transforms/svg.js"
+    "^.+\\.svg$": "<rootDir>/tests/svg.js"
   }
 };

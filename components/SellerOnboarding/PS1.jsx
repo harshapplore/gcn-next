@@ -6,6 +6,7 @@ import { authAxios } from "@/setups/axios";
 import Select from "@/shared/Select";
 import CheckBox from "@/shared/Checkbox";
 import Message from "@/shared/Message";
+import Button from "@/shared/Button";
 
 const data = {
   heading: "Hello Thomas, let's get started!",
@@ -52,9 +53,9 @@ const PS1 = ({ nextPage }) => {
   const validate = () => {
     const err = [];
 
-    answers.map((answer) =>
+    answers.map((answer, index) =>
       !answer.answer
-        ? err.push("One or more questions have not been answered.")
+        ? err.push(`The answer for question "${data.questions[index]}" is missing.`)
         : ""
     );
 
@@ -166,16 +167,11 @@ const PS1 = ({ nextPage }) => {
               />
             </div>
 
-            {errors && errors.length > 0 && (
-              <Message text={errors[0]} status={-1} />
-            )}
+            {errors && errors.length > 0 && errors.map(error => 
+              <Message text={error} status={-1} />)
+            }
 
-            <input
-              type="submit"
-              value="Continue"
-              className="button blue w-button"
-              onClick={submit}
-            />
+            <Button name="Save & Continue" action={submit} type="secondary" />
           </form>
         </div>
       </div>

@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 
 import Link from "next/link";
-
 import QS from "query-string";
 
 import { fetchCategories } from "@/slices/categories";
@@ -76,13 +75,11 @@ export const ShopProduct = ({ id, name, seller, price, image }) => {
             src="/images/favorite-border-black-24-dp-2.svg"
             loading="lazy"
             width={25}  
-            alt="Like"
             className="orange-heart"
           />
           <img
             src="/images/favorite-border-black-24-dp_1.svg"
             loading="lazy"
-            alt="Like"
             className="heart"
           />
         </a>
