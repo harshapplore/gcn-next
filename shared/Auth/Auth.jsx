@@ -10,6 +10,14 @@ import { fetchUser } from "@/slices/user";
 import AuthForm from "./AuthForm";
 
 const routes = {
+  "/seller-onboarding": {
+    auth: true,
+    type: "seller",
+  },
+  "/seller-onboarding/[section]": {
+    auth: true,
+    type: "seller",
+  },
   "/seller-backend/[section]": {
     auth: true,
     type: "seller",

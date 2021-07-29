@@ -77,7 +77,3 @@ select {
   padding-inline: 30px;
   width: 450px;
 }
-
-html{
-  scroll-behavior: smooth;
-}

@@ -10,6 +10,7 @@ import "@/assets/styles/globals.css";
 import "@/assets/styles/webflow.css";
 import "@/assets/styles/gc9-webflow.css";
 import "@/assets/styles/overwrite.css";
+import "@/assets/styles/new.css";
 
 function MyApp({ Component, pageProps }) {
   return (

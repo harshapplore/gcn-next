@@ -34,6 +34,8 @@ const SellerOnboarding = () => {
   const getSeller = useCallback(() => dispatch(fetchSeller()), [dispatch]);
 
   useEffect(() => {
+    window.scrollTo(0, 100);
+
     const { section } = router.query;
 
     const index = pages.findIndex((page) => page === section);

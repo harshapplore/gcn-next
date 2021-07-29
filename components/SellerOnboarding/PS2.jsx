@@ -1,17 +1,39 @@
 import { useSelector } from "react-redux";
 import authAxios from "@/setups/axios";
 
+import Button from "@/shared/Button";
 
-const PricingOptionBox = () => {
-  return <div className="">
-    <div className="">Heading 1X </div>
-    
-  </div>
-}
+import styles from "./onboarding.module.scss";
 
+const PricingBlock = ({ name, text, action }) => {
+  return (
+    <div className={styles["pricing-block"]}>
+      <div className="">
+      <h3> {name}</h3>
+      <p> {text} </p>
+      </div>
+      <Button type="secondary" action={action} name="Select" />
+    </div>
+  );
+};
 
 const PS2 = ({ nextPage }) => {
   const { seller } = useSelector((state) => state.user);
+
+  const plans = [
+    {
+      name: "Plan One",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae ean fd rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.",
+    },
+    {
+      name: "Plan Two",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae ean fd rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.",
+    },
+    {
+      name: "Plan Three",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae ean fd rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.",
+    },
+  ];
 
   const submit = async (e, planType) => {
     e.preventDefault();
@@ -36,7 +58,6 @@ const PS2 = ({ nextPage }) => {
       <div className="container">
         <div className="heading-wrapper mb-40">
           <h1>Pricing Plan</h1>
-          <div className="overline-text mb-40">Seller Questionaire</div>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
             varius enim in eros elementum tristique. Duis cursus, mi quis
@@ -45,98 +66,14 @@ const PS2 = ({ nextPage }) => {
             imperdiet. Nunc ut sem vitae risus tristique posuere.
           </p>
         </div>
-        <div className="mb-60">
-          <div className="w-form">
-            <form
-            >
-              <div className="swiper-container">
-                <div className="swiper-wrapper">
-                  <div className="swiper-slide">
-                    <div className="pricing-item">
-                      <div className="mb-40">
-                        <h2>Pricing Option 1</h2>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Suspendisse varius enim in eros elementum
-                          tristique. Duis cursus, mi quis viverra ornare, eros
-                          dolor interdum nulla, ut commodo diam libero vitae ean
-                          fd rutrum lorem imperdiet. Nunc ut sem vitae risus
-                          tristique posuere.
-                        </p>
-                      </div>
-                      <div className="center">
-                        <input
-                          type="submit"
-                          defaultValue="Select"
-                          className="button blue w-button"
-                          onClick={(e) => submit(e, "Plan A")}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="swiper-slide">
-                    <div className="pricing-item">
-                      <div className="mb-40">
-                        <h2>Pricing Option 2</h2>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Suspendisse varius enim in eros elementum
-                          tristique. Duis cursus, mi quis viverra ornare, eros
-                          dolor interdum nulla, ut commodo diam libero vitae
-                          erat. Aenean faucibus nibh et justo cursus id rutrum
-                          lorem imperdiet. Nunc ut sem vitae risus tristique
-                          posuere. Lorem ipsum dolor sit amet, consectetur
-                          adipiscing elit. Suspendisse vim in eros elementum
-                          tristique. Duis cursus, mi quis viverra ornare, eros
-                          dolor interdum nulla, ut commodo diam libero vitae
-                          erat. Aenean faucibus nibh et justo cursus id rutrum
-                          lorem imperdiet. Nunc ut sem vitae risus tristique
-                          posuere.
-                        </p>
-                      </div>
-                      <div className="center">
-                        <input
-                          type="submit"
-                          defaultValue="Select"
-                          className="button blue w-button"
-                          onClick={(e) => submit(e, "Plan B")}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="swiper-slide">
-                    <div className="pricing-item">
-                      <div className="mb-40">
-                        <h2>Pricing Option 3</h2>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Suspendisse varius enim in eros elementum
-                          tristique. Duis cursus, mi quis viverra ornare, eros
-                          dolor interdum nulla, ut commodo diam libero vitae
-                          erat. Aenean fauci in eros elementum tristique. Duis
-                          cursus, mi quis viverra ornare, eros dolor interdum
-                          nulla, ut commodo diam libero vitae erat. Aenean
-                          faucibus nibh et justo cursus id rutrum lorem
-                          imperdiet. Nunc ut sem vitae risus tristique posuere.
-                        </p>
-                      </div>
-                      <div className="center">
-                        <input
-                          type="submit"
-                          defaultValue="Select"
-                          className="button blue w-button"
-                          onClick={(e) => submit(e, "Plan C")}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="swiper-pagination" />
-              </div>
-            </form>
-          </div>
+
+        <div className={styles["pricing-container"]}>
+          {plans.map((plan) => (
+            <PricingBlock name={plan.name} text={plan.text} action={(e) => submit(e, plan.name)} />
+          ))}
         </div>
       </div>
+      
     </div>
   );
 };
