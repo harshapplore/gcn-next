@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import styles from "./button.module.scss";
 
 const ButtonComponent = styled.div`
   cursor: pointer;
@@ -30,6 +29,37 @@ const ButtonComponent = styled.div`
   }
 `;
 
+const OutlinedButtonComponent = styled.div`
+  cursor: pointer;
+
+  background: #fff;
+  color: ${({ type }) => (type === "secondary" ? "#003c6e" : "#80a647")};
+  border: ${({ type }) =>
+    type === "secondary" ? "2px solid #003c6e" : "2px solid #80a647"};
+
+  display: inline-block;
+
+  padding: 16px 22px;
+  line-height: 24px;
+  letter-spacing: 1.25px;
+
+  border-radius: 5px;
+
+  font-weight: 500;
+  font-family: Rubik, sans-serif;
+
+  text-transform: ${({ caps }) => (caps ? "uppercase" : "none")};
+
+  &:hover {
+    border: ${({ type }) =>
+      type === "secondary" ? "1.5px solid #1a689e" : "1.5px solid #6c8c3c"};
+  }
+
+  &:active {
+    transform: translate(0px, 3px);
+  }
+`;
+
 export const Button = ({ name, action, type, caps }) => {
   return (
     <>
@@ -37,6 +67,14 @@ export const Button = ({ name, action, type, caps }) => {
         {name}
       </ButtonComponent>
     </>
+  );
+};
+
+export const OutlinedButton = ({ name, action, type, caps }) => {
+  return (
+    <OutlinedButtonComponent type={type} caps={caps} onClick={action}>
+      {name}
+    </OutlinedButtonComponent>
   );
 };
 

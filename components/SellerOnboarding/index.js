@@ -6,8 +6,10 @@ import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUser, fetchSeller } from "@/slices/user";
 
-import Nav from "@/shared/Nav";
 import Footer from "@/shared/Footer2";
+import Header from "@/shared/Header";
+
+import Nav from "./Nav";
 
 import GetStarted from "./PS1";
 import Pricing from "./PS2";
@@ -60,7 +62,7 @@ const SellerOnboarding = () => {
       <Head>
         <title> Seller Onboarding | Greeen Cloud Nine </title>
       </Head>
-      <Nav />
+      <Header Nav={Nav}/>
       {/* Let's get Started  */}
       {activePageIndex === 0 && <GetStarted nextPage={nextPage} />}
       {/* Choose Pricing Plan */}

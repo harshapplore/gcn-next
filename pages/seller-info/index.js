@@ -1,15 +1,20 @@
+import { useState, useEffect } from "react";
 import styles from "./seller-info.module.scss";
 
 import Button from "@/shared/Button";
 import Footer from "@/shared/Footer2";
-import Header from "@/shared/Header";
+import Header, { HeaderWrapper } from "@/shared/Header";
+
+import { scrollToElement } from "utils/scroll";
 
 const Nav = () => {
+
+
   return (
     <div className={styles.nav}>
-      <div className={styles.tab}>How it Works</div>
-      <div className={styles.tab}>Pricing</div>
-      <div className={styles.tab}>Get Started</div>
+      <div className={styles.tab} onClick={() => scrollToElement('#how-it-works')}>How it Works</div>
+      <div className={styles.tab} onClick={() => scrollToElement("#pricing")}>Pricing</div>
+      <div className={styles.tab} onClick={() => {}} >Get Started</div>
     </div>
   );
 };
@@ -41,7 +46,7 @@ const HowItWorks = () => {
   };
 
   return (
-    <div className={styles.howItWorks}>
+    <div id="how-it-works"  className={styles.howItWorks}>
       <h2> How it Works</h2>
       <div className={styles.content}>
         <Placeholder />
@@ -70,7 +75,7 @@ const Pricing = () => {
   };
 
   return (
-    <div className={styles.pricing}>
+    <div id="pricing" className={styles.pricing}>
       <h2> Pricing </h2>
       <div className={styles.content}>
         <div className={[styles.box, styles.active].join(" ")}>
@@ -94,12 +99,14 @@ const Pricing = () => {
 };
 
 const SellerInfo = () => {
+
+  useEffect(() => {
+    window.scrollTo(0,0);
+  }, []);
+
   return (
     <>
-      <div className={styles.headerWrapper}>
-        <Header />
-        <Nav />
-      </div>
+      <HeaderWrapper Nav={Nav} />
       <Banner />
       <HowItWorks />
       <Pricing />
