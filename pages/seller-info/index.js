@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
+import Head from "next/head";
 import styles from "./seller-info.module.scss";
 
 import Button from "@/shared/Button";
@@ -94,6 +95,9 @@ const Pricing = () => {
         <Box name="B" />
         <Box name="C" />
       </div>
+      <div className={styles['sell-button-ctr']}>
+      <Button type="secondary" name="Start Selling Now" />
+      </div>
     </div>
   );
 };
@@ -106,6 +110,7 @@ const SellerInfo = () => {
 
   return (
     <>
+      <Head> Seller Info | Green Cloud Nine </Head>
       <HeaderWrapper Nav={Nav} />
       <Banner />
       <HowItWorks />
