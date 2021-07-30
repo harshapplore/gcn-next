@@ -27,7 +27,7 @@ const ShopNavContainer = styled.div`
       border-radius: 50%;
 
       background-repeat: no-repeat;
-      background-size: 200px;
+      background-size: 200px 200px;
       border: 0.5px solid rgba(0,0,0,0.05);
       box-shadow: 0 1px 3px -1px rgba(0,0,0, 0.35);
 
