@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,6 +9,8 @@ import AccountIcon from "@/assets/images/account-icon.svg";
 import CartIcon from "@/assets/images/cart-icon.svg";
 import FavIcon from "@/assets/images/favorite-border.svg";
 import ButtonIcon from "@/assets/images/button-icon.svg";
+
+import AuthForm from "@/shared/Auth/AuthForm";
 
 const NavLink = ({ text, route }) => {
   return (
@@ -32,8 +36,12 @@ const NavWrapper = ({ children }) => {
 };
 
 const Navigation = () => {
+  const [showAuth, setShowAuth] = useState(false);
+
   return (
     <>
+      {showAuth && <AuthForm close={() => setShowAuth(false)} />}
+
       <div className="navbar-top">
         {/* GCN Logo */}
         <div className="brand-wrapper">
@@ -60,7 +68,11 @@ const Navigation = () => {
           <a href="#" className="icon-nav w-inline-block">
             <img {...FavIcon} alt="Favorite Icon" />
           </a>
-          <a href="#" className="icon-nav w-inline-block">
+          <a
+            href="#"
+            className="icon-nav w-inline-block"
+            onClick={() => setShowAuth(true)}
+          >
             <img {...AccountIcon} alt="Account" />
           </a>
           <a href="#" className="icon-nav w-inline-block">
@@ -85,7 +97,7 @@ const Navigation = () => {
         <NavLink route="/" text="Food & Drink" />
         <NavLink route="/" text="Fashion" />
         <NavLink route="/" text="Accessory & Jewellery" />
-        
+
         <a href="/" className="nav-link promise w-inline-block">
           <div className="text-block">Our Promise</div>
         </a>

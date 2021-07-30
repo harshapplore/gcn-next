@@ -5,7 +5,7 @@ import Login from "./Login";
 
 import { loginUser, registerUser, putRole } from "@/controllers/auth";
 
-const Form = () => {
+const Form = ({ close }) => {
   const [showForm, setShowForm] = useState("login");
 
   const showLoginForm = () => setShowForm("login");
@@ -13,8 +13,10 @@ const Form = () => {
 
   return (
     <>
-      {showForm === "login" && <Login showRegister={showRegisterForm} />}
-      {showForm === "register" && <Register />}
+      {showForm === "login" && (
+        <Login showRegister={showRegisterForm} close={close} />
+      )}
+      {showForm === "register" && <Register close={close} />}
     </>
   );
 };
