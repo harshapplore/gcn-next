@@ -98,8 +98,8 @@ const PS9 = () => {
             />
 
             {shop.images &&
-              shop.images.map((image) => (
-                <div className={styles["shop-image"]}>
+              shop.images.map((image, index) => (
+                <div key={"img-"+index} className={styles["shop-image"]}>
                   <img
                     className={styles["image"]}
                     sizes="150px"

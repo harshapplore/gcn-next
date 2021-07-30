@@ -19,6 +19,10 @@ const BannerContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 700px){
+    display: none;
+  }
 `;
 
 const ShopBanner = ({ cover, edit }) => {

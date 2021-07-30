@@ -52,7 +52,9 @@ const Nav = () => {
 
     if(index>=2 && index <6) {
       setActiveTab(2);
-    }else{
+    }else if(index >=7){
+      setActiveTab(7);
+    } else{
       setActiveTab(index);
     }
   }, [router]);

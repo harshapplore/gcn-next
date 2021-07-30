@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import styles from "./onboarding.module.scss";
 
 import { useSelector } from "react-redux";
 import authAxios from "@/setups/axios";
 
 import Message from "@/shared/Message";
+import Button from "@/shared/Button";
 
 const PS8 = ({ next }) => {
   const { seller } = useSelector((state) => state.user);
@@ -11,6 +13,10 @@ const PS8 = ({ next }) => {
   const [shop, setShop] = useState(seller.shop || "");
 
   const [err, setErr] = useState("");
+
+  useEffect(() => {
+    if (seller.shop && seller.shop.id) setShop(seller.shop);
+  }, [seller]);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -32,32 +38,18 @@ const PS8 = ({ next }) => {
   };
 
   return (
-    <div className="page-section">
-      <div className="container">
-        <div className="heading-wrapper mb-40">
-          <h1>Name your shop</h1>
+    <div className={styles["shop-name-ctr"]}>
+      <h1> Name your Shop </h1>
+      <div className={styles["text-ctr"]}>
+        <div className={styles["input-ctr"]}>
+          <input
+            type="text"
+            value={shop.name || ""}
+            placeholder="Thomas' Soap Shop"
+            onChange={(e) => setShop({ ...shop, name: e.target.value })}
+          />
         </div>
-        <div className="w-form">
-          <form id="email-form-3" name="email-form-3" data-name="Email Form 3">
-            <input
-              type="text"
-              className="text-field mb-20 w-input"
-              maxLength={80}
-              placeholder="Thomas' Soap Shop"
-              value={shop.name || ""}
-              onChange={(e) => setShop({ ...shop, name: e.target.value })}
-              required
-            />
-            <input
-              type="submit"
-              defaultValue="Save & Continue"
-              data-wait="Please wait..."
-              className="button blue w-button"
-              onClick={submit}
-            />
-          </form>
-          {err && <Message text={err} status={-1} />}
-        </div>
+        <Button type="secondary" name="Save & Continue" action={submit} />
       </div>
     </div>
   );
