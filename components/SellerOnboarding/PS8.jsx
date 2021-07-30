@@ -4,6 +4,8 @@ import styles from "./onboarding.module.scss";
 import { useSelector } from "react-redux";
 import authAxios from "@/setups/axios";
 
+import {} from "@/controllers/shop";
+
 import Message from "@/shared/Message";
 import Button from "@/shared/Button";
 
@@ -13,10 +15,18 @@ const PS8 = ({ next }) => {
   const [shop, setShop] = useState(seller.shop || "");
 
   const [err, setErr] = useState("");
+  const [availablility, setAvailability] = useState();
 
   useEffect(() => {
     if (seller.shop && seller.shop.id) setShop(seller.shop);
   }, [seller]);
+
+  const checkAvailability = async () => {
+    setAvailability(null);
+
+    const res = await 
+
+  }
 
   const submit = async (e) => {
     e.preventDefault();
@@ -49,6 +59,9 @@ const PS8 = ({ next }) => {
             onChange={(e) => setShop({ ...shop, name: e.target.value })}
           />
         </div>
+
+        {availablility && }
+        
         <Button type="secondary" name="Save & Continue" action={submit} />
       </div>
     </div>

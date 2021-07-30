@@ -243,7 +243,10 @@ const Register = ({ close }) => {
                 )}
 
                 {data.type === "seller" && (
-                  <div className="sell">
+                  <div
+                    className="sell"
+                    onClick={() => router.push("/seller-info")}
+                  >
                     <div className="mb-20">Sell on Green Cloud Nine</div>
                     <a
                       href="/seller-info"
