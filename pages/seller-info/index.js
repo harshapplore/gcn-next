@@ -8,15 +8,20 @@ import Header, { HeaderWrapper } from "@/shared/Header";
 
 import { scrollToElement } from "utils/scroll";
 
-const Nav = () => {
+import AuthForm from "@/shared/Auth/AuthForm";
 
+const Nav = () => {
+  const [showAuth, setShowAuth] = useState(false);
 
   return (
+    <>
+    { showAuth && <AuthForm close={() => setShowAuth(false)}/> }
     <div className={styles.nav}>
       <div className={styles.tab} onClick={() => scrollToElement('#how-it-works')}>How it Works</div>
       <div className={styles.tab} onClick={() => scrollToElement("#pricing")}>Pricing</div>
-      <div className={styles.tab} onClick={() => {}} >Get Started</div>
+      <div className={styles.tab} onClick={() => setShowAuth(true)} >Get Started</div>
     </div>
+    </>
   );
 };
 

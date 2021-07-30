@@ -7,6 +7,8 @@ import LikeIcon from "@/assets/icons/heart.svg";
 import CartIcon from "@/assets/icons/cart.svg";
 import UserIcon from "@/assets/icons/user.svg";
 
+import AuthForm from "@/shared/Auth/AuthForm";
+
 const HeaderWrapperContainer = styled.div`
   position: fixed;
   top: 0;
@@ -99,10 +101,12 @@ const MobileSearchContainer = styled.div`
 
 const HeaderDesktop = () => {
   const [search, setSearch] = useState("");
-  const [showLogin, setShowLogin] = useState(false);
+  const [showAuth, setShowAuth] = useState(false);
 
   return (
     <HeaderContainer>
+      {showAuth && <AuthForm close={() => setShowAuth(false)} /> }
+
       <div className="logo">
         <img src={GC9Logo.src} alt="Green Cloud Logo" />
       </div>
@@ -127,7 +131,7 @@ const HeaderDesktop = () => {
         <span>
           <img src={LikeIcon.src} alt="saved_items" />
         </span>
-        <span>
+        <span onClick={() => setShowAuth(true)}>
           <img src={UserIcon.src} alt="user_icon" />
         </span>
         <span>
