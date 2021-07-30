@@ -115,6 +115,14 @@
   justify-content: center;
   align-items: center;
 
+  .not-available{
+    background: var(--error);
+    color: var(--white);
+    margin-block: 12px;
+    padding: 12px 24px;
+    border-radius: 50px;
+  }
+
   h1 {
     align-self: flex-start;
   }

@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { v4 } from "uuid";
 
 import { fetchSeller } from "@/slices/user";
 
-import { authAxios, axios } from "@/setups/axios";
+import { authAxios } from "@/setups/axios";
 
 import ShopBanner from "@/shared/Shop2";
 import ShopNav from "@/shared/Shop2/Nav";
@@ -36,7 +35,6 @@ const PS9 = () => {
   const uploadMultiple = async (e, data) => {
     e.preventDefault();
 
-    const files = e.target.files;
     const formData = new FormData();
 
     formData.append("files", e.target.files[0], seller.id);
