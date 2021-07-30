@@ -81,15 +81,12 @@ const Navigation = () => {
       <nav role="navigation" className="nav-menu w-nav-menu">
         <NavLink route="/" text="Cosmetics" />
         <NavLink route="/seller-onboarding" text="Mother & Child" />
-        <NavLink route="/" text="Home & Household" />
+        <NavLink route="/seller-backend" text="Home & Household" />
         <NavLink route="/" text="Food & Drink" />
         <NavLink route="/" text="Fashion" />
         <NavLink route="/" text="Accessory & Jewellery" />
         
         <a href="/" className="nav-link promise w-inline-block">
-          <div className="button-icon w-embed">
-            <img {...ButtonIcon} alt="" />
-          </div>
           <div className="text-block">Our Promise</div>
         </a>
         <div className="mobile-menu-bar">
