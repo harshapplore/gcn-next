@@ -9,7 +9,7 @@ const Form = () => {
   const [showForm, setShowForm] = useState("login");
 
   const showLoginForm = () => setShowForm("login");
-  const showRegisterForm = () => setShowRegister("register");
+  const showRegisterForm = () => setShowForm("register");
 
   return (
     <>

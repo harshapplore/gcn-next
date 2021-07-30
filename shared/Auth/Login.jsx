@@ -41,6 +41,8 @@ const SignIn = ({ close, showRegister }) => {
   const submit = async (e) => {
     e.preventDefault();
 
+    setErrors([]);
+
     if (!validate()) {
       console.log(errors);
       return;
@@ -55,6 +57,9 @@ const SignIn = ({ close, showRegister }) => {
       },
     }).catch((error) => {
       console.log(error, error.response);
+
+      setErrors(["Incorrect Email or Password. Please try again."]);
+
       return;
     });
 
