@@ -15,7 +15,7 @@ const Header = ({ nav }) => {
 
   return (
     <div className="navbar">
-      {showForm && <AuthForm close={() => setShowForm(false)}/>}
+      {showForm && <AuthForm close={() => setShowForm(false)} />}
 
       <div className="navbar-top">
         <div className="brand-wrapper" onClick={() => router.push("/")}>
@@ -49,7 +49,13 @@ const Header = ({ nav }) => {
         </div>
         <div className="clearfix" />
         <div className="right-icon-nav">
-          {!user.id && <Button type="secondary" name="Login / Register" action={() => setShowForm(true)}/>}
+          {!user.id && (
+            <Button
+              type="secondary"
+              name="Login / Register"
+              action={() => setShowForm(true)}
+            />
+          )}
 
           {user.id && (
             <>
@@ -60,20 +66,35 @@ const Header = ({ nav }) => {
                   alt="icon"
                 />
               </a>
-              <a className="icon-nav w-inline-block">
+              <a
+                className="icon-nav w-inline-block"
+                onClick={() =>
+                  router.push(
+                    user.type === "seller"
+                      ? "/seller-backend"
+                      : "/customer-backend"
+                  )
+                }
+              >
                 <img
                   src="/images/account-circle-black-24-dp.svg"
                   loading="lazy"
                   alt="Account"
                 />
               </a>
-              <a className="icon-nav w-inline-block">
-                <img
-                  src="/images/local-mall-black-24-dp.svg"
-                  loading="lazy"
-                  alt="Shopping Cart"
-                />
-              </a>{" "}
+
+              {!user.type === "seller" && (
+                <a
+                  className="icon-nav w-inline-block"
+                  onClick={() => router.push("/cart")}
+                >
+                  <img
+                    src="/images/local-mall-black-24-dp.svg"
+                    loading="lazy"
+                    alt="Shopping Cart"
+                  />
+                </a>
+              )}
             </>
           )}
         </div>

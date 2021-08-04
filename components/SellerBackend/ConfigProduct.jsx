@@ -132,6 +132,12 @@ const ConfigProduct = () => {
     }
   };
 
+  const handleNext = (e) => {
+    save(e);
+
+    router.push(`${BASE_ROUTE + PRODUCTS}?action=add`);
+  };
+
   return (
     <div className="dynamic-content">
       <div className="heading-wrapper mb-40">
@@ -468,8 +474,9 @@ const ConfigProduct = () => {
           />
           <input
             type="submit"
-            value="Save & Add New Product"
+            value="Next Product"
             className="button blue secondary w-button"
+            onClick={handleNext}
           />
         </form>
       </div>

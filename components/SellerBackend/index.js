@@ -1,4 +1,3 @@
-import Nav from "@/shared/Nav";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -8,7 +7,9 @@ import { fetchSeller } from "@/slices/user";
 import Fetcher from "@/shared/Fetcher";
 
 import ShopHeading from "@/shared/Shop/Heading";
-import Footer from "@/shared/Footer2";
+import Header from "@/shared/Header2";
+import Footer from "@/shared/Footer3";
+import Nav from "@/shared/Nav2";
 import NavSidebar from "./NavSideBar";
 
 import ShopBanner from "@/shared/Shop2/Banner";
@@ -32,6 +33,8 @@ import OrderHistory from "./OrderHistory";
 import Shipping from "./Shipping";
 import ConfigProduct from "./ConfigProduct";
 
+import { scrollToElement } from "@/utils/scroll";
+
 const SellerBackend = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -41,8 +44,6 @@ const SellerBackend = () => {
   const [activeAction, setActiveAction] = useState();
 
   useEffect(() => {
-    window.scrollTo(0, 200);
-
     if (!seller.id) dispatch(fetchSeller());
   }, []);
 
@@ -60,16 +61,20 @@ const SellerBackend = () => {
     setActiveAction(action);
   }, [router]);
 
+  useEffect(() => {
+    scrollToElement("#backend-view");
+  }, [router.query]);
+
   return (
     <>
-      <Nav />
+      <Header nav={<Nav />} />
       <div className="page-section pt-0">
         <ShopBanner />
         <ShopNav isSellerPage />
 
         <div className={styles["shop-main-ctr"]}>
-          <div className={styles["side-ctr"]}>
-            <Sidebar activePage={activePage}/>
+          <div className={styles["side-ctr"]} id="backend-view">
+            <Sidebar activePage={activePage} />
           </div>
           <div className={styles["right-ctr"]}>
             <div className="container">

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
 import { fetchSeller } from "@/slices/user";
 
@@ -12,6 +13,7 @@ import { Button, OutlinedButton } from "@/shared/Button";
 import styles from "./onboarding.module.scss";
 
 const PS9 = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const { seller } = useSelector((state) => state.user);
 
@@ -71,6 +73,8 @@ const PS9 = () => {
       method: "PUT",
       data: data,
     });
+
+    if (res) router.push("/seller-backend");
   };
 
   return (
@@ -97,7 +101,7 @@ const PS9 = () => {
 
             {shop.images &&
               shop.images.map((image, index) => (
-                <div key={"img-"+index} className={styles["shop-image"]}>
+                <div key={"img-" + index} className={styles["shop-image"]}>
                   <img
                     className={styles["image"]}
                     sizes="150px"
@@ -133,14 +137,26 @@ const PS9 = () => {
 
             {activeTab === tabs[0] && (
               <div className={styles["textbox-container"]}>
-                <textarea value={data.description} placeholder="Short Description" onChange={e => setData({...data, description: e.target.value})} />
+                <textarea
+                  value={data.description}
+                  placeholder="Short Description"
+                  onChange={(e) =>
+                    setData({ ...data, description: e.target.value })
+                  }
+                />
               </div>
             )}
 
             {activeTab === tabs[1] && (
               <div className={styles["textbox-container"]}>
-              <textarea value={data.descriptionInGerman} placeholder="Short Description (German)" onChange={e => setData({...data, descriptionInGerman: e.target.value})} />
-            </div>
+                <textarea
+                  value={data.descriptionInGerman}
+                  placeholder="Short Description (German)"
+                  onChange={(e) =>
+                    setData({ ...data, descriptionInGerman: e.target.value })
+                  }
+                />
+              </div>
             )}
           </div>
 

@@ -13,24 +13,24 @@ const Footer = () => {
             </div>
             <div className="social-wrapper">
               <a className="social-icon first w-inline-block">
-                <img src="images/group-3.svg" loading="lazy" alt="Pinterest" />
+                <img src="/images/group-3.svg" loading="lazy" alt="Pinterest" />
               </a>
               <a className="social-icon w-inline-block">
-                <img src="images/group-2.svg" loading="lazy" alt="Twitter" />
+                <img src="/images/group-2.svg" loading="lazy" alt="Twitter" />
               </a>
               <a className="social-icon w-inline-block">
-                <img src="images/group.svg" loading="lazy" alt="Instagram" />
+                <img src="/images/group.svg" loading="lazy" alt="Instagram" />
               </a>
               <a className="social-icon w-inline-block">
                 <img
-                  src="images/facebook-black-24-dp.svg"
+                  src="/images/facebook-black-24-dp.svg"
                   loading="lazy"
                   alt="Facebook"
                 />
               </a>
               <a className="social-icon last w-inline-block">
                 <img
-                  src="images/share-black-24-dp.svg"
+                  src="/images/share-black-24-dp.svg"
                   loading="lazy"
                   alt="Share"
                 />

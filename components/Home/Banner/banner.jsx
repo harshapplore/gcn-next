@@ -30,7 +30,6 @@ const Banner = () => {
           </div>
           <div
             className="button icon blue mx-10 w-inline-block"
-            onClick={() => setShowSignIn(true)}
           >
             <div className="button-icon w-embed">
               <img src={UpIcon.src} alt="" />
