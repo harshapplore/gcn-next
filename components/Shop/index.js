@@ -1,10 +1,12 @@
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import Nav from "@/shared/Nav";
+import Header from "@/shared/Header2";
+import Nav from "@/shared/Nav2";
+import Footer from "@/shared/Footer2";
 
-import ShopBanner from "@/shared/Shop/Banner";
-import ShopNav from "@/shared/Shop/Nav";
+import ShopBanner from "@/shared/Shop2/Banner";
+import ShopNav from "@/shared/Shop2/Nav";
 import ShopHeading from "@/shared/Shop/Heading";
 
 import ShopNavBlocks from "./ShopNav";
@@ -13,28 +15,41 @@ import Certifications from "./Certifications";
 import TermsNConditions from "./TNC";
 import AboutUs from "./AboutUs";
 import Products from "./Products";
+import { useState, useEffect } from "react";
+
+import { getShop } from "@/controllers/shop";
 
 const Shop = () => {
   const router = useRouter();
 
   const { query } = router;
 
+  const [shop, setShop] = useState({});
+
+  useEffect(async () => {
+    const { id } = router.query;
+
+    const shop = await getShop(id);
+
+    setShop(shop);
+  }, [router.query]);
+
+  console.log(shop);
+
   return (
     <>
-      <Head> 
-        Shop 
+      <Head>
+        <title> {shop.name} | Green Cloud Nine </title>
       </Head>
-      <Nav />
+      <Header nav={<Nav />} />
       <div className="page-section pt-0">
-        <ShopBanner />
-        <ShopNav>
+        <ShopBanner cover={shop.cover} />
+        <ShopNav name={shop.name} logo={shop.logo && shop.logo.url}>
           <ShopNavBlocks />
         </ShopNav>
 
         <div className="container">
-          {(!query.tab || query.tab === "products") && (
-            <Products />
-          )}
+          {(!query.tab || query.tab === "products") && <Products />}
 
           {query.tab === "certificates" && <Certifications />}
 
@@ -114,8 +129,7 @@ const Shop = () => {
           </div>
         </div>
       </div>
-    
-    
+      <Footer />
     </>
   );
 };

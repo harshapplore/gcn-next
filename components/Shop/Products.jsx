@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { getProducts } from "@/controllers/product";
+import { getProducts } from "controllers/product";
 import { useRouter } from "next/router";
 
 import {
@@ -15,22 +15,19 @@ const Products = () => {
 
   const [products, setProducts] = useState([]);
 
-  console.log(router);
-
   useEffect(async () => {
     const { id, category } = router.query;
 
-    if (id) {
-      const qFilter = {
-        shop: id,
-        category,
-      };
+    const qFilter = {
+      shop: id,
+      category,
+    };
 
-      const products = await getProducts(id, qFilter);
-      setProducts(products);
+    const products = await getProducts(qFilter);
 
-      console.log(products);
-    }
+    setProducts(products);
+
+    console.log(products);
   }, [router]);
 
   return (
@@ -136,8 +133,7 @@ const Products = () => {
             <div className="text-block">0-100€</div>
           </a>
         </div>
-
-        <ShopCard name="GC9 Shop" />
+        
         <Filters />
 
         <div className="flex">
@@ -147,12 +143,14 @@ const Products = () => {
             products.length > 0 &&
             products.map((product, index) => (
               <ShopProduct
-                key={product.name+index}
+                key={product.name + index}
                 id={product.id}
                 name={product.name}
                 seller={product.seller && product.seller.firstName}
                 price={product.price}
-                image={product.images.length > 0 && product.images[0].url || ""}
+                image={
+                  (product.images.length > 0 && product.images[0].url) || ""
+                }
               />
             ))}
         </div>

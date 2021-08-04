@@ -77,7 +77,15 @@ const ShopItem = ({ product }) => {
       </a>
       <div className="shop-product-info">
         <a className="link">{product.name}</a>
-        <div className="by-seller">By {product.shop && product.shop.name}</div>
+        <div
+          className="by-seller"
+          onClick={(e) => {
+            e.stopPropagation();
+            router.push(`/shop/${product.shop && product.shop.id}`);
+          }}
+        >
+          By {product.shop && product.shop.name}
+        </div>
         <div className="shop-product-price">€ {product.price}</div>
         <div>
           <Rating rating={product.rating || 0} />
@@ -446,7 +454,9 @@ const View = () => {
 
               {products &&
                 products.length > 0 &&
-                products.map((product, index) => <ShopItem key={"pro"+index} product={product} />)}
+                products.map((product, index) => (
+                  <ShopItem key={"pro" + index} product={product} />
+                ))}
             </div>
           </div>
         </div>
