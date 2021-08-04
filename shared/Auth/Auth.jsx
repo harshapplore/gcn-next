@@ -26,9 +26,6 @@ const routes = {
     auth: true,
     type: "seller",
   },
-  "/shop/[id]": {
-    auth: false,
-  },
   "/customer/[section]":{
     auth: true,
     type: "customer"
