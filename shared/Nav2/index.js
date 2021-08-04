@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 const LinkBlock = ({ to, name, active }) => {
   return (
     <Link href={to}>
-      <a className="nav-link"> {name} </a>
+      <a className={"nav-link "+ (active? " current" : "")}> {name} </a>
     </Link>
   );
 };
@@ -30,7 +30,8 @@ const Nav2 = () => {
     const index =
       categories && categories.findIndex((category) => id === category.id);
 
-    if (!index) setActiveIndex(null);
+    console.log(index);
+
     if (index === -1) setActiveIndex(null);
     if (index >= 0) setActiveIndex(index);
   }, [router.query]);
@@ -46,7 +47,7 @@ const Nav2 = () => {
       <div className="promise-wrapper">
         <a href="#" className="nav-link promise w-inline-block">
           <img
-            src="images/spa-black-24-dp.svg"
+            src="/images/spa-black-24-dp.svg"
             loading="lazy"
             alt=""
             className="button-icon"

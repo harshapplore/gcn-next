@@ -9,7 +9,8 @@ import { getProduct } from "@/controllers/product";
 import DetailsPane from "./DetailsPane";
 import Slider from "./Slider";
 
-import Nav from "@/shared/Nav";
+import Header from "@/shared/Header2";
+import Nav from "@/shared/Nav2";
 import Select from "@/shared/Select";
 import Fetcher from "@/shared/Fetcher";
 
@@ -46,7 +47,7 @@ const ProductDetail = () => {
       <Head>
         <title> {product.name} | Green Cloud Nine</title>
       </Head>
-      <Nav />
+      <Header nav={<Nav />} />
       <div className="page-section">
         <div className="container w-clearfix">
           <div className="product-image-wrapper">

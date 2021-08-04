@@ -74,7 +74,7 @@ const SignIn = ({ close, showRegister }) => {
       setSuccess("You have logged in successfully");
 
       const { user } = response.data;
-      localStorage.setItem("data", JSON.stringify(user));
+      localStorage.setItem("data", JSON.stringify(response.data.user));
 
       console.log(user.type);
 
