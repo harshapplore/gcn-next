@@ -18,6 +18,10 @@ const routes = {
     auth: true,
     type: "seller",
   },
+  "/seller-backend": {
+    auth: true,
+    type: "seller",
+  },
   "/seller-backend/[section]": {
     auth: true,
     type: "seller",

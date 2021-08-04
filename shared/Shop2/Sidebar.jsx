@@ -1,32 +1,47 @@
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+
+import styled from "styled-components";
 
 import {
   BASE_ROUTE,
   PRODUCTS,
-  ADD_PRODUCT,
-  EDIT_PRODUCT,
   BILLING,
   SHIPPING,
   ORDER_HISTORY,
   BASIC_INFO,
   TERMS_N_CONDITIONS,
-} from "./routes";
+} from "@/components/SellerBackend/routes";
+
+const NavLinkContainer = styled.div`
+  cursor: pointer;
+
+  padding: 8px 12px;
+  margin: 8px 0;
+  color: ${({current}) => current? 'var(--secondary)' : 'inherit' };
+  border-left: 2px solid ${({current}) => current? 'var(--secondary)' : 'inherit' };
+`;
 
 const NavLink = ({ to, text, current }) => {
   return (
     <Link href={to}>
-      <a
-        className={"tab-link-shop w-inline-block" + (current ? " current" : "")}
-      >
-        <div>{text}</div>
+      <a>
+        <NavLinkContainer current={current}> {text}</NavLinkContainer>
       </a>
     </Link>
   );
 };
 
-const NavSidebar = ({ activePage }) => {
+const Sidebar = ({}) => {
   const router = useRouter();
+  const [activePage, setActivePage] = useState();
+
+  useEffect(() => {
+    const {section} = router.query;
+    if(!section) setActivePage();
+    if(section) setActivePage('/'+section);
+  }, [router.query]);
 
   return (
     <div>
@@ -64,4 +79,4 @@ const NavSidebar = ({ activePage }) => {
   );
 };
 
-export default NavSidebar;
+export default Sidebar;
