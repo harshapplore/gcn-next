@@ -10,7 +10,7 @@ export const getProduct = async (id) => {
   return res.data;
 };
 
-export const getProducts = async (id, filters) => {
+export const getProducts = async (filters) => {
   const res = await axios()({
     url: `/products?${QS.stringify(filters)}`,
     method: "GET",

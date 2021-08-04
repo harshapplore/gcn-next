@@ -1,11 +1,14 @@
 import { useState } from "react";
 
 import { axios } from "@/setups/axios";
+import { useRouter } from "next/router";
 
 import CheckBox from "@/shared/Checkbox";
 import Message from "@/shared/Message";
 
 const SignIn = ({ close, showRegister }) => {
+  const router = useRouter();
+
   const [data, setData] = useState({});
   const [errors, setErrors] = useState([]);
   const [success, setSuccess] = useState("");
@@ -66,11 +69,18 @@ const SignIn = ({ close, showRegister }) => {
     if (response) {
       console.log(response);
       localStorage.setItem("token", response.data.jwt);
-      localStorage.setItem("data", JSON.stringify(response.data.user));
+
       setErrors([]);
       setSuccess("You have logged in successfully");
 
-      location.reload();
+      const { user } = response.data;
+      localStorage.setItem("data", JSON.stringify(user));
+
+      console.log(user.type);
+
+      if (user && user.type === "seller") location.assign("/seller-backend");
+      else location.assign("/");
+
       return response.data;
     }
   };

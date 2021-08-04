@@ -98,7 +98,6 @@ const Register = ({ close }) => {
     const newData = { ...data };
     newData[key] = value;
     setData(newData);
-    console.log(data);
   };
 
   const updateType = (type) => {

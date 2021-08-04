@@ -33,7 +33,7 @@ const Rating = ({ rating }) => {
         key={"filled-" + filled}
         src="/images/star-black-24-dp-copy-4.svg"
         loading="lazy"
-        alt="Filled star"
+        alt="Filled Star"
         className="shop-product-star"
       />
     );

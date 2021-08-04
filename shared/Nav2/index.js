@@ -1,32 +1,54 @@
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+
+import { fetchCategories } from "@/slices/categories";
+import { useSelector, useDispatch } from "react-redux";
+
+const LinkBlock = ({ to, name, active }) => {
+  return (
+    <Link href={to}>
+      <a className="nav-link"> {name} </a>
+    </Link>
+  );
+};
+
 const Nav2 = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.categories);
+
+  const [activeIndex, setActiveIndex] = useState();
+
+  useEffect(() => {
+    if (!categories.length) dispatch(fetchCategories());
+  }, []);
+
+  useEffect(() => {
+    const { id } = router.query;
+
+    const index =
+      categories && categories.findIndex((category) => id === category.id);
+
+    if (!index) setActiveIndex(null);
+    if (index === -1) setActiveIndex(null);
+    if (index >= 0) setActiveIndex(index);
+  }, [router.query]);
+
   return (
     <nav className="nav-menu">
       <div className="navlink-wrapper">
-        <a href="#" className="nav-link current">
-          Cosmetics
-        </a>
-        <a href="#" className="nav-link">
-          Mother &amp; Child
-        </a>
-        <a href="#" className="nav-link">
-          Home &amp; Household
-        </a>
-        <a href="#" className="nav-link">
-          Food &amp; Drink
-        </a>
-        <a href="#" className="nav-link">
-          Fashion
-        </a>
-        <a href="#" className="nav-link">
-          Accessoires &amp; Jewellery
-        </a>
+        {categories &&
+          categories.map((category, index) => (
+            <LinkBlock key={"cat"+index} to={`/category/${category.id}`} name={category.name} active={activeIndex === index}/>
+          ))}
       </div>
       <div className="promise-wrapper">
         <a href="#" className="nav-link promise w-inline-block">
           <img
             src="images/spa-black-24-dp.svg"
             loading="lazy"
-            alt
+            alt=""
             className="button-icon"
           />
           <div className="text-block">Our Promise</div>

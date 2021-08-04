@@ -1,10 +1,26 @@
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+
+import AuthForm from "@/shared/Auth/AuthForm";
+import { useSelector } from "react-redux";
+import Button from "@/shared/Button";
+
 const Header = ({ nav }) => {
+  const router = useRouter();
+  const { user } = useSelector((state) => state.user);
+
+  const [showForm, setShowForm] = useState(false);
+
+  useState(() => {}, []);
+
   return (
     <div className="navbar">
+      {showForm && <AuthForm close={() => setShowForm(false)}/>}
+
       <div className="navbar-top">
-        <div className="brand-wrapper">
-          <a href="index.html" className="brand w-inline-block w--current">
-            <img src="images/fill-2.svg" alt="Green Cloud Nine Logo" />
+        <div className="brand-wrapper" onClick={() => router.push("/")}>
+          <a className="brand w-inline-block w--current">
+            <img src="/images/fill-2.svg" alt="Green Cloud Nine Logo" />
           </a>
         </div>
         <div className="form-search w-form">
@@ -25,7 +41,7 @@ const Header = ({ nav }) => {
               required
             />
             <img
-              src="images/search-black-24-dp.svg"
+              src="/images/search-black-24-dp.svg"
               alt="search"
               className="search-icon"
             />
@@ -33,29 +49,35 @@ const Header = ({ nav }) => {
         </div>
         <div className="clearfix" />
         <div className="right-icon-nav">
-          <a href="#" className="icon-nav w-inline-block">
-            <img
-              src="images/favorite-border-black-24-dp.svg"
-              loading="lazy"
-              alt
-            />
-          </a>
-          <a href="#" className="icon-nav w-inline-block">
-            <img
-              src="images/account-circle-black-24-dp.svg"
-              loading="lazy"
-              alt="Account"
-            />
-          </a>
-          <a href="#" className="icon-nav w-inline-block">
-            <img
-              src="images/local-mall-black-24-dp.svg"
-              loading="lazy"
-              alt="Shopping Cart"
-            />
-          </a>
+          {!user.id && <Button type="secondary" name="Login / Register" action={() => setShowForm(true)}/>}
+
+          {user.id && (
+            <>
+              <a className="icon-nav w-inline-block">
+                <img
+                  src="/images/favorite-border-black-24-dp.svg"
+                  loading="lazy"
+                  alt="icon"
+                />
+              </a>
+              <a className="icon-nav w-inline-block">
+                <img
+                  src="/images/account-circle-black-24-dp.svg"
+                  loading="lazy"
+                  alt="Account"
+                />
+              </a>
+              <a className="icon-nav w-inline-block">
+                <img
+                  src="/images/local-mall-black-24-dp.svg"
+                  loading="lazy"
+                  alt="Shopping Cart"
+                />
+              </a>{" "}
+            </>
+          )}
         </div>
-        <a href="#" className="menu-button w-inline-block">
+        <a className="menu-button w-inline-block">
           <div className="burger">
             <div className="line top" />
             <div className="line mid" />
