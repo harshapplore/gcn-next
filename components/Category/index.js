@@ -1,6 +1,6 @@
 import Header from "@/shared/Header2";
 import Nav from "@/shared/Nav2";
-import Footer from "@/shared/Footer3";
+import Footer from "@/shared/Footer";
 
 import View from "./View";
 

@@ -1,43 +1,32 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import Head from "next/head";
+import router, { useRouter } from "next/router";
 
-import Nav from "@/shared/Nav";
+import Header from "@/shared/Header2";
+import Nav from "@/shared/Nav2";
+import Footer from "@/shared/Footer";
 
-import CartShopView from "./CartShopView";
-import SND from "./ShippingNDelivery";
-import Payment from "./Payment";
-import ItemView from "./ItemView";
 import CheckoutMessage from "./CheckoutMessage";
 
-const CheckOut = () => {
+const Checkout = () => {
   const router = useRouter();
 
-  const [activePage, setActivePage] = useState();
+  const [ success, setSuccess ] = useState();
 
   useEffect(() => {
-    const { section } = router.query;
+    const { success } = router.query;
 
-    if (!section) setActivePage(null);
-
-    if (section) setActivePage(section);
+    setSuccess(success);
   }, [router.query]);
 
   return (
     <>
-      <Nav />
-      <div className="page-section">
-        {activePage === "cart" && <CartShopView />}
-
-        {activePage === "shipping-and-billing" && <SND />}
-
-        {activePage === "payment" && <Payment />}
-
-        {activePage === "Order Confirmation" && <ItemView />}
-
-        {activePage === "checkout" && <CheckoutMessage />}
-      </div>
+      <Head> Order Confirmation | Green Cloud Nine </Head>
+      <Header nav={<Nav />} />
+      {success && <CheckoutMessage />}
+      <Footer />
     </>
   );
 };
 
-export default CheckOut;
+export default Checkout;

@@ -29,6 +29,10 @@ const routes = {
   "/customer/[section]":{
     auth: true,
     type: "customer"
+  },
+  "/cart": {
+    auth: true,
+    type: "customer"
   }
 };
 

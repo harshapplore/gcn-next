@@ -5,38 +5,32 @@ const Footer = () => {
         <div className="container">
           <div className="footer-top-flex">
             <div>
-              <a href="#" className="footer-inline-link dark">
-                Austria
-              </a>
+              <a className="footer-inline-link dark">Austria</a>
               <div className="footer-inline-link-divider">|</div>
-              <a href="#" className="footer-inline-link dark">
-                English
-              </a>
+              <a className="footer-inline-link dark">English</a>
               <div className="footer-inline-link-divider">|</div>
-              <a href="#" className="footer-inline-link dark">
-                € (EUr)
-              </a>
+              <a className="footer-inline-link dark">€ (EUr)</a>
             </div>
             <div className="social-wrapper">
-              <a href="#" className="social-icon first w-inline-block">
-                <img src="images/group-3.svg" loading="lazy" alt="Pinterest" />
+              <a className="social-icon first w-inline-block">
+                <img src="/images/group-3.svg" loading="lazy" alt="Pinterest" />
               </a>
-              <a href="#" className="social-icon w-inline-block">
-                <img src="images/group-2.svg" loading="lazy" alt="Twitter" />
+              <a className="social-icon w-inline-block">
+                <img src="/images/group-2.svg" loading="lazy" alt="Twitter" />
               </a>
-              <a href="#" className="social-icon w-inline-block">
-                <img src="images/group.svg" loading="lazy" alt="Instagram" />
+              <a className="social-icon w-inline-block">
+                <img src="/images/group.svg" loading="lazy" alt="Instagram" />
               </a>
-              <a href="#" className="social-icon w-inline-block">
+              <a className="social-icon w-inline-block">
                 <img
-                  src="images/facebook-black-24-dp.svg"
+                  src="/images/facebook-black-24-dp.svg"
                   loading="lazy"
                   alt="Facebook"
                 />
               </a>
-              <a href="#" className="social-icon last w-inline-block">
+              <a className="social-icon last w-inline-block">
                 <img
-                  src="images/share-black-24-dp.svg"
+                  src="/images/share-black-24-dp.svg"
                   loading="lazy"
                   alt="Share"
                 />
@@ -50,52 +44,52 @@ const Footer = () => {
           <div className="footer-flex">
             <div className="footer-column">
               <div className="footer-heading">Shop</div>
-              <a href="#" className="footer-link w-inline-block">
+              <a className="footer-link w-inline-block">
                 <div>Cosmetics</div>
               </a>
-              <a href="#" className="footer-link w-inline-block">
+              <a className="footer-link w-inline-block">
                 <div>Mother &amp;&nbsp;Child</div>
               </a>
-              <a href="#" className="footer-link w-inline-block">
+              <a className="footer-link w-inline-block">
                 <div>Home &amp;&nbsp;Household</div>
               </a>
-              <a href="#" className="footer-link w-inline-block">
+              <a className="footer-link w-inline-block">
                 <div>Food &amp;&nbsp;Drink</div>
               </a>
-              <a href="#" className="footer-link w-inline-block">
+              <a className="footer-link w-inline-block">
                 <div>Fashion</div>
               </a>
-              <a href="#" className="footer-link w-inline-block">
+              <a className="footer-link w-inline-block">
                 <div>Accessory &amp;&nbsp;Jewellery</div>
               </a>
-              <a href="#" className="footer-link w-inline-block">
+              <a className="footer-link w-inline-block">
                 <div>Sale</div>
               </a>
             </div>
             <div className="footer-column">
               <div className="footer-heading">GC9</div>
-              <a href="#" className="footer-link w-inline-block">
+              <a className="footer-link w-inline-block">
                 <div>About us</div>
               </a>
-              <a href="#" className="footer-link w-inline-block">
+              <a className="footer-link w-inline-block">
                 <div>Our Promise</div>
               </a>
-              <a href="#" className="footer-link w-inline-block">
+              <a className="footer-link w-inline-block">
                 <div>Sell Products</div>
               </a>
-              <a href="#" className="footer-link w-inline-block">
+              <a className="footer-link w-inline-block">
                 <div>Policies</div>
               </a>
-              <a href="#" className="footer-link w-inline-block">
+              <a className="footer-link w-inline-block">
                 <div>Imprint</div>
               </a>
             </div>
             <div className="footer-column">
               <div className="footer-heading">Shop</div>
-              <a href="#" className="footer-link w-inline-block">
+              <a className="footer-link w-inline-block">
                 <div>For buyers</div>
               </a>
-              <a href="#" className="footer-link w-inline-block">
+              <a className="footer-link w-inline-block">
                 <div>For sellers</div>
               </a>
             </div>
@@ -110,9 +104,7 @@ const Footer = () => {
                 Österreich
                 <br />
                 <br />
-                <a href="#" className="footer-link">
-                  info@greencloudnine.com
-                </a>
+                <a className="footer-link">info@greencloudnine.com</a>
               </div>
             </div>
           </div>
@@ -121,17 +113,11 @@ const Footer = () => {
       <div className="page-section footer-bar">
         <div className="container w-clearfix">
           <div className="footer-bar-content">
-            <a href="#" className="footer-inline-link">
-              Nutzungsbedingungen
-            </a>
+            <a className="footer-inline-link">Nutzungsbedingungen</a>
             <div className="footer-inline-link-divider">|</div>
-            <a href="#" className="footer-inline-link">
-              Datenschutz
-            </a>
+            <a className="footer-inline-link">Datenschutz</a>
             <div className="footer-inline-link-divider">|</div>
-            <a href="#" className="footer-inline-link">
-              Impressum
-            </a>
+            <a className="footer-inline-link">Impressum</a>
           </div>
         </div>
       </div>

@@ -83,7 +83,7 @@ const Header = ({ nav }) => {
                 />
               </a>
 
-              {!user.type === "seller" && (
+              {user.type === "customer" && (
                 <a
                   className="icon-nav w-inline-block"
                   onClick={() => router.push("/cart")}

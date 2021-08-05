@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUser, fetchSeller } from "@/slices/user";
 
-import Footer from "@/shared/Footer3";
+import Footer from "@/shared/Footer";
 import Header from "@/shared/Header2";
 
 import Nav from "./Nav";

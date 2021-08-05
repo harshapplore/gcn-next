@@ -2,13 +2,13 @@ const Message = ({ text, status }) => {
   return (
     <>
       {status === -1 && (
-        <div className="w-form-fail">
+        <div className="w-form-fail show">
           <div> {text} </div>
         </div>
       )}
 
       {status === 1 && (
-        <div className="w-form-done">
+        <div className="w-form-done show">
           <div> {text} </div>
         </div>
       )}

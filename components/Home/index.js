@@ -10,7 +10,7 @@ import { fetchCustomer } from "@/slices/customer";
 import Header from "@/shared/Header2";
 import Nav from "@/shared/Nav2";
 import Button from "@/shared/Button";
-import Footer from "@/shared/Footer3";
+import Footer from "@/shared/Footer";
 
 import Banner from "./Banner/banner";
 import WeeklyProducts from "./WeeklyProducts";

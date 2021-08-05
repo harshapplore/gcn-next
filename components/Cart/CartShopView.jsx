@@ -4,14 +4,21 @@ import { getShop } from "@/controllers/shop";
 import shop from "@/slices/shop";
 
 import { Toggle2 } from "@/shared/Toggle";
+import NumberInput from "@/shared/Input/Number";
 
-const CartItem = ({ item, shop }) => {
+import styles from "./cart.module.scss";
+
+const CartItem = ({ item, shop, qty, setQty }) => {
   return (
     <div className="flex mb-20">
       <div className="flex">
         <div className="checkout-shop-item-img">
           <img
-            src={item.product && item.product.images[0].formats.thumbnail.url}
+            src={
+              item.product &&
+              item.product.images[0] &&
+              item.product.images[0].formats.thumbnail.url
+            }
             loading="lazy"
             sizes="(max-width: 479px) 42vw, (max-width: 767px) 23vw, 120px"
             alt="Handcrafted stuff"
@@ -20,25 +27,20 @@ const CartItem = ({ item, shop }) => {
         </div>
         <div className="checkout-product-info">
           <h3>{item.product.name}</h3>
-          <div className="overline-text pull-up">By {shop}</div>
+          <div className="overline-text pull-up">By {shop.name}</div>
           <div>Size: {item.size || ""}</div>
         </div>
       </div>
       <div className="pt-20">
-        <img src="/images/done-black-24-dp.svg" loading="lazy" alt="Checkmark" />
+        <img
+          src="/images/done-black-24-dp.svg"
+          loading="lazy"
+          alt="Checkmark"
+        />
         <div className="item-additional-info">
           {item.product.filters.inStock ? "In Stock" : "Currently Unavailable"}
         </div>
-        <div className="form-block w-form">
-          <form>
-            <select className="text-field select cart w-select">
-              <option value>1</option>
-              <option value="First">First Choice</option>
-              <option value="Second">Second Choice</option>
-              <option value="Third">Third Choice</option>
-            </select>
-          </form>
-        </div>
+        <NumberInput value={qty} setValue={(value) => setQty(value)} />
       </div>
       <div className="pt-30">
         <div className="shop-product-price">€ {item.product.price}</div>
@@ -47,21 +49,18 @@ const CartItem = ({ item, shop }) => {
   );
 };
 
-const CartShop = ({ cart, subtotal }) => {
+const CartShop = ({ cart, subtotal, setCart }) => {
   const [_shop, _setShop] = useState({});
   const [_products, _setProducts] = useState([]);
 
   useEffect(async () => {
     if (cart && cart.shop && !_shop.id) {
-      console.log("Getting Shop");
       const _shopData = await getShop(cart.shop);
       _setShop(_shopData);
     }
 
     if (cart) _setProducts(cart.products);
   }, [cart]);
-
-  // console.log(_shop, _products);
 
   return (
     <div className="shop-list mb-60">
@@ -75,8 +74,20 @@ const CartShop = ({ cart, subtotal }) => {
       </div>
 
       {_products &&
-        _products.map((product) => (
-          <CartItem item={product} shop={shop.name} />
+        _products.map((product, index) => (
+          <CartItem
+            key={"name" + index}
+            item={product}
+            shop={_shop}
+            qty={product.quantity}
+            setQty={(value) =>
+              _setProducts([
+                ..._products.slice(0, index),
+                { ...product, quantity: value },
+                ..._products.slice(index + 1),
+              ])
+            }
+          />
         ))}
 
       <div className="subtotal-wrapper">
@@ -88,11 +99,10 @@ const CartShop = ({ cart, subtotal }) => {
   );
 };
 
-const CartShopView = () => {
+const CartShopView = ({ data, setData, goToShipping }) => {
   const [items, setItems] = useState([]);
   const [subtotals, setSubtotals] = useState([]);
   const [toggles, setToggles] = useState({});
-  const [data, setData] = useState({});
 
   const subtotalCalc = (cart) => {
     if (!cart) return;
@@ -103,7 +113,7 @@ const CartShopView = () => {
       let prices = 0;
       let delivery = 0;
       item.products.map((product) => {
-        prices += product.price;
+        prices += product.price * product.quantity;
         delivery += product.delivery || 0;
       });
       subtotals.push({ prices, delivery });
@@ -115,8 +125,6 @@ const CartShopView = () => {
   useEffect(async () => {
     const items = await getCart();
 
-    console.log(items);
-
     if (items) {
       setItems(items.data);
       const subtotal = subtotalCalc(items.data);
@@ -124,18 +132,56 @@ const CartShopView = () => {
     }
   }, []);
 
+  // useEffect(() => {
+  //   if (items) {
+  //     setItems(items.data);
+  //     const subtotal = subtotalCalc(items.data);
+  //     setSubtotals(subtotal);
+  //   }
+  // }, [items]);
+
+  useEffect(() => {
+    const totalPrice = subtotals.reduce((a, c) => (a += c.prices), 0);
+    const totalDelivery = subtotals.reduce((a, c) => a + c.delivery, 0);
+    let co2Compensation;
+
+    if (toggles.co2Compensation) {
+      co2Compensation = Math.round((totalPrice + totalDelivery) / 100);
+    } else {
+      co2Compensation = 0;
+    }
+
+    const total = totalPrice + totalDelivery + co2Compensation;
+
+    setData({
+      ...data,
+      totalPrice,
+      totalDelivery,
+      co2Compensation,
+      total,
+      order: items,
+    });
+  }, [subtotals, toggles.co2Compensation]);
+
   return (
     <>
       {/* Cart Shop View */}
 
       <div className="container">
         <div className="heading-wrapper mb-40">
-          <h1>3 items in your cart</h1>
+          <h1>
+            {items.reduce((a, c) => a + c.products.length, 0)} items in your
+            cart
+          </h1>
         </div>
 
         {items &&
           items.map((item, index) => (
-            <CartShop cart={item} subtotal={subtotals[index] || {}} />
+            <CartShop
+              cart={item}
+              subtotal={subtotals[index] || {}}
+              // setCart={setItems}
+            />
           ))}
       </div>
 
@@ -145,15 +191,15 @@ const CartShopView = () => {
           <div className="checkout-additional">
             <Toggle2
               name="CO2 Compensation"
-              value={toggles.CO2Compensation}
+              value={toggles.co2Compensation}
               setValue={(value) =>
-                setToggles({ ...toggles, CO2Compensation: value })
+                setToggles({ ...toggles, co2Compensation: value })
               }
             />
             <Toggle2
               name="Pick up"
-              value={toggles.pickUp}
-              setValue={(value) => setToggles({ ...toggles, pickUp: value })}
+              value={data.pickUp}
+              setValue={(value) => setData({ ...data, pickUp: value })}
             />
             <Toggle2
               name="This order is a gift."
@@ -186,25 +232,24 @@ const CartShopView = () => {
             )}
           </div>
           <div className="total-wrapper">
-            <div className="medium">
-              Total: € {subtotals.reduce((a, c) => (a += c.prices), 0)}
-            </div>
-            <div>
-              Delivery: € {subtotals.reduce((a, c) => a + c.delivery, 0)}
-            </div>
-            <div>CO2 compensation (345)km: € 4,80</div>
+            <div className="medium">Total: € {data.totalPrice}</div>
+            <div>Delivery: € {data.totalDelivery}</div>
+            {data.co2Compensation && (
+              <div>CO2 compensation (345)km: € {data.co2Compensation}</div>
+            )}
           </div>
         </div>
+
         <div className="center">
-          <div className="button mx-10">
-            <div>Continue as guest</div>
+          <div className={styles["total-display"]}>
+            Order Total: € {data.total}
           </div>
-          <div className="button blue secondary mx-10">
-            <div>Sign in</div>
+          <div className="button blue secondary mx-10" onClick={goToShipping}>
+            <div>Proceed to Shipping</div>
           </div>
         </div>
       </div>
-    </> 
+    </>
   );
 };
 

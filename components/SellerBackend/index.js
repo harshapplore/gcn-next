@@ -8,7 +8,7 @@ import Fetcher from "@/shared/Fetcher";
 
 import ShopHeading from "@/shared/Shop/Heading";
 import Header from "@/shared/Header2";
-import Footer from "@/shared/Footer3";
+import Footer from "@/shared/Footer";
 import Nav from "@/shared/Nav2";
 import NavSidebar from "./NavSideBar";
 
