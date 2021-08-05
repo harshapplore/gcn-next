@@ -3,7 +3,7 @@ import Head from "next/head";
 import styles from "./seller-info.module.scss";
 
 import Button from "@/shared/Button";
-import Footer from "@/shared/Footer2";
+import Footer from "@/shared/Footer";
 import Header, { HeaderWrapper } from "@/shared/Header";
 
 import { scrollToElement } from "utils/scroll";

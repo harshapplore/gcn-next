@@ -3,7 +3,7 @@ import Head from "next/head";
 
 import Header from "@/shared/Header2";
 import Nav from "@/shared/Nav2";
-import Footer from "@/shared/Footer2";
+import Footer from "@/shared/Footer";
 
 import ShopBanner from "@/shared/Shop2/Banner";
 import ShopNav from "@/shared/Shop2/Nav";
