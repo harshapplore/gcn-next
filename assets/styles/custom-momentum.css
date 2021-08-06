@@ -1,40 +1,34 @@
-/* Breaks font sizes in the Header Navbar */
-
-/* html{
-  font-size: 0.875rem;
-} */
-
-
-.potw-like.active .orange-heart{
+.potw-like.active .orange-heart {
   opacity: 1;
 }
 
-.pickup-switch-wrapper.active .switch-switcher{
+.pickup-switch-wrapper.active .switch-switcher {
   margin-left: auto;
   background-color: #f8931f;
 }
 
-.search-bar{
+.search-bar {
   -webkit-appearance: none;
 }
 
 /* Container padden in dem Bereich wo er zu groß sein würde (zw. Desktop u. Tablet, max-w +20px) */
 @media only screen and (min-width: 991px) and (max-width: 1220px) {
-  .container{
+  .container {
     padding-left: 20px;
     padding-right: 20px;
   }
 }
-.order-item:nth-child(even){
+.order-item:nth-child(even) {
   background-color: transparent;
 }
 
-.left-3::after{
-  content: '';
+.left-3::after {
+  content: "";
   flex: 0 0 32%;
 }
-.left-4::before, .left-4::after{
+.left-4::before,
+.left-4::after {
   order: 1;
-  content: '';
+  content: "";
   flex: 0 0 24%;
 }

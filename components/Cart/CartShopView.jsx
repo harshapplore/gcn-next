@@ -6,6 +6,8 @@ import shop from "@/slices/shop";
 import { Toggle2 } from "@/shared/Toggle";
 import NumberInput from "@/shared/Input/Number";
 
+import CompensationChoices from "./CompensationChoice";
+
 import styles from "./cart.module.scss";
 
 const CartItem = ({ item, shop, qty, setQty }) => {
@@ -188,6 +190,8 @@ const CartShopView = ({ data, setData, goToShipping }) => {
       {/* Order Info & Proceed */}
       <div className="container">
         <div className="flex mb-40">
+          {toggles.co2Compensation && <CompensationChoices />}
+
           <div className="checkout-additional">
             <Toggle2
               name="CO2 Compensation"

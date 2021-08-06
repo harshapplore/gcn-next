@@ -12,7 +12,7 @@ import Header from "@/shared/Header2";
 import Nav from "./Nav";
 
 import GetStarted from "./PS1";
-import Pricing from "./PS2";
+import Pricing from "./Pricing";
 import ShopInfo from "./PS3";
 import ContactInfo from "./PS4";
 import GetPaidInfo from "./PS5";
@@ -64,7 +64,7 @@ const SellerOnboarding = () => {
       <Head>
         <title> Seller Onboarding | Greeen Cloud Nine </title>
       </Head>
-      <Header nav={<Nav />}/>
+      <Header nav={<Nav />} />
       {/* Let's get Started  */}
       {activePageIndex === 0 && <GetStarted nextPage={nextPage} />}
       {/* Choose Pricing Plan */}

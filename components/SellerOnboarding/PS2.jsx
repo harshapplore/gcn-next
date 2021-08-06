@@ -5,6 +5,7 @@ import Button from "@/shared/Button";
 
 import styles from "./onboarding.module.scss";
 
+
 const PricingBlock = ({ name, text, action }) => {
   return (
     <div className={styles["pricing-block"]}>
