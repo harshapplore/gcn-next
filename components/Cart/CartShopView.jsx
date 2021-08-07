@@ -51,7 +51,7 @@ const CartItem = ({ item, shop, qty, setQty }) => {
   );
 };
 
-const CartShop = ({ cart, subtotal, setCart }) => {
+const CartShop = ({ cart, subtotal }) => {
   const [_shop, _setShop] = useState({});
   const [_products, _setProducts] = useState([]);
 
@@ -133,14 +133,6 @@ const CartShopView = ({ data, setData, goToShipping }) => {
       setSubtotals(subtotal);
     }
   }, []);
-
-  // useEffect(() => {
-  //   if (items) {
-  //     setItems(items.data);
-  //     const subtotal = subtotalCalc(items.data);
-  //     setSubtotals(subtotal);
-  //   }
-  // }, [items]);
 
   useEffect(() => {
     const totalPrice = subtotals.reduce((a, c) => (a += c.prices), 0);
