@@ -1,0 +1,410 @@
+[
+  {
+    "section": "Basic Information",
+    "description": "",
+    "questions": []
+  },
+  {
+    "dimesion": "Vision and Strategy",
+    "description": "",
+    "questions": [
+      {
+        "text": "Has defined its mission statement, vision and values.",
+        "type": "option",
+        "is": "question"
+      },
+      {
+        "text": "Prepares its strategic plan",
+        "type": "option",
+        "is": "section",
+        "questions": [
+          {
+            "text": "If so, is it periodically revised",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "If so, does it present objectives and goals?",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "If so, do the objectives and targets consider one or more aspects of sustainability?",
+            "type": "option",
+            "is": "question"
+          }
+        ]
+      },
+      {
+        "text": "Integrates sustainability aspects into your decision-making processes.",
+        "type": "option",
+        "is": "question",
+        "critical": true
+      },
+      {
+        "text": "Analyzes the risks (strategic, financial, regulatory, operational or reputational) of its business.",
+        "type": "option",
+        "is": "section",
+        "questions": [
+          {
+            "text": "If so, are these risks managed?",
+            "type": "option",
+            "is": "question"
+          }
+        ]
+      },
+      {
+        "text": "(If any) Use this space to briefly tell us how sustainability is embedded in your company's strategic actions and decision-making.",
+        "type": "text",
+        "is": "question"
+      }
+    ]
+  },
+  {
+    "dimension": "Governance and Management",
+    "description": "",
+    "questions": [
+      {
+        "text": "Integrity Program",
+        "type": "option",
+        "is": "section",
+        "questions": [
+          {
+            "text": "The company's directors and managers act directly in creating a culture of integrity.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "There is constant updating of thee assessment of your exposure to the risk of being held responsible for irregularities or unlawful acts against the public administration.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "The company sets out principles of business conduct expected from employees",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "There are whistleblowing channels for employees to report suspicious, illegal or dishonest behavior in business without fear of punishment and retribution.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "(If any) Use this space to briefly tell us what strategy the company adopts for its financial management and to ensure transparency in communication with stakeholders.",
+            "type": "text",
+            "is": "question"
+          }
+        ]
+      },
+      {
+        "text": "Financial Management and Business Administration",
+        "type": "heading",
+        "is": "section",
+        "questions": [
+          {
+            "text": "Makes its financial planning and provides alternatives for the maintenance of its activities in times of falling demand for its products or services.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Manage its financial performance with control tools such as budget reviews, sales price and cash flow analysis.",
+            "type": "option",
+            "is": "question",
+            "critical": true
+          },
+          {
+            "text": "It monitors its management through indicators from its different areas, such as Human Resources and Sales, among others.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Discloses information about its management, presenting financial and non-financial information",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "(If any) Use this space to briefly tell us what strategy the company adopts for its financial management and to ensure transparency in communication with stakeholders.",
+            "type": "text",
+            "is": "question"
+          }
+        ]
+      },
+      {
+        "text": "Innovation",
+        "type": "heading",
+        "is": "section",
+        "questions": [
+          {
+            "text": "Reviews its processes to ensure greater efficiency in delivering its products or services",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Establishes criteria to guarantee the quality of its products or services.",
+            "type": "option",
+            "is": "question",
+            "critical": true
+          },
+          {
+            "text": "Continuously improves its portfolio of products or services, aiming to increase consumer satisfaction.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Innovates its product or service portfolio, increasing the share of items that have synergy with sustainability and that generate benefits in one of its dimensions (economic-financial, social, environmental or ethical).",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Has a dedicated research and development team to drive business innovation",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Somehow involves its customers in the design of its products/services",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "(If any) Use this space to briefly tell us which innovations (related to the sustainability) your business model brings. What makes your product different and what requirements does your product/service have so that we can consider it sustainable?",
+            "type": "text",
+            "is": "question"
+          }
+        ]
+      },
+      {
+        "text": "Relationship Management of Suppliers and Consumers",
+        "type": "heading",
+        "is": "section",
+        "questions": [
+          {
+            "text": "Has a formal communication channel with its customers and suppliers, such as a suggestion box, phone number or e-mail to manage questions or complaints.",
+            "type": "option",
+            "is": "section",
+            "questions": [
+              {
+                "text": "Answers or clarifies the questions received.",
+                "type": "option",
+                "is": "question"
+              },
+              {
+                "text": "Stipulates goals and deadlines to solve the identified problems.",
+                "type": "option",
+                "is": "question"
+              },
+              {
+                "text": "Analyzes the doubts, suggestions and complaints received and uses them as a tool to improve its activities.",
+                "type": "option",
+                "is": "question"
+              }
+            ]
+          },
+          {
+            "text": "The products or communication materials always contain clear instructions on how to contact the company, such as a mailing address, telephone number, website or e-mail.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Carries out a satisfaction survey among its customers at regular intervals to, based on the results, implement improvements in its products/services, including pre- and post-sales services, with transparency and ethics in relations.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "The company knows who its main suppliers are.",
+            "type": "option",
+            "is": "section",
+            "questions": [
+              {
+                "text": "If so, does the company make a survey of critical suppliers, considering a possible impact on the interruption of its own products or services?",
+                "type": "option",
+                "is": "question"
+              },
+              {
+                "text": "If so, does the company have alternatives to keep its deliveries or services even if there is an interruption by a supplier?",
+                "type": "option",
+                "is": "question"
+              }
+            ]
+          },
+          {
+            "text": "Prioritizes purchasing from local suppliers (within 150 km radius).",
+            "type": "option",
+            "is": "section",
+            "questions": [
+              {
+                "text": "If so, to what extent (%)",
+                "type": "option",
+                "is": "question"
+              }
+            ]
+          },
+          {
+            "text": "The company adopts purchase criteria that take into account the guarantee of origin, ensuring environmentally correct and socially fair production.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Establishes in its contracts with suppliers' clauses that require compliance with laws and regulations:",
+            "type": "option",
+            "is": "section",
+            "questions": [
+              {
+                "text": "Labor",
+                "type": "option",
+                "is": "question"
+              },
+              {
+                "text": "Tax",
+                "type": "option",
+                "is": "question"
+              },
+              {
+                "text": "Sanitary",
+                "type": "option",
+                "is": "question"
+              },
+              {
+                "text": "Environmental",
+                "type": "option",
+                "is": "question"
+              }
+            ]
+          },
+          {
+            "text": "(If any) Use this space to briefly tell us how the company relates to its suppliers and customers. Describe the channels of communication with and support to customers and criteria for selecting suppliers",
+            "type": "option",
+            "is": "question"
+          }
+        ]
+      },
+      {
+        "text": "Compliance with Labor, Tax and Environmental Laws",
+        "type": "heading",
+        "is": "section",
+        "questions": [
+          {
+            "text": "Has the necessary licenses and permits for its operation.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Instructs its employees to know the laws they must comply with.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Was fined for some type of non-compliance with tax laws or regulations.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Was fined for some type of non-compliance with labor laws or regulations.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Was fined for some type of non-compliance with environmental laws or regulations.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Was fined for some type of non-compliance with health laws or regulations.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "(If any) Use this space to briefly tell us if your company needs license/permits to work, what is the period for renewal of the main licenses/permits and how this process takes place. Clarify the reasons why (by law) your company could be exempt from licenses/permits.",
+            "type": "text",
+            "is": "question"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "section": "",
+    "questions": []
+  },
+  {
+    "dimension": "Social",
+    "description": "",
+    "questions": [
+      "4.1",
+      "Recruits and promotes based NOT only on the individual’s ability, experience and performance, but also takes into consideration diversity criteria like their gender, age, religion, ethnicity or disabilities",
+      "Applies the same salary range and eligibility to benefits and allowances for work of equal value, regardless of the employee’s personal attributes",
+      "Provides grievance channels or regular occasions for employees to give their opinions and voice out their concerns",
+      "(If any) Use this space to briefly tell us what strategies the company adopts to ensure equity in the hiring process and equal internal treatment.",
+      "4.2",
+      "Provides training to employees on skills that prepare them for future assignments and career development",
+      "Values and encourages the professional development of its employees",
+      "Subsidizes courses for employees.",
+      "Provides incentives including career-growth opportunities, bonuses, stock options or profit sharing to high-caliber talent",
+      "Knows the degree of satisfaction of its staff",
+      "The company's administrators - partners, owners, directors and managers - invest in their own training, improving their technical and business management knowledge.",
+      "(If any) Use this space to briefly tell us what strategies the company adopts to promote the professional development of its staff.",
+      "4.3",
+      "Offers to its employees a pleasant and safe physical environment, encouraging hygiene and health care",
+      "Keeps all legal documents related to occupational health and safety up-to-date and complete, such as environmental risk analysis and incident and accident reports, among others.",
+      "Trains and makes employees aware of accident or fire prevention.",
+      "Provides, trains, and raises awareness regarding the use of personal protective equipment (PPE)",
+      "Has mechanisms to prevent and combat moral harassment.",
+      "Has mechanisms to prevent and combat sexual harassment.",
+      "Has dedicated personnel or team(s) to oversee employee’s wellness",
+      "Develops program(s) or provide resource(s) to create family-friendly work environment",
+      "(If any) Use this space to briefly tell us what working environment conditions the company offers its employees. Is the use of PPE necessary/mandatory/encouraged? What strategies have been adopted to prevent harassment situations?",
+      "Has a dialogue channel with the community, such as a suggestion box, telephone number or email.",
+      "Encourages volunteer work by its employees.",
+      "Invests part of its profit in social projects",
+      " If so, to what extent (%)?",
+      "As a result of its activity in the community, the company believes that it has obtained benefits for the business, such as increased sales, improved relations with suppliers, the acquisition of new contacts or customers or lower staff turnover, among others.",
+      "(If any) Use this space to briefly tell us what actions the company practices and/or encourages with the community. What strategies the company adopts for communication and relationship with its stakeholders."
+    ]
+  },
+  {
+    "dimension": "Environmental",
+    "description": "",
+    "questions": [
+      "Has an environmental policy",
+      "5.2",
+      "Knows and understands the impacts of its activities on the environment (such as emission of pollutants, soil erosion, consumption of raw material, energy, water, fuel, among others).",
+      "If so, are these impacts measured and managed?",
+      "5.3",
+      "Seeks to use materials or processes that cause less damage to the environment.",
+      "Seeks to use local material(s) and service(s) for its operation",
+      "5.4",
+      "If so, to what extent (%)?",
+      "5.5",
+      "Is able to identify and quantify the environmental impacts it is avoiding when compared to a traditional production/service offering process.",
+      "If so, to what extent (% and kg/unit) is the use of plastic reduced?",
+      "If so, to what extent (% and kg/unit) is the use of raw material reduced?",
+      "5.5.3 - If so, to what extent (% and m3/unit) is the use of water reduced?",
+      "5.5.4 - If so, to what extent (% and kWh/unit) is the use of energy reduced?",
+      "5.5.5 - If so, to what extent (% and kWh/unit) is the use of renewable energy employed in?",
+      "5.5.6 - If so, to what extent (% and kgCO2 eq/unit) is the GHG emission reduced?",
+      "5.6",
+      "5.6 - Recycles or reuses scrap materials from its production processes.",
+      "5.6.1 - If so, to what extent (%)?",
+      "5.7 - Manufactures product(s) that after use phase can be recyclable or be reused for other purposes",
+      "5.8 - Discuss partnerships with suppliers aiming to return to the manufacturer of discarded materials (such as expired products, used tires, batteries, etc.).",
+      "5.9 - Promotes customers' understanding of business-related environmental issue(s) through promotional or educational activities.",
+      "5.10 - Requires suppliers and service providers to provide comprehensive information and data about their environmental practices.",
+      "5.11 - Communicate and share knowledge with suppliers on customers' demands and expectation on environmental performance.",
+      "5.12 - Use some alternative for plastic packaging, giving preference to biodegradable, reusable or recyclable materials.",
+      "5.13 - Uses a sustainable delivery process (e.g., uses bicycles, electric vehicles, shipping software for efficient package settings or offsets shipping emissions)",
+      "5.14 - Gives appropriate final destination for waste that requires specific treatment, such as batteries, oils, tires and hospital waste, among others.",
+
+      "5.15 - Practices on its facilities:",
+      "5.15.1 - Selective waste collection (e.g., labeled containers for paper, glass, metal, plastic and organic material)",
+      "5.15.1.1 - If so, to what extent (%)?",
+      "5.15.2 - Savings on paper consumption (s*uch as using the front and back of sheets).",
+      "5.15.2.1 - If so, to what extent (%)?",
+      "5.15.3 - Reduction of energy consumption (through, for example, improved daylighting, lower energy consumption electronics, device to cut power when the device is not in use, etc.).",
+      "5.15.3.1 - If so, to what extent (%)?",
+      "5.15.4 - The use of some renewable energy source",
+      "5.15.4.1 - If so, to what extent (%)?",
+      "5.15.5 - Reduction of water consumption (by installing faucets with automatic closing and discharges with reduced flow, by using rainwater for industrial activities, etc.).",
+      "5.15.5.1 - I If so, to what extent (%)?",
+      "(If any) Use this space to briefly tell us the principal environmental impacts arising from your company's activities. How are environmental issues are included in the company's strategic decisions? What does make your product/service more environmentally friendly? What actions does the company take to mitigate/minimize its footprints?"
+    ]
+  }
+]
