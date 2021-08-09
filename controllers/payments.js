@@ -11,3 +11,13 @@ export const createCheckout = async (data) => {
 
   return res.data;
 };
+
+export const getCheckoutUrl = async (data) => {
+  const res = await authAxios()({
+    url: "/checkout",
+    method: "POST",
+    data,
+  });
+
+  return res.data;
+};

@@ -9,7 +9,7 @@ import Footer from "@/shared/Footer";
 import Fetcher from "@/shared/Fetcher";
 
 import { getCartProducts } from "@/controllers/customer";
-import { createCheckout } from "@/controllers/payments";
+import { getCheckoutUrl } from "@/controllers/payments";
 
 import CartContext from "./cart.context";
 import CartShopView from "./CartShopView";
@@ -26,6 +26,7 @@ const Cart = () => {
   const [products, setProducts] = useState([]);
   const [shipping, setShipping] = useState({});
   const [billing, setBilling] = useState({});
+  const [pickUpOrder, setPickUpOrder] = useState(false);
   const [subTotals, setSubTotals] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalDelivery, setTotalDelivery] = useState(0);
@@ -39,6 +40,7 @@ const Cart = () => {
     billing,
     products,
     subTotals,
+    pickUpOrder,
     totalPrice,
     totalDelivery,
     co2Compensation,
@@ -46,6 +48,7 @@ const Cart = () => {
     setShops,
     setProducts,
     setBilling,
+    setPickUpOrder,
     setShipping,
     setSubTotals,
     setTotalPrice,
@@ -67,24 +70,19 @@ const Cart = () => {
   const checkout = async () => {
     let products = shops.map((shop) => shop.products).flat();
 
-    console.log("Products: ", products);
-
     products = products.map((product) => ({
-      price: product.price,
-      quantity: product.quantity,
-      name: product.name,
+      ...product,
       images: product.images.length
         ? product.images.map((image) => image.url)
         : ["https://google.com/non"],
-      quantity: product.quantity,
     }));
 
-    const url = await createCheckout({
+    const url = await getCheckoutUrl({
       email: user.email,
       payTypes: ["card"],
       deliveryCharges: totalDelivery,
       currency: "eur",
-      items: products,
+      products,
       co2Compensation,
       pickUpOrder,
       total,
