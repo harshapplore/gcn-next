@@ -285,7 +285,8 @@
           {
             "text": "Has the necessary licenses and permits for its operation.",
             "type": "option",
-            "is": "question"
+            "is": "question",
+            "critical": true
           },
           {
             "text": "Instructs its employees to know the laws they must comply with.",
@@ -322,89 +323,374 @@
     ]
   },
   {
-    "section": "",
-    "questions": []
-  },
-  {
     "dimension": "Social",
-    "description": "",
+    "description": "heading",
     "questions": [
-      "4.1",
-      "Recruits and promotes based NOT only on the individual’s ability, experience and performance, but also takes into consideration diversity criteria like their gender, age, religion, ethnicity or disabilities",
-      "Applies the same salary range and eligibility to benefits and allowances for work of equal value, regardless of the employee’s personal attributes",
-      "Provides grievance channels or regular occasions for employees to give their opinions and voice out their concerns",
-      "(If any) Use this space to briefly tell us what strategies the company adopts to ensure equity in the hiring process and equal internal treatment.",
-      "4.2",
-      "Provides training to employees on skills that prepare them for future assignments and career development",
-      "Values and encourages the professional development of its employees",
-      "Subsidizes courses for employees.",
-      "Provides incentives including career-growth opportunities, bonuses, stock options or profit sharing to high-caliber talent",
-      "Knows the degree of satisfaction of its staff",
-      "The company's administrators - partners, owners, directors and managers - invest in their own training, improving their technical and business management knowledge.",
-      "(If any) Use this space to briefly tell us what strategies the company adopts to promote the professional development of its staff.",
-      "4.3",
-      "Offers to its employees a pleasant and safe physical environment, encouraging hygiene and health care",
-      "Keeps all legal documents related to occupational health and safety up-to-date and complete, such as environmental risk analysis and incident and accident reports, among others.",
-      "Trains and makes employees aware of accident or fire prevention.",
-      "Provides, trains, and raises awareness regarding the use of personal protective equipment (PPE)",
-      "Has mechanisms to prevent and combat moral harassment.",
-      "Has mechanisms to prevent and combat sexual harassment.",
-      "Has dedicated personnel or team(s) to oversee employee’s wellness",
-      "Develops program(s) or provide resource(s) to create family-friendly work environment",
-      "(If any) Use this space to briefly tell us what working environment conditions the company offers its employees. Is the use of PPE necessary/mandatory/encouraged? What strategies have been adopted to prevent harassment situations?",
-      "Has a dialogue channel with the community, such as a suggestion box, telephone number or email.",
-      "Encourages volunteer work by its employees.",
-      "Invests part of its profit in social projects",
-      " If so, to what extent (%)?",
-      "As a result of its activity in the community, the company believes that it has obtained benefits for the business, such as increased sales, improved relations with suppliers, the acquisition of new contacts or customers or lower staff turnover, among others.",
-      "(If any) Use this space to briefly tell us what actions the company practices and/or encourages with the community. What strategies the company adopts for communication and relationship with its stakeholders."
+      {
+        "text": "Valuing Diversity",
+        "type": "heading",
+        "is": "section",
+        "questions": [
+          {
+            "text": "Recruits and promotes based NOT only on the individual’s ability, experience and performance, but also takes into consideration diversity criteria like their gender, age, religion, ethnicity or disabilities",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Applies the same salary range and eligibility to benefits and allowances for work of equal value, regardless of the employee’s personal attributes",
+            "critical": true,
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Provides grievance channels or regular occasions for employees to give their opinions and voice out their concerns",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "(If any) Use this space to briefly tell us what strategies the company adopts to ensure equity in the hiring process and equal internal treatment.",
+            "type": "text",
+            "is": "question"
+          }
+        ]
+      },
+      {
+        "text": "Commitment to Professional Development",
+        "type": "heading",
+        "is": "section",
+        "questions": [
+          {
+            "text": "Provides training to employees on skills that prepare them for future assignments and career development",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Values and encourages the professional development of its employees",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Subsidizes courses for employees.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Provides incentives including career-growth opportunities, bonuses, stock options or profit sharing to high-caliber talent",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Knows the degree of satisfaction of its staff",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "The company's administrators - partners, owners, directors and managers - invest in their own training, improving their technical and business management knowledge.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "(If any) Use this space to briefly tell us what strategies the company adopts to promote the professional development of its staff.",
+            "type": "text",
+            "is": "question"
+          }
+        ]
+      },
+      {
+        "text": "Employee Health And Safety",
+        "type": "heading",
+        "is": "section",
+        "questions": [
+          {
+            "text": "Offers to its employees a pleasant and safe physical environment, encouraging hygiene and health care",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Keeps all legal documents related to occupational health and safety up-to-date and complete, such as environmental risk analysis and incident and accident reports, among others.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Trains and makes employees aware of accident or fire prevention.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Provides, trains, and raises awareness regarding the use of personal protective equipment (PPE)",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Has mechanisms to prevent and combat moral harassment.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Has mechanisms to prevent and combat sexual harassment.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Has dedicated personnel or team(s) to oversee employee’s wellness",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Develops program(s) or provide resource(s) to create family-friendly work environment",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "(If any) Use this space to briefly tell us what working environment conditions the company offers its employees. Is the use of PPE necessary/mandatory/encouraged? What strategies have been adopted to prevent harassment situations?",
+            "type": "text",
+            "is": "question"
+          }
+        ]
+      },
+      {
+        "text": "Community and Other Stakeholders' Relationship",
+        "type": "heading",
+        "is": "section",
+        "questions": [
+          {
+            "text": "Has a dialogue channel with the community, such as a suggestion box, telephone number or email.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Encourages volunteer work by its employees.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "Invests part of its profit in social projects",
+            "type": "option",
+            "is": "section",
+            "questions": [
+              {
+                "text": " If so, to what extent (%)?",
+                "type": "option",
+                "is": "question"
+              }
+            ]
+          },
+          {
+            "text": "As a result of its activity in the community, the company believes that it has obtained benefits for the business, such as increased sales, improved relations with suppliers, the acquisition of new contacts or customers or lower staff turnover, among others.",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "(If any) Use this space to briefly tell us what actions the company practices and/or encourages with the community. What strategies the company adopts for communication and relationship with its stakeholders.",
+            "type": "text",
+            "is": "question"
+          }
+        ]
+      }
     ]
   },
   {
     "dimension": "Environmental",
     "description": "",
     "questions": [
-      "Has an environmental policy",
-      "5.2",
-      "Knows and understands the impacts of its activities on the environment (such as emission of pollutants, soil erosion, consumption of raw material, energy, water, fuel, among others).",
-      "If so, are these impacts measured and managed?",
-      "5.3",
-      "Seeks to use materials or processes that cause less damage to the environment.",
-      "Seeks to use local material(s) and service(s) for its operation",
-      "5.4",
-      "If so, to what extent (%)?",
-      "5.5",
-      "Is able to identify and quantify the environmental impacts it is avoiding when compared to a traditional production/service offering process.",
-      "If so, to what extent (% and kg/unit) is the use of plastic reduced?",
-      "If so, to what extent (% and kg/unit) is the use of raw material reduced?",
-      "5.5.3 - If so, to what extent (% and m3/unit) is the use of water reduced?",
-      "5.5.4 - If so, to what extent (% and kWh/unit) is the use of energy reduced?",
-      "5.5.5 - If so, to what extent (% and kWh/unit) is the use of renewable energy employed in?",
-      "5.5.6 - If so, to what extent (% and kgCO2 eq/unit) is the GHG emission reduced?",
-      "5.6",
-      "5.6 - Recycles or reuses scrap materials from its production processes.",
-      "5.6.1 - If so, to what extent (%)?",
-      "5.7 - Manufactures product(s) that after use phase can be recyclable or be reused for other purposes",
-      "5.8 - Discuss partnerships with suppliers aiming to return to the manufacturer of discarded materials (such as expired products, used tires, batteries, etc.).",
-      "5.9 - Promotes customers' understanding of business-related environmental issue(s) through promotional or educational activities.",
-      "5.10 - Requires suppliers and service providers to provide comprehensive information and data about their environmental practices.",
-      "5.11 - Communicate and share knowledge with suppliers on customers' demands and expectation on environmental performance.",
-      "5.12 - Use some alternative for plastic packaging, giving preference to biodegradable, reusable or recyclable materials.",
-      "5.13 - Uses a sustainable delivery process (e.g., uses bicycles, electric vehicles, shipping software for efficient package settings or offsets shipping emissions)",
-      "5.14 - Gives appropriate final destination for waste that requires specific treatment, such as batteries, oils, tires and hospital waste, among others.",
+      {
+        "text": "Has an environmental policy",
+        "type": "option",
+        "is": "question"
+      },
+      {
+        "text": "Knows and understands the impacts of its activities on the environment (such as emission of pollutants, soil erosion, consumption of raw material, energy, water, fuel, among others).",
+        "type": "option",
+        "is": "section",
+        "critical": true,
+        "questions": [
+          {
+            "text": "If so, are these impacts measured and managed?",
+            "type": "option",
+            "is": "question"
+          }
+        ]
+      },
+      {
+        "text": "Seeks to use materials or processes that cause less damage to the environment.",
+        "type": "option",
+        "is": "question"
+      },
+      {
+        "text": "Seeks to use local material(s) and service(s) for its operation",
+        "type": "option",
+        "is": "question",
+        "critical": true,
+        "questions": [
+          {
+            "text": "If so, to what extent (%)?",
+            "type": "option",
+            "is": "question"
+          }
+        ]
+      },
+      {
+        "text": "Is able to identify and quantify the environmental impacts it is avoiding when compared to a traditional production/service offering process.",
+        "type": "option",
+        "is": "section",
+        "questions": [
+          {
+            "text": "If so, to what extent (% and kg/unit) is the use of plastic reduced?",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "If so, to what extent (% and kg/unit) is the use of raw material reduced?",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "If so, to what extent (% and m3/unit) is the use of water reduced?",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "If so, to what extent (% and kWh/unit) is the use of energy reduced?",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "If so, to what extent (% and kWh/unit) is the use of renewable energy employed in?",
+            "type": "option",
+            "is": "question"
+          },
+          {
+            "text": "If so, to what extent (% and kgCO2 eq/unit) is the GHG emission reduced?",
+            "type": "option",
+            "is": "question"
+          }
+        ]
+      },
+      {
+        "text": "Recycles or reuses scrap materials from its production processes.",
+        "type": "option",
+        "is": "section",
+        "questions": [
+          {
+            "text": "If so, to what extent (%)?",
+            "type": "option",
+            "is": "question"
+          }
+        ]
+      },
+      {
+        "text": "Manufactures product(s) that after use phase can be recyclable or be reused for other purposes",
+        "type": "option",
+        "is": "question"
+      },
+      {
+        "text": "Discuss partnerships with suppliers aiming to return to the manufacturer of discarded materials (such as expired products, used tires, batteries, etc.).",
+        "type": "option",
+        "is": "question"
+      },
+      {
+        "text": "Promotes customers' understanding of business-related environmental issue(s) through promotional or educational activities.",
+        "type": "option",
+        "is": "question"
+      },
+      {
+        "text": "Requires suppliers and service providers to provide comprehensive information and data about their environmental practices.",
+        "type": "option",
+        "is": "question"
+      },
+      {
+        "text": "Communicate and share knowledge with suppliers on customers' demands and expectation on environmental performance.",
+        "type": "option",
+        "is": "question"
+      },
+      {
+        "text": "Use some alternative for plastic packaging, giving preference to biodegradable, reusable or recyclable materials.",
+        "type": "option",
+        "is": "question"
+      },
+      {
+        "text": "Uses a sustainable delivery process (e.g., uses bicycles, electric vehicles, shipping software for efficient package settings or offsets shipping emissions)",
+        "type": "option",
+        "is": "question"
+      },
+      {
+        "text": "Gives appropriate final destination for waste that requires specific treatment, such as batteries, oils, tires and hospital waste, among others.",
+        "type": "option",
+        "is": "question"
+      },
+      {
+        "text": "Practices on its facilities:",
+        "type": "option",
+        "is": "section",
+        "questions": [
+          {
+            "text": "Selective waste collection (e.g., labeled containers for paper, glass, metal, plastic and organic material)",
+            "type": "option",
+            "is": "section",
+            "questions": [
+              {
+                "text": " If so, to what extent (%)?",
+                "type": "option",
+                "is": "question"
+              }
+            ]
+          },
+          {
+            "text": "Savings on paper consumption (s*uch as using the front and back of sheets).",
 
-      "5.15 - Practices on its facilities:",
-      "5.15.1 - Selective waste collection (e.g., labeled containers for paper, glass, metal, plastic and organic material)",
-      "5.15.1.1 - If so, to what extent (%)?",
-      "5.15.2 - Savings on paper consumption (s*uch as using the front and back of sheets).",
-      "5.15.2.1 - If so, to what extent (%)?",
-      "5.15.3 - Reduction of energy consumption (through, for example, improved daylighting, lower energy consumption electronics, device to cut power when the device is not in use, etc.).",
-      "5.15.3.1 - If so, to what extent (%)?",
-      "5.15.4 - The use of some renewable energy source",
-      "5.15.4.1 - If so, to what extent (%)?",
-      "5.15.5 - Reduction of water consumption (by installing faucets with automatic closing and discharges with reduced flow, by using rainwater for industrial activities, etc.).",
-      "5.15.5.1 - I If so, to what extent (%)?",
-      "(If any) Use this space to briefly tell us the principal environmental impacts arising from your company's activities. How are environmental issues are included in the company's strategic decisions? What does make your product/service more environmentally friendly? What actions does the company take to mitigate/minimize its footprints?"
+            "type": "option",
+            "is": "section",
+            "questions": [
+              {
+                "text": " If so, to what extent (%)?",
+                "type": "option",
+                "is": "question"
+              }
+            ]
+          },
+          {
+            "text": "Reduction of energy consumption (through, for example, improved daylighting, lower energy consumption electronics, device to cut power when the device is not in use, etc.).",
+            "type": "option",
+            "is": "section",
+            "questions": [
+              {
+                "text": " If so, to what extent (%)?",
+                "type": "option",
+                "is": "question"
+              }
+            ]
+          },
+          {
+            "text": "The use of some renewable energy source",
+            "type": "option",
+            "is": "section",
+            "questions": [
+              {
+                "text": " If so, to what extent (%)?",
+                "type": "option",
+                "is": "question"
+              }
+            ]
+          },
+          {
+            "text": "Reduction of water consumption (by installing faucets with automatic closing and discharges with reduced flow, by using rainwater for industrial activities, etc.).",
+            "type": "option",
+            "is": "section",
+            "questions": [
+              {
+                "text": " If so, to what extent (%)?",
+                "type": "option",
+                "is": "question"
+              }
+            ]
+          },
+          {
+            "text": "(If any) Use this space to briefly tell us the principal environmental impacts arising from your company's activities. How are environmental issues are included in the company's strategic decisions? What does make your product/service more environmentally friendly? What actions does the company take to mitigate/minimize its footprints?",
+            "type": "text",
+            "is": "question"
+          }
+        ]
+      }
     ]
   }
 ]
