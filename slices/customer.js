@@ -4,9 +4,9 @@ import { authAxios } from "@/setups/axios";
 export const fetchCustomer = createAsyncThunk(
   "customer/fetchCustomer",
   async () => {
-    const response = await authAxios(id)({
+    const response = await authAxios()({
       url: `/customers/me`,
-      method: "GET",
+      method: "GET",  
     });
     return response.data;
   }

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import Head from "next/head";
 
 import { useSelector } from "react-redux";
@@ -7,31 +6,68 @@ import { useSelector } from "react-redux";
 import Header from "@/shared/Header2";
 import Nav from "@/shared/Nav2";
 import Footer from "@/shared/Footer";
+import Fetcher from "@/shared/Fetcher";
 
+import { getCartProducts } from "@/controllers/customer";
+import { createCheckout } from "@/controllers/payments";
+
+import CartContext from "./cart.context";
 import CartShopView from "./CartShopView";
 import Shipping from "./Shipping";
 
-import { createCheckout } from "controllers/payments";
+import { getShopView } from "./cart.methods";
 
-const CheckOut = () => {
-  const router = useRouter();
+const Cart = () => {
   const { user } = useSelector((state) => state.user);
 
-  const [activePage, setActivePage] = useState();
-
-  const [data, setData] = useState({});
   const [showShipping, setShowShipping] = useState();
 
+  const [shops, setShops] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [shipping, setShipping] = useState({});
+  const [billing, setBilling] = useState({});
+  const [subTotals, setSubTotals] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalDelivery, setTotalDelivery] = useState(0);
+  const [co2Compensation, setCo2Compensation] = useState(0);
+  const [total, setTotal] = useState(0);
+
+  const value = {
+    shops,
+    products,
+    shipping,
+    billing,
+    products,
+    subTotals,
+    totalPrice,
+    totalDelivery,
+    co2Compensation,
+    total,
+    setShops,
+    setProducts,
+    setBilling,
+    setShipping,
+    setSubTotals,
+    setTotalPrice,
+    setTotalDelivery,
+    setCo2Compensation,
+    setTotal,
+  };
+
+  useEffect(async () => {
+    const products = await getCartProducts({ user: user.id });
+    setProducts(products);
+  }, []);
+
   useEffect(() => {
-    const { section } = router.query;
-    setActivePage(section);
-  }, [router.query]);
+    const shops = getShopView(products);
+    setShops(shops);
+  }, [products]);
 
   const checkout = async () => {
-    let products = data.order
-      .map((shop) => shop.products)
-      .flat()
-      .map((product) => ({ ...product.product, quantity: product.quantity }));
+    let products = shops.map((shop) => shop.products).flat();
+
+    console.log("Products: ", products);
 
     products = products.map((product) => ({
       price: product.price,
@@ -43,15 +79,17 @@ const CheckOut = () => {
       quantity: product.quantity,
     }));
 
-    console.log(data);
-
     const url = await createCheckout({
       email: user.email,
       payTypes: ["card"],
-      deliveryCharges: data.totalDelivery,
-      co2Compensation: data.co2Compensation,
+      deliveryCharges: totalDelivery,
       currency: "eur",
       items: products,
+      co2Compensation,
+      pickUpOrder,
+      total,
+      billing,
+      shipping,
     });
 
     location.assign(url);
@@ -63,22 +101,18 @@ const CheckOut = () => {
       <Head>
         <title>Cart | Green Cloud Nine</title>
       </Head>
-      <div className="page-section">
-        {!activePage && (
-          <CartShopView
-            data={data}
-            setData={setData}
-            goToShipping={() => setShowShipping(true)}
-          />
-        )}
+      <Fetcher />
 
-        {showShipping && (
-          <Shipping checkout={checkout} data={data} setData={setData} />
-        )}
-      </div>
-      <Footer />
+      <CartContext.Provider value={value}>
+        <div className="page-section">
+          <CartShopView goToShipping={() => setShowShipping(true)} />
+
+          {showShipping && <Shipping checkout={checkout} />}
+        </div>
+        <Footer />
+      </CartContext.Provider>
     </>
   );
 };
 
-export default CheckOut;
+export default Cart;

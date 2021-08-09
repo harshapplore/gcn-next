@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import CheckBox from "@/shared/Input/Checkbox";
 import Select from "@/shared/Input/Select";
@@ -6,6 +6,8 @@ import Message from "@/shared/Message";
 import Button from "@/shared/Button";
 
 import { isEmail, isPhone, isPostalCode } from "@/utils/validators";
+
+import cartContext, { CartContext } from "./cart.context";
 
 const Input = ({ data, setData, errors }) => {
   return (
@@ -85,16 +87,18 @@ const Input = ({ data, setData, errors }) => {
   );
 };
 
-const Shipping = ({ data, setData, checkout }) => {
-  const [sameShipping, setSameShipping] = useState(true);
-
-  const [shipping, setShipping] = useState({});
-  const [billing, setBilling] = useState({});
+const Shipping = ({ checkout }) => {
+  const { shipping, billing, setShipping, setBilling } =
+    useContext(cartContext);
 
   const [err, setErrors] = useState({
     billing: [],
     shipping: [],
   });
+
+  useEffect(() => {
+    setShipping({ sameAsBilling: true });
+  }, []);
 
   const validate = (data, key) => {
     const errors = [];
@@ -130,9 +134,9 @@ const Shipping = ({ data, setData, checkout }) => {
   const next = () => {
     if (validate(billing, "billing")) return;
 
-    if (!sameShipping && validate(shipping, "shipping")) return;
+    if (!shipping.sameAsBilling && validate(shipping, "shipping")) return;
 
-    setData({ ...data, billing, shipping: sameShipping ? billing : shipping });
+    setShipping({ ...billing, ...shipping });
 
     checkout();
   };
@@ -156,10 +160,10 @@ const Shipping = ({ data, setData, checkout }) => {
           <h3>Delivery Address</h3>
           <CheckBox
             text="Use same address for delivery."
-            value={sameShipping}
-            setValue={(value) => setSameShipping(value)}
+            value={shipping.sameAsBilling}
+            setValue={(value) => setShipping({ sameAsBilling: value })}
           />
-          {!sameShipping && (
+          {!shipping.sameAsBilling && (
             <Input
               name="Delivery Address"
               data={shipping}

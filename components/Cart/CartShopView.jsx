@@ -1,25 +1,26 @@
-import { useState, useEffect } from "react";
-import { getCart } from "@/controllers/customer";
+import { useState, useEffect, useMemo, useContext } from "react";
+
 import { getShop } from "@/controllers/shop";
-import shop from "@/slices/shop";
 
 import { Toggle2 } from "@/shared/Toggle";
 import NumberInput from "@/shared/Input/Number";
 
+import styles from "./cart.module.scss";
+import CartContext from "./cart.context";
+import { getSubTotalPrice, getSubTotalDelivery } from "./cart.methods";
+
 import CompensationChoices from "./CompensationChoice";
 
-import styles from "./cart.module.scss";
-
-const CartItem = ({ item, shop, qty, setQty }) => {
+const CartItem = ({ product, shop, qty, setQty }) => {
   return (
     <div className="flex mb-20">
       <div className="flex">
         <div className="checkout-shop-item-img">
           <img
             src={
-              item.product &&
-              item.product.images[0] &&
-              item.product.images[0].formats.thumbnail.url
+              product &&
+              product.images[0] &&
+              product.images[0].formats.thumbnail.url
             }
             loading="lazy"
             sizes="(max-width: 479px) 42vw, (max-width: 767px) 23vw, 120px"
@@ -28,9 +29,9 @@ const CartItem = ({ item, shop, qty, setQty }) => {
           />
         </div>
         <div className="checkout-product-info">
-          <h3>{item.product.name}</h3>
+          <h3>{product.name}</h3>
           <div className="overline-text pull-up">By {shop.name}</div>
-          <div>Size: {item.size || ""}</div>
+          <div>Size: {product.size || ""}</div>
         </div>
       </div>
       <div className="pt-20">
@@ -40,29 +41,31 @@ const CartItem = ({ item, shop, qty, setQty }) => {
           alt="Checkmark"
         />
         <div className="item-additional-info">
-          {item.product.filters.inStock ? "In Stock" : "Currently Unavailable"}
+          {product.filters.inStock ? "In Stock" : "Currently Unavailable"}
         </div>
         <NumberInput value={qty} setValue={(value) => setQty(value)} />
       </div>
       <div className="pt-30">
-        <div className="shop-product-price">€ {item.product.price}</div>
+        <div className="shop-product-price">
+          € {product.price * product.quantity}
+        </div>
       </div>
     </div>
   );
 };
 
-const CartShop = ({ cart, subtotal }) => {
+/*
+ * Caters to a particular shop in the view.
+ */
+const CartShop = ({ shopId, products, setProducts, subTotal }) => {
   const [_shop, _setShop] = useState({});
-  const [_products, _setProducts] = useState([]);
 
   useEffect(async () => {
-    if (cart && cart.shop && !_shop.id) {
-      const _shopData = await getShop(cart.shop);
+    if (shopId && !_shop.id) {
+      const _shopData = await getShop(shop.shopId);
       _setShop(_shopData);
     }
-
-    if (cart) _setProducts(cart.products);
-  }, [cart]);
+  }, [shopId]);
 
   return (
     <div className="shop-list mb-60">
@@ -75,87 +78,104 @@ const CartShop = ({ cart, subtotal }) => {
         </div>
       </div>
 
-      {_products &&
-        _products.map((product, index) => (
+      {products &&
+        products.map((product, index) => (
           <CartItem
             key={"name" + index}
-            item={product}
+            product={product}
             shop={_shop}
             qty={product.quantity}
             setQty={(value) =>
-              _setProducts([
-                ..._products.slice(0, index),
+              setProducts([
+                ...products.slice(0, index),
                 { ...product, quantity: value },
-                ..._products.slice(index + 1),
+                ...products.slice(index + 1),
               ])
             }
           />
         ))}
 
       <div className="subtotal-wrapper">
-        <div className="medium">Subtotal: € {subtotal.prices} </div>
-        <div>Delivery: € {subtotal.delivery} </div>
+        <div className="medium">Subtotal: € {subTotal.price} </div>
+        <div>Delivery: € {subTotal.delivery} </div>
         <div>2-3 days</div>
       </div>
     </div>
   );
 };
 
-const CartShopView = ({ data, setData, goToShipping }) => {
-  const [items, setItems] = useState([]);
-  const [subtotals, setSubtotals] = useState([]);
+/**
+ *  The main container component to display Cart
+ * @param goToShipping - A high-order function to move to next step
+ */
+const CartShopView = ({ goToShipping }) => {
   const [toggles, setToggles] = useState({});
 
-  const subtotalCalc = (cart) => {
-    if (!cart) return;
+  const {
+    shops,
+    setShops,
+    subTotals,
+    setSubTotals,
+    totalPrice,
+    totalDelivery,
+    setTotalPrice,
+    setTotalDelivery,
+    co2Compensation,
+    setCo2Compensation,
+    pickUpOrder,
+    setPickUpOrder,
+    total,
+    setTotal,
+  } = useContext(CartContext);
 
-    const subtotals = [];
-
-    cart.map((item) => {
-      let prices = 0;
-      let delivery = 0;
-      item.products.map((product) => {
-        prices += product.price * product.quantity;
-        delivery += product.delivery || 0;
+  /*
+   * Recalculates subtotals w/ change in products
+   */
+  useEffect(() => {
+    if (shops.length) {
+      const subTotals = shops.map((shop) => {
+        return {
+          price: getSubTotalPrice(shop.products),
+          delivery: getSubTotalDelivery(shop.products),
+        };
       });
-      subtotals.push({ prices, delivery });
-    });
 
-    return subtotals;
-  };
-
-  useEffect(async () => {
-    const items = await getCart();
-
-    if (items) {
-      setItems(items.data);
-      const subtotal = subtotalCalc(items.data);
-      setSubtotals(subtotal);
+      setSubTotals(subTotals);
     }
-  }, []);
+  }, [shops]);
+
+  /**
+   * Recalculates total Price & Delivery as the subtotals change.
+   * */
+  useEffect(() => {
+    const total = subTotals.reduce(
+      (a, c) => {
+        return {
+          price: a.price + c.price,
+          delivery: a.delivery + c.delivery,
+        };
+      },
+      { price: 0, delivery: 0 }
+    );
+
+    setTotalPrice(total.price);
+    setTotalDelivery(total.delivery);
+  }, [subTotals]);
 
   useEffect(() => {
-    const totalPrice = subtotals.reduce((a, c) => (a += c.prices), 0);
-    const totalDelivery = subtotals.reduce((a, c) => a + c.delivery, 0);
-    let co2Compensation;
-
-    if (toggles.co2Compensation) {
-      co2Compensation = Math.round((totalPrice + totalDelivery) / 100);
-    } else {
-      co2Compensation = 0;
+    if (!toggles.co2Compensation) {
+      setCo2Compensation(0);
+      return;
     }
 
-    const total = totalPrice + totalDelivery + co2Compensation;
+    const compensation = Math.round((totalPrice + totalDelivery) / 100);
 
-    setData({
-      ...data,
-      totalPrice,
-      totalDelivery,
-      co2Compensation,
-      total,
-      order: items,
-    });
-  }, [subtotals, toggles.co2Compensation]);
+    setCo2Compensation(compensation);
+  }, [toggles.co2Compensation]);
+
+  useEffect(() => {
+    setTotal(totalPrice + totalDelivery + co2Compensation);
+  }, [totalPrice, totalDelivery, co2Compensation]);
 
   return (
     <>
@@ -164,17 +184,25 @@ const CartShopView = ({ data, setData, goToShipping }) => {
       <div className="container">
         <div className="heading-wrapper mb-40">
           <h1>
-            {items.reduce((a, c) => a + c.products.length, 0)} items in your
+            {shops.reduce((a, c) => a + c.products.length, 0)} items in your
             cart
           </h1>
         </div>
 
-        {items &&
-          items.map((item, index) => (
+        {shops &&
+          shops.map((shop, index) => (
             <CartShop
-              cart={item}
-              subtotal={subtotals[index] || {}}
-              // setCart={setItems}
+              key={"shop" + index}
+              shop={shop}
+              products={shop.products}
+              setProducts={(products) => {
+                setShops([
+                  ...shops.slice(0, index),
+                  { ...shop, products },
+                  ...shops.slice(index + 1),
+                ]);
+              }}
+              subTotal={subTotals[index] || {}}
             />
           ))}
       </div>
@@ -194,8 +222,8 @@ const CartShopView = ({ data, setData, goToShipping }) => {
             />
             <Toggle2
               name="Pick up"
-              value={data.pickUp}
-              setValue={(value) => setData({ ...data, pickUp: value })}
+              value={pickUpOrder}
+              setValue={(value) => setPickUpOrder(value)}
             />
             <Toggle2
               name="This order is a gift."
@@ -228,18 +256,16 @@ const CartShopView = ({ data, setData, goToShipping }) => {
             )}
           </div>
           <div className="total-wrapper">
-            <div className="medium">Total: € {data.totalPrice}</div>
-            <div>Delivery: € {data.totalDelivery}</div>
-            {data.co2Compensation && (
-              <div>CO2 compensation (345)km: € {data.co2Compensation}</div>
+            <div className="medium">Total: € {totalPrice}</div>
+            <div>Delivery: € {totalDelivery}</div>
+            {co2Compensation && (
+              <div>CO2 compensation : € {co2Compensation}</div>
             )}
           </div>
         </div>
 
         <div className="center">
-          <div className={styles["total-display"]}>
-            Order Total: € {data.total}
-          </div>
+          <div className={styles["total-display"]}>Order Total: € {total}</div>
           <div className="button blue secondary mx-10" onClick={goToShipping}>
             <div>Proceed to Shipping</div>
           </div>
