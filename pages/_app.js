@@ -14,6 +14,11 @@ import "@/assets/styles/custom-momentum.css";
 import "@/assets/styles/overwrite.css";
 import "@/assets/styles/new.css";
 
+import "swiper/swiper.scss";
+import "swiper/components/navigation/navigation.scss";
+import "swiper/components/pagination/pagination.scss";
+import "swiper/components/scrollbar/scrollbar.scss";
+
 function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
@@ -43,7 +48,11 @@ function MyApp({ Component, pageProps }) {
         />
         <link rel="manifest" href="/favicons/site.webmanifest" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin=""
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap"
           rel="stylesheet"

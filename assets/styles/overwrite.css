@@ -71,6 +71,12 @@ select {
   flex-wrap: wrap;
 }
 
+.slider-image{
+  max-width: auto;
+  min-width: 500px;
+  object-fit: contain;
+}
+
 /* */
 
 .privacy-lorem-ipsum{

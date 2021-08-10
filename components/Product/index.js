@@ -13,11 +13,15 @@ import Header from "@/shared/Header2";
 import Nav from "@/shared/Nav2";
 import Select from "@/shared/Select";
 import Fetcher from "@/shared/Fetcher";
+import AuthForm from "@/shared/Auth/AuthForm";
+
+import Button from "@/shared/Button";
 
 const ProductDetail = () => {
   const router = useRouter();
   const { customer } = useSelector((state) => state.customer);
-  const { seller } = useSelector((state) => state.seller);
+
+  const [ showAuth, setShowAuth ] = useState(false);
 
   const [product, setProduct] = useState({});
 
@@ -41,8 +45,25 @@ const ProductDetail = () => {
     }
   }, [router]);
 
+  const addToCartHandler = async () => {
+    if (!customer.id) {
+      setShowAuth(true);
+      return;
+    }
+
+    const res = await addToCart({
+      productId: product.id,
+      quantity: 1,
+    });
+
+    setTimeout(() => {
+      router.push("/cart");
+    }, 1000);
+  };
+
   return (
     <>
+      {showAuth && <AuthForm close={() => setShowAuth(false )} />}
       <Fetcher />
       <Head>
         <title> {product.name} | Green Cloud Nine</title>
@@ -61,12 +82,12 @@ const ProductDetail = () => {
                 By {product.shop && product.shop.name}
               </div>
             </div>
-            <div className="item-produc t-price mb-40">€ {product.price}</div>
+            <div className="item-product-price mb-40">€ {product.price}</div>
 
             <div>
               {tags.map((tag) => (
-                <div className="button secondary small">
-                  <div>{tag}</div>
+                <div className="tag-spacer">
+                  <div className="tag">{tag}</div>
                 </div>
               ))}
             </div>
@@ -80,23 +101,11 @@ const ProductDetail = () => {
                 width={100}
               />
 
-              <span
-                className="button icon orange w-inline-block"
-                onClick={async () => {
-                  const res = await addToCart({
-                    productId: product.id,
-                    quantity: 1,
-                  });
-
-                  console.log(res);
-
-                  setTimeout(() => {
-                    router.push("/customer/cart");
-                  }, 2000);
-                }}
-              >
-                <div className="text-block">Add To Cart</div>
-              </span>
+              <Button
+                name="Add to Cart"
+                caps={true}
+                action={addToCartHandler}
+              />
             </div>
             <div className="mb-10">
               <img

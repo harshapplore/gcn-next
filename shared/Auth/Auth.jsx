@@ -26,14 +26,18 @@ const routes = {
     auth: true,
     type: "seller",
   },
-  "/customer/[section]":{
+  "/customer": {
     auth: true,
-    type: "customer"
+    type: "customer",
+  },
+  "/customer/[section]": {
+    auth: true,
+    type: "customer",
   },
   "/cart": {
     auth: true,
-    type: "customer"
-  }
+    type: "customer",
+  },
 };
 
 const Auth = ({ children }) => {
