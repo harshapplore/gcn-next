@@ -1,4 +1,8 @@
+import { useRouter } from "next/router";
+
 const Footer = () => {
+  const router = useRouter();
+
   return (
     <div className="footer">
       <div className="page-section social-bar">
@@ -86,10 +90,16 @@ const Footer = () => {
             </div>
             <div className="footer-column">
               <div className="footer-heading">Shop</div>
-              <a className="footer-link w-inline-block">
+              <a
+                className="footer-link w-inline-block"
+                onClick={() => router.push("/help")}
+              >
                 <div>For buyers</div>
               </a>
-              <a className="footer-link w-inline-block">
+              <a
+                className="footer-link w-inline-block"
+                onClick={() => router.push("/help")}
+              >
                 <div>For sellers</div>
               </a>
             </div>

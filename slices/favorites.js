@@ -47,27 +47,27 @@ export const fetchFavoriteShops = createAsyncThunk(
 export const favoritesSlice = createSlice({
   name: "categories",
   initialState: {
-    products: [],
-    shops: [],
+    favoriteItems: [],
+    favoriteShops: [],
   },
   extraReducers: {
     [fetchFavoriteItems.fulfilled]: (state, action) => {
-      state.products = action.payload;
+      state.favoriteItems = action.payload;
     },
     [fetchFavoriteItems.rejected]: (state, _) => {
-      state.products = [];
+      state.favoriteItems = [];
     },
     [fetchFavoriteItems.pending]: (state, _) => {
-      state.products = [];
+      state.favoriteItems = [];
     },
     [fetchFavoriteShops.fulfilled]: (state, action) => {
-      state.products = action.payload;
+      state.favoriteShops = action.payload;
     },
     [fetchFavoriteShops.rejected]: (state, _) => {
-      state.products = [];
+      state.favoriteShops = [];
     },
     [fetchFavoriteShops.pending]: (state, _) => {
-      state.products = [];
+      state.favoriteShops = [];
     },
   },
 });

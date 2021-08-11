@@ -3,9 +3,11 @@ import { useRouter } from "next/router";
 
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCategories } from "@/slices/categories";
+import { fetchFavoriteItems, fetchFavoriteShops } from "@/slices/favorites";
 
 import { Select3 } from "@/shared/Select";
 import { getProducts } from "@/controllers/product";
+import customer from "@/slices/customer";
 
 const Rating = ({ rating }) => {
   let filled = rating;
@@ -43,8 +45,40 @@ const Rating = ({ rating }) => {
   return <div>{ele}</div>;
 };
 
-const ShopItem = ({ product }) => {
+const ShopItem = ({ product, favorites }) => {
   const router = useRouter();
+  const { user } = useSelector((state) => state.user);
+
+  const [showFavButton, setShowFavButton] = useState(false);
+  const [_isFavorite, _setIsFavorite] = useState(null);
+
+  useEffect(async () => {
+    if (!user || !user.id) {
+      setShowFavButton(false);
+    }
+
+    if (user.id && user.type === "seller") {
+      setShowFavButton(false);
+    }
+
+    if (user.id && user.type === "customer") {
+      setShowFavButton(true);
+    }
+  }, [user]);
+
+  useEffect(async () => {
+    if (!favorites) return;
+
+    if (favorites.inclues(product.id)) _setIsFavorite(true);
+    else _setIsFavorite(false);
+  }, [favorites]);
+
+  const toggleFavorites = (e) => {
+    e.stopPropagation();
+
+    if (!_isFavorite) {
+    }
+  };
 
   return (
     <div
@@ -60,21 +94,26 @@ const ShopItem = ({ product }) => {
           className="back-img"
         />
       </a>
-      <a className="potw-like active w-inline-block">
-        <img
-          src="/images/favorite-border-black-24-dp-2.svg"
-          loading="lazy"
-          width={25}
-          alt="Like"
-          className="orange-heart"
-        />
-        <img
-          src="/images/favorite-border-black-24-dp_1.svg"
-          loading="lazy"
-          alt="Like"
-          className="heart"
-        />
-      </a>
+
+      {showFavButton && (
+        <a className="potw-like active w-inline-block">
+          {_isFavorite && (
+            <img
+              src="/images/favorite-border-black-24-dp-2.svg"
+              loading="lazy"
+              width={25}
+              alt="Like"
+              className="orange-heart"
+            />
+          )}
+          <img
+            src="/images/favorite-border-black-24-dp_1.svg"
+            loading="lazy"
+            alt="Like"
+            className="heart"
+          />
+        </a>
+      )}
       <div className="shop-product-info">
         <a className="link">{product.name}</a>
         <div
@@ -99,6 +138,9 @@ const View = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categories);
+  const { favoriteItems, favoriteShops } = useSelector(
+    (state) => state.favorites
+  );
 
   const [products, setProducts] = useState([]);
   const [filters, setFilters] = useState({});
@@ -115,6 +157,16 @@ const View = () => {
       dispatch(fetchCategories());
     }
   }, [router.query]);
+
+  useEffect(() => {
+    if (!customer || !customer.id) return;
+
+    if (!favoriteItems || !favoriteItems.length)
+      dispatch(fetchFavoriteItems(customer.id));
+
+    if (!favoriteShops || !favoriteShops.length)
+      dispatch(fetchFavoriteShops(customer.id));
+  }, [customer]);
 
   return (
     <div className="page-section pt-0 wf-section">
@@ -197,14 +249,7 @@ const View = () => {
                     <option value="Third">Third Choice</option>
                   </select>
                 </form>
-                <div className="w-form-done">
-                  <div>Thank you! Your submission has been received!</div>
-                </div>
-                <div className="w-form-fail">
-                  <div>
-                    Oops! Something went wrong while submitting the form.
-                  </div>
-                </div>
+              
               </div>
 
               <div>

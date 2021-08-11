@@ -72,7 +72,7 @@ const Header = ({ nav }) => {
                   router.push(
                     user.type === "seller"
                       ? "/seller-backend"
-                      : "/customer-backend"
+                      : "/customer"
                   )
                 }
               >

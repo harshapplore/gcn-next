@@ -15,5 +15,6 @@ export default configureStore({
     shop: shopReducer,
     customer: customerReducer,
     seller: sellerReducer,
+    favorites: favoritesReducer
   },
 });
