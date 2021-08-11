@@ -1,6 +1,8 @@
 import { authAxios } from "@/setups/axios";
 import QS from "query-string";
 
+/* Cart Methods */
+
 export const addToCart = async ({ productId, quantity }) => {
   const res = await authAxios()({
     url: `/customers/cart`,
@@ -46,6 +48,102 @@ export const deleteItem = async (id) => {
   const res = await authAxios()({
     url: `/carts/${id}`,
     method: "DELETE",
+  });
+
+  return res.data;
+};
+
+/*
+ * Controllers to manage Favorites
+ */
+
+export const getFavoriteItems = async ({ customerId }) => {
+  const filter = QS.stringify({
+    customer: customerId,
+    type: "Product",
+  });
+
+  const res = await authAxios()({
+    url: `/favorites?${filter}`,
+    method: "GET",
+  });
+
+  return res.data;
+};
+
+export const getFavoriteShops = async ({ customerId }) => {
+  const filter = QS.stringify({
+    customer: customerId,
+    type: "Shop",
+  });
+
+  const res = await authAxios()({
+    url: `/favorites?${filter}`,
+    method: "GET",
+  });
+
+  return res.data;
+};
+
+export const addToFavorites = async ({
+  customerId,
+  userId,
+  type,
+  product,
+  shop,
+}) => {
+  const data = {
+    customer: customerId,
+    user: userId,
+    type,
+    product,
+    shop,
+  };
+
+  const res = await authAxios()({
+    url: "/favorites",
+    method: "POST",
+    data,
+  });
+
+  return res.data;
+};
+
+export const deleteFavorite = async (id) => {
+  const res = await authAxios()({
+    url: `/favorites/${id}`,
+    method: "DELETE",
+  });
+
+  return res.data;
+};
+
+/**
+ * Methods for Orders
+ */
+
+export const getAllOrders = async ({ customerId}) => {
+  const filter = QS.stringify({
+    customer: customerId
+  });
+
+  const res = await authAxios()({
+    url: `/orders?${filter}`,
+    method: "GET",
+  });
+
+  return res.data;
+};
+
+/**
+ * Get Order details for a particular order
+ * @param {*} id 
+ * @returns object orderData
+ */
+export const getOrder = async (id) => {
+  const res = await authAxios()({
+    url: `/orders/${id}`,
+    method: "GET",
   });
 
   return res.data;

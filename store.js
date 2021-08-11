@@ -6,6 +6,7 @@ import shopReducer from "@/slices/shop";
 
 import customerReducer from "@/slices/customer";
 import sellerReducer from "@/slices/seller";
+import favoritesReducer from "@/slices/favorites";
 
 export default configureStore({
   reducer: {

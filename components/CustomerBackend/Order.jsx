@@ -1,135 +1,111 @@
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+
+import { getOrder } from "@/controllers/customer";
+import { getShop } from "@/controllers/shop";
+
+const Product = ({ product, shopName }) => {
+  return (
+    <div className="flex mb-20">
+      <div className="flex">
+        <div className="checkout-shop-item-img">
+          <img
+            src={product.images[0] && product.images[0].url}
+            loading="lazy"
+            alt="Handcrafted stuff"
+            className="back-img"
+          />
+        </div>
+        <div className="checkout-product-info">
+          <h3>{product.name}</h3>
+          <div className="overline-text pull-up">By {shopName}</div>
+          <div>Size: {product.size}</div>
+        </div>
+      </div>
+      <div className="pt-20">
+        <div>Shipped</div>
+      </div>
+      <div className="pt-30">
+        <div className="shop-product-price">€ {product.price}</div>
+      </div>
+    </div>
+  );
+};
+
+const Shop = ({ shop, subTotal }) => {
+  console.log("S", shop);
+
+  const [_shop, _setShop] = useState({});
+
+  useEffect(async () => {
+    const s = await getShop(shop.shopId);
+
+    _setShop(s);
+  }, [shop.shopId]);
+
+  return (
+    <div className="shop-list mb-60">
+      <div className="flex mb-40">
+        <h2>{_shop.name}</h2>
+      </div>
+
+      {shop.products &&
+        shop.products.length > 0 &&
+        shop.products.map((product) => (
+          <Product product={product} shopName={_shop.name} />
+        ))}
+
+      <div className="subtotal-wrapper">
+        <div className="medium">Subtotal: {subTotal.price}</div>
+        <div>Delivery: € {subTotal.delivery}</div>
+        <div>2-3 days</div>
+      </div>
+    </div>
+  );
+};
+
 const Order = () => {
+  const router = useRouter();
+
+  const [_order, _setOrder] = useState({});
+  const [_snap, _setSnap] = useState({});
+
+  useEffect(async () => {
+    const { orderId } = router.query;
+
+    console.log(router.query);
+
+    const order = await getOrder(orderId);
+
+    console.log(order);
+
+    _setOrder(order);
+    _setSnap(order.snapshot);
+  }, [router.query]);
+
   return (
     <div className="dynamic-content">
       <div className="heading-wrapper mb-40">
-        <h2>Order #231245213</h2>
+        <h2>Order {_order.id}</h2>
       </div>
-      <div className="shop-list mb-60">
-        <div className="flex mb-20">
-          <h2>Thomas' Soap Shop and other things Inc.</h2>
-        </div>
-        <div className="flex mb-20">
-          <div className="flex">
-            <div className="checkout-shop-item-img">
-              <img
-                src="images/bild-header2x.jpg"
-                loading="lazy"
-                sizes="(max-width: 479px) 100px, (max-width: 767px) 110px, 120px"
-                srcSet="images/bild-header2x-p-500.jpeg 500w, images/bild-header2x-p-800.jpeg 800w, images/bild-header2x-p-2000.jpeg 2000w, images/bild-header2x-p-2600.jpeg 2600w, images/bild-header2x.jpg 2880w"
-                alt="Handcrafted stuff"
-                className="back-img"
-              />
-            </div>
-            <div className="checkout-product-info">
-              <h3>Long Item Name</h3>
-              <div className="overline-text pull-up">By Seller</div>
-              <div>Size: S</div>
-            </div>
-          </div>
-          <div className="pt-20">
-            <div>Shipped</div>
-          </div>
-          <div className="pt-30">
-            <div className="shop-product-price">€ 129,50</div>
-          </div>
-        </div>
-        <div className="subtotal-wrapper">
-          <div className="medium">Subtotal: € 129,50</div>
-          <div>Delivery: € 18,90</div>
-          <div>2-3 days</div>
-        </div>
-      </div>
-      <div className="shop-list mb-60">
-        <div className="flex mb-40">
-          <h2>Shop #2</h2>
-        </div>
-        <div className="flex mb-20">
-          <div className="flex">
-            <div className="checkout-shop-item-img">
-              <img
-                src="images/bild-header2x.jpg"
-                loading="lazy"
-                sizes="(max-width: 479px) 100px, (max-width: 767px) 110px, 120px"
-                srcSet="images/bild-header2x-p-500.jpeg 500w, images/bild-header2x-p-800.jpeg 800w, images/bild-header2x-p-2000.jpeg 2000w, images/bild-header2x-p-2600.jpeg 2600w, images/bild-header2x.jpg 2880w"
-                alt="Handcrafted stuff"
-                className="back-img"
-              />
-            </div>
-            <div className="checkout-product-info">
-              <h3>Long Item Name</h3>
-              <div className="overline-text pull-up">By Seller</div>
-              <div>Size: S</div>
-            </div>
-          </div>
-          <div className="pt-20">
-            <div>Shipped</div>
-          </div>
-          <div className="pt-30">
-            <div className="shop-product-price">€ 129,50</div>
-          </div>
-        </div>
-        <div className="flex mb-20">
-          <div className="flex">
-            <div className="checkout-shop-item-img">
-              <img
-                src="images/bild-header2x.jpg"
-                loading="lazy"
-                sizes="(max-width: 479px) 100px, (max-width: 767px) 110px, 120px"
-                srcSet="images/bild-header2x-p-500.jpeg 500w, images/bild-header2x-p-800.jpeg 800w, images/bild-header2x-p-2000.jpeg 2000w, images/bild-header2x-p-2600.jpeg 2600w, images/bild-header2x.jpg 2880w"
-                alt="Handcrafted stuff"
-                className="back-img"
-              />
-            </div>
-            <div className="checkout-product-info">
-              <h3>Long Item Name</h3>
-              <div className="overline-text pull-up">By Seller</div>
-              <div>Size: S</div>
-            </div>
-          </div>
-          <div className="pt-20">
-            <div>Shipped</div>
-          </div>
-          <div className="pt-30">
-            <div className="shop-product-price">€ 129,50</div>
-          </div>
-        </div>
-        <div className="flex mb-20">
-          <div className="flex">
-            <div className="checkout-shop-item-img">
-              <img
-                src="images/bild-header2x.jpg"
-                loading="lazy"
-                sizes="(max-width: 479px) 100px, (max-width: 767px) 110px, 120px"
-                srcSet="images/bild-header2x-p-500.jpeg 500w, images/bild-header2x-p-800.jpeg 800w, images/bild-header2x-p-2000.jpeg 2000w, images/bild-header2x-p-2600.jpeg 2600w, images/bild-header2x.jpg 2880w"
-                alt="Handcrafted stuff"
-                className="back-img"
-              />
-            </div>
-            <div className="checkout-product-info">
-              <h3>Long Item Name</h3>
-              <div className="overline-text pull-up">By Seller</div>
-              <div>Size: S</div>
-            </div>
-          </div>
-          <div className="pt-20">
-            <div>Shipped</div>
-          </div>
-          <div className="pt-30">
-            <div className="shop-product-price">€ 129,50</div>
-          </div>
-        </div>
-        <div className="subtotal-wrapper">
-          <div className="medium">Subtotal: € 1.229,50</div>
-          <div>Delivery: € 18,90</div>
-          <div>2-3 days</div>
-        </div>
-      </div>
+
+      {_snap.shops &&
+        _snap.shops.length > 0 &&
+        _snap.shops.map((shop, index) => (
+          <Shop shop={shop} subTotal={_snap.subTotals[index]} />
+        ))}
+
       <div className="flex">
         <div />
         <div className="total-wrapper">
-          <div className="medium">Total: € 129,50</div>
-          <div>Delivery: € 18,90</div>
-          <div>CO2 compensation (345)km: € 4,80</div>
+          <div className="medium">
+            Total Price: € {_snap.subTotals && _snap.subTotals.reduce((a, c) => a + c.price, 0)}
+          </div>
+          <div>Delivery: € {_order.totalDelivery || 0}</div>
+          <div>CO2 compensation (345)km: € {_order.co2Compensation}</div>
+          <div>Total: € {_order.total}</div>
+
         </div>
       </div>
     </div>

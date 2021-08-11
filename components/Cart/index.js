@@ -18,6 +18,7 @@ import Shipping from "./Shipping";
 import { getShopView } from "./cart.methods";
 
 const Cart = () => {
+  const { customer } = useSelector((state) => state.customer);
   const { user } = useSelector((state) => state.user);
 
   const [showShipping, setShowShipping] = useState();
@@ -27,6 +28,7 @@ const Cart = () => {
   const [shipping, setShipping] = useState({});
   const [billing, setBilling] = useState({});
   const [pickUpOrder, setPickUpOrder] = useState(false);
+  const [gift, setGift] = useState({ gift: false, giftMessage: "" });
   const [subTotals, setSubTotals] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalDelivery, setTotalDelivery] = useState(0);
@@ -40,6 +42,7 @@ const Cart = () => {
     billing,
     products,
     subTotals,
+    gift,
     pickUpOrder,
     totalPrice,
     totalDelivery,
@@ -48,6 +51,7 @@ const Cart = () => {
     setShops,
     setProducts,
     setBilling,
+    setGift,
     setPickUpOrder,
     setShipping,
     setSubTotals,
@@ -78,16 +82,25 @@ const Cart = () => {
     }));
 
     const url = await getCheckoutUrl({
+      customerId: customer.id,
+      userId: user.id,
       email: user.email,
       payTypes: ["card"],
       deliveryCharges: totalDelivery,
       currency: "eur",
+      ...gift,
       products,
       co2Compensation,
       pickUpOrder,
-      total,
       billing,
       shipping,
+      total,
+      snapshot: {
+        shops,
+        subTotals,
+        shipping,
+        billing,
+      },
     });
 
     location.assign(url);

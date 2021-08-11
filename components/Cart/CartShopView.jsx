@@ -122,6 +122,8 @@ const CartShopView = ({ goToShipping }) => {
     setTotalDelivery,
     co2Compensation,
     setCo2Compensation,
+    gift,
+    setGift,
     pickUpOrder,
     setPickUpOrder,
     total,
@@ -227,28 +229,19 @@ const CartShopView = ({ goToShipping }) => {
             />
             <Toggle2
               name="This order is a gift."
-              value={toggles.isGift}
-              setValue={(value) => setToggles({ ...toggles, isGift: value })}
+              value={gift.gift}
+              setValue={(value) => setGift({ ...gift, gift: value })}
             />
 
-            {toggles.isGift && (
+            {gift.gift && (
               <div className="w-form">
                 <form>
                   <textarea
                     placeholder="Add text"
                     className="text-field area w-input"
-                    value={data.giftMessage}
+                    value={gift.giftMessage}
                     onChange={(e) =>
-                      setData({ ...data, giftMessage: e.target.value })
-                    }
-                  />
-                  <input
-                    type="text"
-                    className="text-field w-input"
-                    placeholder="Coupon Code"
-                    value={data.coupon}
-                    onChange={(e) =>
-                      setData({ ...data, coupon: e.target.value })
+                      setGift({ ...gift, giftMessage: e.target.value })
                     }
                   />
                 </form>
