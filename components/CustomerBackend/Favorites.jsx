@@ -1,32 +1,43 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
 import {
   getFavoriteItems,
   getFavoriteShops,
+  deleteFavorite,
 } from "@/controllers/customer";
 
-const FavProduct = ({ product }) => {
+const FavProduct = ({ product, favId }) => {
+  const router = useRouter();
+
+  const removeNReload = async (e) => {
+    e.stopPropagation();
+
+    await deleteFavorite(favId);
+    location.reload();
+  };
+
   return (
     <div className="flex-child-32">
       <div className="potw-item">
         <img
-          src="/images/bild-header2x.jpg"
-          loading="lazy"
-          sizes="(max-width: 479px) 92vw, (max-width: 767px) 46vw, (max-width: 991px) 35vw, (max-width: 1279px) 23vw, 291.1875px"
-          srcSet="/images/bild-header2x-p-500.jpeg 500w, images/bild-header2x-p-800.jpeg 800w, images/bild-header2x-p-2000.jpeg 2000w, images/bild-header2x-p-2600.jpeg 2600w, images/bild-header2x.jpg 2880w"
-          alt="Handcrafted stuff"
+          src={(product.images[0] && product.images[0].url) || ""}
+          alt={product.name}
           className="back-img"
         />
-        <a className="potw-name w-inline-block">
-          <div>Musterproduktname</div>
+        <a
+          className="potw-name w-inline-block"
+          onClick={() => router.push(`/product/${product.id}`)}
+        >
+          <div>{product.name}</div>
           <img
             src="/images/expand-more-black-24-dp.svg"
             loading="lazy"
             alt="Next"
           />
         </a>
-        <a className="potw-like active w-inline-block">
+        <a className="potw-like active w-inline-block" onClick={removeNReload}>
           <img
             src="/images/favorite-border-black-24-dp-2.svg"
             loading="lazy"
@@ -96,11 +107,13 @@ const Favorites = () => {
       customerId: customer.id,
     });
 
+    console.log(favoriteItems);
+
     _setProducts(
       favoriteItems &&
         favoriteItems.map((item) => {
-          const { product } = item;
-          return product;
+          const { _id, product } = item;
+          return { favId: _id, product };
         })
     );
 
@@ -118,6 +131,8 @@ const Favorites = () => {
     );
   }, [customer]);
 
+  console.log(_products, "---");
+
   return (
     <div className="dynamic-content">
       <div className="mb-60">
@@ -127,9 +142,11 @@ const Favorites = () => {
 
         <div className="flex left-3">
           {/* Favorite Products Here */}
-          {_products && _products.length > 0 && (
-            <FavProduct product={product} />
-          )}
+          {_products &&
+            _products.length > 0 &&
+            _products.map((product) => (
+              <FavProduct product={product.product} favId={product.favId} />
+            ))}
         </div>
       </div>
 

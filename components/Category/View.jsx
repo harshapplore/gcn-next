@@ -7,7 +7,7 @@ import { fetchFavoriteItems, fetchFavoriteShops } from "@/slices/favorites";
 
 import { Select3 } from "@/shared/Select";
 import { getProducts } from "@/controllers/product";
-import customer from "@/slices/customer";
+import { addToFavorites, deleteFavorite } from "@/controllers/customer";
 
 const Rating = ({ rating }) => {
   let filled = rating;
@@ -47,7 +47,9 @@ const Rating = ({ rating }) => {
 
 const ShopItem = ({ product, favorites }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
+  const { customer } = useSelector((state) => state.customer);
 
   const [showFavButton, setShowFavButton] = useState(false);
   const [_isFavorite, _setIsFavorite] = useState(null);
@@ -67,17 +69,34 @@ const ShopItem = ({ product, favorites }) => {
   }, [user]);
 
   useEffect(async () => {
-    if (!favorites) return;
+    if (!favorites || !favorites.length > 0) return;
 
-    if (favorites.inclues(product.id)) _setIsFavorite(true);
-    else _setIsFavorite(false);
-  }, [favorites]);
+    console.log("Compare", favorites, product.id);
 
-  const toggleFavorites = (e) => {
+    const index = favorites.findIndex((fav) => fav.productId === product.id);
+    console.log(favorites, index);
+
+    if (index >= 0) _setIsFavorite(true);
+    if (index === -1) _setIsFavorite(false);
+  }, [favorites, product]);
+
+  const toggleFavorites = async (e) => {
     e.stopPropagation();
 
     if (!_isFavorite) {
+      const updated = await addToFavorites({
+        customerId: customer.id,
+        userId: user.id,
+        product: product.id,
+        type: "Product",
+      });
+    } else {
+      const index = favorites.findIndex((fav) => fav.productId === product.id);
+
+      await deleteFavorite(favorites[index].favId);
     }
+
+    dispatch(fetchFavoriteItems(customer.id));
   };
 
   return (
@@ -96,7 +115,10 @@ const ShopItem = ({ product, favorites }) => {
       </a>
 
       {showFavButton && (
-        <a className="potw-like active w-inline-block">
+        <a
+          className="potw-like active w-inline-block"
+          onClick={toggleFavorites}
+        >
           {_isFavorite && (
             <img
               src="/images/favorite-border-black-24-dp-2.svg"
@@ -137,6 +159,7 @@ const ShopItem = ({ product, favorites }) => {
 const View = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { customer } = useSelector((state) => state.customer);
   const { categories } = useSelector((state) => state.categories);
   const { favoriteItems, favoriteShops } = useSelector(
     (state) => state.favorites
@@ -159,14 +182,18 @@ const View = () => {
   }, [router.query]);
 
   useEffect(() => {
-    if (!customer || !customer.id) return;
+    console.log("Runs");
+
+    if (!customer.id) return;
+
+    console.log("Reaches");
 
     if (!favoriteItems || !favoriteItems.length)
       dispatch(fetchFavoriteItems(customer.id));
 
     if (!favoriteShops || !favoriteShops.length)
       dispatch(fetchFavoriteShops(customer.id));
-  }, [customer]);
+  }, [customer.id]);
 
   return (
     <div className="page-section pt-0 wf-section">
@@ -249,17 +276,13 @@ const View = () => {
                     <option value="Third">Third Choice</option>
                   </select>
                 </form>
-              
               </div>
 
               <div>
                 <div className="w-form">
-                  <form id="email-form-4">
+                  <form>
                     <div className="shop-select-text first">Delivers to:</div>
-                    <select
-                      name="field-7"
-                      className="text-field select w-select"
-                    >
+                    <select className="text-field select w-select">
                       <option value>Select one...</option>
                       <option value="First">First Choice</option>
                       <option value="Second">Second Choice</option>
@@ -299,14 +322,6 @@ const View = () => {
                       <option value="Third">Third Choice</option>
                     </select>
                   </form>
-                  <div className="w-form-done">
-                    <div>Thank you! Your submission has been received!</div>
-                  </div>
-                  <div className="w-form-fail">
-                    <div>
-                      Oops! Something went wrong while submitting the form.
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -500,7 +515,11 @@ const View = () => {
               {products &&
                 products.length > 0 &&
                 products.map((product, index) => (
-                  <ShopItem key={"pro" + index} product={product} />
+                  <ShopItem
+                    key={"pro" + index}
+                    product={product}
+                    favorites={favoriteItems}
+                  />
                 ))}
             </div>
           </div>

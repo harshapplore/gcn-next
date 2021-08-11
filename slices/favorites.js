@@ -10,35 +10,37 @@ export const fetchFavoriteItems = createAsyncThunk(
       type: "Product",
     });
 
-    const response = await axios()({
+    const response = await authAxios()({
       url: `/favorites?${filter}`,
       method: "GET",
     });
 
     if (response.data && response.data.length > 0) {
       return response.data.map((item) => {
-        return item.id;
+        return { productId: item.product.id, favId: item.id };
       });
     }
   }
 );
 
 export const fetchFavoriteShops = createAsyncThunk(
-  "favorites/fetchProducts",
+  "favorites/fetchShops",
   async (customerId) => {
     const filter = QS.stringify({
       customer: customerId,
       type: "Shop",
     });
 
-    const response = await axios()({
+    const response = await authAxios()({
       url: `/favorites?${filter}`,
       method: "GET",
     });
 
+    console.log("Shops -> ", response.data);
+
     if (response.data && response.data.length > 0) {
       return response.data.map((item) => {
-        return item.id;
+        return item.shop.id;
       });
     }
   }
