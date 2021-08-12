@@ -32,4 +32,4 @@ const Social = () => {
   );
 };
 
-export default Register;
+export default Social;
