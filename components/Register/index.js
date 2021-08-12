@@ -13,7 +13,14 @@ const Register = () => {
       method: "GET",
     });
 
-    console.log(res.data);
+    console.log("Auth Type", authType, "id_token", id_token);
+    console.log("Reponse Data", res.data);
+
+    if (res.data) {
+      localStorage.setItem("token", res.data.jwt);
+
+      // Get user details
+    }
   }, [router.query]);
 
   console.log(router.query);
