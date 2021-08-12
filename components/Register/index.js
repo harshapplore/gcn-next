@@ -6,7 +6,7 @@ const Register = () => {
   const router = useRouter();
 
   useEffect(async () => {
-    const { authType, id_token } = router.query;
+    const { authType, id_token, access_token } = router.query;
 
     const res = await axios()({
       url: `/connect/${authType}/callback?id_token=${id_token}`,
@@ -21,9 +21,9 @@ const Register = () => {
 
       // Get user details
     }
-  }, [router.query]);
+  }, []);
 
-  console.log(router.query);
+  console.log("RQ", router.query);
 
   return (
     <div className="register-login-message">
