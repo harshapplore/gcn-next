@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { axios } from "@/setups/axios";
+import QS from "query-string";
 
-const Register = () => {
+const Social = () => {
   const router = useRouter();
 
   useEffect(async () => {
-    const { authType, id_token, access_token } = router.query;
+    const { provider, ...params } = router.query;
 
     const res = await axios()({
-      url: `/connect/${authType}/callback?id_token=${id_token}`,
+      url: `/connect/${provider}/callback?${QS.stringify(...params)}`,
       method: "GET",
     });
 
-    console.log("Auth Type", authType, "id_token", id_token);
     console.log("Reponse Data", res.data);
 
     if (res.data) {
