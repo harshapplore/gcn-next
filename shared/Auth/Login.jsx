@@ -137,16 +137,20 @@ const SignIn = ({ close, showRegister }) => {
           </div>
           <div className="center">
             <div className="mb-20">or</div>
-            <div className="mb-10">
-              <div className="button secondary w-button">
-                Continue with google
+            <a href="https://test.greencloudnine.com/connect/google">
+              <div className="mb-10">
+                <div className="button secondary w-button">
+                  Continue with Google
+                </div>
               </div>
-            </div>
-            <div className="mb-10">
-              <div className="button secondary w-button">
-                Continue with facebook
+            </a>
+            <a href="https://test.greencloudnine.com/connect/facebook">
+              <div className="mb-10">
+                <div className="button secondary w-button">
+                  Continue with Facebook
+                </div>
               </div>
-            </div>
+            </a>
             <div className="mb-20">
               <div className="button secondary w-button">
                 Continue with apple

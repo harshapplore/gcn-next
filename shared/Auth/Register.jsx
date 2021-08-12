@@ -216,19 +216,33 @@ const Register = ({ close }) => {
                 {data.type === "customer" && (
                   <div className="center">
                     <div className="mb-20">or</div>
-                    <div className="mb-20">
-                      <a href="#" className="button secondary w-button">
-                        Continue with google
+                    <div
+                      className="mb-20"
+                      onClick={() =>
+                        router.push(
+                          "https://test.greencloudnine.com/connect/google"
+                        )
+                      }
+                    >
+                      <a className="button secondary w-button">
+                        Continue with Google
                       </a>
                     </div>
-                    <div className="mb-20">
-                      <a href="#" className="button secondary w-button">
-                        Continue with facebook
+                    <div
+                      className="mb-20"
+                      onClick={() =>
+                        router.push(
+                          "https://test.greencloudnine.com/connect/facebook"
+                        )
+                      }
+                    >
+                      <a className="button secondary w-button">
+                        Continue with Facebook
                       </a>
                     </div>
                     <div className="mb-50">
-                      <a href="#" className="button secondary w-button">
-                        Continue with apple
+                      <a className="button secondary w-button">
+                        Continue with Apple
                       </a>
                     </div>
                   </div>
