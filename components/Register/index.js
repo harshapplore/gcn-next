@@ -21,7 +21,7 @@ const Register = () => {
 
       // Get user details
     }
-  }, []);
+  }, [router.query]);
 
   console.log("RQ", router.query);
 
