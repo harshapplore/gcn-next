@@ -1,0 +1,35 @@
+.provider-container {
+  padding-block: 10vh;
+  padding-inline: 20vw;
+
+  .message {
+    color: var(--primary);
+  }
+
+  .input-blocks-ctr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .block{
+      cursor: pointer;
+      min-width: 200px;
+
+      padding: 50px;
+      margin: 10px;
+      background: var(--secondary);
+      color: var(--white);
+
+      vertical-align: middle;
+      text-align: center;
+      transition: 0.5s all ease-in;
+
+      &:hover{
+        background: var(--primary);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+
