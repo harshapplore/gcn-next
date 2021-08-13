@@ -5,7 +5,7 @@ export const getProduct = async (id) => {
   const res = await axios()({
     url: `/products/${id}`,
     method: "GET",
-  });    
+  });
 
   return res.data;
 };
@@ -42,12 +42,20 @@ export const addProduct = async (data) => {
   return res.data;
 };
 
-
 export const putProduct = async (id, data) => {
   const res = await authAxios()({
     url: `/products/${id}`,
     method: "PUT",
     data,
+  });
+
+  return res.data;
+};
+
+export const deleteProduct = async (id) => {
+  const res = await authAxios()({
+    url: `/products/${id}`,
+    method: "DELETE",
   });
 
   return res.data;

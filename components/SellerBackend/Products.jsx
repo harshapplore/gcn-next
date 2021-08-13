@@ -7,20 +7,61 @@ import qS from "query-string";
 import { BASE_ROUTE, PRODUCTS, ADD_ACTION, EDIT_ACTION } from "./routes";
 
 import { fetchShopProducts } from "@/slices/shop";
+import { addProduct, deleteProduct, putProduct } from "@/controllers/product";
 
-const ProductCard = ({ name, image, id }) => {
+const ProductCard = ({ name, image, id, product }) => {
   const router = useRouter();
 
-  const query = {
-    action: "edit",
-    id,
+  const [_openContext, _setOpenContext] = useState(false);
+
+  const duplicateProduct = async (prod) => {
+    console.log("Product Empty??", prod);
+
+    const { _id, id, ...productDetails } = prod;
+
+    const product = await addProduct(productDetails);
+
+    location.reload();
+    return product;
+  };
+
+  const delProduct = async () => {
+    const product = await deleteProduct(id);
+
+    console.log(product);
+
+    location.reload();
+  };
+
+  const updateStock = async (e, prod) => {
+    e.stopPropagation();
+
+    const { _id, filters } = prod;
+
+    const product = await putProduct(id, {
+      filters: {
+        ...filters,
+        inStock: !filters.inStock,
+      },
+    });
+
+    console.log(product);
+
+    location.reload();
   };
 
   return (
     <div
       className="shop-product-item"
       onClick={() =>
-        router.push(BASE_ROUTE + PRODUCTS + `?${qS.stringify(query)}`)
+        router.push(
+          BASE_ROUTE +
+            PRODUCTS +
+            `?${qS.stringify({
+              action: "edit",
+              id,
+            })}`
+        )
       }
     >
       <a className="shop-product-img w-inline-block">
@@ -32,34 +73,63 @@ const ProductCard = ({ name, image, id }) => {
           className="back-img"
         />
       </a>
-      <div className="check-floater">
-        <img src="/images/cancel-black-24-dp-2.svg" loading="lazy" alt="" />
-      </div>
-      <div className="potw-like">
+      <div className="check-floater" onClick={(e) => updateStock(e, product)}>
         <img
-          src="/images/expand-more-black-24-dp-copy-6.svg"
+          src={
+            product.filters && product.filters.inStock
+              ? "/images/check-circle-black-24-dp.svg"
+              : "/images/cancel-black-24-dp-2.svg"
+          }
+          alt=""
+        />
+      </div>
+      <div
+        className="potw-like"
+        onClick={(e) => {
+          e.stopPropagation();
+          _setOpenContext(!_openContext);
+        }}
+      >
+        <img
+          src={
+            _openContext
+              ? "/images/expand-more-black-24-dp.svg"
+              : "/images/expand-more-black-24-dp-copy-6.svg"
+          }
           loading="lazy"
           alt=""
           className="heart"
         />
-        <div className="product-context-menu">
-          <a href="#" className="context-link">
-            View
-          </a>
-          <a href="#" className="context-link">
-            Edit
-          </a>
-          <a href="#" className="context-link">
-            Duplicate
-          </a>
-          <a href="#" className="context-link">
-            Delete
-          </a>
-        </div>
+        {_openContext && (
+          <div className="product-context-menu">
+            <a
+              className="context-link"
+              onClick={() => router.push(`/product/${id}`)}
+            >
+              View
+            </a>
+            <a
+              className="context-link"
+              onClick={() =>
+                router.push(BASE_ROUTE + PRODUCTS + EDIT_ACTION(id))
+              }
+            >
+              Edit
+            </a>
+            <a
+              className="context-link"
+              onClick={() => duplicateProduct(product)}
+            >
+              Duplicate
+            </a>
+            <a className="context-link" onClick={delProduct}>
+              Delete
+            </a>
+          </div>
+        )}
       </div>
       <div className="shop-product-info">
         <a className="link">{name}</a>
-        <div>Add image</div>
       </div>
     </div>
   );
@@ -72,43 +142,27 @@ const Products = () => {
   const { products } = useSelector((state) => state.shop);
 
   useEffect(() => {
-    if (seller.id && seller.shop && !products.length) dispatch(fetchShopProducts(seller.shop.id));
+    if (seller.id && seller.shop && !products.length)
+      dispatch(fetchShopProducts(seller.shop.id));
   }, [seller]);
 
   return (
     <div className="dynamic-content">
       <div>
         <div className="mb-20 w-form">
-          <form
-            id="email-form-3"
-            name="email-form-3"
-            data-name="Email Form 3"
-            className="flex"
-          >
+          <form className="flex">
             <div className="searchbar-wrapper">
               <input
                 type="text"
                 className="text-field mb-0 w-input"
-                maxLength={256}
-                name="Search"
-                data-name="Search"
                 placeholder="Search Products"
-                id="Search"
-                required
               />
               <img
                 src="/images/search-black-24-dp.svg"
-                loading="lazy"
-                alt=""
                 className="search-icon"
               />
             </div>
-            <select
-              id="field-2"
-              name="field-2"
-              data-name="Field 2"
-              className="text-field select width-24 mb-0 w-select"
-            >
+            <select className="text-field select width-24 mb-0 w-select">
               <option value>Sort by</option>
               <option value="First">First Choice</option>
               <option value="Second">Second Choice</option>
@@ -117,7 +171,7 @@ const Products = () => {
           </form>
         </div>
       </div>
-      <div className="flex top mb-40">
+      <div className="flex top mb-40 left-4">
         <div
           className="shop-product-item"
           onClick={() => router.push(BASE_ROUTE + PRODUCTS + ADD_ACTION)}
@@ -141,10 +195,11 @@ const Products = () => {
               image={product.images[0]}
               name={product.name}
               id={product.id}
+              product={product}
             />
           ))}
       </div>
-      <a href="#" className="button icon blue w-inline-block">
+      <a className="button icon blue w-inline-block">
         <div className="button-icon w-embed">
           <svg
             xmlns="http://www.w3.org/2000/svg"

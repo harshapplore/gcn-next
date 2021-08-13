@@ -95,3 +95,12 @@ select {
 .dynamic-content{
   width: 100%;
 }
+
+.shop-product-item{
+  cursor: pointer;
+  user-select: none;
+}
+
+.product-context-menu{
+  display: block;
+}
