@@ -10,50 +10,84 @@ import Footer from "@/shared/Footer";
 
 import styles from "./social.module.scss";
 
+import { getUser, putRole } from "@/controllers/auth";
+
 const Social = () => {
   const router = useRouter();
 
   const [provider, setProvider] = useState("");
+  const [user, setUser] = useState({});
+  const [token, setToken] = useState({});
 
   useEffect(async () => {
     const { provider, ...params } = router.query;
-
     if (!provider) return;
 
     setProvider(provider);
 
     const url = `/auth/${provider}/callback?${QS.stringify(params)}`;
-    console.log(url);
-
     const res = await axios()({
       url,
       method: "GET",
     });
 
-    console.log("Reponse Data", res.data);
-
     if (res.data) {
       localStorage.setItem("token", res.data.jwt);
 
-      console.log(res.data.jwt);
+      setToken(res.data.jwt);
 
-      // Get user details
+      const user = await getUser(res.data.jwt);
+      setUser(user);
     }
   }, [router.query]);
 
-  console.log("RQ", router.query);
+  useEffect(() => {
+    if (!user.type) return;
+
+    localStorage.setItem("data", JSON.stringify(user));
+
+    if (user.type === "seller") router.push("/seller-backend");
+    if (user.type === "customer") router.push("/customer");
+  }, [user]);
+
+  const updateRole = async (role) => {
+    const user = await putRole(token, role);
+
+    console.log("User", user);
+    localStorage.setItem("data", JSON.stringify(user));
+
+    if (user.type === "seller") router.push("/seller-onboarding");
+    if (user.type === "customer") router.push("/customer");
+  };
+
+  console.log("User", user);
 
   return (
     <>
       <Head> {provider} Login | Green Cloud Nine </Head>
       <Header nav={<Nav />} />
       <div className={styles["provider-container"]}>
-        Authenticating... Please wait!!
-        {/* <div className={styles["input-blocks-ctr"]}>
-          <div className={styles.block}>Customer</div>
+        {user.type && "Authenticating... Please wait!"}
+        {user.id && !user.type && (
+          <>
+            <h2 className="center">Please choose a role</h2>
+            <div className={styles["input-blocks-ctr"]}>
+              <div
+                className={styles.block}
+                onClick={() => updateRole("customer")}
+              >
+                Customer
+              </div>
 
-          <div className={styles.block}>Seller</div>
-        </div> */}
+              <div
+                className={styles.block}
+                onClick={() => updateRole("seller")}
+              >
+                Seller
+              </div>
+            </div>
+          </>
+        )}
       </div>
       <Footer />
     </>

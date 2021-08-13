@@ -4,6 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { authAxios } from "@/setups/axios";
 import { fetchSeller } from "@/slices/user";
 
+import styles from "./backend.module.scss";
+
+import Radio from "@/shared/Input/Radio";
+
 const Shipping = () => {
   const [] = useState();
 
@@ -17,20 +21,6 @@ const Shipping = () => {
         <form id="email-form-3" name="email-form-3" data-name="Email Form 3">
           <div className="product-add-block">
             <label className="checkbox-field w-clearfix w-radio">
-              <div className="w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input" />
-              <input
-                type="radio"
-                data-name="Radio 2"
-                id="radio-2"
-                name="radio"
-                defaultValue="Radio"
-                required
-                style={{
-                  opacity: 0,
-                  position: "absolute",
-                  zIndex: -1,
-                }}
-              />
               <span className="checkbox-label w-form-label">
                 Delivery cost by country
               </span>
@@ -86,11 +76,7 @@ const Shipping = () => {
                 name="radio"
                 defaultValue="Radio"
                 required
-                style={{
-                  opacity: 0,
-                  position: "absolute",
-                  zIndex: -1,
-                }}
+                style={{ opacity: 0, position: "absolute", zIndex: -1 }}
               />
               <span className="checkbox-label w-form-label">
                 Delivery cost by weight
@@ -146,11 +132,19 @@ const Shipping = () => {
                   id="checkbox-6"
                   name="checkbox-6"
                   data-name="Checkbox 6"
-                  style={{
-                    opacity: 0,
-                    position: "absolute",
-                    zIndex: -1,
-                  }}
+                  style={{ opacity: 0, position: "absolute", zIndex: -1 }}
+                />
+                <span className="checkbox-label w-form-label">
+                  Sample Answer
+                </span>
+              </label>
+            </div>
+            <div>
+              <label className="w-checkbox checkbox-field">
+                <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox" />
+                <input
+                  type="checkbox"
+                  style={{ opacity: 0, position: "absolute", zIndex: -1 }}
                 />
                 <span className="checkbox-label w-form-label">
                   Sample Answer
@@ -165,30 +159,7 @@ const Shipping = () => {
                   id="checkbox-6"
                   name="checkbox-6"
                   data-name="Checkbox 6"
-                  style={{
-                    opacity: 0,
-                    position: "absolute",
-                    zIndex: -1,
-                  }}
-                />
-                <span className="checkbox-label w-form-label">
-                  Sample Answer
-                </span>
-              </label>
-            </div>
-            <div>
-              <label className="w-checkbox checkbox-field">
-                <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox" />
-                <input
-                  type="checkbox"
-                  id="checkbox-6"
-                  name="checkbox-6"
-                  data-name="Checkbox 6"
-                  style={{
-                    opacity: 0,
-                    position: "absolute",
-                    zIndex: -1,
-                  }}
+                  style={{ opacity: 0, position: "absolute", zIndex: -1 }}
                 />
                 <span className="checkbox-label w-form-label">
                   Sample Answer
@@ -203,12 +174,6 @@ const Shipping = () => {
             className="button blue mr-10 w-button"
           />
         </form>
-        <div className="w-form-done">
-          <div>Thank you! Your submission has been received!</div>
-        </div>
-        <div className="w-form-fail">
-          <div>Oops! Something went wrong while submitting the form.</div>
-        </div>
       </div>
     </div>
   );

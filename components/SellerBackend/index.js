@@ -6,11 +6,9 @@ import { fetchSeller } from "@/slices/user";
 
 import Fetcher from "@/shared/Fetcher";
 
-import ShopHeading from "@/shared/Shop/Heading";
 import Header from "@/shared/Header2";
 import Footer from "@/shared/Footer";
 import Nav from "@/shared/Nav2";
-import NavSidebar from "./NavSideBar";
 
 import ShopBanner from "@/shared/Shop2/Banner";
 import ShopNav from "@/shared/Shop2/Nav";
@@ -68,6 +66,7 @@ const SellerBackend = () => {
   return (
     <>
       <Header nav={<Nav />} />
+      <Fetcher />
       <div className="page-section pt-0">
         <ShopBanner />
         <ShopNav isSellerPage />
@@ -89,12 +88,11 @@ const SellerBackend = () => {
                 {activeAction === "edit" && activePage === PRODUCTS && (
                   <ConfigProduct action={activeAction} />
                 )}
-
-                {activePage === SHIPPING && <Shipping />}
-                {activePage === ORDER_HISTORY && <OrderHistory />}
-                {/* </div> */}
               </div>
             </div>
+            
+            {activePage === SHIPPING && <Shipping />}
+            {activePage === ORDER_HISTORY && <OrderHistory />}
           </div>
         </div>
       </div>

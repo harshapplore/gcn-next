@@ -6,6 +6,10 @@ a:hover {
   text-decoration: none;
 }
 
+.remove-border{
+  border: 0;
+}
+
 .popup-wrapper {
   display: initial;
   overflow-y: scroll;
@@ -86,4 +90,8 @@ select {
 
 .show{
   display: block;
+}
+
+.dynamic-content{
+  width: 100%;
 }

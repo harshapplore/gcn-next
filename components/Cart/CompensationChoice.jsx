@@ -1,6 +1,6 @@
 const CompensationChoices = () => {
   return (
-    <div className="page-section wf-section">
+    <div className="page-section wf-section remove-border">
       <div className="container">
         <div className="heading-wrapper mb-40">
           <h2>For a greener Environment</h2>
@@ -101,12 +101,6 @@ const CompensationChoices = () => {
                   </div>
                 </div>
                 <div className="cert-footer-box">
-                  <input
-                    type="submit"
-                    defaultValue="Add"
-                    data-wait="Please wait..."
-                    className="button mr-20 w-button"
-                  />
                   <div className="inline">
                     <div className="cert-price">€ 2,-</div>
                     <div className="small accent">to total sum</div>

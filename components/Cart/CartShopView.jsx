@@ -62,9 +62,10 @@ const CartShop = ({ shopId, products, setProducts, subTotal }) => {
 
   useEffect(async () => {
     if (shopId && !_shop.id) {
-      const _shopData = await getShop(shop.shopId);
-      _setShop(_shopData);
+      const shopData = await getShop(shopId);
+      _setShop(shopData);
     }
+
   }, [shopId]);
 
   return (
@@ -195,7 +196,7 @@ const CartShopView = ({ goToShipping }) => {
           shops.map((shop, index) => (
             <CartShop
               key={"shop" + index}
-              shop={shop}
+              shopId={shop.shopId}
               products={shop.products}
               setProducts={(products) => {
                 setShops([

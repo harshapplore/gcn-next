@@ -21,6 +21,8 @@ const NavLinkContainer = styled.div`
   margin: 8px 0;
   color: ${({current}) => current? 'var(--secondary)' : 'inherit' };
   border-left: 2px solid ${({current}) => current? 'var(--secondary)' : 'inherit' };
+
+  font-weight: 400;
 `;
 
 const NavLink = ({ to, text, current }) => {
