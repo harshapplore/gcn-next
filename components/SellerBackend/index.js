@@ -76,11 +76,7 @@ const SellerBackend = () => {
             <Sidebar activePage={activePage} />
           </div>
           <div className={styles["right-ctr"]}>
-            <div className="container">
-              <div className="flex top">
-                {/* <div className="shop-content"> */}
-                {/* <!-- Add here --> */}
-                {!activeAction && activePage === PRODUCTS && <Products />}
+            {!activeAction && activePage === PRODUCTS && <Products />}
                 {activeAction === "add" && activePage === PRODUCTS && (
                   <ConfigProduct action={activeAction} />
                 )}
@@ -88,8 +84,6 @@ const SellerBackend = () => {
                 {activeAction === "edit" && activePage === PRODUCTS && (
                   <ConfigProduct action={activeAction} />
                 )}
-              </div>
-            </div>
             
             {activePage === SHIPPING && <Shipping />}
             {activePage === ORDER_HISTORY && <OrderHistory />}
