@@ -157,7 +157,7 @@ const Register = ({ close }) => {
                     />
 
                     <input
-                      type="text"
+                      type="password"
                       className="text-field w-input"
                       placeholder="Password"
                       value={data.password || ""}

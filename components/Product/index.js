@@ -3,9 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 
-import { addToCart } from "@/controllers/customer";
-
-import { getProduct } from "@/controllers/product";
+import { getProduct } from "@/_controllers/product";
 import DetailsPane from "./DetailsPane";
 import Slider from "./Slider";
 
@@ -17,11 +15,13 @@ import AuthForm from "@/shared/Auth/AuthForm";
 
 import Button from "@/shared/Button";
 
+import { addToCart } from "@/_methods/cart";
+
 const ProductDetail = () => {
   const router = useRouter();
   const { customer } = useSelector((state) => state.customer);
 
-  const [ showAuth, setShowAuth ] = useState(false);
+  const [showAuth, setShowAuth] = useState(false);
 
   const [product, setProduct] = useState({});
 
@@ -46,13 +46,8 @@ const ProductDetail = () => {
   }, [router]);
 
   const addToCartHandler = async () => {
-    if (!customer.id) {
-      setShowAuth(true);
-      return;
-    }
-
     const res = await addToCart({
-      productId: product.id,
+      ...product,
       quantity: 1,
     });
 
@@ -63,7 +58,7 @@ const ProductDetail = () => {
 
   return (
     <>
-      {showAuth && <AuthForm close={() => setShowAuth(false )} />}
+      {showAuth && <AuthForm close={() => setShowAuth(false)} />}
       <Fetcher />
       <Head>
         <title> {product.name} | Green Cloud Nine</title>

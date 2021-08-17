@@ -16,7 +16,7 @@ import {
   addProduct,
   putProduct,
   uploadFiles,
-} from "@/controllers/product";
+} from "@/_controllers/product";
 
 const ProductImage = ({ url }) => {
   return (

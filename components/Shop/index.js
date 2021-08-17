@@ -17,7 +17,7 @@ import AboutUs from "./AboutUs";
 import Products from "./Products";
 import { useState, useEffect } from "react";
 
-import { getShop } from "@/controllers/shop";
+import { getShop } from "@/_controllers/shop";
 
 const Shop = () => {
   const router = useRouter();

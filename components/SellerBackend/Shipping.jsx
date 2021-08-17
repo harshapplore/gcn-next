@@ -7,17 +7,128 @@ import { fetchSeller } from "@/slices/user";
 import styles from "./backend.module.scss";
 
 import Radio from "@/shared/Input/Radio";
+import CheckBox from "@/shared/Input/Checkbox";
+import Select from "@/shared/Input/Select";
+
+const WeightInput = ({ data, setData, currencies }) => {
+  const updateValues = (index, key, value) => {
+    const newData = {
+      ...data,
+    };
+    newData[key] = value;
+    setData(data.slice(0, index), newData, data.slice(index + 1));
+  };
+
+  console.log("Data", data);
+
+  return (
+    <>
+      {data &&
+        data.length &&
+        data.map((d, index) => {
+          return (
+            <div className={styles["weight-input-ctr"]}>
+              <span className={styles["weight-category"]}>
+                <span> {d.category} </span> Kg
+              </span>
+              <input
+                type="text"
+                value={data.cost}
+                placeholder="Delivery Cost*"
+                onChange={(e) => updateValues(index, "cost", e.target.value)}
+              />
+              <Select
+                choices={currencies}
+                placeholder="Currency"
+                value={d.currency}
+                setValue={(value) => updateValues(index, "currency", value)}
+              />
+            </div>
+          );
+        })}
+    </>
+  );
+};
 
 const Shipping = () => {
-  const [] = useState();
+  const [_deliveryByCountry, _setDeliveryByCountry] = useState(false);
+  const [_deliveryByWeight, _setDeliveryByWeight] = useState(false);
+
+  const [_countryDelivery, _setCountryDelivery] = useState();
+  const [_weightDelivery, _setWeightDelivery] = useState();
+
+  const countryCost = {
+    country: "",
+    cost: "",
+    currency: "",
+    timeRequired: "",
+  };
+
+  const weightCost = {
+    category: "",
+    cost: "",
+    currency: "",
+    deliveryTime: "",
+  };
+
+  const countries = ["Austria"];
+  const currencies = ["Euro"];
+
+  useEffect(() => {
+    _setDeliveryByCountry({ ...countryCost });
+
+    const weightCosts = [];
+    const weightCategories = ["0-1", "1-5", "5-10", "10+"];
+    for (let i = 0; i < weightCategories.length; i++) {
+      weightCosts.push({ ...weightCost, category: weightCategories[i] });
+    }
+    _setWeightDelivery(weightCosts);
+  }, []);
+
+  console.log(_weightDelivery);
 
   return (
     <div className="dynamic-content">
       <div className="heading-wrapper mb-40">
         <h2>Shipping</h2>
-        <div className="overline-text">30 Products</div>
       </div>
+
       <div className="w-form">
+        <div className={styles["delivery-ctr"]}>
+          <h3>
+            <CheckBox
+              value={_deliveryByCountry}
+              setValue={(value) => _setDeliveryByCountry(value)}
+            />
+            Delivery Cost By Country
+          </h3>
+
+          {_deliveryByCountry && (
+            <div className={styles["input-ctr"]}>This is input Container</div>
+          )}
+        </div>
+        <div className={styles["delivery-ctr"]}>
+          <h3>
+            <CheckBox
+              value={_deliveryByWeight}
+              setValue={(value) => _setDeliveryByWeight(value)}
+            />
+            Delivery Cost By Weight
+          </h3>
+
+          {_deliveryByWeight && (
+            <div className={styles["input-ctr"]}>
+              <WeightInput
+                data={_weightDelivery}
+                setData={_setWeightDelivery}
+                currencies={currencies}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* <div className="w-form">
         <form id="email-form-3" name="email-form-3" data-name="Email Form 3">
           <div className="product-add-block">
             <label className="checkbox-field w-clearfix w-radio">
@@ -174,7 +285,7 @@ const Shipping = () => {
             className="button blue mr-10 w-button"
           />
         </form>
-      </div>
+      </div> */}
     </div>
   );
 };

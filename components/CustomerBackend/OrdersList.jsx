@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
-import { getAllOrders } from "@/controllers/customer";
+import { getAllOrders } from "@/_controllers/customer";
 
 import { ORDER_LIST } from "./routes";
 

@@ -1,17 +1,17 @@
 export const getShopView = (products) => {
-  console.log(products);
+  console.log("getShopV", products);
 
   const shopsList = [];
   const shops = [];
 
   products.map((cartItem) => {
-    if (!shopsList.includes(cartItem.product.shop)) {
-      shopsList.push(cartItem.product.shop);
+    if (!shopsList.includes(cartItem.shop)) {
+      shopsList.push(cartItem.shop.id);
       shops.push({
-        shopId: cartItem.product.shop,
+        shopId: cartItem.shop.id,
         products: [
           {
-            ...cartItem.product,
+            ...cartItem,
             quantity: cartItem.quantity,
             size: cartItem.size,
             color: cartItem.color,
@@ -23,12 +23,14 @@ export const getShopView = (products) => {
       return;
     }
 
+  
+
     const index = shops.findIndex(
       (shop) => shop.shopId === cartItem.product.shop
     );
 
     shops[index].products.push({
-      ...cartItem.product,
+      ...cartItem,
       quantity: cartItem.quantity,
       size: cartItem.size,
       color: cartItem.color,
@@ -38,6 +40,8 @@ export const getShopView = (products) => {
 
   return shops;
 };
+
+export const getProductView = (shops) => {};
 
 export const getSubTotalPrice = (products) => {
   return products.reduce(
@@ -49,3 +53,7 @@ export const getSubTotalPrice = (products) => {
 export const getSubTotalDelivery = () => {
   return 0;
 };
+
+/**
+ * Cart Manipulation - Methods to manipulate Cart
+ * */ 

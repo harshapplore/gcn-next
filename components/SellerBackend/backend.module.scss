@@ -1,19 +1,33 @@
-.shop-main-ctr{
+.shop-main-ctr {
   display: flex;
   align-items: top;
 
-  .side-ctr{
+  .side-ctr {
     width: 324px;
     padding-left: 36px;
   }
 
-  .right-ctr{
+  .right-ctr {
     flex: 1;
     padding-inline: 36px;
     display: flex;
   }
 }
 
-.shipping-ctr{
-  
+.delivery-ctr {
+  .input-ctr {
+    border: 1px solid #e7e7e7;
+    padding: 1em 1.2em;
+
+    .weight-input-ctr {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-wrap: wrap;
+
+      .weight-category {
+        width: 70px;
+      }
+    }
+  }
 }

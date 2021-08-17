@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { putSeller } from "@/controllers/seller";
+import { putSeller } from "@/_controllers/seller";
 
 import { useSelector } from "react-redux";
 

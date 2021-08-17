@@ -4,11 +4,11 @@ import Auth from "@/shared/Auth/Auth";
 const CartPage = () => {
   return (
     <>
-      <Auth>
-        <Cart />
-      </Auth>
+      {/* <Auth> */}
+      <Cart />
+      {/* </Auth> */}
     </>
   );
 };
 
-export default CartPage;  
+export default CartPage;

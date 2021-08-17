@@ -6,7 +6,7 @@ import {
   getFavoriteItems,
   getFavoriteShops,
   deleteFavorite,
-} from "@/controllers/customer";
+} from "@/_controllers/customer";
 
 const FavProduct = ({ product, favId }) => {
   const router = useRouter();

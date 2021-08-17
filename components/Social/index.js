@@ -10,7 +10,7 @@ import Footer from "@/shared/Footer";
 
 import styles from "./social.module.scss";
 
-import { getUser, putRole } from "@/controllers/auth";
+import { getUser, putRole } from "@/_controllers/auth";
 
 const Social = () => {
   const router = useRouter();

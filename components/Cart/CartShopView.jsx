@@ -1,6 +1,6 @@
-import { useState, useEffect, useMemo, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 
-import { getShop } from "@/controllers/shop";
+import { getShop } from "@/_controllers/shop";
 
 import { Toggle2 } from "@/shared/Toggle";
 import NumberInput from "@/shared/Input/Number";
@@ -65,7 +65,6 @@ const CartShop = ({ shopId, products, setProducts, subTotal }) => {
       const shopData = await getShop(shopId);
       _setShop(shopData);
     }
-
   }, [shopId]);
 
   return (
@@ -171,7 +170,7 @@ const CartShopView = ({ goToShipping }) => {
       return;
     }
 
-    const compensation = Math.round((totalPrice + totalDelivery) / 100);
+    const compensation = Math.round(totalPrice + totalDelivery) / 100;
 
     setCo2Compensation(compensation);
   }, [toggles.co2Compensation]);
@@ -179,6 +178,8 @@ const CartShopView = ({ goToShipping }) => {
   useEffect(() => {
     setTotal(totalPrice + totalDelivery + co2Compensation);
   }, [totalPrice, totalDelivery, co2Compensation]);
+
+  console.log("Shops X", shops);
 
   return (
     <>

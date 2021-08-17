@@ -102,7 +102,7 @@ const SignIn = ({ close, showRegister }) => {
                 onChange={(e) => updateData("email", e.target.value)}
               />
               <input
-                type="text"
+                type="password"
                 className="text-field w-input"
                 maxLength={256}
                 placeholder="Password"

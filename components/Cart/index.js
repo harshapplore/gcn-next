@@ -8,14 +8,15 @@ import Nav from "@/shared/Nav2";
 import Footer from "@/shared/Footer";
 import Fetcher from "@/shared/Fetcher";
 
-import { getCartProducts } from "@/controllers/customer";
-import { getCheckoutUrl } from "@/controllers/payments";
+import { getCheckoutUrl } from "@/_controllers/payments";
 
 import CartContext from "./cart.context";
 import CartShopView from "./CartShopView";
 import Shipping from "./Shipping";
 
 import { getShopView } from "./cart.methods";
+
+import { getCart, addToCart, deleteFromCart } from "@/_methods/cart";
 
 const Cart = () => {
   const { customer } = useSelector((state) => state.customer);
@@ -62,12 +63,19 @@ const Cart = () => {
   };
 
   useEffect(async () => {
-    const products = await getCartProducts({ user: user.id });
+    let cart = getCart();
+    const products = cart;
+
     setProducts(products);
   }, []);
 
   useEffect(() => {
+    if (!products) return;
+
     const shops = getShopView(products);
+
+    console.log("Shops", products, shops);
+
     setShops(shops);
   }, [products]);
 

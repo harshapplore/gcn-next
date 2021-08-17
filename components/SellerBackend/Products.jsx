@@ -7,7 +7,7 @@ import qS from "query-string";
 import { BASE_ROUTE, PRODUCTS, ADD_ACTION, EDIT_ACTION } from "./routes";
 
 import { fetchShopProducts } from "@/slices/shop";
-import { addProduct, deleteProduct, putProduct } from "@/controllers/product";
+import { addProduct, deleteProduct, putProduct } from "@/_controllers/product";
 
 const ProductCard = ({ name, image, id, product }) => {
   const router = useRouter();

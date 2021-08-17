@@ -62,6 +62,7 @@ function MyApp({ Component, pageProps }) {
           rel="stylesheet"
           href="https://unpkg.com/swiper/swiper-bundle.min.css"
         />
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <Component {...pageProps} />
     </Provider>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { getProducts } from "controllers/product";
+import { getProducts } from "@/_controllers/product";
 import { useRouter } from "next/router";
 
 import {

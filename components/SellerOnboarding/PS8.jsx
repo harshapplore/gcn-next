@@ -4,7 +4,7 @@ import styles from "./onboarding.module.scss";
 import { useSelector } from "react-redux";
 import authAxios from "@/setups/axios";
 
-import { getShopByFilter } from "@/controllers/shop";
+import { getShopByFilter } from "@/_controllers/shop";
 
 import Message from "@/shared/Message";
 import Button from "@/shared/Button";

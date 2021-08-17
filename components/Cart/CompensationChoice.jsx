@@ -1,4 +1,13 @@
+import { useState, useContext } from "react";
+import CartContext from "./cart.context";
+
+import Radio from "@/shared/Input/Radio";
+
 const CompensationChoices = () => {
+  const { co2Compensation } = useContext(CartContext);
+
+  const [choice, setChoice] = useState();
+
   return (
     <div className="page-section wf-section remove-border">
       <div className="container">
@@ -36,24 +45,11 @@ const CompensationChoices = () => {
                   </div>
                 </div>
                 <div className="div-block-2">
-                  <label className="checkbox-field w-clearfix w-radio">
-                    <div className="w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input" />
-                    <input
-                      type="radio"
-                      data-name="Certificate"
-                      id="node-4"
-                      name="Certificate"
-                      defaultValue={1}
-                      required
-                      style={{ opacity: 0, position: "absolute", zIndex: -1 }}
-                    />
-                    <span
-                      htmlFor="node-4"
-                      className="checkbox-label w-form-label"
-                    >
-                      Choose
-                    </span>
-                  </label>
+                  <Radio
+                    text="Choose"
+                    value={choice === "plan-1"}
+                    setValue={(value) => setChoice(value ? "plan-1" : null)}
+                  />
                 </div>
               </div>
               <div className="certificate-item">
@@ -73,24 +69,11 @@ const CompensationChoices = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="checkbox-field w-clearfix w-radio">
-                    <div className="w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input" />
-                    <input
-                      type="radio"
-                      data-name="Certificate"
-                      id="node-5"
-                      name="Certificate"
-                      defaultValue={2}
-                      required
-                      style={{ opacity: 0, position: "absolute", zIndex: -1 }}
-                    />
-                    <span
-                      htmlFor="node-5"
-                      className="checkbox-label w-form-label"
-                    >
-                      Choose
-                    </span>
-                  </label>
+                  <Radio
+                    text="Choose"
+                    value={choice === "plan-2"}
+                    setValue={(value) => setChoice(value ? "plan-2" : null)}
+                  />
                 </div>
               </div>
               <div className="cert-footer">
@@ -102,18 +85,12 @@ const CompensationChoices = () => {
                 </div>
                 <div className="cert-footer-box">
                   <div className="inline">
-                    <div className="cert-price">€ 2,-</div>
+                    <div className="cert-price">€ {co2Compensation},-</div>
                     <div className="small accent">to total sum</div>
                   </div>
                 </div>
               </div>
             </form>
-            <div className="w-form-done">
-              <div>Thank you! Your submission has been received!</div>
-            </div>
-            <div className="w-form-fail">
-              <div>Oops! Something went wrong while submitting the form.</div>
-            </div>
           </div>
         </div>
       </div>

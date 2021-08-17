@@ -6,8 +6,8 @@ import { fetchCategories } from "@/slices/categories";
 import { fetchFavoriteItems, fetchFavoriteShops } from "@/slices/favorites";
 
 import { Select3 } from "@/shared/Select";
-import { getProducts } from "@/controllers/product";
-import { addToFavorites, deleteFavorite } from "@/controllers/customer";
+import { getProducts } from "@/_controllers/product";
+import { addToFavorites, deleteFavorite } from "@/_controllers/customer";
 
 const Rating = ({ rating }) => {
   let filled = rating;
