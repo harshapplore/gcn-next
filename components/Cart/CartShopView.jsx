@@ -1,17 +1,21 @@
 import { useState, useEffect, useContext } from "react";
+import { useSelector } from "react-redux";
+import CompensationChoices from "./CompensationChoice";
 
-import { getShop } from "@/_controllers/shop";
-
+import AuthForm from "@/shared/Auth/AuthForm";
+import { Button, OutlinedButton } from "@/shared/Button";
 import { Toggle2 } from "@/shared/Toggle";
 import NumberInput from "@/shared/Input/Number";
+
+import { getShop } from "@/_controllers/shop";
 
 import styles from "./cart.module.scss";
 import CartContext from "./cart.context";
 import { getSubTotalPrice, getSubTotalDelivery } from "./cart.methods";
 
-import CompensationChoices from "./CompensationChoice";
-
 const CartItem = ({ product, shop, qty, setQty }) => {
+  const [showAuth, setShowAuth] = useState(false);
+
   return (
     <div className="flex mb-20">
       <div className="flex">
@@ -109,6 +113,10 @@ const CartShop = ({ shopId, products, setProducts, subTotal }) => {
  * @param goToShipping - A high-order function to move to next step
  */
 const CartShopView = ({ goToShipping }) => {
+  const { customer } = useSelector((state) => state.customer);
+  const { user } = useSelector((state) => state.user);
+
+  const [showAuth, setShowAuth] = useState(false);
   const [toggles, setToggles] = useState({});
 
   const {
@@ -179,11 +187,10 @@ const CartShopView = ({ goToShipping }) => {
     setTotal(totalPrice + totalDelivery + co2Compensation);
   }, [totalPrice, totalDelivery, co2Compensation]);
 
-  console.log("Shops X", shops);
-
   return (
     <>
       {/* Cart Shop View */}
+      {showAuth && <AuthForm close={() => setShowAuth(false)} />}
 
       <div className="container">
         <div className="heading-wrapper mb-40">
@@ -251,20 +258,31 @@ const CartShopView = ({ goToShipping }) => {
             )}
           </div>
           <div className="total-wrapper">
-            <div className="medium">Total: € {totalPrice}</div>
+            <div className="medium">Total Price: € {totalPrice}</div>
             <div>Delivery: € {totalDelivery}</div>
-            {co2Compensation && (
+            {co2Compensation > 0 && (
               <div>CO2 compensation : € {co2Compensation}</div>
             )}
+            <div>Order Total: € {total}</div>
           </div>
         </div>
 
-        <div className="center">
-          <div className={styles["total-display"]}>Order Total: € {total}</div>
-          <div className="button blue secondary mx-10" onClick={goToShipping}>
-            <div>Proceed to Shipping</div>
+        {shops.length > 0 && (
+          <div className={styles["cart-cta-buttons-ctr"]}>
+            <OutlinedButton
+              type="secondary"
+              name={customer.id ? "Proceed to Shipping" : "Continue as Guest"}
+              action={goToShipping}
+            />
+            {!customer.id && (
+              <Button
+                type="secondary"
+                name="Login / Register "
+                action={() => setShowAuth(true)}
+              />
+            )}
           </div>
-        </div>
+        )}
       </div>
     </>
   );

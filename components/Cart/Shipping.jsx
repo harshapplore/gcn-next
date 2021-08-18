@@ -1,87 +1,86 @@
 import { useState, useEffect, useContext } from "react";
 
+import styles from "./cart.module.scss";
+
 import CheckBox from "@/shared/Input/Checkbox";
 import Select from "@/shared/Input/Select";
 import Message from "@/shared/Message";
 import Button from "@/shared/Button";
+import TextInput from "@/shared/Input/Text";
 
 import { isEmail, isPhone, isPostalCode } from "@/utils/validators";
 
 import cartContext, { CartContext } from "./cart.context";
 
+import { loadAddress, saveAddress } from "@/_methods/cart";
+
 const Input = ({ data, setData, errors }) => {
   return (
     <>
       <div className="w-form">
-        <form id="email-form-6" name="email-form-6" data-name="Email Form 6">
-          <input
-            type="text"
-            className="text-field w-input"
-            placeholder="Full name*"
-            value={data.name}
-            onChange={(e) => setData({ ...data, name: e.target.value })}
-          />
-          <input
-            type="text"
-            placeholder="Company"
-            className="text-field w-input"
-            value={data.company}
-            onChange={(e) => setData({ ...data, company: e.target.value })}
-          />
-          <input
-            type="text"
-            className="text-field w-input"
-            placeholder="Street address*"
-            value={data.streetAddress}
-            onChange={(e) =>
-              setData({ ...data, streetAddress: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            className="text-field w-input"
-            placeholder="Postal code*"
-            value={data.postalCode}
-            onChange={(e) => setData({ ...data, postalCode: e.target.value })}
-          />
-          <input
-            type="text"
-            className="text-field w-input"
-            placeholder="City*"
-            value={data.city}
-            onChange={(e) => setData({ ...data, city: e.target.value })}
-          />
+        <TextInput
+          placeholder="Full Name *"
+          value={data.name}
+          setValue={(value) => setData({ ...data, name: value })}
+          error={errors.name}
+        />
 
-          <Select
-            choices={["Austria"]}
-            placeholder="Country"
-            value={data.country}
-            setValue={(value) => setData({ ...data, country: value })}
-          />
+        <TextInput
+          type="text"
+          placeholder="Company"
+          className="text-field w-input"
+          value={data.company}
+          setValue={(value) => setData({ ...data, company: value })}
+          error={errors.company}
+        />
 
-          <input
-            type="text"
-            className="text-field w-input"
-            placeholder="Email*"
-            value={data.email}
-            onChange={(e) => setData({ ...data, email: e.target.value })}
-          />
+        <TextInput
+          type="text"
+          className="text-field w-input"
+          placeholder="Street address*"
+          value={data.streetAddress}
+          setValue={(value) => setData({ ...data, streetAddress: value })}
+          error={errors.streetAddress}
+        />
 
-          <input
-            type="text"
-            placeholder="Phone"
-            className="text-field w-input"
-            value={data.phone}
-            onChange={(e) => setData({ ...data, phone: e.target.value })}
-          />
-        </form>
-        <div>
-          {errors &&
-            errors.length > 0 &&
-            errors.map((error, index) => (
-              <Message key={"err" + index} text={error} status={-1} />
-            ))}
-        </div>
+        <TextInput
+          type="text"
+          placeholder="Postal code*"
+          value={data.postalCode}
+          setValue={(value) => setData({ ...data, postalCode: value })}
+          error={errors.postalCode}
+        />
+
+        <TextInput
+          type="text"
+          placeholder="City*"
+          value={data.city}
+          setValue={(value) => setData({ ...data, city: value })}
+          error={errors.city}
+        />
+
+        <Select
+          choices={["Austria"]}
+          placeholder="Country"
+          value={data.country}
+          setValue={(value) => setData({ ...data, country: value })}
+        />
+
+        <TextInput
+          type="text"
+          placeholder="Email *"
+          value={data.email}
+          setValue={(value) => setData({ ...data, email: value })}
+          error={errors.email}
+        />
+
+        <TextInput
+          type="text"
+          placeholder="Phone"
+          value={data.phone}
+          setValue={(value) => setData({ ...data, phone: value })}
+          error={errors.phone}
+        />
       </div>
     </>
   );
@@ -91,55 +90,70 @@ const Shipping = ({ checkout }) => {
   const { shipping, billing, setShipping, setBilling } =
     useContext(cartContext);
 
-  const [err, setErrors] = useState({
-    billing: [],
-    shipping: [],
+  const [errors, setErrors] = useState({
+    billing: {},
+    shipping: {},
   });
 
   useEffect(() => {
-    setShipping({ sameAsBilling: true });
+    const billing = loadAddress("billing");
+    let shipping = loadAddress("shipping");
+
+    if (!Object.keys(shipping)) shipping = { sameAsBilling: true };
+
+    setBilling(billing);
+    setShipping(shipping);
   }, []);
 
   const validate = (data, key) => {
-    const errors = [];
+    const err = {};
 
-    if (!data.name) errors.push("Name cannot be empty.");
-    if (!data.email) errors.push("Email cannot be empty");
-    if (!data.phone) errors.push("Phone cannot be empty");
-    if (!data.streetAddress) errors.push("Street Address cannot be empty");
-    if (!data.postalCode) errors.push("Postal Code cannot be empty");
-    if (!data.city) errors.push("City cannot be empty");
-    if (!data.country) errors.push("Country cannot be empty");
+    if (!data.name) err.name = "Name cannot be empty.";
+    if (!data.email) err.email = "Email cannot be empty";
+    if (!data.phone) err.phone = "Phone cannot be empty";
+    if (!data.streetAddress)
+      err.streetAddress = "Street Address cannot be empty";
+    if (!data.postalCode) err.postalCode = "Postal Code cannot be empty";
+    if (!data.city) err.city = "City cannot be empty";
+    if (!data.country) err.country = "Country cannot be empty";
 
     if (data.email && !isEmail(data.email))
-      errors.push("Please input a valid email.");
+      err.email = "Please input a valid email.";
 
     if (data.phone && !isPhone(data.phone))
-      errors.push("Please provide a valid phone number.");
+      err.phone = "Please provide a valid phone number.";
 
     if (data.postalCode && !isPostalCode(data.postalCode))
-      errors.push("Please provide a valid postal code.");
+      err.postalCode = "Please provide a valid postal code.";
 
-    const errorList = { ...err };
+    const errorList = { ...errors };
 
-    errorList[key] = errors;
+    errorList[key] = err;
 
     setErrors(errorList);
 
-    if (errors.length) return true;
+    if (Object.keys(errors).length) return true;
 
     return false;
   };
 
   const next = () => {
-    if (validate(billing, "billing")) return;
-
-    if (!shipping.sameAsBilling && validate(shipping, "shipping")) return;
+    if (
+      validate(billing, "billing") &&
+      !shipping.sameAsBilling &&
+      validate(shipping, "shipping")
+    )
+      return;
 
     setShipping({ ...billing, ...shipping });
 
+    saveAddress("billing", billing);
+    saveAddress("shipping", shipping);
+
     checkout();
   };
+
+  console.log("Erros", errors);
 
   return (
     <div className="container">
@@ -153,7 +167,7 @@ const Shipping = ({ checkout }) => {
             name="Billing Address"
             data={billing}
             setData={setBilling}
-            errors={err.billing || []}
+            errors={errors.billing || []}
           />
         </div>
         <div className="flex-child-45">
@@ -168,11 +182,12 @@ const Shipping = ({ checkout }) => {
               name="Delivery Address"
               data={shipping}
               setData={setShipping}
-              errors={err.shipping || []}
+              errors={errors.shipping || []}
             />
           )}
         </div>
-
+      </div>
+      <div className={styles["cart-cta-buttons-ctr"]}>
         <Button type="secondary" name="Checkout" action={next} />
       </div>
     </div>

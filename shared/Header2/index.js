@@ -11,7 +11,7 @@ const Header = ({ nav }) => {
 
   const [showForm, setShowForm] = useState(false);
 
-  useState(() => {}, []);
+  console.log("user", user);
 
   return (
     <div className="navbar">
@@ -56,47 +56,46 @@ const Header = ({ nav }) => {
               action={() => setShowForm(true)}
             />
           )}
-
-          {user.id && (
-            <>
-              <a className="icon-nav w-inline-block">
-                <img
-                  src="/images/favorite-border-black-24-dp.svg"
-                  loading="lazy"
-                  alt="icon"
-                />
-              </a>
-              <a
-                className="icon-nav w-inline-block"
-                onClick={() =>
-                  router.push(
-                    user.type === "seller"
-                      ? "/seller-backend"
-                      : "/customer"
-                  )
-                }
-              >
-                <img
-                  src="/images/account-circle-black-24-dp.svg"
-                  loading="lazy"
-                  alt="Account"
-                />
-              </a>
-
-              {user.type === "customer" && (
-                <a
-                  className="icon-nav w-inline-block"
-                  onClick={() => router.push("/cart")}
-                >
+          <>
+            {user.id && (
+              <>
+                <a className="icon-nav w-inline-block">
                   <img
-                    src="/images/local-mall-black-24-dp.svg"
+                    src="/images/favorite-border-black-24-dp.svg"
                     loading="lazy"
-                    alt="Shopping Cart"
+                    alt="icon"
                   />
                 </a>
-              )}
-            </>
-          )}
+                <a
+                  className="icon-nav w-inline-block"
+                  onClick={() =>
+                    router.push(
+                      user.type === "seller" ? "/seller-backend" : "/customer"
+                    )
+                  }
+                >
+                  <img
+                    src="/images/account-circle-black-24-dp.svg"
+                    loading="lazy"
+                    alt="Account"
+                  />
+                </a>
+              </>
+            )}
+
+            {user.type !== "seller" && (
+              <a
+                className="icon-nav w-inline-block"
+                onClick={() => router.push("/cart")}
+              >
+                <img
+                  src="/images/local-mall-black-24-dp.svg"
+                  loading="lazy"
+                  alt="Shopping Cart"
+                />
+              </a>
+            )}
+          </>
         </div>
         <a className="menu-button w-inline-block">
           <div className="burger">

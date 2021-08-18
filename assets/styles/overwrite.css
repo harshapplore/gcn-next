@@ -83,7 +83,7 @@ select {
 
 /* */
 
-.privacy-lorem-ipsum{
+.privacy-lorem-ips>um{
   padding-inline: 30px;
   width: 450px;
 }
@@ -103,4 +103,9 @@ select {
 
 .product-context-menu{
   display: block;
+}
+
+/* */
+.input-error{
+  display: inline-block;
 }

@@ -1,4 +1,4 @@
-import { authAxios } from "setups/axios";
+import { axios, authAxios } from "setups/axios";
 
 export const createCheckout = async (data) => {
   const res = await authAxios()({
@@ -13,11 +13,13 @@ export const createCheckout = async (data) => {
 };
 
 export const getCheckoutUrl = async (data) => {
-  const res = await authAxios()({
+  const settings = {
     url: "/checkout",
     method: "POST",
     data,
-  });
+  };
+
+  const res = await (data.customer ? authAxios()(settings) : axios()(settings));
 
   return res.data;
 };

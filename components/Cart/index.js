@@ -14,9 +14,9 @@ import CartContext from "./cart.context";
 import CartShopView from "./CartShopView";
 import Shipping from "./Shipping";
 
-import { getShopView } from "./cart.methods";
+import { getShopView, getProductView } from "./cart.methods";
 
-import { getCart, addToCart, deleteFromCart } from "@/_methods/cart";
+import { getCart, addToCart, saveCart, deleteFromCart } from "@/_methods/cart";
 
 const Cart = () => {
   const { customer } = useSelector((state) => state.customer);
@@ -71,11 +71,7 @@ const Cart = () => {
 
   useEffect(() => {
     if (!products) return;
-
     const shops = getShopView(products);
-
-    console.log("Shops", products, shops);
-
     setShops(shops);
   }, [products]);
 
@@ -113,6 +109,16 @@ const Cart = () => {
 
     location.assign(url);
   };
+
+  useEffect(() => {
+    if (!shops || !shops.length) return;
+
+    const products = getProductView(shops);
+
+    const update = saveCart(products);
+
+    console.log("PV", update);
+  }, [shops]);
 
   return (
     <>

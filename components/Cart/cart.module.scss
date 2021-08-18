@@ -1,9 +1,11 @@
-.total-display{
-  text-align: center;
-  display: inline-block;
-  background: var(--primary);
-  color: var(--white);
-  padding: 13px;
-  margin: 5px;
-  user-select: none;
+
+.cart-cta-buttons-ctr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+
+  @media (max-width: 500px){
+    flex-direction: column;
+  }
 }

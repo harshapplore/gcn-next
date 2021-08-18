@@ -78,8 +78,10 @@ const SignIn = ({ close, showRegister }) => {
 
       console.log(user.type);
 
-      if (user && user.type === "seller") location.assign("/seller-backend");
-      else location.assign("/");
+      // if (user && user.type === "seller") location.assign("/seller-backend");
+      // else location.assign("/");
+
+      location.reload();
 
       return response.data;
     }

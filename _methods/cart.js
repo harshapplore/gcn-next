@@ -14,7 +14,7 @@ export const getCart = () => {
   return JSON.parse(cart);
 };
 
-const saveCart = (state) => {
+export const saveCart = (state) => {
   localStorage.setItem("cart", JSON.stringify(state));
   return JSON.parse(localStorage.getItem("cart"));
 };
@@ -68,4 +68,30 @@ export const deleteFromCart = (product) => {
   if (index === -1) return cart;
 
   return saveCart({ ...cart.slice(0, index), ...cart.slice(index + 1) });
+};
+
+/* */
+
+export const loadAddress = (type) => {
+  if (!type) throw new Error("Type of the address is missing.");
+
+  if (type != "billing" && type != "shipping")
+    throw new Error("Invalid Address type.");
+
+  const address = localStorage.getItem(type);
+
+  return address ? JSON.parse(address) : {};
+};
+
+export const saveAddress = (type, address) => {
+  if (!type) throw new Error("Type of the address is missing.");
+
+  if (type != "billing" && type != "shipping")
+    throw new Error("Invalid Address type.");
+
+  if (!address || !Object.keys(address).length)
+    throw new Error("Address cannot be empty");
+
+  localStorage.setItem(type, JSON.stringify(address));
+  return JSON.parse(localStorage.getItem(type));
 };

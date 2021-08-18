@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const ButtonComponent = styled.div`
   cursor: pointer;
+  user-select: none;
 
   background: ${({ type }) => (type === "secondary" ? "#003c6e" : "#80a647")};
   color: #fff;
@@ -31,6 +32,7 @@ const ButtonComponent = styled.div`
 
 const OutlinedButtonComponent = styled.div`
   cursor: pointer;
+  user-select: none;
 
   background: #fff;
   color: ${({ type }) => (type === "secondary" ? "#003c6e" : "#80a647")};
