@@ -1,7 +1,18 @@
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+
+const CategoryBlock = ({ name, action }) => {
+  return (
+    <a className="footer-link w-inline-block cursor" onClick={action}>
+      <div>{name}</div>
+    </a>
+  );
+};
 
 const Footer = () => {
   const router = useRouter();
+  const { categories } = useSelector((state) => state.categories);
 
   return (
     <div className="footer">
@@ -48,31 +59,19 @@ const Footer = () => {
           <div className="footer-flex">
             <div className="footer-column">
               <div className="footer-heading">Shop</div>
-              <a className="footer-link w-inline-block">
-                <div>Cosmetics</div>
-              </a>
-              <a className="footer-link w-inline-block">
-                <div>Mother &amp;&nbsp;Child</div>
-              </a>
-              <a className="footer-link w-inline-block">
-                <div>Home &amp;&nbsp;Household</div>
-              </a>
-              <a className="footer-link w-inline-block">
-                <div>Food &amp;&nbsp;Drink</div>
-              </a>
-              <a className="footer-link w-inline-block">
-                <div>Fashion</div>
-              </a>
-              <a className="footer-link w-inline-block">
-                <div>Accessory &amp;&nbsp;Jewellery</div>
-              </a>
-              <a className="footer-link w-inline-block">
-                <div>Sale</div>
-              </a>
+
+              {categories &&
+                categories.length > 0 &&
+                categories.map((category) => (
+                  <CategoryBlock
+                    name={category.name}
+                    action={() => router.push(`/category/${category.id}`)}
+                  />
+                ))}
             </div>
             <div className="footer-column">
               <div className="footer-heading">GC9</div>
-              <a className="footer-link w-inline-block">
+              <a className="footer-link w-inline-block cursor" onClick={() => router.push("/about")}>
                 <div>About us</div>
               </a>
               <a className="footer-link w-inline-block">
@@ -89,7 +88,7 @@ const Footer = () => {
               </a>
             </div>
             <div className="footer-column">
-              <div className="footer-heading">Shop</div>
+              <div className="footer-heading">Info</div>
               <a
                 className="footer-link w-inline-block"
                 onClick={() => router.push("/help")}
