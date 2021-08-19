@@ -6,14 +6,14 @@ import { SELLER_MAIN, CUSTOMER_MAIN } from "@/config/constants";
 
 const UserPopup = () => {
   const { user } = useSelector((state) => state.user);
-  const [openPopup, setOpenPopup] = useState();
+  const [openPopup, setOpenPopup] = useState(false);
 
   return (
     <div className="icon-nav-wrapper" onClick={() => setOpenPopup(!openPopup)}>
       <a className="icon-nav w-inline-block">
         <div className={openPopup ? "icon-nav-account" : ""}>
           <img
-            src="images/account-circle-black-24-dp.svg"
+            src="/images/account-circle-black-24-dp.svg"
             loading="eager"
             alt="Account"
             className={openPopup ? "icon-nav-account-active" : ""}
@@ -25,7 +25,7 @@ const UserPopup = () => {
           <div className="icon-nav-popup-card">
             <div className="icon-nav-popup-account">
               <img
-                src="images/account-img.jpg"
+                src="/images/account-img.jpg"
                 loading="lazy"
                 alt=""
                 className="icon-nav-popup-img"
@@ -56,7 +56,7 @@ const UserPopup = () => {
               }}
             >
               <img
-                src="images/logout-black-24-dp.svg"
+                src="/images/logout-black-24-dp.svg"
                 loading="eager"
                 alt="Log out"
                 className="button-icon"
