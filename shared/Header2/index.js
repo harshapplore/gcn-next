@@ -59,7 +59,10 @@ const Header = ({ nav }) => {
           <>
             {user.id && (
               <>
-                <a className="icon-nav w-inline-block">
+                <a
+                  className="icon-nav w-inline-block"
+                  onClick={() => router.push("/customer/favorites")}
+                >
                   <img
                     src="/images/favorite-border-black-24-dp.svg"
                     loading="lazy"

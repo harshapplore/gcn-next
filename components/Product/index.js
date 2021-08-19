@@ -73,7 +73,12 @@ const ProductDetail = () => {
           <div className="product-info-wrapper">
             <div className="mb-20">
               <h1 className="item-heading">{product.name}</h1>
-              <div className="overline-text">
+              <div
+                className="overline-text cursor"
+                onClick={() => {
+                  router.push(`/shop/${product.shop && product.shop.id}`);
+                }}
+              >
                 By {product.shop && product.shop.name}
               </div>
             </div>
