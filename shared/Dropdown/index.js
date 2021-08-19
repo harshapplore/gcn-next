@@ -76,8 +76,6 @@ const Dropdown = ({ choices, value, setValue, defaultValue, width }) => {
     setOpen(false);
   };
 
-  console.log(width);
-
   return (
     <DropdownContainer width={width}>
       <div className="d-choice" onClick={() => setOpen(!isOpen)}>

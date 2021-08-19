@@ -31,8 +31,6 @@ const Register = ({ close }) => {
 
     setErrors(err);
 
-    console.log((Object.keys(err).length));
-
     if ((Object.keys(err).length)) return false;
 
     return true;

@@ -107,8 +107,6 @@ const Favorites = () => {
       customerId: customer.id,
     });
 
-    console.log(favoriteItems);
-
     _setProducts(
       favoriteItems &&
         favoriteItems.map((item) => {

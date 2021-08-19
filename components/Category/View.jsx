@@ -71,8 +71,6 @@ const ShopItem = ({ product, favorites }) => {
   useEffect(async () => {
     if (!favorites || !favorites.length > 0) return;
 
-    console.log("Compare", favorites, product.id);
-
     const index = favorites.findIndex((fav) => fav.productId === product.id);
     console.log(favorites, index);
 
@@ -182,11 +180,7 @@ const View = () => {
   }, [router.query]);
 
   useEffect(() => {
-    console.log("Runs");
-
     if (!customer.id) return;
-
-    console.log("Reaches");
 
     if (!favoriteItems || !favoriteItems.length)
       dispatch(fetchFavoriteItems(customer.id));

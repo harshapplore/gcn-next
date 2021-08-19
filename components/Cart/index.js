@@ -117,7 +117,6 @@ const Cart = () => {
 
     const update = saveCart(products);
 
-    console.log("PV", update);
   }, [shops]);
 
   return (

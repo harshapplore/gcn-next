@@ -36,8 +36,6 @@ export const fetchFavoriteShops = createAsyncThunk(
       method: "GET",
     });
 
-    console.log("Shops -> ", response.data);
-
     if (response.data && response.data.length > 0) {
       return response.data.map((item) => {
         return item.shop.id;

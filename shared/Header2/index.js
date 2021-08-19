@@ -13,8 +13,6 @@ const Header = ({ nav }) => {
 
   const [showForm, setShowForm] = useState(false);
 
-  console.log("user", user);
-
   return (
     <div className="navbar">
       {showForm && <AuthForm close={() => setShowForm(false)} />}

@@ -1,8 +1,6 @@
 import shop from "@/slices/shop";
 
 export const getShopView = (products) => {
-  console.log("getShopV", products);
-
   const shopsList = [];
   const shops = [];
 

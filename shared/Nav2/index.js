@@ -30,8 +30,6 @@ const Nav2 = () => {
     const index =
       categories && categories.findIndex((category) => id === category.id);
 
-    console.log(index);
-
     if (index === -1) setActiveIndex(null);
     if (index >= 0) setActiveIndex(index);
   }, [router.query]);

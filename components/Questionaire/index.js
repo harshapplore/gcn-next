@@ -30,8 +30,6 @@ const QuestionList = ({ questions }) => {
 };
 
 const Questionaire = () => {
-  console.log(data);
-
   return (
     <>
       <Header nav={<Nav />} />

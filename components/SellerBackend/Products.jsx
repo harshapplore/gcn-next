@@ -15,8 +15,6 @@ const ProductCard = ({ name, image, id, product }) => {
   const [_openContext, _setOpenContext] = useState(false);
 
   const duplicateProduct = async (prod) => {
-    console.log("Product Empty??", prod);
-
     const { _id, id, ...productDetails } = prod;
 
     const product = await addProduct(productDetails);
@@ -27,9 +25,6 @@ const ProductCard = ({ name, image, id, product }) => {
 
   const delProduct = async () => {
     const product = await deleteProduct(id);
-
-    console.log(product);
-
     location.reload();
   };
 

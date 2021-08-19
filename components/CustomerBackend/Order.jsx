@@ -34,8 +34,6 @@ const Product = ({ product, shopName }) => {
 };
 
 const Shop = ({ shop, subTotal }) => {
-  console.log("S", shop);
-
   const [_shop, _setShop] = useState({});
 
   useEffect(async () => {
@@ -73,13 +71,7 @@ const Order = () => {
 
   useEffect(async () => {
     const { orderId } = router.query;
-
-    console.log(router.query);
-
     const order = await getOrder(orderId);
-
-    console.log(order);
-
     _setOrder(order);
     _setSnap(order.snapshot);
   }, [router.query]);

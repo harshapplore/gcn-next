@@ -53,15 +53,12 @@ const Social = () => {
   const updateRole = async (role) => {
     const user = await putRole(token, role);
 
-    console.log("User", user);
     localStorage.setItem("data", JSON.stringify(user));
 
     if (user.type === "seller") router.push("/seller-onboarding");
     if (user.type === "customer") router.push("/customer");
   };
-
-  console.log("User", user);
-
+  
   return (
     <>
       <Head> {provider} Login | Green Cloud Nine </Head>

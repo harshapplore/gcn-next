@@ -64,7 +64,6 @@ const SignIn = ({ close, showRegister }) => {
 
       localStorage.setItem("data", JSON.stringify(user));
 
-      console.log(user);
       setErrors([]);
       setSuccess("You have logged in successfully");
 

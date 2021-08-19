@@ -71,7 +71,6 @@ const ConfigProduct = () => {
         reader.onload = () => resolve(reader.result);
 
         reader.onerror = (e) => {
-          console.log(e);
           reject("Error Occured while reading file.");
         };
 

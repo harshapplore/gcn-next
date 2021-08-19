@@ -49,7 +49,6 @@ const PS2 = ({ nextPage }) => {
     });
 
     if (response) {
-      console.log(response);
       nextPage();
     }
   };

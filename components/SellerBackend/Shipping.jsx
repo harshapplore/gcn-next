@@ -18,9 +18,6 @@ const WeightInput = ({ data, setData, currencies }) => {
     newData[key] = value;
     setData(data.slice(0, index), newData, data.slice(index + 1));
   };
-
-  console.log("Data", data);
-
   return (
     <>
       {data &&
@@ -84,8 +81,6 @@ const Shipping = () => {
     }
     _setWeightDelivery(weightCosts);
   }, []);
-
-  console.log(_weightDelivery);
 
   return (
     <div className="dynamic-content">

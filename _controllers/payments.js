@@ -6,9 +6,7 @@ export const createCheckout = async (data) => {
     method: "POST",
     data: data,
   });
-
-  console.log(res);
-
+  
   return res.data;
 };
 

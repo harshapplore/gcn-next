@@ -48,7 +48,6 @@ const SignIn = ({ close, showRegister }) => {
     setErrors([]);
 
     if (!validate()) {
-      console.log(errors);
       return;
     }
 
@@ -68,7 +67,6 @@ const SignIn = ({ close, showRegister }) => {
     });
 
     if (response) {
-      console.log(response);
       localStorage.setItem("token", response.data.jwt);
 
       setErrors([]);
@@ -76,8 +74,6 @@ const SignIn = ({ close, showRegister }) => {
 
       const { user } = response.data;
       localStorage.setItem("data", JSON.stringify(response.data.user));
-
-      console.log(user.type);
 
       // if (user && user.type === "seller") location.assign("/seller-backend");
       // else location.assign("/");
