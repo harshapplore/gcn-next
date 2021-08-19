@@ -75,9 +75,6 @@ const Footer = () => {
                 <div>About us</div>
               </a>
               <a className="footer-link w-inline-block">
-                <div>Our Promise</div>
-              </a>
-              <a className="footer-link w-inline-block">
                 <div>Sell Products</div>
               </a>
               <a className="footer-link w-inline-block">
