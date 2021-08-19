@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 import CheckBox from "@/shared/Checkbox";
 import Message from "@/shared/Message";
+import TextInput from "../Input/Text";
 
 const SignIn = ({ close, showRegister }) => {
   const router = useRouter();

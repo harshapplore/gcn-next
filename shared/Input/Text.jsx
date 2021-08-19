@@ -1,19 +1,18 @@
-const TextInput = ({ value, placeholder, setValue, error }) => {
-
+const TextInput = ({ type, value, placeholder, setValue, error }) => {
   return (
     <div class="input-wrapper">
       <input
-        type="text"
-        class={"text-field w-input" + (error ? " text-field--error" : "")}
+        type={type ? type : "text"}
+        className={"text-field w-input" + (error ? " text-field--error" : "")}
         value={value}
         placeholder={placeholder}
         onChange={(e) => setValue(e.target.value)}
       />
 
       {error && (
-        <div class="input-error">
-          Error: 
-          <span class="input-error__message"> {error} </span>
+        <div className="input-error">
+          Error:
+          <span className="input-error__message"> {error} </span>
         </div>
       )}
     </div>

@@ -6,34 +6,40 @@ import { UPDATE_ROLE_URL } from "@/config/constants";
 
 import { axios } from "@/setups/axios";
 
-import Select from "@/shared/Select";
+import Select from "@/shared/Input/Select";
 import Message from "@/shared/Message";
-import CheckBox from "@/shared/Checkbox";
+import CheckBox from "@/shared/Input/Checkbox";
+import TextInput from "@/shared/Input/Text";
 
 const Register = ({ close }) => {
   const router = useRouter();
 
   const [data, setData] = useState({ type: "seller" });
 
-  const [errors, setErrors] = useState();
+  const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(false);
 
   const validate = () => {
-    const err = [];
+    const err = {};
 
-    if (!data.email) err.push("Email cannot be empty.");
-    if (!data.password) err.push("Password cannot be empty.");
-    if (!data.name) err.push("Name cannot be empty.");
+    if (!data.email) err.email = "Email cannot be empty.";
+    if (!data.password) err.password = "Password cannot be empty.";
+    if (!data.name) err.name = "Name cannot be empty.";
+
+    if (!data.region) err.region = "Please Select a region";
+    if (!data.terms) err.terms = "Please Accept Terms before proceeding";
 
     setErrors(err);
 
-    if (err.length) return false;
+    console.log((Object.keys(err).length));
+
+    if ((Object.keys(err).length)) return false;
 
     return true;
   };
 
-  const submit = async (e) => {
-    e.preventDefault();
+  const submit = async (value) => {
+    value.preventDefault();
 
     if (!validate()) {
       return;
@@ -94,12 +100,6 @@ const Register = ({ close }) => {
     }
   };
 
-  const updateData = (key, value) => {
-    const newData = { ...data };
-    newData[key] = value;
-    setData(newData);
-  };
-
   const updateType = (type) => {
     setData({ ...data, type });
   };
@@ -139,65 +139,66 @@ const Register = ({ close }) => {
             <div className="w-tab-content">
               <div data-w-tab="Tab 1" className="w-tab-pane w--tab-active">
                 <div className="w-form">
-                  <form>
+                  <TextInput
+                    type="text"
+                    className="text-field w-input"
+                    placeholder="Name"
+                    value={data.name}
+                    setValue={(value) => setData({ ...data, name: value })}
+                    error={errors.name}
+                  />
+
+                  <TextInput
+                    type="text"
+                    className="text-field w-input"
+                    placeholder="Email Address"
+                    value={data.email || ""}
+                    setValue={(value) => setData({ ...data, email: value })}
+                    error={errors.email}
+                  />
+
+                  <TextInput
+                    type="password"
+                    className="text-field w-input"
+                    placeholder="Password"
+                    value={data.password || ""}
+                    setValue={(value) => setData({ ...data, password: value })}
+                    error={errors.password}
+                  />
+
+                  <Select
+                    choices={["Europe"]}
+                    defaultValue="Region"
+                    value={data.region}
+                    setValue={(value) => setData({ ...data, region: value })}
+                    error={errors.region}
+                  />
+
+                  <div className="flex mb-20">
+                    <CheckBox
+                      text="Newsletter"
+                      value={data.newsletter}
+                      setValue={(value) =>
+                        setData({ ...data, newsletter: value })
+                      }
+                    />
+                  </div>
+                  <div className="flex mb-20">
+                    <CheckBox
+                      text={"Accept Terms & Conditions and Privacy Policy"}
+                      value={data.terms}
+                      setValue={(value) => setData({ ...data, terms: value })}
+                      error={errors.terms}
+                    />
+                  </div>
+                  <div className="center">
                     <input
-                      type="text"
-                      className="text-field w-input"
-                      placeholder="Name"
-                      value={data.name}
-                      onChange={(e) => updateData("name", e.target.value)}
+                      type="submit"
+                      value="Register"
+                      className="button blue w-button"
+                      onClick={submit}
                     />
-
-                    <input
-                      type="text"
-                      className="text-field w-input"
-                      placeholder="Email Address"
-                      value={data.email || ""}
-                      onChange={(e) => updateData("email", e.target.value)}
-                    />
-
-                    <input
-                      type="password"
-                      className="text-field w-input"
-                      placeholder="Password"
-                      value={data.password || ""}
-                      onChange={(e) => updateData("password", e.target.value)}
-                    />
-
-                    <Select
-                      choices={[
-                        "First Choice",
-                        "Second Choice",
-                        "Third Choice",
-                      ]}
-                      defaultValue="Region"
-                      value={data.choice}
-                      setValue={(value) => updateData("choice", value)}
-                    />
-
-                    <div className="flex mb-20">
-                      <CheckBox
-                        text="Newsletter"
-                        value={data.newsletter}
-                        setValue={(value) => updateData("newsletter", value)}
-                      />
-                    </div>
-                    <div className="flex mb-20">
-                      <CheckBox
-                        text={"Accept Terms & Conditions and Privacy Policy"}
-                        value={data.terms}
-                        setValue={(value) => updateData("terms", value)}
-                      />
-                    </div>
-                    <div className="center">
-                      <input
-                        type="submit"
-                        value="Register"
-                        className="button blue w-button"
-                        onClick={submit}
-                      />
-                    </div>
-                  </form>
+                  </div>
                 </div>
 
                 {errors &&
