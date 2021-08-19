@@ -5,6 +5,8 @@ import AuthForm from "@/shared/Auth/AuthForm";
 import { useSelector } from "react-redux";
 import Button from "@/shared/Button";
 
+import UserPopup from "./Popup";
+
 const Header = ({ nav }) => {
   const router = useRouter();
   const { user } = useSelector((state) => state.user);
@@ -69,20 +71,7 @@ const Header = ({ nav }) => {
                     alt="icon"
                   />
                 </a>
-                <a
-                  className="icon-nav w-inline-block"
-                  onClick={() =>
-                    router.push(
-                      user.type === "seller" ? "/seller-backend" : "/customer"
-                    )
-                  }
-                >
-                  <img
-                    src="/images/account-circle-black-24-dp.svg"
-                    loading="lazy"
-                    alt="Account"
-                  />
-                </a>
+                <UserPopup />
               </>
             )}
 

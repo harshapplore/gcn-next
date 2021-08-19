@@ -19,6 +19,20 @@ export const getProducts = async (filters) => {
   return res.data;
 };
 
+export const getLatestProducts = async () => {
+  const filters = {
+    _sort: "createdAt:desc",
+    _limit: 8,
+  };
+
+  const res = await axios()({
+    url: `/products?${QS.stringify(filters)}`,
+    method: "GET",
+  });
+
+  return res.data;
+};
+
 export const getProductsFromShop = async (id) => {
   const query = {
     shop: id,
