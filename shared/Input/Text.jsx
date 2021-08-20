@@ -1,6 +1,6 @@
 const TextInput = ({ type, value, placeholder, setValue, error }) => {
   return (
-    <div class="input-wrapper">
+    <div className="input-wrapper">
       <input
         type={type ? type : "text"}
         className={"text-field w-input" + (error ? " text-field--error" : "")}

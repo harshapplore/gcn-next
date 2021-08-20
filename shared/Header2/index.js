@@ -5,17 +5,22 @@ import AuthForm from "@/shared/Auth/AuthForm";
 import { useSelector } from "react-redux";
 import Button from "@/shared/Button";
 
-import UserPopup from "./Popup";
+import UserPopup from "./UserPopup";
+import ErrorPopup from "@/shared/Message/ErrorPopup";
 
 const Header = ({ nav }) => {
   const router = useRouter();
   const { user } = useSelector((state) => state.user);
+  const {errors} = useSelector(state => state.errors);
 
   const [showForm, setShowForm] = useState(false);
+
 
   return (
     <div className="navbar">
       {showForm && <AuthForm close={() => setShowForm(false)} />}
+      
+      <ErrorPopup messages={errors} /> 
 
       <div className="navbar-top">
         <div className="brand-wrapper" onClick={() => router.push("/")}>

@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { v4 } from "uuid";
-import router, { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
 import { UPDATE_ROLE_URL } from "@/config/constants";
 
@@ -11,8 +11,11 @@ import Message from "@/shared/Message";
 import CheckBox from "@/shared/Input/Checkbox";
 import TextInput from "@/shared/Input/Text";
 
+import { registerUser } from "@/_controllers/auth";
+
 const Register = ({ close }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [data, setData] = useState({ type: "seller" });
 
@@ -31,41 +34,23 @@ const Register = ({ close }) => {
 
     setErrors(err);
 
-    if ((Object.keys(err).length)) return false;
+    if (Object.keys(err).length) return false;
 
     return true;
   };
 
-  const submit = async (value) => {
-    value.preventDefault();
+  const submit = async (e) => {
+    e.preventDefault();
 
     if (!validate()) {
       return;
     }
 
-    const userData = {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      type: data.type,
-      role: data.type,
-      username:
-        data.name.split(" ")[0].slice(0, 5) +
-        "-" +
-        v4().split("-").pop().slice(0, 4),
-      newsletter: data.newsletter || false,
-      termsAndConditions: data.terms || false,
-    };
+    const user = await registerUser(data, data.type, dispatch);
 
-    const response = await axios()({
-      url: "/auth/local/register",
-      method: "POST",
-      data: userData,
-    }).catch((error) => {
-      console.log(error, error.response);
-    });
+    if(!user) return;
 
-    if (response) {
+    if (user) {
       const { jwt, user } = response.data;
       localStorage.setItem("token", jwt);
       localStorage.setItem("data", user);

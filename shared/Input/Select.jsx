@@ -1,4 +1,11 @@
-export const Select = ({ choices, error, required, value, setValue, placeholder }) => {
+export const Select = ({
+  choices,
+  error,
+  required,
+  value,
+  setValue,
+  placeholder,
+}) => {
   return (
     <>
       <select
@@ -16,9 +23,9 @@ export const Select = ({ choices, error, required, value, setValue, placeholder 
       </select>
 
       {error && (
-        <div class="input-error">
+        <div className="input-error">
           Error:
-          <span class="input-error__message"> {error} </span>
+          <span className="input-error__message"> {error} </span>
         </div>
       )}
     </>

@@ -67,7 +67,7 @@ export const deleteFromCart = (product) => {
 
   if (index === -1) return cart;
 
-  return saveCart({ ...cart.slice(0, index), ...cart.slice(index + 1) });
+  return saveCart([...cart.slice(0, index), ...cart.slice(index + 1)]);
 };
 
 /* */

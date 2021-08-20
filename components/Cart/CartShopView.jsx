@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CompensationChoices from "./CompensationChoice";
 
 import AuthForm from "@/shared/Auth/AuthForm";
@@ -7,14 +7,24 @@ import { Button, OutlinedButton } from "@/shared/Button";
 import { Toggle2 } from "@/shared/Toggle";
 import NumberInput from "@/shared/Input/Number";
 
+import { loadCart } from "@/slices/cart";
 import { getShop } from "@/_controllers/shop";
+import { deleteFromCart } from "@/_methods/cart";
 
 import styles from "./cart.module.scss";
 import CartContext from "./cart.context";
 import { getSubTotalPrice, getSubTotalDelivery } from "./cart.methods";
 
+import DeleteIcon from "@/assets/icons/delete.svg";
+
 const CartItem = ({ product, shop, qty, setQty }) => {
+  const dispatch = useDispatch();
   const [showAuth, setShowAuth] = useState(false);
+
+  const deleteItem = () => {
+    deleteFromCart(product);
+    dispatch(loadCart());
+  };
 
   return (
     <div className="flex mb-20">
@@ -48,6 +58,11 @@ const CartItem = ({ product, shop, qty, setQty }) => {
           {product.filters.inStock ? "In Stock" : "Currently Unavailable"}
         </div>
         <NumberInput value={qty} setValue={(value) => setQty(value)} />
+        <img
+          src={DeleteIcon.src}
+          className={styles["cart-delete"]}
+          onClick={deleteItem}
+        />
       </div>
       <div className="pt-30">
         <div className="shop-product-price">
@@ -100,9 +115,12 @@ const CartShop = ({ shopId, products, setProducts, subTotal }) => {
         ))}
 
       <div className="subtotal-wrapper">
+        <Toggle2 name="Pick up from Shop?" />
+        <div>
         <div className="medium">Subtotal: € {subTotal.price} </div>
         <div>Delivery: € {subTotal.delivery} </div>
         <div>2-3 days</div>
+        </div>
       </div>
     </div>
   );
@@ -114,7 +132,6 @@ const CartShop = ({ shopId, products, setProducts, subTotal }) => {
  */
 const CartShopView = ({ goToShipping }) => {
   const { customer } = useSelector((state) => state.customer);
-  const { user } = useSelector((state) => state.user);
 
   const [showAuth, setShowAuth] = useState(false);
   const [toggles, setToggles] = useState({});
@@ -230,11 +247,6 @@ const CartShopView = ({ goToShipping }) => {
               setValue={(value) =>
                 setToggles({ ...toggles, co2Compensation: value })
               }
-            />
-            <Toggle2
-              name="Pick up"
-              value={pickUpOrder}
-              setValue={(value) => setPickUpOrder(value)}
             />
             <Toggle2
               name="This order is a gift."

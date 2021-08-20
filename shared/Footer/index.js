@@ -62,8 +62,9 @@ const Footer = () => {
 
               {categories &&
                 categories.length > 0 &&
-                categories.map((category) => (
+                categories.map((category, index) => (
                   <CategoryBlock
+                    key={"cat" + index}
                     name={category.name}
                     action={() => router.push(`/category/${category.id}`)}
                   />
@@ -71,7 +72,10 @@ const Footer = () => {
             </div>
             <div className="footer-column">
               <div className="footer-heading">GC9</div>
-              <a className="footer-link w-inline-block cursor" onClick={() => router.push("/about")}>
+              <a
+                className="footer-link w-inline-block cursor"
+                onClick={() => router.push("/about")}
+              >
                 <div>About us</div>
               </a>
               <a className="footer-link w-inline-block">

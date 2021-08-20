@@ -7,6 +7,9 @@ import shopReducer from "@/slices/shop";
 import customerReducer from "@/slices/customer";
 import sellerReducer from "@/slices/seller";
 import favoritesReducer from "@/slices/favorites";
+import cartReducer from "@/slices/cart";
+
+import errorReducer from "@/slices/error";
 
 export default configureStore({
   reducer: {
@@ -15,6 +18,8 @@ export default configureStore({
     shop: shopReducer,
     customer: customerReducer,
     seller: sellerReducer,
-    favorites: favoritesReducer
+    favorites: favoritesReducer,
+    errors: errorReducer,
+    cart: cartReducer,
   },
 });

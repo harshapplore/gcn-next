@@ -119,3 +119,8 @@ select {
 .input-error {
   display: inline-block;
 }
+
+.subtotal-wrapper{
+  display: flex;
+  justify-content: space-between;
+}

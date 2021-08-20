@@ -19,9 +19,9 @@ const CheckBox = ({ text, error, value, setValue }) => {
         </span>
       </label>
       {error && (
-        <div class="input-error">
+        <div className="input-error">
           Error:
-          <span class="input-error__message"> {error} </span>
+          <span className="input-error__message"> {error} </span>
         </div>
       )}
     </>

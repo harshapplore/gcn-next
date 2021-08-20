@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import Header from "@/shared/Header2";
 import Nav from "@/shared/Nav2";
 import Footer from "@/shared/Footer";
 import Fetcher from "@/shared/Fetcher";
 
+import { loadCart } from "@/slices/cart";
 import { getCheckoutUrl } from "@/_controllers/payments";
 
 import CartContext from "./cart.context";
@@ -16,11 +17,14 @@ import Shipping from "./Shipping";
 
 import { getShopView, getProductView } from "./cart.methods";
 
-import { getCart, addToCart, saveCart, deleteFromCart } from "@/_methods/cart";
+import { getCart, saveCart } from "@/_methods/cart";
 
 const Cart = () => {
+  const dispatch = useDispatch();
+
   const { customer } = useSelector((state) => state.customer);
   const { user } = useSelector((state) => state.user);
+  const { cart } = useSelector((state) => state.cart);
 
   const [showShipping, setShowShipping] = useState();
 
@@ -62,18 +66,27 @@ const Cart = () => {
     setTotal,
   };
 
-  useEffect(async () => {
-    let cart = getCart();
-    const products = cart;
-
-    setProducts(products);
+  useEffect(() => {
+    dispatch(loadCart());
   }, []);
+
+  useEffect(async () => {
+    if (cart && cart.length > 0) setProducts(cart);
+    else setProducts([]);
+  }, [cart]);
 
   useEffect(() => {
     if (!products) return;
     const shops = getShopView(products);
     setShops(shops);
   }, [products]);
+
+  useEffect(() => {
+    if (!shops || !shops.length) return;
+
+    const products = getProductView(shops);
+    saveCart(products);
+  }, [shops]);
 
   const checkout = async () => {
     let products = shops.map((shop) => shop.products).flat();
@@ -110,14 +123,7 @@ const Cart = () => {
     location.assign(url);
   };
 
-  useEffect(() => {
-    if (!shops || !shops.length) return;
-
-    const products = getProductView(shops);
-
-    const update = saveCart(products);
-
-  }, [shops]);
+  
 
   return (
     <>

@@ -3,15 +3,17 @@ import { useState } from "react";
 import { axios } from "@/setups/axios";
 import { useRouter } from "next/router";
 
-import CheckBox from "@/shared/Checkbox";
+import CheckBox from "@/shared/Input/Checkbox";
 import Message from "@/shared/Message";
-import TextInput from "../Input/Text";
+import TextInput from "@/shared/Input/Text";
+
+import { isEmail } from "@/utils/validators";
 
 const SignIn = ({ close, showRegister }) => {
   const router = useRouter();
 
   const [data, setData] = useState({});
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState("");
 
   const updateData = (key, value) => {
@@ -21,23 +23,17 @@ const SignIn = ({ close, showRegister }) => {
   };
 
   const validate = () => {
-    const errors = [];
+    const errors = {};
 
-    if (!data.email) errors.push("Email cannot be empty.");
-    if (!data.password) errors.push("Password cannot be empty.");
+    if (!data.email) errors.email = "Email cannot be empty.";
+    if (!data.password) errors.password = "Password cannot be empty.";
 
-    if (
-      data.email &&
-      !data.email.match(
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-      )
-    )
-      errors.push("Please input a valid email.");
+    if (data.email && !isEmail(data.email))
+      errors.email = "Please input a valid email.";
 
-    if (errors.length) {
-      setErrors(errors);
-      return false;
-    }
+    setErrors(errors);
+
+    if (Object.keys(errors).length) return false;
 
     return true;
   };
@@ -92,22 +88,24 @@ const SignIn = ({ close, showRegister }) => {
         <div className="scroll-y">
           <div className="w-form">
             <form>
-              <input
+              <TextInput
                 type="text"
                 className="text-field w-input"
                 maxLength={256}
                 placeholder="Email Address"
                 value={data.email || ""}
-                onChange={(e) => updateData("email", e.target.value)}
+                setValue={(value) => setData({ ...data, email: value })}
+                error={errors.email}
               />
-              <input
+              <TextInput
                 type="password"
                 className="text-field w-input"
                 maxLength={256}
                 placeholder="Password"
                 required
                 value={data.password || ""}
-                onChange={(e) => updateData("password", e.target.value)}
+                setValue={(value) => setData({ ...data, password: value })}
+                error={errors.password}
               />
 
               <div className="flex mb-20">

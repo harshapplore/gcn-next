@@ -3,30 +3,58 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchFavoriteItems } from "@/slices/favorites";
 import { getLatestProducts } from "@/_controllers/product";
 
+import { addToFavorites, deleteFavorite } from "@/_controllers/customer";
+
 const Product = ({ product }) => {
   const dispatch = useDispatch();
 
+  const { user } = useSelector((state) => state.user);
   const { customer } = useSelector((state) => state.customer);
-  const { favorites } = useSelector((state) => state.favorites);
+  const { favoriteItems } = useSelector((state) => state.favorites);
 
   const [isFavorite, setIsFavorite] = useState(false);
+  const [favId, setFavId] = useState("");
 
   useEffect(() => {
-    if (!favorites || !favorites.length) dispatch(fetchFavoriteItems());
+    if (!customer.id) return;
+
+    if (!favoriteItems || !favoriteItems.length)
+      dispatch(fetchFavoriteItems(customer.id));
   }, [customer]);
 
   useEffect(() => {
-    if (!favorites || !favorites.length) return;
+    if (!favoriteItems || !favoriteItems.length) return;
 
-    const index = favorites.findIndex((fav) => fav.id === product.id);
+    const index = favoriteItems.findIndex(
+      (fav) => fav.productId === product.id
+    );
 
     if (index === -1) {
       setIsFavorite(false);
       return;
     }
 
-    if (index >= 0) setIsFavorite(true);
-  }, [favorites]);
+    if (index >= 0) {
+      setIsFavorite(true);
+      setFavId(favoriteItems[index].favId);
+    }
+  }, [favoriteItems]);
+
+  const toggleFavorite = async () => {
+    if (isFavorite) {
+      await deleteFavorite(favId);
+    } else
+      await addToFavorites({
+        customerId: customer.id,
+        userId: user.id,
+        type: "Product",
+        product: product.id,
+      });
+
+    dispatch(fetchFavoriteItems(customer.id));
+  };
+
+  console.log(isFavorite, favoriteItems);
 
   return (
     <div className="flex-child-24">
@@ -50,7 +78,10 @@ const Product = ({ product }) => {
 
         {customer.id && (
           <a
-            className={"potw-like w-inline-block" + (isFavorite ? " active" : "")}
+            className={
+              "potw-like w-inline-block" + (isFavorite ? " active" : "")
+            }
+            onClick={toggleFavorite}
           >
             <img
               src="images/favorite-border-black-24-dp-2.svg"
@@ -90,8 +121,8 @@ const PageSection = () => {
         <div className="flex wrap">
           {_products &&
             _products.length >= 0 &&
-            _products.map((product) => {
-              return <Product product={product} />;
+            _products.map((product, index) => {
+              return <Product key={"product" + index} product={product} />;
             })}
         </div>
       </div>
