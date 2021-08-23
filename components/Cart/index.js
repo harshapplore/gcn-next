@@ -182,6 +182,7 @@ const Cart = () => {
         subTotals,
         shipping,
         billing,
+        shopsMeta
       },
     });
 
