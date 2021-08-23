@@ -44,6 +44,8 @@ export const getProductView = (shops) => {
 };
 
 export const getSubTotalPrice = (products) => {
+  if(!products) return 0;
+
   return products.reduce(
     (a, product) => a + Math.round(product.price * product.quantity),
     0
@@ -54,6 +56,10 @@ export const getSubTotalDelivery = () => {
   return 0;
 };
 
-/**
- * Cart Manipulation - Methods to manipulate Cart
- * */
+
+/* Shop Meta Data Generator */
+
+// export const getShopMeta = () => {
+//   const 
+// }
+

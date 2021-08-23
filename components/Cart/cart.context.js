@@ -3,6 +3,7 @@ import { createContext } from "react";
 const initialValue = {
   products: [],
   shops: [],
+  shopsMeta: [],
   billing: {},
   shipping: {},
   subTotals: [],
@@ -14,6 +15,7 @@ const initialValue = {
   total: 0,
 
   setShops: () => {},
+  setShopsMeta: () => {},
   setProducts: () => {},
   setBilling: () => {},
   setShipping: () => {},

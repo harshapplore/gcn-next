@@ -45,7 +45,7 @@ const NumberInputContainer = styled.div`
 
 export const NumberInput = ({ value, setValue, limit }) => {
   useEffect(() => {
-    if (value < 0) setValue(1);
+    if (value <= 0) setValue(1);
 
     if (limit && value > limit) setValue(limit);
   }, [value]);

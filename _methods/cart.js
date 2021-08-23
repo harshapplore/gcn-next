@@ -95,3 +95,20 @@ export const saveAddress = (type, address) => {
   localStorage.setItem(type, JSON.stringify(address));
   return JSON.parse(localStorage.getItem(type));
 };
+
+/// Save Shop Meta Information
+
+export const getShopsMeta = () => {
+  const shopMeta = localStorage.getItem("shopMeta");
+
+  if (!shopMeta) {
+    localStorage.setItem("shopMeta", JSON.stringify([]));
+  }
+
+  return JSON.parse(localStorage.getItem("shopMeta"));
+};
+
+export const saveShopsMeta = (data) => {
+  localStorage.setItem("shopMeta", JSON.stringify(data));
+  return JSON.parse(localStorage.getItem("shopMeta"));
+};

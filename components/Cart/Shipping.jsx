@@ -99,7 +99,7 @@ const Shipping = ({ checkout }) => {
     const billing = loadAddress("billing");
     let shipping = loadAddress("shipping");
 
-    if (!Object.keys(shipping)) shipping = { sameAsBilling: true };
+    if (!Object.keys(shipping).length) shipping = { sameAsBilling: true };
 
     setBilling(billing);
     setShipping(shipping);
@@ -132,28 +132,43 @@ const Shipping = ({ checkout }) => {
 
     setErrors(errorList);
 
-    if (Object.keys(errors).length) return true;
+    console.log(key, err, errorList);
+    console.log(billing, shipping);
 
-    return false;
+    if (Object.keys(errorList[key]).length) return false;
+
+    return true;
   };
 
+  useEffect(() => {
+    if (!billing) return;
+
+    if (!Object.keys(billing).length) return;
+
+    saveAddress("billing", billing);
+  }, [billing]);
+
+  useEffect(() => {
+    if (!shipping) return;
+
+    if (!Object.keys(shipping).length) return;
+
+    saveAddress("shipping", shipping);
+  }, [shipping]);
+
   const next = () => {
-    if (
-      validate(billing, "billing") &&
-      !shipping.sameAsBilling &&
-      validate(shipping, "shipping")
-    )
-      return;
+    const billValid = validate(billing, "billing");
+
+    const shipValid = shipping.sameAsBilling || validate(shipping, "shipping");
+
+    console.log("-->", shipValid, billValid);
+
+    if (!billValid || !shipValid) return;
 
     setShipping({ ...billing, ...shipping });
 
-    saveAddress("billing", billing);
-    saveAddress("shipping", shipping);
-
     checkout();
   };
-
-  console.log("Erros", errors);
 
   return (
     <div className="container">

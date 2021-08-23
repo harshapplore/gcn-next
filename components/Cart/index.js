@@ -15,9 +15,21 @@ import CartContext from "./cart.context";
 import CartShopView from "./CartShopView";
 import Shipping from "./Shipping";
 
-import { getShopView, getProductView } from "./cart.methods";
+import {
+  getShopView,
+  getProductView,
+  getSubTotalPrice,
+  getSubTotalDelivery,
+} from "./cart.methods";
 
-import { getCart, saveCart } from "@/_methods/cart";
+import {
+  getCart,
+  saveCart,
+  getShopsMeta,
+  saveShopsMeta,
+} from "@/_methods/cart";
+import { getShop } from "@/_controllers/shop";
+import shop from "@/slices/shop";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -29,6 +41,7 @@ const Cart = () => {
   const [showShipping, setShowShipping] = useState();
 
   const [shops, setShops] = useState([]);
+  const [shopsMeta, setShopsMeta] = useState([]);
   const [products, setProducts] = useState([]);
   const [shipping, setShipping] = useState({});
   const [billing, setBilling] = useState({});
@@ -42,6 +55,7 @@ const Cart = () => {
 
   const value = {
     shops,
+    shopsMeta,
     products,
     shipping,
     billing,
@@ -54,6 +68,7 @@ const Cart = () => {
     co2Compensation,
     total,
     setShops,
+    setShopsMeta,
     setProducts,
     setBilling,
     setGift,
@@ -77,16 +92,66 @@ const Cart = () => {
 
   useEffect(() => {
     if (!products) return;
+
     const shops = getShopView(products);
     setShops(shops);
+
+    const savedShopMeta = getShopsMeta();
+
+    const shopsMeta = shops.map((shop) => {
+      const price = getSubTotalPrice(shop.products);
+      const delivery = getSubTotalDelivery(shop.products);
+
+      const index = savedShopMeta.findIndex(
+        (meta) => shop.shopId === meta.shopId
+      );
+
+      return {
+        shopId: shop.shopId,
+        pickUp: index !== -1 ? savedShopMeta[index].pickUp : false,
+        price,
+        delivery,
+        subtotal: price + delivery,
+      };
+    });
+
+    setShopsMeta(shopsMeta);
   }, [products]);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (!shops || !shops.length) return;
 
     const products = getProductView(shops);
+
     saveCart(products);
+
+    const savedShopMeta = getShopsMeta();
+
+    const shopsMeta = shops.map((shop) => {
+      const price = getSubTotalPrice(shop.products);
+      const delivery = getSubTotalDelivery(shop.products);
+
+      const index = savedShopMeta.findIndex(
+        (meta) => shop.shopId === meta.shopId
+      );
+
+      return {
+        shopId: shop.shopId,
+        pickUp: index !== -1 ? savedShopMeta[index].pickUp : false,
+        price,
+        delivery,
+        subtotal: price + delivery,
+      };
+    });
+
+    setShopsMeta(shopsMeta);
   }, [shops]);
+
+  useEffect(() => {
+    if (!shopsMeta || !shopsMeta.length) return;
+
+    saveShopsMeta(shopsMeta);
+  }, [shopsMeta]);
 
   const checkout = async () => {
     let products = shops.map((shop) => shop.products).flat();
@@ -122,8 +187,6 @@ const Cart = () => {
 
     location.assign(url);
   };
-
-  
 
   return (
     <>

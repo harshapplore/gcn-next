@@ -76,7 +76,13 @@ const CartItem = ({ product, shop, qty, setQty }) => {
 /*
  * Caters to a particular shop in the view.
  */
-const CartShop = ({ shopId, products, setProducts, subTotal }) => {
+const CartShop = ({
+  shopId,
+  products,
+  setProducts,
+  shopMeta,
+  setShopMeta,
+}) => {
   const [_shop, _setShop] = useState({});
 
   useEffect(async () => {
@@ -115,11 +121,15 @@ const CartShop = ({ shopId, products, setProducts, subTotal }) => {
         ))}
 
       <div className="subtotal-wrapper">
-        <Toggle2 name="Pick up from Shop?" />
+        <Toggle2
+          name="Pick up from Shop?"
+          value={shopMeta.pickUp}
+          setValue={(value) => setShopMeta({ ...shopMeta, pickUp: value })}
+        />
         <div>
-        <div className="medium">Subtotal: € {subTotal.price} </div>
-        <div>Delivery: € {subTotal.delivery} </div>
-        <div>2-3 days</div>
+          <div className="medium">Subtotal: € {shopMeta.price} </div>
+          <div>Delivery: € {shopMeta.delivery} </div>
+          <div>2-3 days</div>
         </div>
       </div>
     </div>
@@ -139,6 +149,8 @@ const CartShopView = ({ goToShipping }) => {
   const {
     shops,
     setShops,
+    shopsMeta,
+    setShopsMeta,
     subTotals,
     setSubTotals,
     totalPrice,
@@ -149,8 +161,6 @@ const CartShopView = ({ goToShipping }) => {
     setCo2Compensation,
     gift,
     setGift,
-    pickUpOrder,
-    setPickUpOrder,
     total,
     setTotal,
   } = useContext(CartContext);
@@ -170,6 +180,8 @@ const CartShopView = ({ goToShipping }) => {
       setSubTotals(subTotals);
     }
   }, [shops]);
+
+
 
   /**
    * Recalculates total Price & Delivery as the subtotals change.
@@ -213,26 +225,40 @@ const CartShopView = ({ goToShipping }) => {
         <div className="heading-wrapper mb-40">
           <h1>
             {shops.reduce((a, c) => a + c.products.length, 0)} items in your
-            cart
+            cart.
           </h1>
         </div>
 
         {shops &&
-          shops.map((shop, index) => (
-            <CartShop
-              key={"shop" + index}
-              shopId={shop.shopId}
-              products={shop.products}
-              setProducts={(products) => {
-                setShops([
-                  ...shops.slice(0, index),
-                  { ...shop, products },
-                  ...shops.slice(index + 1),
-                ]);
-              }}
-              subTotal={subTotals[index] || {}}
-            />
-          ))}
+          shops.map((shop, index) => {
+            const metaIndex =
+              shopsMeta &&
+              shopsMeta.findIndex((meta) => meta.shopId === shop.shopId);
+
+            return (
+              <CartShop
+                key={"shop" + index}
+                shopId={shop.shopId}
+                products={shop.products}
+                shopMeta={(shopsMeta && shopsMeta[metaIndex]) || {}}
+                setProducts={(products) => {
+                  setShops([
+                    ...shops.slice(0, index),
+                    { ...shop, products },
+                    ...shops.slice(index + 1),
+                  ]);
+                }}
+                setShopMeta={(meta) => {
+                  setShopsMeta([
+                    ...shopsMeta.slice(0, metaIndex),
+                    meta,
+                    ...shopsMeta.slice(index + 1),
+                  ]);
+                }}
+                subTotal={subTotals[index] || {}}
+              />
+            );
+          })}
       </div>
 
       {/* Order Info & Proceed */}
@@ -273,7 +299,7 @@ const CartShopView = ({ goToShipping }) => {
             <div className="medium">Total Price: € {totalPrice}</div>
             <div>Delivery: € {totalDelivery}</div>
             {co2Compensation > 0 && (
-              <div>CO2 compensation : € {co2Compensation}</div>
+              <div>Shipping screen is broken. CO2 compensation : € {co2Compensation}</div>
             )}
             <div>Order Total: € {total}</div>
           </div>

@@ -1,16 +1,20 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
 import { axios } from "@/setups/axios";
-import { useRouter } from "next/router";
 
 import CheckBox from "@/shared/Input/Checkbox";
 import Message from "@/shared/Message";
 import TextInput from "@/shared/Input/Text";
 
+import { setErrors as setErrorsRedux } from "@/slices/error";
+
 import { isEmail } from "@/utils/validators";
 
 const SignIn = ({ close, showRegister }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [data, setData] = useState({});
   const [errors, setErrors] = useState({});
@@ -57,7 +61,14 @@ const SignIn = ({ close, showRegister }) => {
     }).catch((error) => {
       console.log(error, error.response);
 
-      setErrors(["Incorrect Email or Password. Please try again."]);
+      dispatch(
+        setErrorsRedux([
+          {
+            message:
+              "Incorrect Email or Password. Please input a valid Password.",
+          },
+        ])
+      );
 
       return;
     });
