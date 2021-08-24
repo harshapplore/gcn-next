@@ -24,16 +24,16 @@ const NavBlock = () => {
       tab: "products",
     },
     {
+      text: "About Us",
+      tab: "about-us",
+    },
+    {
       text: "Certificates",
       tab: "certificates",
     },
     {
       text: "Terms & Conditions",
       tab: "terms-n-conditions",
-    },
-    {
-      text: "About Us",
-      tab: "about-us",
     },
   ];
 

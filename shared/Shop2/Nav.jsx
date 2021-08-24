@@ -5,10 +5,17 @@ import { useRouter } from "next/router";
 
 import { triggerInput } from "libs/upload";
 import { authAxios } from "@/setups/axios";
-import { fetchSeller } from "@/slices/user";
+import user, { fetchSeller } from "@/slices/user";
 
 import styled from "styled-components";
 import { OutlinedButton } from "../Button";
+
+import {
+  addToFavorites,
+  deleteFavorite,
+  deleteFavorites,
+} from "_controllers/customer";
+import { fetchFavoriteShops } from "@/slices/favorites";
 
 const ShopNavContainer = styled.div`
   display: flex;
@@ -48,9 +55,15 @@ const ShopNavContainer = styled.div`
       gap: 24px;
 
       .edit-button-ctr {
-        > div{
+        > div {
           padding: 6px 12px;
         }
+      }
+    }
+
+    .shop-like-ctr {
+      > * {
+        position: relative;
       }
     }
 
@@ -61,7 +74,7 @@ const ShopNavContainer = styled.div`
       font-size: 18px;
       transition: 0.5s all ease-in;
 
-      &:hover{
+      &:hover {
         color: var(--secondary);
       }
     }
@@ -72,13 +85,30 @@ const ShopNav = ({ name, logo, edit, children, isSellerPage }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { seller } = useSelector((state) => state.user);
+  const { customer } = useSelector((state) => state.customer);
+  const { favoriteShops } = useSelector((state) => state.favorites);
 
   const inputRef = useRef();
   const [shop, setShop] = useState({});
 
+  const [_isFavorite, _setIsFavorite] = useState(false);
+  const [favId, setFavId] = useState("");
+
   useEffect(() => {
     if (seller && seller.shop) setShop(seller.shop);
   }, [seller]);
+
+  useEffect(() => {
+    if (customer.id && !favoriteShops.length)
+      dispatch(fetchFavoriteShops(customer._id));
+  }, [customer]);
+
+  useEffect(() => {
+    const isFav = favoriteShops && favoriteShops.filter((fav) => fav.shop === shop.id);
+
+    _setIsFavorite(isFav.length ? true : false);
+    isFav && setFavId(isFav[0]);
+  }, [favoriteShops]);
 
   const upload = async (e, data) => {
     e.preventDefault();
@@ -108,6 +138,23 @@ const ShopNav = ({ name, logo, edit, children, isSellerPage }) => {
       dispatch(fetchSeller());
     }
   };
+
+  const toggleFavorites = async () => {
+    const {id} = router.query;
+
+    if (!_isFavorite) {
+      await addToFavorites({
+        customerId: customer.id,
+        userId: user.id,
+        type: "Shop",
+        shop: id
+      });
+    } else {
+      await deleteFavorite(favId);
+    }
+  };
+
+  console.log(customer);
 
   return (
     <ShopNavContainer logo={logo || (shop.logo && shop.logo.url)}>
@@ -141,14 +188,50 @@ const ShopNav = ({ name, logo, edit, children, isSellerPage }) => {
 
           {isSellerPage && (
             <div className="edit-button-ctr">
-              <OutlinedButton type="secondary" name="edit" action={() => router.push('/seller-onboarding/shop-details')}/>
+              <OutlinedButton
+                type="secondary"
+                name="edit"
+                action={() => router.push("/seller-onboarding/shop-details")}
+              />
+            </div>
+          )}
+
+          {customer.id && (
+            <div className="shop-like-ctr">
+              <a
+                className="potw-like active w-inline-block"
+                onClick={toggleFavorites}
+              >
+                {_isFavorite && (
+                  <img
+                    src="/images/favorite-border-black-24-dp-2.svg"
+                    loading="lazy"
+                    width={25}
+                    alt="Like"
+                    className="orange-heart"
+                  />
+                )}
+                <img
+                  src="/images/favorite-border-black-24-dp_1.svg"
+                  loading="lazy"
+                  alt="Like"
+                  className="heart"
+                />
+              </a>
             </div>
           )}
         </div>
-        {isSellerPage && <div className="signout-button-ctr" onClick={() => {
-          localStorage.clear();
-          location.reload();
-        }}>Sign Out</div>}
+        {isSellerPage && (
+          <div
+            className="signout-button-ctr"
+            onClick={() => {
+              localStorage.clear();
+              location.reload();
+            }}
+          >
+            Sign Out
+          </div>
+        )}
       </div>
     </ShopNavContainer>
   );

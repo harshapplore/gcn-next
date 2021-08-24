@@ -1,3 +1,5 @@
+import router from "next/router";
+
 const GreenCloudNine = () => {
   return (
     <div className="page-section blue-gradient">
@@ -18,13 +20,12 @@ const GreenCloudNine = () => {
             nachhaltiger Unternehmen und Verbraucher, die wirklich etwas
             bewirken.
           </p>
-          <a  className="button icon w-inline-block">
+          <a
+            className="button icon w-inline-block"
+            onClick={() => router.push("/about")}
+          >
             <div className="button-icon w-embed">
-            <img
-            src="/images/spa-black-24-dp.svg"
-            loading="lazy"
-            alt=""
-            />
+              <img src="/images/spa-black-24-dp.svg" loading="lazy" alt="" />
             </div>
             <div className="text-block">About Us</div>
           </a>

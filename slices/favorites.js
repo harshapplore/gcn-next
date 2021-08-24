@@ -36,16 +36,18 @@ export const fetchFavoriteShops = createAsyncThunk(
       method: "GET",
     });
 
+    console.log("resp", response.data);
+
     if (response.data && response.data.length > 0) {
       return response.data.map((item) => {
-        return item.shop.id;
+        return { shopId: item.shop.id, favId: item.id };
       });
     }
   }
 );
 
 export const favoritesSlice = createSlice({
-  name: "categories",
+  name: "favorites",
   initialState: {
     favoriteItems: [],
     favoriteShops: [],
@@ -60,7 +62,11 @@ export const favoritesSlice = createSlice({
     [fetchFavoriteItems.pending]: (state, _) => {
       state.favoriteItems = [];
     },
+
+    
     [fetchFavoriteShops.fulfilled]: (state, action) => {
+      console.log(action.payload, "pload")
+
       state.favoriteShops = action.payload;
     },
     [fetchFavoriteShops.rejected]: (state, _) => {

@@ -31,3 +31,16 @@
     }
   }
 }
+
+
+.shipping-add-ctr{
+  display: flex;
+  padding: 1.5rem 1rem;
+
+  justify-content: space-between;
+
+  .action-buttons{
+    display: flex;
+    gap: 25px;
+  }
+}

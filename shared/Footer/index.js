@@ -78,14 +78,14 @@ const Footer = () => {
               >
                 <div>About us</div>
               </a>
-              <a className="footer-link w-inline-block">
+              <a
+                className="footer-link w-inline-block cursor"
+                onClick={() => router.push("/seller-info")}
+              >
                 <div>Sell Products</div>
               </a>
               <a className="footer-link w-inline-block">
                 <div>Policies</div>
-              </a>
-              <a className="footer-link w-inline-block">
-                <div>Imprint</div>
               </a>
             </div>
             <div className="footer-column">
@@ -123,11 +123,11 @@ const Footer = () => {
       <div className="page-section footer-bar">
         <div className="container w-clearfix">
           <div className="footer-bar-content">
-            <a className="footer-inline-link">Nutzungsbedingungen</a>
+            <a className="footer-inline-link">Terms of Service</a>
             <div className="footer-inline-link-divider">|</div>
-            <a className="footer-inline-link">Datenschutz</a>
+            <a className="footer-inline-link">Privacy Policy</a>
             <div className="footer-inline-link-divider">|</div>
-            <a className="footer-inline-link">Impressum</a>
+            <a className="footer-inline-link">Imprint</a>
           </div>
         </div>
       </div>

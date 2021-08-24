@@ -1,8 +1,10 @@
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
 import Header from "@/shared/Header2";
 import Nav from "@/shared/Nav2";
+import Fetcher from "@/shared/Fetcher";
 import Footer from "@/shared/Footer";
 
 import ShopBanner from "@/shared/Shop2/Banner";
@@ -15,7 +17,6 @@ import Certifications from "./Certifications";
 import TermsNConditions from "./TNC";
 import AboutUs from "./AboutUs";
 import Products from "./Products";
-import { useState, useEffect } from "react";
 
 import { getShop } from "@/_controllers/shop";
 
@@ -28,6 +29,8 @@ const Shop = () => {
 
   useEffect(async () => {
     const { id } = router.query;
+
+    if (!id) return;
 
     const shop = await getShop(id);
 
@@ -42,6 +45,7 @@ const Shop = () => {
         <title> {shop.name} | Green Cloud Nine </title>
       </Head>
       <Header nav={<Nav />} />
+      <Fetcher />
       <div className="page-section pt-0">
         <ShopBanner cover={shop.cover} />
         <ShopNav name={shop.name} logo={shop.logo && shop.logo.url}>

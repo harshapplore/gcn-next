@@ -85,8 +85,8 @@ const ProductDetail = () => {
             <div className="item-product-price mb-40">€ {product.price}</div>
 
             <div>
-              {tags.map((tag) => (
-                <div className="tag-spacer">
+              {tags.map((tag, index) => (
+                <div className="tag-spacer" key={"tag" + index}>
                   <div className="tag">{tag}</div>
                 </div>
               ))}

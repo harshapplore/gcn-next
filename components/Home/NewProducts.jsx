@@ -4,6 +4,7 @@ import { fetchFavoriteItems } from "@/slices/favorites";
 import { getLatestProducts } from "@/_controllers/product";
 
 import { addToFavorites, deleteFavorite } from "@/_controllers/customer";
+import router from "next/router";
 
 const Product = ({ product }) => {
   const dispatch = useDispatch();
@@ -40,7 +41,9 @@ const Product = ({ product }) => {
     }
   }, [favoriteItems]);
 
-  const toggleFavorite = async () => {
+  const toggleFavorite = async (e) => {
+    e.stopPropagation();
+
     if (isFavorite) {
       await deleteFavorite(favId);
     } else
@@ -54,10 +57,11 @@ const Product = ({ product }) => {
     dispatch(fetchFavoriteItems(customer.id));
   };
 
-  console.log(isFavorite, favoriteItems);
-
   return (
-    <div className="flex-child-24">
+    <div
+      className="flex-child-24"
+      onClick={() => router.push(`/product/${product._id}`)}
+    >
       <div className="potw-item">
         <img
           src={product.images[0] && product.images[0].url}
