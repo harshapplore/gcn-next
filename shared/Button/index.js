@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Loader from "react-loader-spinner";
 
 const ButtonComponent = styled.div`
   cursor: pointer;
@@ -62,20 +63,30 @@ const OutlinedButtonComponent = styled.div`
   }
 `;
 
-export const Button = ({ name, action, type, caps }) => {
+export const Button = ({ name, action, type, caps, loading }) => {
   return (
     <>
       <ButtonComponent type={type} caps={caps} onClick={action}>
-        {name}
+        {loading && (
+          <span>
+            <Loader type="Oval" color="#fff" height={24} width={24} />
+          </span>
+        )}
+        <span>{name}</span>
       </ButtonComponent>
     </>
   );
 };
 
-export const OutlinedButton = ({ name, action, type, caps }) => {
+export const OutlinedButton = ({ name, action, type, caps, loading }) => {
   return (
     <OutlinedButtonComponent type={type} caps={caps} onClick={action}>
-      {name}
+      {loading && (
+        <span>
+          <Loader type="Oval" color="#fff" height={24} width={24} />
+        </span>
+      )}
+      <span>{name}</span>
     </OutlinedButtonComponent>
   );
 };

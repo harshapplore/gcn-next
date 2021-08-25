@@ -11,36 +11,60 @@ import Button, { OutlinedButton } from "@/shared/Button";
 
 import styles from "./../backend.module.scss";
 import ShippingContext from "./shipping.context";
-import shippingContext from "./shipping.context";
+
+/* Dropdown Data */
+import countriesList from "@/_data/countries.json";
+import currenciesList from "@/_data/currencies.json";
+import deliveryTimes from "@/_data/deliveryTimes.json";
+import { set } from "lodash";
 
 const ShipWeight = ({ weight, setWeight }) => {
+  const [error, setError] = useState("");
+
+  const cost = (value) => {
+    if (isNaN(value)) return 0;
+    return value;
+  };
+
   return (
     <div className="delivery-cost">
       <div className="delivery-cost-kg">{weight.category}</div>
-      <div className="text-field-2 text-field-2--flex">
-        <div>{weight.cost}</div>
-        <div className="change">
-          <div>Change</div>
-          <img
-            src="images/edit-black-24-dp.svg"
-            loading="lazy"
-            alt="Edit"
-            className="change-img"
-          />
-        </div>
-      </div>
+      <TextInput
+        placeholder="Delivery Cost*"
+        value={weight.cost}
+        setValue={(value) => setWeight({ ...weight, cost: cost(value) })}
+      />
 
-      <Select choices={["EUR", "USD"]} placeholder="" />
+      <Select
+        choices={currenciesList}
+        value={""}
+        setValue={(index) =>
+          setWeight({ ...weight, currency: currenciesList[index] })
+        }
+        placeholder={weight.currency || "Currency"}
+      />
 
-      <Select choices={[]} placeholder="Shipping Service Provider" />
+      <Select
+        choices={[]}
+        value=""
+        setValue={(index) => setWeight({ ...weight, serviceProvider: "" })}
+        placeholder="Shipping Service Provider"
+      />
 
-      <Select choices={[]} placeholder="Delivery Time*" />
+      <Select
+        choices={deliveryTimes}
+        value=""
+        setValue={(index) =>
+          setWeight({ ...weight, deliveryTime: deliveryTimes[index] })
+        }
+        placeholder={weight.deliveryTime || "Delivery Time*"}
+      />
     </div>
   );
 };
 
 const Ship = ({ country, weights, updateCountry, deleteCountry }) => {
-  console.log("Weights", weights);
+  const [shippingCost, setShippingCost] = useContext(ShippingContext);
 
   return (
     <div className="dynamic-content">
@@ -49,7 +73,7 @@ const Ship = ({ country, weights, updateCountry, deleteCountry }) => {
         <div className="show-details">
           <div>Show Details</div>
           <img
-            src="images/expand-more-black-24-dp-copy-6.svg"
+            src="/images/expand-more-black-24-dp-copy-6.svg"
             loading="lazy"
             alt="expand"
           />
@@ -60,8 +84,22 @@ const Ship = ({ country, weights, updateCountry, deleteCountry }) => {
 
         {weights &&
           weights.length &&
-          weights.map((weight) => {
-            return <ShipWeight weight={weight} setWeight={() => {}} />;
+          weights.map((weight, index) => {
+            return (
+              <ShipWeight
+                weight={weight}
+                setWeight={(weight) =>
+                  updateCountry({
+                    country,
+                    weights: [
+                      ...weights.slice(0, index),
+                      weight,
+                      ...weights.slice(index + 1),
+                    ],
+                  })
+                }
+              />
+            );
           })}
 
         <div className="delivery-cost-button-wrapper">
@@ -126,29 +164,14 @@ const AddCountry = ({ availableCountries, close }) => {
     close();
   };
 
-  const countries = [
-    "Austria",
-    "Germany",
-    "France",
-    "Spain",
-    "Italy",
-    "Ukraine",
-    "Poland",
-    "Romania",
-    "Netherlands",
-    "Czech",
-    "Portugal",
-    "Sweden",
-  ];
-
   return (
     <div className={styles["shipping-add-ctr"]}>
       <Select
-        choices={countries}
+        choices={countriesList}
         value={""}
         placeholder={country}
         setValue={(index) => {
-          setCountry(countries[index]);
+          setCountry(countriesList[index]);
         }}
         error={error}
       />
@@ -166,8 +189,8 @@ const AddCountry = ({ availableCountries, close }) => {
 };
 
 const Shipping = () => {
-  const [availableCountries, setAvailableCountries] = useState([]);
   const [shippingCost, setShippingCost] = useState([]);
+  const [shippingOptions, setShippingOptions] = useState({});
 
   const value = { shippingCost, setShippingCost };
 
@@ -224,72 +247,65 @@ const Shipping = () => {
               )}
               <div className="shipping-spacer" />
               <h4 className="mb-20">General Delivery Options</h4>
-              <div className="shipping-general-options">
-                <label className="w-checkbox checkbox-field mb-0">
-                  <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox w--redirected-checked" />
-                  <input
-                    type="checkbox"
-                    id="checkbox-3"
-                    name="checkbox-3"
-                    data-name="Checkbox 3"
-                    defaultChecked
-                    style={{ opacity: 0, position: "absolute", zIndex: -1 }}
+              <div className={styles["ship-options"]}>
+                <div className={styles["ship-checkbox"]}>
+                  <CheckBox
+                    text="Free Shipping from"
+                    value={shippingOptions.freeDelivery}
+                    setValue={(value) =>
+                      setShippingOptions({
+                        ...shippingOptions,
+                        freeDelivery: value,
+                      })
+                    }
                   />
-                  <span className="checkbox-label medium w-form-label">
-                    Free Shipping from
-                  </span>
-                </label>
-                <input
-                  type="number"
-                  className="text-field-2 text-field-2--price w-input"
-                  maxLength={256}
-                  name="Price"
-                  data-name="Price"
-                  placeholder={100}
-                  id="Price"
+                </div>
+                <div className={styles["ship-input"]}>
+                  <TextInput
+                    placeholder={100}
+                    value={shippingOptions.freeDeliveryAmount}
+                    setValue={(value) =>
+                      setShippingOptions({
+                        ...shippingOptions,
+                        freeDeliveryAmount: value,
+                      })
+                    }
+                  />
+                </div>
+                <div className={styles["ship-input"]}>
+                  <Select
+                    choices={currenciesList}
+                    value=""
+                    placeholder={shippingOptions.freeDeliveryCurrency}
+                    setValue={(index) =>
+                      setShippingOptions({
+                        ...shippingOptions,
+                        freeDeliveryCurrency: currenciesList[index],
+                      })
+                    }
+                  />
+                </div>
+              </div>
+              <div className="shipping-general-options">
+                <CheckBox
+                  text="Allow Shipping to packing station"
+                  value={shippingOptions.pickUp}
+                  setValue={(value) =>
+                    setShippingOptions({ ...shippingOptions, pickUp: value })
+                  }
                 />
-                <select
-                  name="Currency-2"
-                  data-name="Currency 2"
-                  id="Currency-2"
-                  required
-                  className="text-field-2 text-field-2--eur w-select"
-                >
-                  <option value="EUR">EUR</option>
-                  <option value="USD">USD</option>
-                </select>
               </div>
               <div className="shipping-general-options">
-                <label className="w-checkbox checkbox-field mb-0">
-                  <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox w--redirected-checked" />
-                  <input
-                    type="checkbox"
-                    id="checkbox-3"
-                    name="checkbox-3"
-                    data-name="Checkbox 3"
-                    defaultChecked
-                    style={{ opacity: 0, position: "absolute", zIndex: -1 }}
-                  />
-                  <span className="checkbox-label w-form-label">
-                    Allow shipping to packing station
-                  </span>
-                </label>
-              </div>
-              <div className="shipping-general-options">
-                <label className="w-checkbox checkbox-field mb-0">
-                  <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox w--redirected-checked" />
-                  <input
-                    type="checkbox"
-                    id="checkbox-3"
-                    name="checkbox-3"
-                    data-name="Checkbox 3"
-                    defaultChecked
-                    style={{ opacity: 0, position: "absolute", zIndex: -1 }}
-                  />
-                  <span className="checkbox-label w-form-label">
-                    CO2-neutral local delivery
-                  </span>
-                </label>
+                <CheckBox
+                  text="CO2 Neutral Local Delivery"
+                  value={shippingOptions.co2NeutralDelivery}
+                  setValue={(value) =>
+                    setShippingOptions({
+                      ...shippingOptions,
+                      co2NeutralDelivery: value,
+                    })
+                  }
+                />
               </div>
               <div className="delivery-cost-button-wrapper moved-up">
                 <a className="button blue">Save Changes</a>

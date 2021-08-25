@@ -5,9 +5,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchCategories } from "@/slices/categories";
 import { fetchFavoriteItems, fetchFavoriteShops } from "@/slices/favorites";
 
-import { Select3 } from "@/shared/Select";
+import Select from "@/shared/Input/Select";
+import Toggle from "@/shared/Input/Toggle";
+
 import { getProducts } from "@/_controllers/product";
 import { addToFavorites, deleteFavorite } from "@/_controllers/customer";
+import CheckBox from "@/shared/Input/Checkbox";
 
 const Rating = ({ rating }) => {
   let filled = rating;
@@ -207,7 +210,7 @@ const View = () => {
             <div className="scroll-y">
               <div className="filter-mobile-block w-form">
                 <form className="flex">
-                  <Select3
+                  <Select
                     placeholder="Sustainability"
                     choices={["First Choice", "Second Choice", "Third Choice"]}
                     value={filters.sustainability}
@@ -216,7 +219,7 @@ const View = () => {
                     }
                   />
 
-                  <Select3
+                  <Select
                     placeholder="Price"
                     choices={["First Choice", "Second Choice", "Third Choice"]}
                     value={filters.price}
@@ -325,6 +328,7 @@ const View = () => {
               </a>
               <div className="pickup-text">Pick up available</div>
             </div>
+            <Toggle name="Free Delivery" value="" setValue={() => {}} />
 
             <div className="mobile-only">
               <div className="center">
@@ -446,7 +450,7 @@ const View = () => {
               <div>
                 <div className="w-form">
                   <form id="email-form-3" className="flex left-4">
-                    <Select3
+                    <Select
                       placeholder="Sustainability"
                       choices={["First", "Second", "Third"]}
                       value={filters.sustainability}
@@ -455,7 +459,7 @@ const View = () => {
                       }
                     />
 
-                    <Select3
+                    <Select
                       placeholder="Brand"
                       choices={["First", "Second", "Third"]}
                       value={filters.brand}
@@ -464,7 +468,7 @@ const View = () => {
                       }
                     />
 
-                    <Select3
+                    <Select
                       placeholder="Price"
                       choices={["First", "Second", "Third"]}
                       value={filters.price}
@@ -473,7 +477,7 @@ const View = () => {
                       }
                     />
 
-                    <Select3
+                    <Select
                       placeholder="Colour"
                       choices={["First", "Second", "Third"]}
                       value={filters.color}
@@ -482,16 +486,9 @@ const View = () => {
                       }
                     />
 
-                    <Select3
-                      placeholder="Sale"
-                      choices={["First", "Second", "Third"]}
-                      value={filters.sale}
-                      setValue={(value) =>
-                        setFilters({ ...filters, sale: value })
-                      }
-                    />
+                    <CheckBox text="Sale" value={false} setValue={() => {}} />
 
-                    <Select3
+                    <Select
                       placeholder="Sort By"
                       choices={["First", "Second", "Third"]}
                       value={filters.sortBy}

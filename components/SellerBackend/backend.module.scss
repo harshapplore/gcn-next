@@ -43,4 +43,26 @@
     display: flex;
     gap: 25px;
   }
+
+  
+}
+
+.ship-options{
+  display: flex;
+
+  align-items: center;
+  gap: 25px;
+  flex-wrap: no-wrap;
+
+  .ship-checkbox{
+    width: 250px;
+
+    > * {
+      width: 100%;
+    }
+  }
+
+  .ship-input{
+    width: 70px;
+  }
 }
