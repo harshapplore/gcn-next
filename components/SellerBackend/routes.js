@@ -1,6 +1,6 @@
-export const BASE_ROUTE = "/seller-backend";
+export const BASE_ROUTE = "/seller";
 
-export const BASIC_INFO = "/basic-info";
+export const ACCOUNT_AND_SHOP_SETTING = "/settings";
 export const BILLING = "/billing";
 export const TERMS_N_CONDITIONS = "/terms-and-condtions";
 export const PRODUCTS = "/products";

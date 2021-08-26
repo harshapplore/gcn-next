@@ -82,7 +82,7 @@ const SignIn = ({ close, showRegister }) => {
       const { user } = response.data;
       localStorage.setItem("data", JSON.stringify(response.data.user));
 
-      // if (user && user.type === "seller") location.assign("/seller-backend");
+      // if (user && user.type === "seller") location.assign("/seller");
       // else location.assign("/");
 
       location.reload();

@@ -7,11 +7,8 @@ import styled from "styled-components";
 import {
   BASE_ROUTE,
   PRODUCTS,
-  BILLING,
-  SHIPPING,
   ORDER_HISTORY,
-  BASIC_INFO,
-  TERMS_N_CONDITIONS,
+  ACCOUNT_AND_SHOP_SETTING
 } from "@/components/SellerBackend/routes";
 
 const NavLinkContainer = styled.div`
@@ -48,29 +45,14 @@ const Sidebar = ({}) => {
   return (
     <div>
       <NavLink
-        to={BASE_ROUTE + BASIC_INFO}
-        text="Basic Information"
-        current={activePage === BASIC_INFO}
-      />
-      <NavLink
-        to={BASE_ROUTE + BILLING}
-        text="Billing"
-        current={activePage === BILLING}
-      />
-      <NavLink
-        to={BASE_ROUTE + TERMS_N_CONDITIONS}
-        text="Terms & Conditions"
-        current={activePage === TERMS_N_CONDITIONS}
+        to={BASE_ROUTE + ACCOUNT_AND_SHOP_SETTING}
+        text="Account and Shop Settings"
+        current={activePage === ACCOUNT_AND_SHOP_SETTING}
       />
       <NavLink
         to={BASE_ROUTE + PRODUCTS}
         text="Products"
         current={activePage === PRODUCTS}
-      />
-      <NavLink
-        to={BASE_ROUTE + SHIPPING}
-        text="Shipping"
-        current={activePage === SHIPPING}
       />
       <NavLink
         to={BASE_ROUTE + ORDER_HISTORY}

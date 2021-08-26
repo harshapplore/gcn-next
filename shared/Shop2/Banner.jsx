@@ -9,7 +9,7 @@ import styled from "styled-components";
 import { OutlinedButton } from "../Button";
 
 const BannerContainer = styled.div`
-  height: ${({height}) => height? height : '427px'};
+  height: ${({height}) => height? height : '350px'};
   background: ${({ cover }) =>
     cover ? `url('${cover}')` : "var(--background)"};
 

@@ -74,7 +74,7 @@ const PS9 = () => {
       data: data,
     });
 
-    if (res) router.push("/seller-backend");
+    if (res) router.push("/seller");
   };
 
   return (

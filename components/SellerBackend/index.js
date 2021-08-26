@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-
 import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 import { fetchSeller } from "@/slices/user";
 
 import Fetcher from "@/shared/Fetcher";
-
 import Header from "@/shared/Header2";
 import Footer from "@/shared/Footer";
 import Nav from "@/shared/Nav2";
@@ -13,23 +11,19 @@ import Nav from "@/shared/Nav2";
 import ShopBanner from "@/shared/Shop2/Banner";
 import ShopNav from "@/shared/Shop2/Nav";
 import Sidebar from "@/shared/Shop2/Sidebar";
-
 import styles from "./backend.module.scss";
 
 import {
-  BASE_ROUTE,
-  BASIC_INFO,
-  BILLING,
-  TERMS_N_CONDITIONS,
   PRODUCTS,
   SHIPPING,
   ORDER_HISTORY,
+  ACCOUNT_AND_SHOP_SETTING,
 } from "./routes";
 
 import Products from "./Products";
+import ConfigProduct from "./Products/ConfigProduct";
 import OrderHistory from "./OrderHistory";
-import Shipping from "./Shipping";
-import ConfigProduct from "./ConfigProduct";
+import Settings from "./Settings";
 
 import { scrollToElement } from "@/utils/scroll";
 
@@ -55,6 +49,7 @@ const SellerBackend = () => {
     if (section === PRODUCTS) setActivePage(PRODUCTS);
     if (section === SHIPPING) setActivePage(SHIPPING);
     if (section === ORDER_HISTORY) setActivePage(ORDER_HISTORY);
+    if (section === ACCOUNT_AND_SHOP_SETTING) setActivePage(ACCOUNT_AND_SHOP_SETTING);
 
     setActiveAction(action);
   }, [router]);
@@ -76,15 +71,17 @@ const SellerBackend = () => {
             <Sidebar activePage={activePage} />
           </div>
           <div className={styles["right-ctr"]}>
-            {!activeAction && activePage === PRODUCTS && <Products />}
-                {activeAction === "add" && activePage === PRODUCTS && (
-                  <ConfigProduct action={activeAction} />
-                )}
+            {activePage === ACCOUNT_AND_SHOP_SETTING && <Settings />}
 
-                {activeAction === "edit" && activePage === PRODUCTS && (
-                  <ConfigProduct action={activeAction} />
-                )}
-            
+            {!activeAction && activePage === PRODUCTS && <Products />}
+            {activeAction === "add" && activePage === PRODUCTS && (
+              <ConfigProduct action={activeAction} />
+            )}
+
+            {activeAction === "edit" && activePage === PRODUCTS && (
+              <ConfigProduct action={activeAction} />
+            )}
+
             {activePage === SHIPPING && <Shipping />}
             {activePage === ORDER_HISTORY && <OrderHistory />}
           </div>

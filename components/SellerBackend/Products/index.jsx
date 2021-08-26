@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import qS from "query-string";
 
-import { BASE_ROUTE, PRODUCTS, ADD_ACTION, EDIT_ACTION } from "./routes";
+import { BASE_ROUTE, PRODUCTS, ADD_ACTION, EDIT_ACTION } from "../routes";
 
 import { fetchShopProducts } from "@/slices/shop";
 import { addProduct, deleteProduct, putProduct } from "@/_controllers/product";

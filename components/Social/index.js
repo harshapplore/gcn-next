@@ -46,7 +46,7 @@ const Social = () => {
 
     localStorage.setItem("data", JSON.stringify(user));
 
-    if (user.type === "seller") router.push("/seller-backend");
+    if (user.type === "seller") router.push("/seller");
     if (user.type === "customer") router.push("/customer");
   }, [user]);
 

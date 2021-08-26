@@ -20,3 +20,11 @@ export const getShopByFilter = async (id, filter) => {
 
   return res.data;
 };
+
+export const updateShop = async (id, data) => {
+  const res = await authAxios()({
+    url: `/shops/${id} `,
+    method: "PUT",
+    data
+  });
+};

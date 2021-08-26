@@ -9,14 +9,15 @@ import Select from "@/shared/Input/Select";
 import TextInput from "@/shared/Input/Text";
 import Button, { OutlinedButton } from "@/shared/Button";
 
-import styles from "./../backend.module.scss";
+import styles from "@/components/SellerBackend/backend.module.scss";
 import ShippingContext from "./shipping.context";
 
 /* Dropdown Data */
 import countriesList from "@/_data/countries.json";
 import currenciesList from "@/_data/currencies.json";
 import deliveryTimes from "@/_data/deliveryTimes.json";
-import { set } from "lodash";
+
+import { updateShop } from "@/_controllers/shop";
 
 const ShipWeight = ({ weight, setWeight }) => {
   const [error, setError] = useState("");
@@ -42,14 +43,15 @@ const ShipWeight = ({ weight, setWeight }) => {
           setWeight({ ...weight, currency: currenciesList[index] })
         }
         placeholder={weight.currency || "Currency"}
+        width="200px"
       />
 
-      <Select
+      {/* <Select
         choices={[]}
         value=""
         setValue={(index) => setWeight({ ...weight, serviceProvider: "" })}
         placeholder="Shipping Service Provider"
-      />
+      /> */}
 
       <Select
         choices={deliveryTimes}
@@ -63,7 +65,7 @@ const ShipWeight = ({ weight, setWeight }) => {
   );
 };
 
-const Ship = ({ country, weights, updateCountry, deleteCountry }) => {
+const Ship = ({ country, weights, updateCountry, deleteCountry, save }) => {
   const [shippingCost, setShippingCost] = useContext(ShippingContext);
 
   return (
@@ -103,7 +105,7 @@ const Ship = ({ country, weights, updateCountry, deleteCountry }) => {
           })}
 
         <div className="delivery-cost-button-wrapper">
-          <a className="button blue mr-10" onClick={() => {}}>
+          <a className="button blue mr-10" onClick={save}>
             Save Changes
           </a>
           <a className="button blue secondary" onClick={deleteCountry}>
@@ -188,7 +190,7 @@ const AddCountry = ({ availableCountries, close }) => {
   );
 };
 
-const Shipping = () => {
+const Shipping = ({ shop }) => {
   const [shippingCost, setShippingCost] = useState([]);
   const [shippingOptions, setShippingOptions] = useState({});
 
@@ -196,7 +198,24 @@ const Shipping = () => {
 
   const [showAddCountry, setShowAddCountry] = useState(false);
 
-  console.log(shippingCost);
+  useEffect(() => {
+    if (!shop.shipping) {
+      setShippingCost([]);
+      setShippingOptions({});
+      return;
+    }
+
+    const { shippingCost, ...options } = shop.shipping;
+
+    setShippingCost(shippingCost);
+    setShippingOptions(options);
+  }, [shop.shipping]);
+
+  const updateShipping = async (id) => {
+    const shop = await updateShop(id, {
+      shipping: { shippingCost, ...shippingOptions },
+    });
+  };
 
   return (
     <ShippingContext.Provider value={value}>
@@ -232,6 +251,7 @@ const Shipping = () => {
                           ...shippingCost.slice(index + 1),
                         ]);
                       }}
+                      save={() => updateShipping(shop.id)}
                     />
                   );
                 })}
@@ -307,7 +327,10 @@ const Shipping = () => {
                   }
                 />
               </div>
-              <div className="delivery-cost-button-wrapper moved-up">
+              <div
+                className="delivery-cost-button-wrapper moved-up"
+                onClick={() => updateShipping(shop.id)}
+              >
                 <a className="button blue">Save Changes</a>
               </div>
             </div>

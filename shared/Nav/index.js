@@ -93,7 +93,7 @@ const Navigation = () => {
       <nav role="navigation" className="nav-menu w-nav-menu">
         <NavLink route="/" text="Cosmetics" />
         <NavLink route="/seller-onboarding" text="Mother & Child" />
-        <NavLink route="/seller-backend" text="Home & Household" />
+        <NavLink route="/seller" text="Home & Household" />
         <NavLink route="/" text="Food & Drink" />
         <NavLink route="/" text="Fashion" />
         <NavLink route="/" text="Accessory & Jewellery" />

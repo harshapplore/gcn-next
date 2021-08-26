@@ -7,9 +7,8 @@ import { fetchCategories } from "@/slices/categories";
 import { Select, Select2 } from "@/shared/Select";
 import CheckBox from "@/shared/Checkbox";
 import { triggerInput } from "libs/upload";
-import { authAxios } from "@/setups/axios";
 
-import { BASE_ROUTE, PRODUCTS } from "./routes";
+import { BASE_ROUTE, PRODUCTS } from "../routes";
 
 import {
   getProduct,
