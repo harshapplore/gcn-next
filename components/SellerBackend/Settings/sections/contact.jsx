@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import TextInput from "@/shared/Input/Text";
-import { _data } from "cheerio/lib/api/attributes";
+import { data } from "cheerio/lib/api/attributes";
 
 const Contact = () => {
   const { user } = useSelector((state) => state.user);
   const { seller } = useSelector((state) => state.seller);
 
   const [_joinDate, _setJoinDate] = useState();
-  const [_data, _setDaa] = useState({});
+  const [_data, _setData] = useState({});
 
   useEffect(() => {
     if (!user.id) return;
@@ -20,7 +20,7 @@ const Contact = () => {
   return (
     <div className="settings-block">
       <h3 className="headline-5 mb-30">About me</h3>
-      <div className="account-current-_data">
+      <div className="account-current-data">
         <div>
           <div className="label">Current Name</div>
           <div>{user.name}</div>
@@ -47,33 +47,33 @@ const Contact = () => {
           <TextInput
             placeholder={user.name || "Name"}
             value={_data.name}
-            setValue={(value) => _setDaa({ ..._data, name: value })}
+            setValue={(value) => _setData({ ..._data, name: value })}
           />
 
           <TextInput
             placeholder={seller.phone || "Phone Number"}
             value={_data.phone}
-            setValue={(value) => _setDaa({ ..._data, phone: value })}
+            setValue={(value) => _setData({ ..._data, phone: value })}
           />
 
           <TextInput
             placeholder={seller.contactEmail || "Email Contact Person"}
             value={_data.contactEmail}
-            setValue={(value) => _setDaa({ ..._data, contactEmail: value })}
+            setValue={(value) => _setData({ ..._data, contactEmail: value })}
           />
 
           <TextInput
             placeholder={seller.orderMangementEmail || "Email Order Management"}
             value={_data.orderMangementEmail}
             setValue={(value) =>
-              _setDaa({ ..._data, orderManagementEmail: value })
+              _setData({ ..._data, orderManagementEmail: value })
             }
           />
 
           <TextInput
             placeholder={seller.returnsEmail || "Email Returns"}
             value={_data.returnsEmail}
-            setValue={(value) => _setDaa({ ..._data, returnsEmail: value })}
+            setValue={(value) => _setData({ ..._data, returnsEmail: value })}
           />
 
           <TextInput
@@ -82,7 +82,7 @@ const Contact = () => {
             }
             value={_data.customerServiceEmail}
             setValue={(value) =>
-              _setDaa({ ..._data, customerServiceEmail: value })
+              _setData({ ..._data, customerServiceEmail: value })
             }
           />
         </div>

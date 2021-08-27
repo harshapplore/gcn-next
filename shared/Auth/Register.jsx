@@ -2,14 +2,10 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 
-import { UPDATE_ROLE_URL } from "@/config/constants";
-
-import { axios } from "@/setups/axios";
-
 import Select from "@/shared/Input/Select";
-import Message from "@/shared/Message";
 import CheckBox from "@/shared/Input/Checkbox";
 import TextInput from "@/shared/Input/Text";
+import Message from "@/shared/Message";
 
 import { registerUser } from "@/_controllers/auth";
 
@@ -46,40 +42,13 @@ const Register = ({ close }) => {
       return;
     }
 
-    const user = await registerUser(data, data.type, dispatch);
+    const res = await registerUser(data, data.type, dispatch);
 
-    if(!user) return;
-
-    if (user) {
-      const { jwt, user } = response.data;
-      localStorage.setItem("token", jwt);
-      localStorage.setItem("data", user);
-
-      const res = await axios()({
-        url: UPDATE_ROLE_URL,
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-        data: {
-          role: data.type,
-        },
-
-        if(res) {
-          if (user.type === "seller") router.push("/seller-onboarding");
-          else router.push("/");
-        },
-      }).catch((error) => {
-        setErrors(["Error occured while updating role."]);
-        console.log(error, error.response);
-      });
-
-      if (res) {
-        setSuccess(true);
-        if (data.type === "seller")
-          setTimeout(() => router.push("/seller-onboarding"), 2000);
-        if (data.type === "customer") setTimeout(() => router.push("/"), 2000);
-      }
+    if (res) {
+      setSuccess(true);
+      if (data.type === "seller")
+        setTimeout(() => router.push("/seller-onboarding"), 2000);
+      if (data.type === "customer") setTimeout(() => router.push("/"), 2000);
     }
   };
 

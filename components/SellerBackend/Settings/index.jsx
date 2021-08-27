@@ -6,6 +6,7 @@ import Nav from "./nav";
 
 import Contact from "./sections/contact";
 import Password from "./sections/password";
+import ShopInfo from "./sections/shop-info";
 import Payments from "./sections/payments-and-billing";
 import TermsAndConditions from "./sections/terms-and-conditions";
 import AssessmentsAndPrefernces from "./sections/assessments-and-perferences";
@@ -20,6 +21,7 @@ import {
   SHIPPING_SETTINGS,
   ASSESMENTS_AND_PREFERENCES,
   DELETE_ACCOUNT,
+  SHOP_INFO,
 } from "./routes";
 
 import { getShop, updateShop } from "@/_controllers/shop";
@@ -44,6 +46,7 @@ const AccountSettings = () => {
 
     if (tab === CONTACT) setActiveTab(CONTACT);
     if (tab === PASSWORD) setActiveTab(PASSWORD);
+    if (tab === SHOP_INFO) setActiveTab(SHOP_INFO);
     if (tab === PAYMENT_AND_BILLING) setActiveTab(PAYMENT_AND_BILLING);
     if (tab === TERMS_AND_CONDITIONS) setActiveTab(TERMS_AND_CONDITIONS);
     if (tab === SHIPPING_SETTINGS) setActiveTab(SHIPPING_SETTINGS);
@@ -66,6 +69,7 @@ const AccountSettings = () => {
       <Nav />
       {activeTab === CONTACT && <Contact />}
       {activeTab === PASSWORD && <Password />}
+      {activeTab === SHOP_INFO && <ShopInfo />}
       {activeTab === PAYMENT_AND_BILLING && <Payments />}
       {activeTab === TERMS_AND_CONDITIONS && <TermsAndConditions />}
       {activeTab === SHIPPING_SETTINGS && <ShippingSettings shop={_shop} />}

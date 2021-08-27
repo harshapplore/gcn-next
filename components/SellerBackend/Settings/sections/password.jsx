@@ -24,7 +24,7 @@ const Password = () => {
 
           <TextInput
             placeholder="New Password*"
-            value={data.password}
+            value={_data.password}
             setValue={(value) => setData({ ..._data, currentPassword: value })}
           />
 

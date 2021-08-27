@@ -23,15 +23,22 @@ export const registerUser = async (
   }).catch((error) => {
     console.log("Error", error);
 
-    const errors = error.response && error.response.data.message
-      .map((error) => error.messages)    
+    const errors =
+      error.response &&
+      error.response.data.message.map((error) => error.messages);
 
     dispatch(setErrors(errors));
   });
 
-  console.log(response);
+  if (response) {
+    localStorage.setItem("token", response.data.jwt);
+    const roleResponse = await putRole(response.data.jwt, role, dispatch);
 
-  return response && response.data;
+    if (roleResponse) {
+      localStorage.setItem("data", roleResponse);
+      return roleResponse;
+    }
+  }
 };
 
 export const putRole = async (token, role, dispatch) => {
