@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import { fetchSeller } from "@/slices/seller";
 
 import TextInput from "@/shared/Input/Text";
 
+import { updateShop } from "@/_controllers/shop";
+
 const ShopInfo = () => {
+  const dispatch = useDispatch();
+
   const { seller } = useSelector((state) => state.seller);
 
   const [_shop, _setShop] = useState({});
+  const [_data, _setData] = useState({});
 
   useEffect(() => {
     if (!seller.shop) {
@@ -16,6 +23,15 @@ const ShopInfo = () => {
 
     _setShop(seller.shop);
   }, [seller.shop]);
+
+  const updateShopHandler = async (shopId) => {
+    const result = await updateShop(shopId, _data);
+
+    dispatch(fetchSeller());
+    _setData({});
+
+    return result;
+  };
 
   return (
     <div className="settings-block">
@@ -32,16 +48,44 @@ const ShopInfo = () => {
       </div>
       <h4 className="subtitle-2 mb-10">Change Shop Information</h4>
       <div className="w-form">
-          <div className="account-form-1">
-
-            <TextInput placeholder={_shop.companyName || "Company Name"} />
-            <TextInput placeholder={_shop.name || "Shop Name"}  />
-            <TextInput placeholder={_shop.streetAddress || "Street Address"} />
-            <TextInput placeholder={_shop.postalCode || "Postal Code"} />
-            <TextInput placeholder={_shop.city || "City"} />
-            <TextInput placeholder={_shop.vat || "VAT"} />
-          </div>
-          <a className="button blue mr-10">Save Changes</a>
+        <div className="account-form-1">
+          <TextInput
+            placeholder={_shop.companyName || "Company Name"}
+            value={_data.companyName || ""}
+            setValue={(value) => _setData({ ..._data, companyName: value })}
+          />
+          <TextInput
+            placeholder={_shop.name || "Shop Name"}
+            value={_data.name || ""}
+            setValue={(value) => _setData({ ..._data, name: value })}
+          />
+          <TextInput
+            placeholder={_shop.streetAddress || "Street Address"}
+            value={_data.streetAddress || ""}
+            setValue={(value) => _setData({ ..._data, streetAddress: value })}
+          />
+          <TextInput
+            placeholder={_shop.postalCode || "Postal Code"}
+            value={_data.postalCode || ""}
+            setValue={(value) => _setData({ ..._data, postalCode: value })}
+          />
+          <TextInput
+            placeholder={_shop.city || "City"}
+            value={_data.city || ""}
+            setValue={(value) => _setData({ ..._data, city: value })}
+          />
+          <TextInput
+            placeholder={_shop.vat || "VAT"}
+            value={_data.vat || ""}
+            setValue={(value) => _setData({ ..._data, vat: value })}
+          />
+        </div>
+        <a
+          className="button blue mr-10"
+          onClick={() => updateShopHandler(_shop.id)}
+        >
+          Save Changes
+        </a>
       </div>
     </div>
   );

@@ -1,21 +1,72 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import TextInput from "@/shared/Input/Text";
-import { data } from "cheerio/lib/api/attributes";
+
+import { fetchSeller, fetchUser } from "@/slices/user";
+
+import { putSeller } from "@/_controllers/seller";
+import { putUser } from "@/_controllers/user";
+import { isEmail } from "@/utils/validators";
 
 const Contact = () => {
+  const dispatch = useDispatch();
+
   const { user } = useSelector((state) => state.user);
   const { seller } = useSelector((state) => state.seller);
 
   const [_joinDate, _setJoinDate] = useState();
   const [_data, _setData] = useState({});
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (!user.id) return;
 
     _setJoinDate(new Date(user.createdAt));
   }, []);
+
+  const validate = () => {
+    const {
+      contactEmail,
+      orderManagementEmail,
+      returnsEmail,
+      customerServiceEmail,
+    } = _data;
+
+    const errors = {};
+
+    if (contactEmail && !isEmail(contactEmail))
+      errors.contactEmail = "Please provide a valid contact email.";
+
+    if (orderManagementEmail && !isEmail(orderManagementEmail))
+      errors.orderManagementEmail = "Please provide a valid email.";
+
+    if (returnsEmail && !isEmail(returnsEmail))
+      errors.returnsEmail = "Please provide valid email.";
+
+    if (customerServiceEmail && !isEmail(customerServiceEmail))
+      errors.customerServiceEmail = "Please provide customer service email.";
+
+    setErrors(errors);
+
+    if (Object.keys(errors).length) return false;
+
+    return true;
+  };
+
+  const updateSellerData = async ({ sellerId, userId }) => {
+    if (!validate()) return;
+
+    const seller = await putSeller(sellerId, _data);
+
+    const user = await putUser(userId, _data);
+
+    dispatch(fetchSeller());
+    dispatch(fetchUser());
+    _setData({});
+
+    return { seller, user };
+  };
 
   return (
     <div className="settings-block">
@@ -48,32 +99,39 @@ const Contact = () => {
             placeholder={user.name || "Name"}
             value={_data.name}
             setValue={(value) => _setData({ ..._data, name: value })}
+            error={errors.name}
           />
 
           <TextInput
             placeholder={seller.phone || "Phone Number"}
             value={_data.phone}
             setValue={(value) => _setData({ ..._data, phone: value })}
+            error={errors.phone}
           />
 
           <TextInput
             placeholder={seller.contactEmail || "Email Contact Person"}
             value={_data.contactEmail}
             setValue={(value) => _setData({ ..._data, contactEmail: value })}
+            error={errors.contactEmail}
           />
 
           <TextInput
-            placeholder={seller.orderMangementEmail || "Email Order Management"}
+            placeholder={
+              seller.orderManagementEmail || "Email Order Management"
+            }
             value={_data.orderMangementEmail}
             setValue={(value) =>
               _setData({ ..._data, orderManagementEmail: value })
             }
+            error={errors.orderManagementEmail}
           />
 
           <TextInput
             placeholder={seller.returnsEmail || "Email Returns"}
             value={_data.returnsEmail}
             setValue={(value) => _setData({ ..._data, returnsEmail: value })}
+            error={errors.returnsEmail}
           />
 
           <TextInput
@@ -84,9 +142,17 @@ const Contact = () => {
             setValue={(value) =>
               _setData({ ..._data, customerServiceEmail: value })
             }
+            error={errors.customerServiceEmail}
           />
         </div>
-        <a className="button blue mr-10">Save Changes</a>
+        <a
+          className="button blue mr-10"
+          onClick={() =>
+            updateSellerData({ sellerId: seller.id, userId: user.id })
+          }
+        >
+          Save Changes
+        </a>
       </div>
     </div>
   );

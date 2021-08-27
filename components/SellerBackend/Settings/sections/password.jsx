@@ -1,9 +1,40 @@
 import { useState, useEffect } from "react";
 
 import TextInput from "@/shared/Input/Text";
+import { validate } from "uuid";
+import error from "@/slices/error";
 
 const Password = () => {
   const [_data, _setData] = useState({});
+
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const errors = {};
+
+    if (!_data.currentPassword)
+      errors.currentPassword = "Current Password cannot be empty.";
+
+    if (!_data.password) errors.password = "New Password cannot be empty.";
+
+    if (!_data.confirmPassword)
+      errors.confirmPassword = "Please re-enter your new password";
+
+    if (_data.confirmPassword && !(_data.password === _data.confirmPassword))
+      errors.confirmPassword = "Passwords do not match. Please re-renter your new password.";
+
+    setErrors(errors);
+
+    if (Object.keys(errors).length) return false;
+
+    return true;
+  };
+
+  const changePasswordHandler = () => {
+    if (!validate()) return;
+  };
+
+  console.log(errors);
 
   return (
     <div className="settings-block">
@@ -20,20 +51,25 @@ const Password = () => {
             placeholder="Current Password *"
             value={_data.currentPassword}
             setValue={(value) => _setData({ ..._data, currentPassword: value })}
+            error={errors.currentPassword}
           />
 
           <TextInput
             placeholder="New Password*"
             value={_data.password}
-            setValue={(value) => setData({ ..._data, currentPassword: value })}
+            setValue={(value) => _setData({ ..._data, password: value })}
+            error={errors.password}
           />
 
           <TextInput
             placeholder="Confirm New Password*"
             value={_data.confirmPassword}
-            setValue={(value) => _setDate({ ..._data, confirmPassword: value })}
+            setValue={(value) => _setData({ ..._data, confirmPassword: value })}
+            error={errors.confirmPassword}
           />
-          <a className="button blue mr-10">Save Changes</a>
+          <a className="button blue mr-10" onClick={changePasswordHandler}>
+            Save Changes
+          </a>
         </div>
       </div>
     </div>

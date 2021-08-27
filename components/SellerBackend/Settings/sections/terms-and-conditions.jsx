@@ -1,9 +1,36 @@
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import TextArea from "@/shared/Input/TextArea";
 
+import { fetchSeller } from "@/slices/user";
+import { updateShop } from "@/_controllers/shop";
+
 const TermsAndConditions = () => {
+  const dispatch = useDispatch();
+  const { seller } = useSelector((state) => state.seller);
   const [_data, _setData] = useState({});
+  const [_shop, _setShop] = useState({});
+
+  useEffect(() => {
+    if (!seller.shop) {
+      _setShop({});
+      return;
+    }
+
+    _setShop(seller.shop);
+  }, [seller.shop]);
+
+  console.log("Shop", _shop, seller.shop)
+
+  const updateShopHandler = async (shopId) => {
+    const result = await updateShop(shopId, _data);
+
+    dispatch(fetchSeller());
+    _setData({});
+
+    return result;
+  };
 
   return (
     <div className="settings-block">
@@ -14,7 +41,7 @@ const TermsAndConditions = () => {
         </div>
 
         <TextArea
-          placeholder="Type in here..."
+          placeholder={_shop.returnsAndRefunds || "Type in here..."}
           value={_data.returnsAndRefunds}
           setValue={(value) => _setData({ ..._data, returnsAndRefunds: value })}
         />
@@ -25,7 +52,7 @@ const TermsAndConditions = () => {
         </div>
 
         <TextArea
-          placeholder="General Conditions"
+          placeholder={_shop.generalConditions || "General Conditions"}
           value={_data.generalConditions}
           setValue={(value) => _setData({ ..._data, generalConditions: value })}
         />
@@ -33,14 +60,19 @@ const TermsAndConditions = () => {
         <h4 className="subtitle-1 subtitle-1--blue mb-20">Privacy Policy</h4>
 
         <TextArea
-          placeholder="Privacy Policy"
+          placeholder={_shop.privacyPolicy || "Privacy Policy"}
           value={_data.privacyPolicy}
           setValue={(value) => _setData({ ..._data, privacyPolicy: value })}
         />
 
         <div className="settings-spacer" />
 
-        <a className="button blue mr-10">Save and Continue</a>
+        <a
+          className="button blue mr-10"
+          onClick={() => updateShopHandler(_shop.id)}
+        >
+          Save and Continue
+        </a>
       </div>
     </div>
   );
