@@ -4,7 +4,7 @@ const TextArea = ({ value, placeholder, setValue, error }) => {
       <textarea
         placeholder={placeholder}
         className={
-          "input-x input-x--text-area w-input" +
+          "input-x input-x--text-area w-input mb-10" +
           (error ? " text-field--error" : "")
         }
         value={value}

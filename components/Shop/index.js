@@ -37,8 +37,6 @@ const Shop = () => {
     setShop(shop);
   }, [router.query]);
 
-  console.log(shop);
-
   return (
     <>
       <Head>

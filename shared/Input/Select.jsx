@@ -1,3 +1,16 @@
+import styled from "styled-components";
+
+const SelectContainer = styled.div`
+  flex: 1;
+
+
+
+  .text-field {
+    width: 100%;
+    display: block;
+  }
+`;
+
 export const Select = ({
   choices,
   error,
@@ -7,7 +20,7 @@ export const Select = ({
   placeholder,
 }) => {
   return (
-    <>
+    <SelectContainer>
       <select
         required={required}
         className={"text-field w-input" + (error ? " text-field--error" : "")}
@@ -28,7 +41,7 @@ export const Select = ({
           <span className="input-error__message"> {error} </span>
         </div>
       )}
-    </>
+    </SelectContainer>
   );
 };
 

@@ -18,5 +18,6 @@
     "Recyclable and Upcycled",
     "Handmade and made to Order",
     "Recyclabe, Compostable, and Biodegradable"
-  ]
+  ],
+  "colors": ["Red", "Green", "Yellow", "Blue", "Pink", "Other"]
 }

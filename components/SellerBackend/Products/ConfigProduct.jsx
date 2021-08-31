@@ -4,8 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { fetchCategories } from "@/slices/categories";
 
-import { Select, Select2 } from "@/shared/Select";
-import CheckBox from "@/shared/Checkbox";
+import Select from "@/shared/Input/Select";
+import CheckBox from "@/shared/Input/Checkbox";
+import Radio from "@/shared/Input/Radio";
+import TextInput from "@/shared/Input/Text";
+import TextArea from "@/shared/Input/TextArea";
+import ErrorInput from "@/shared/Input/Error";
+import Button from "@/shared/Button";
+
 import { triggerInput } from "libs/upload";
 
 import { BASE_ROUTE, PRODUCTS } from "../routes";
@@ -16,6 +22,16 @@ import {
   putProduct,
   uploadFiles,
 } from "@/_controllers/product";
+
+import filtersList from "@/_data/filters.json";
+import Sizes from "@/_data/sizes.json";
+import CountriesList from "@/_data/countries.json";
+import CurrenciesList from "@/_data/currencies.json";
+
+import { readFiles } from "@/_methods/files";
+
+import styles from "@/components/SellerBackend/backend.module.scss";
+import Products from ".";
 
 const ProductImage = ({ url }) => {
   return (
@@ -45,10 +61,12 @@ const ConfigProduct = () => {
   const [product, setProduct] = useState({ images: [], filters: {} });
   const [filters, setFilters] = useState({});
 
-  const [activeDescriptionTab, setActiveDescriptionTab] = useState(1);
-
   const [files, setFiles] = useState([]);
   const [filesData, setFilesData] = useState();
+
+  const [toggles, setToggles] = useState({});
+
+  const [errors, setErrors] = useState({});
 
   useEffect(async () => {
     if (!categories || !categories.length) dispatch(fetchCategories());
@@ -62,28 +80,55 @@ const ConfigProduct = () => {
     }
   }, []);
 
-  const readFiles = (files) => {
-    const f = files.map((file) => {
-      const reader = new FileReader();
-
-      return new Promise((resolve, reject) => {
-        reader.onload = () => resolve(reader.result);
-
-        reader.onerror = (e) => {
-          reject("Error Occured while reading file.");
-        };
-
-        reader.readAsDataURL(file);
-      });
-    });
-
-    return Promise.all(f);
-  };
-
   useMemo(async () => {
     const fData = await readFiles(files);
     setFilesData(fData);
   }, [files]);
+
+  useEffect(() => {
+    setProduct({ ...product, size: [] });
+  }, [toggles.size]);
+
+  const validate = () => {
+    const errors = {};
+
+    if (!product.name) errors.name = "Please provide a product name.";
+    if (!product.description)
+      errors.description = "Please provide product description";
+    if (!product.category)
+      errors.category = "Please choose a category for the product.";
+    if (!product.sustainability || !product.sustainability.length >= 2)
+      errors.sustainability =
+        "Please choose at least 2 sustainability categories.";
+
+    if (!product.weight) errors.weight = "Product Weight cannot be empty";
+    if (!product.price) errors.price = "Product price cannot be empty";
+
+    if (!product.countryOfProduction)
+      errors.countryOfProduction = "Please choose a country of production.";
+
+    if (!product.colors)
+      errors.colors = "Please choose available colors for the product";
+
+    if (!product.sizes)
+      errors.sizes = "Please choose appropriate sizes for the product";
+
+    if (!product.currency)
+      errors.currency = "Please choose a suitable currency.";
+
+    if (product.sale && !product.salePrice)
+      errors.salePrice = "Please provide the Product price during sale.";
+
+    setErrors(errors);
+
+    if (Object.keys(errors).length) return false;
+
+    return true;
+  };
+
+  const handleSave = () => {
+    if (!validate()) return;
+  };
 
   const save = async (e) => {
     e.preventDefault();
@@ -136,6 +181,8 @@ const ConfigProduct = () => {
     router.push(`${BASE_ROUTE + PRODUCTS}?action=add`);
   };
 
+  console.log("Products", product);
+
   return (
     <div className="dynamic-content">
       <div className="heading-wrapper mb-40">
@@ -145,7 +192,7 @@ const ConfigProduct = () => {
       {/* Add Image Section */}
       <div className="product-add-block">
         <div className="heading-wrapper mb-40">
-          <h3>Add Photos &amp; Videos</h3>
+          <h3>Add Photos</h3>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
             varius enim in eros elementum tristique. Duis cursus, mi quis
@@ -155,27 +202,6 @@ const ConfigProduct = () => {
           </p>
         </div>
         <div className="flex left mb-40">
-          {/* <div className="shop-img-link grab">
-            <img
-              src="/images/bild-header2x.jpg"
-              loading="lazy"
-              sizes="(max-width: 479px) 42vw, 150px"
-              // srcSet="images/bild-header2x-p-500.jpeg 500w, images/bild-header2x-p-800.jpeg 800w, images/bild-header2x-p-2000.jpeg 2000w, images/bild-header2x-p-2600.jpeg 2600w, images/bild-header2x.jpg 2880w"
-              alt="Handcrafted stuff"
-              className="back-img"
-            />
-            <div className="check-floater">
-              <img
-                src="/images/check-circle-black-24-dp.svg"
-                loading="lazy"
-                width={24}
-                alt=""
-              />
-              <div className="inline-text">Main</div>
-            </div>
-          </div>
-           */}
-
           {product.images &&
             product.images.length > 0 &&
             product.images.map((data, index) => (
@@ -248,40 +274,93 @@ const ConfigProduct = () => {
             <div className="heading-wrapper mb-20">
               <h3>Description</h3>
             </div>
-            <div className="flex mb-40">
-              <input
+            <div className="mb-40">
+              <TextInput
                 type="text"
                 className="text-field grow w-input"
                 maxLength={256}
                 placeholder="Product name*"
                 value={product.name || ""}
-                onChange={(e) =>
-                  setProduct({ ...product, name: e.target.value })
-                }
+                setValue={(value) => setProduct({ ...product, name: value })}
+                error={errors.name}
               />
-              <Select2
+
+              <div className="w-tab-pane w--tab-active mb-10">
+                <TextArea
+                  placeholder="Description (max. XX)"
+                  className="text-field area w-input"
+                  value={product.description || ""}
+                  setValue={(value) =>
+                    setProduct({ ...product, description: value })
+                  }
+                  error={errors.description}
+                />
+              </div>
+
+              <Select
                 choices={categories.map((cat) => cat.name)}
-                value={product.category}
-                defaultValue="Category"
+                value={""}
+                placeholder={
+                  (categories &&
+                    categories.reduce((a, c) => {
+                      if (c.id === product.category) return a + c.name;
+
+                      return a + "";
+                    }, "")) ||
+                  "Category"
+                }
                 setValue={(value) =>
                   setProduct({ ...product, category: categories[value].id })
                 }
-              />
-
-              <Select
-                choices={[
-                  "Sustain One",
-                  "Sustain Two",
-                  "Sustain Three",
-                  "Sustain Four",
-                ]}
-                value={product.sustainability}
-                defaultValue={"Sustainability"}
-                setValue={(value) =>
-                  setProduct({ ...product, sustainability: value })
-                }
+                error={errors.category}
               />
             </div>
+
+            <div className="mb-40">
+              <label className="mb-20">Sustainability</label>
+              {filtersList.sustainability &&
+                filtersList.sustainability.map((sustain) => {
+                  const status =
+                    filters.sustainability &&
+                    filters.sustainability.includes(sustain);
+                  return (
+                    <div>
+                      <CheckBox
+                        text={sustain}
+                        value={status}
+                        setValue={(value) => {
+                          if (!status)
+                            setFilters({
+                              ...filters,
+                              sustainability: [
+                                ...(filters.sustainability || []),
+                                sustain,
+                              ],
+                            });
+                          else {
+                            const index =
+                              filters.sustainability &&
+                              filters.sustainability.findIndex(
+                                (item) => sustain === item
+                              );
+                            setFilters({
+                              ...filters,
+                              sustainability: [
+                                ...filters.sustainability.slice(0, index),
+                                ...filters.sustainability.slice(index + 1),
+                              ],
+                            });
+                          }
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+              {errors.sustainability && (
+                <ErrorInput message={errors.sustainability} />
+              )}
+            </div>
+
             <div className="mb-40">
               <label htmlFor="name" className="mb-20">
                 Filters
@@ -311,115 +390,166 @@ const ConfigProduct = () => {
                   setFilters({ ...filters, forBabies: value })
                 }
               />
-              <CheckBox
-                text="Sale"
-                value={filters.onSale}
-                setValue={(value) => setFilters({ ...filters, onSale: value })}
-              />
             </div>
-            <div className="tabs-menu">
-              <div
-                className={
-                  "terms-lang" + (activeDescriptionTab === 1 ? " active" : "")
-                }
-                onClick={() => setActiveDescriptionTab(1)}
-              >
-                <div>German</div>
+
+            <div className="mb-40">
+              <label className="mb-20"> Sizes </label>
+              <div className="mb-20 ml-40">
+                <div>
+                  <div className="mb-10">
+                    <Radio
+                      text="Clothing Sizes (S, M, L, etc.)"
+                      value={toggles.size === "clothing"}
+                      setValue={(value) =>
+                        value
+                          ? setToggles({ ...toggles, size: "clothing" })
+                          : setToggles({ ...toggles, size: null })
+                      }
+                    />
+                  </div>
+                  <div>
+                    {toggles.size === "clothing" &&
+                      Sizes &&
+                      Sizes.clothing.map((size) => (
+                        <CheckBox
+                          text={size}
+                          value={product.sizes && product.sizes.includes(size)}
+                          setValue={(value) => {
+                            if (value) {
+                              setProduct({
+                                ...product,
+                                sizes: [...(product.sizes || []), size],
+                              });
+                            } else {
+                              const index =
+                                product.sizes &&
+                                product.sizes.findIndex((s) => s === size);
+
+                              setProducts({
+                                ...product,
+                                sizes: [
+                                  ...product.sizes.slice(0, index),
+                                  ...product.sizes(index + 1),
+                                ],
+                              });
+                            }
+                          }}
+                        />
+                      ))}
+                  </div>
+                </div>
+                <div>
+                  <div className="mb-10">
+                    <Radio
+                      text="Shoe Sizes (UK)"
+                      value={toggles.size === "shoe"}
+                      setValue={(value) =>
+                        value
+                          ? setToggles({ ...toggles, size: "shoe" })
+                          : setToggles({ ...toggles, size: null })
+                      }
+                    />
+                  </div>
+                  <div>
+                    {toggles.size === "shoe" &&
+                      Sizes &&
+                      Sizes.shoe.map((size) => (
+                        <CheckBox
+                          text={size}
+                          value={product.sizes && product.sizes.includes(size)}
+                          setValue={(value) => {
+                            if (value) {
+                              setProduct({
+                                ...product,
+                                sizes: [...(product.sizes || []), size],
+                              });
+                            } else {
+                              const index =
+                                product.sizes &&
+                                product.sizes.findIndex((s) => s === size);
+
+                              setProducts({
+                                ...product,
+                                sizes: [
+                                  ...product.sizes.slice(0, index),
+                                  ...product.sizes(index + 1),
+                                ],
+                              });
+                            }
+                          }}
+                        />
+                      ))}
+                  </div>
+                </div>
+                <div>
+                  <Radio
+                    text="Not Applicable"
+                    value={toggles.size === "none"}
+                    setValue={(value) =>
+                      value
+                        ? setToggles({ ...toggles, size: "none" })
+                        : setToggles({ ...toggles, size: null })
+                    }
+                  />
+                </div>
               </div>
-              <div
-                className={
-                  "terms-lang" + (activeDescriptionTab === 2 ? " active" : "")
-                }
-                onClick={() => setActiveDescriptionTab(2)}
-              >
-                <div>English</div>
-              </div>
+              {errors.sizes && <ErrorInput message={errors.sizes} />}
             </div>
+
             <div className="mb-20">
-              <div
-                className={
-                  "w-tab-pane" +
-                  (activeDescriptionTab === 1 ? " w--tab-active" : "")
-                }
-              >
-                <textarea
-                  placeholder="Description (max. XX)"
-                  maxLength={5000}
-                  required
-                  className="text-field area w-input"
-                  value={product.description || ""}
-                  onChange={(e) =>
-                    setProduct({ ...product, description: e.target.value })
-                  }
-                />
+              <label className="mb-20">Colors</label>
+              <div>
+                {filtersList.colors &&
+                  filtersList.colors.map((color) => (
+                    <CheckBox
+                      text={color}
+                      value={product.colors && product.colors.includes(color)}
+                      setValue={(value) => {
+                        if (value) {
+                          setProduct({
+                            ...product,
+                            colors: [...(product.colors || []), color],
+                          });
+                        } else {
+                          const index =
+                            product.colors &&
+                            product.colors.findIndex((c) => c === color);
+
+                          setProduct({
+                            ...product,
+                            colors: [
+                              ...product.colors.slice(0, index),
+                              ...product.colors.slice(index + 1),
+                            ],
+                          });
+                        }
+                      }}
+                    />
+                  ))}
               </div>
-              <div
-                className={
-                  "w-tab-pane" +
-                  (activeDescriptionTab === 2 ? " w--tab-active" : "")
-                }
-              >
-                <textarea
-                  placeholder="Kurze Beschreibung (max. XX)"
-                  maxLength={5000}
-                  className="text-field area w-input"
-                  value={product.descriptionInGerman || ""}
-                  onChange={(e) =>
-                    setProduct({
-                      ...product,
-                      descriptionInGerman: e.target.value,
-                    })
-                  }
-                />
-              </div>
-
-              <div className="flex">
-                <Select
-                  choices={[]}
-                  defaultValue="Country of Production"
-                  value={product.countryOfProduction}
-                  setValue={(value) =>
-                    setProduct({ ...product, countryOfProduction: value })
-                  }
-                />
-
-                <input
-                  type="text"
-                  className="text-field w-input"
-                  maxLength={256}
-                  placeholder="Weight (in Kgs)"
-                  required
-                  value={product.weight || ""}
-                  onChange={(e) =>
-                    setProduct({ ...product, weight: e.target.value })
-                  }
-                />
-
-                <Select
-                  defaultValue="Sizes"
-                  choices={["First", "Second", "Third"]}
-                  value={product.sizes || ""}
-                  setValue={(value) => setProduct({ ...product, sizes: value })}
-                />
-
-                <Select
-                  defaultValue="Colors"
-                  choices={["First", "Second", "Third"]}
-                  value={product.colors || ""}
-                  setValue={(value) =>
-                    setProduct({ ...product, colors: value })
-                  }
-                />
-              </div>
+              {errors.colors && <ErrorInput message={errors.colors} />}
             </div>
 
-            <CheckBox
-              text="Personalization Available"
-              value={filters.personalizationAvailable}
-              setValue={(value) =>
-                setFilters({ ...filters, personalizationAvailable: value })
-              }
-            />
+            <div className="mb-20">
+              <label className="mb-20"> Sale </label>
+              <div className="ml-40 flex">
+                <Radio
+                  text="Sale"
+                  value={product.sale}
+                  setValue={(value) => setProduct({ ...product, sale: value })}
+                />
+                {product.sale && (
+                  <TextInput
+                    placeholder="Sale Price*"
+                    value={product.salePrice}
+                    setValue={(value) =>
+                      setProduct({ ...product, salePrice: value })
+                    }
+                    error={errors.salePrice}
+                  />
+                )}
+              </div>
+            </div>
           </div>
 
           {/* Price Section */}
@@ -427,25 +557,43 @@ const ConfigProduct = () => {
             <div className="heading-wrapper mb-20">
               <h3>Price</h3>
             </div>
-            <div className="flex mb-40">
-              <input
+            <div className="flex mb-40 flex-gap-20 flex-justify-start">
+              <TextInput
                 type="text"
                 className="text-field w-input"
-                maxLength={256}
                 placeholder="Product Price*"
                 value={product.price || ""}
-                onChange={(e) =>
-                  setProduct({ ...product, price: e.target.value })
-                }
-                required
+                setValue={(value) => setProduct({ ...product, price: value })}
+                error={errors.price}
               />
+
+              <TextInput
+                type="text"
+                className="text-field w-input"
+                placeholder="Weight (in Kgs)"
+                value={product.weight || ""}
+                setValue={(value) => setProduct({ ...product, weight: value })}
+                error={errors.weight}
+              />
+
               <Select
-                choices={["Euro"]}
-                defaultValue="Currency"
+                choices={CurrenciesList}
+                placeholder="Currency"
                 value={product.currency}
                 setValue={(value) =>
                   setProduct({ ...product, currency: value })
                 }
+                error={errors.currency}
+              />
+
+              <Select
+                choices={CountriesList}
+                placeholder="Country of Production"
+                value={product.countryOfProduction}
+                setValue={(value) =>
+                  setProduct({ ...product, countryOfProduction: value })
+                }
+                error={errors.countryOfProduction}
               />
             </div>
 
@@ -464,12 +612,13 @@ const ConfigProduct = () => {
             />
           </div>
 
-          <input
-            type="submit"
-            value="Save"
-            className="button blue mr-10 w-button"
-            onClick={save}
+          <Button
+            name="Save"
+            type="secondary"
+            caps={true}
+            action={handleSave}
           />
+
           <input
             type="submit"
             value="Next Product"
