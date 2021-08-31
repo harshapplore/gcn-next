@@ -10,11 +10,11 @@ import Radio from "@/shared/Input/Radio";
 import TextInput from "@/shared/Input/Text";
 import TextArea from "@/shared/Input/TextArea";
 import ErrorInput from "@/shared/Input/Error";
-import Button from "@/shared/Button";
+import Button, { OutlinedButton } from "@/shared/Button";
 
 import { triggerInput } from "libs/upload";
 
-import { BASE_ROUTE, PRODUCTS } from "../routes";
+import { ADD_ACTION, BASE_ROUTE, PRODUCTS } from "../routes";
 
 import {
   getProduct,
@@ -31,7 +31,6 @@ import CurrenciesList from "@/_data/currencies.json";
 import { readFiles } from "@/_methods/files";
 
 import styles from "@/components/SellerBackend/backend.module.scss";
-import Products from ".";
 
 const ProductImage = ({ url }) => {
   return (
@@ -64,9 +63,8 @@ const ConfigProduct = () => {
   const [files, setFiles] = useState([]);
   const [filesData, setFilesData] = useState();
 
-  const [toggles, setToggles] = useState({});
-
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState({});
 
   useEffect(async () => {
     if (!categories || !categories.length) dispatch(fetchCategories());
@@ -86,8 +84,10 @@ const ConfigProduct = () => {
   }, [files]);
 
   useEffect(() => {
-    setProduct({ ...product, size: [] });
-  }, [toggles.size]);
+    if (loading.save === false) router.push(BASE_ROUTE + PRODUCTS);
+
+    if (loading.next === false) router.push(BASE_ROUTE + PRODUCTS + ADD_ACTION);
+  }, [loading]);
 
   const validate = () => {
     const errors = {};
@@ -97,7 +97,7 @@ const ConfigProduct = () => {
       errors.description = "Please provide product description";
     if (!product.category)
       errors.category = "Please choose a category for the product.";
-    if (!product.sustainability || !product.sustainability.length >= 2)
+    if (!product.sustainability || product.sustainability.length < 2)
       errors.sustainability =
         "Please choose at least 2 sustainability categories.";
 
@@ -126,13 +126,7 @@ const ConfigProduct = () => {
     return true;
   };
 
-  const handleSave = () => {
-    if (!validate()) return;
-  };
-
-  const save = async (e) => {
-    e.preventDefault();
-
+  const save = async () => {
     const productData = {
       ...product,
       filters,
@@ -140,48 +134,46 @@ const ConfigProduct = () => {
       seller: seller.id,
     };
 
+    const uploadedFiles = files.length
+      ? (await uploadFiles(files)).map((file) => file.id)
+      : [];
+
     if (action === "add") {
-      const prod = await addProduct(productData);
-
-      if (!files.length) {
-        router.push(BASE_ROUTE + PRODUCTS);
-        return;
-      }
-
-      const uploadedFiles = (await uploadFiles(files)).map((file) => file.id);
-
-      await putProduct(prod.id, {
+      await addProduct({
+        ...productData,
+        images: uploadedFiles,
+      });
+    } else if (action === "edit") {
+      await putProduct(product.id, {
+        ...productData,
         images: [...product.images, ...uploadedFiles],
       });
-
-      router.push(BASE_ROUTE + PRODUCTS);
     }
 
-    if (action === "edit") {
-      const prod = await putProduct(id, productData);
-
-      if (!files.length) {
-        router.push(BASE_ROUTE + PRODUCTS);
-        return;
-      }
-
-      const uploadedFiles = (await uploadFiles(files)).map((file) => file.id);
-
-      await putProduct(prod.id, {
-        images: [...product.images, ...uploadedFiles],
-      });
-
-      router.push(BASE_ROUTE + PRODUCTS);
-    }
+    return true;
   };
 
-  const handleNext = (e) => {
-    save(e);
+  const handleSave = async () => {
+    if (!validate()) return;
 
-    router.push(`${BASE_ROUTE + PRODUCTS}?action=add`);
+    setLoading({ save: true });
+
+    await save();
+
+    setLoading({ save: false });
   };
 
-  console.log("Products", product);
+  const handleNext = async () => {
+    if (!validate()) return;
+
+    setLoading({ next: true });
+
+    await save();
+
+    setLoading({ next: false });
+  };
+
+  console.log("Product ==> ", product);
 
   return (
     <div className="dynamic-content">
@@ -224,7 +216,7 @@ const ConfigProduct = () => {
               className="hidden-input"
               onChange={(e) => setFiles([...files, e.target.files[0]])}
             />
-            <div className="new-img-wrapper">
+            <div className="new-img-wrapper cursor">
               <img
                 src="/images/expand-more-black-24-dp.svg"
                 loading="lazy"
@@ -321,8 +313,8 @@ const ConfigProduct = () => {
               {filtersList.sustainability &&
                 filtersList.sustainability.map((sustain) => {
                   const status =
-                    filters.sustainability &&
-                    filters.sustainability.includes(sustain);
+                    product.sustainability &&
+                    product.sustainability.includes(sustain);
                   return (
                     <div>
                       <CheckBox
@@ -330,24 +322,24 @@ const ConfigProduct = () => {
                         value={status}
                         setValue={(value) => {
                           if (!status)
-                            setFilters({
-                              ...filters,
+                            setProduct({
+                              ...product,
                               sustainability: [
-                                ...(filters.sustainability || []),
+                                ...(product.sustainability || []),
                                 sustain,
                               ],
                             });
                           else {
                             const index =
-                              filters.sustainability &&
-                              filters.sustainability.findIndex(
+                              product.sustainability &&
+                              product.sustainability.findIndex(
                                 (item) => sustain === item
                               );
-                            setFilters({
-                              ...filters,
+                            setProduct({
+                              ...product,
                               sustainability: [
-                                ...filters.sustainability.slice(0, index),
-                                ...filters.sustainability.slice(index + 1),
+                                ...product.sustainability.slice(0, index),
+                                ...product.sustainability.slice(index + 1),
                               ],
                             });
                           }
@@ -399,16 +391,19 @@ const ConfigProduct = () => {
                   <div className="mb-10">
                     <Radio
                       text="Clothing Sizes (S, M, L, etc.)"
-                      value={toggles.size === "clothing"}
+                      value={product.sizesCategory === "clothing"}
                       setValue={(value) =>
                         value
-                          ? setToggles({ ...toggles, size: "clothing" })
-                          : setToggles({ ...toggles, size: null })
+                          ? setProduct({
+                              ...product,
+                              sizesCategory: "clothing",
+                            })
+                          : setProduct({ ...product, sizesCategory: null })
                       }
                     />
                   </div>
                   <div>
-                    {toggles.size === "clothing" &&
+                    {product.sizesCategory === "clothing" &&
                       Sizes &&
                       Sizes.clothing.map((size) => (
                         <CheckBox
@@ -425,11 +420,11 @@ const ConfigProduct = () => {
                                 product.sizes &&
                                 product.sizes.findIndex((s) => s === size);
 
-                              setProducts({
+                              setProduct({
                                 ...product,
                                 sizes: [
                                   ...product.sizes.slice(0, index),
-                                  ...product.sizes(index + 1),
+                                  ...product.sizes.slice(index + 1),
                                 ],
                               });
                             }
@@ -442,16 +437,16 @@ const ConfigProduct = () => {
                   <div className="mb-10">
                     <Radio
                       text="Shoe Sizes (UK)"
-                      value={toggles.size === "shoe"}
+                      value={product.sizesCategory === "shoe"}
                       setValue={(value) =>
                         value
-                          ? setToggles({ ...toggles, size: "shoe" })
-                          : setToggles({ ...toggles, size: null })
+                          ? setProduct({ ...product, sizesCategory: "shoe" })
+                          : setProduct({ ...product, sizesCategory: null })
                       }
                     />
                   </div>
                   <div>
-                    {toggles.size === "shoe" &&
+                    {product.sizesCategory === "shoe" &&
                       Sizes &&
                       Sizes.shoe.map((size) => (
                         <CheckBox
@@ -468,11 +463,11 @@ const ConfigProduct = () => {
                                 product.sizes &&
                                 product.sizes.findIndex((s) => s === size);
 
-                              setProducts({
+                              setProduct({
                                 ...product,
                                 sizes: [
                                   ...product.sizes.slice(0, index),
-                                  ...product.sizes(index + 1),
+                                  ...product.sizes.slice(index + 1),
                                 ],
                               });
                             }
@@ -484,11 +479,11 @@ const ConfigProduct = () => {
                 <div>
                   <Radio
                     text="Not Applicable"
-                    value={toggles.size === "none"}
+                    value={product.size === "none"}
                     setValue={(value) =>
                       value
-                        ? setToggles({ ...toggles, size: "none" })
-                        : setToggles({ ...toggles, size: null })
+                        ? setProduct({ ...product, sizesCategory: "none" })
+                        : setProduct({ ...product, sizesCategory: null })
                     }
                   />
                 </div>
@@ -557,7 +552,7 @@ const ConfigProduct = () => {
             <div className="heading-wrapper mb-20">
               <h3>Price</h3>
             </div>
-            <div className="flex mb-40 flex-gap-20 flex-justify-start">
+            <div className="flex mb-40">
               <TextInput
                 type="text"
                 className="text-field w-input"
@@ -612,19 +607,23 @@ const ConfigProduct = () => {
             />
           </div>
 
-          <Button
-            name="Save"
-            type="secondary"
-            caps={true}
-            action={handleSave}
-          />
+          <div className="flex mb-20 flex-gap-20 flex-justify-start">
+            <Button
+              name="Save"
+              type="secondary"
+              caps={true}
+              loading={loading.save}
+              action={handleSave}
+            />
 
-          <input
-            type="submit"
-            value="Next Product"
-            className="button blue secondary w-button"
-            onClick={handleNext}
-          />
+            <OutlinedButton
+              loading={loading.next}
+              name="Save And Add Next"
+              type="secondary"
+              caps={true}
+              action={handleNext}
+            />
+          </div>
         </form>
       </div>
     </div>

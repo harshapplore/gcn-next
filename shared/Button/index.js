@@ -29,6 +29,12 @@ const ButtonComponent = styled.div`
   &:active {
     transform: translate(0px, 3px);
   }
+
+  span {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
 `;
 
 const OutlinedButtonComponent = styled.div`
@@ -61,6 +67,12 @@ const OutlinedButtonComponent = styled.div`
   &:active {
     transform: translate(0px, 3px);
   }
+
+  span {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
 `;
 
 export const Button = ({ name, action, type, caps, loading }) => {
@@ -83,7 +95,7 @@ export const OutlinedButton = ({ name, action, type, caps, loading }) => {
     <OutlinedButtonComponent type={type} caps={caps} onClick={action}>
       {loading && (
         <span>
-          <Loader type="Oval" color="#fff" height={24} width={24} />
+          <Loader type="Oval" color="#1a689e" height={24} width={24} />
         </span>
       )}
       <span>{name}</span>

@@ -186,7 +186,7 @@ const ShopNav = ({ name, logo, edit, children, isSellerPage }) => {
         <div className="shop-name-container">
           <h1> {name || shop.name || null}</h1>
 
-          {isSellerPage && (
+          {/* {isSellerPage && (
             <div className="edit-button-ctr">
               <OutlinedButton
                 type="secondary"
@@ -194,7 +194,7 @@ const ShopNav = ({ name, logo, edit, children, isSellerPage }) => {
                 action={() => router.push("/seller-onboarding/shop-details")}
               />
             </div>
-          )}
+          )} */}
 
           {customer.id && (
             <div className="shop-like-ctr">
@@ -221,7 +221,7 @@ const ShopNav = ({ name, logo, edit, children, isSellerPage }) => {
             </div>
           )}
         </div>
-        {isSellerPage && (
+        {/* {isSellerPage && (
           <div
             className="signout-button-ctr"
             onClick={() => {
@@ -231,7 +231,7 @@ const ShopNav = ({ name, logo, edit, children, isSellerPage }) => {
           >
             Sign Out
           </div>
-        )}
+        )} */}
       </div>
     </ShopNavContainer>
   );
