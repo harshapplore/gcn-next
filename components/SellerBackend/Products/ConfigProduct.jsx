@@ -2,6 +2,8 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 
+import { useImageInput, useMultiImageInput, useMultiImageInput2 } from "@/_hooks";
+
 import { fetchCategories } from "@/slices/categories";
 
 import Select from "@/shared/Input/Select";
@@ -46,20 +48,17 @@ const ProductImage = ({ url }) => {
   );
 };
 
-const ProductImage2 = ({ url, isMain }) => {
-  const setMain = () => {};
-
+const ProductImage2 = ({ url, isMain, setMain, removeImage }) => {
   return (
     <div>
       <div className="shop-img-link">
-        <a className="shop-delete w-inline-block cursor">
+        <a className="shop-delete w-inline-block cursor" onClick={removeImage}>
           <img src="/images/clear-black-24-dp.svg" loading="lazy" alt="Close" />
         </a>
         <img
-          src="/images/bild-header2x.jpg"
+          src={url}
           loading="lazy"
           sizes="(max-width: 479px) 46vw, 150px"
-          srcSet="/images/bild-header2x-p-500.jpeg 500w, ../images/bild-header2x-p-800.jpeg 800w, ../images/bild-header2x-p-2000.jpeg 2000w, ../images/bild-header2x-p-2600.jpeg 2600w, ../images/bild-header2x.jpg 2880w"
           alt="Handcrafted stuff"
           className="back-img"
         />
@@ -74,11 +73,59 @@ const ProductImage2 = ({ url, isMain }) => {
   );
 };
 
-const AddImageBlock = ({ product, images, setImages, files, setFiles }) => {
-  const inputRef = useRef();
-  const multiInputRef = useRef();
+const AddImageBlock = ({
+  product,
+  setProduct,
+  filesData,
+  setFilesData,
+  main,
+  setMain,
+}) => {
+  const { ref: inputRef, ...imageData } = useImageInput();
+  const [imageDataTracker, setImageDataTracker] = useState(imageData);
 
-  const [filesData, setFilesData] = useState();
+  const { ref: multiInputRef, data: imagesData, dataRef } = useMultiImageInput();
+
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!imageData.url) return;
+
+    const compare =
+      JSON.stringify(imageDataTracker) == JSON.stringify(imageData);
+
+    if (compare) return;
+
+    if (!(imageData.width >= 512 && imageData.height >= 512)) {
+      setError(
+        "Product Image should be greater than 512 pixels on both sides."
+      );
+
+      setTimeout(() => setError(""), 2000);
+      return;
+    }
+
+    if (imageData.size > 5240000) {
+      setError("Product Image cannot be larger than 5 mb.");
+      setTimeout(() => setError(""), 2000);
+      return;
+    }
+
+    setImageDataTracker(imageData);
+    setFilesData([...filesData, imageData]);
+  }, [JSON.stringify(imageData)]);
+
+  useEffect(() => {
+    if (!imagesData.length) return;
+
+    const imagesDataFiltered = imagesData.filter(
+      (image) => image.height > 512 && image.width > 512 && image.size < 5240000
+    );
+
+    setFilesData([...filesData, ...imagesData]);
+  }, [JSON.stringify(imagesData)]);
+
+  console.log(dataRef);
 
   return (
     <div className="product-add-block">
@@ -90,24 +137,53 @@ const AddImageBlock = ({ product, images, setImages, files, setFiles }) => {
           ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.
           Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc
           ut sem vitae risus tristique posuere.
+          <br /> <br />
+          <li> Image size should be less than 5 mb </li>
+          <li> Image should be greater than 512 pixels on both sides. </li>
         </p>
-      </div>
-
-      <div className="flex left mb-40">
-        <ProductImage2 />
       </div>
 
       <div className="flex left mb-40">
         {product.images &&
           product.images.length > 0 &&
           product.images.map((data, index) => (
-            <ProductImage key={"image-" + index} url={data.url} />
+            <ProductImage2
+              key={"image-" + index}
+              url={data.url}
+              removeImage={() =>
+                setProduct({
+                  ...product,
+                  images: [
+                    ...product.images.slice(0, index),
+                    ...product.images.slice(index + 1),
+                  ],
+                })
+              }
+              isMain={main.type === "image" && main.index === index}
+              setMain={() =>
+                setMain({
+                  type: "image",
+                  index,
+                })
+              }
+            />
           ))}
 
         {filesData &&
           filesData.length > 0 &&
           filesData.map((data, index) => (
-            <ProductImage key={"image-" + index} url={data} />
+            <ProductImage2
+              key={"image-" + index}
+              url={data.url}
+              removeImage={() =>
+                setFilesData([
+                  ...filesData.slice(0, index),
+                  ...filesData.slice(index + 1),
+                ])
+              }
+              isMain={main.type === "file" && main.index === index}
+              setMain={() => setMain({ type: "file", index })}
+            />
           ))}
 
         <a
@@ -118,7 +194,7 @@ const AddImageBlock = ({ product, images, setImages, files, setFiles }) => {
             ref={inputRef}
             type="file"
             className="hidden-input"
-            onChange={(e) => setFiles([...files, e.target.files[0]])}
+            // onChange={(e) => setFiles([...files, e.target.files[0]])}
           />
           <div className="new-img-wrapper cursor">
             <img
@@ -131,8 +207,16 @@ const AddImageBlock = ({ product, images, setImages, files, setFiles }) => {
           </div>
         </a>
       </div>
+
+      {error && (
+        <div className="mb-10">
+          {" "}
+          <ErrorInput message={error} />{" "}
+        </div>
+      )}
+
       <a
-        className="button icon blue w-inline-block"
+        className="button icon blue w-inline-block mb-10"
         onClick={() => triggerInput(multiInputRef)}
       >
         <div className="button-icon w-embed">
@@ -157,7 +241,6 @@ const AddImageBlock = ({ product, images, setImages, files, setFiles }) => {
           type="file"
           multiple
           className="hidden-input"
-          onChange={(e) => setFiles([...e.target.files])}
         />
         <div className="text-block">Bulk Upload</div>
       </a>
@@ -182,10 +265,18 @@ const ConfigProduct = () => {
   const [files, setFiles] = useState([]);
   const [filesData, setFilesData] = useState();
 
-  console.log(files);
-
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState({});
+
+  const [main, setMain] = useState({});
+
+  useEffect(() => {
+    if (!product.main) return;
+
+    const index = product.images.findIndex((images) => main.id === images.id);
+
+    setMain({ type: "file", index });
+  }, []);
 
   useEffect(async () => {
     if (!categories || !categories.length) dispatch(fetchCategories());
@@ -257,8 +348,10 @@ const ConfigProduct = () => {
       seller: seller.id,
     };
 
-    const uploadedFiles = files.length
-      ? (await uploadFiles(files)).map((file) => file.id)
+    const fData = filesData.map((file) => file.file);
+
+    const uploadedFiles = fData.length
+      ? (await uploadFiles(fData)).map((file) => file.id)
       : [];
 
     if (action === "add") {
@@ -302,7 +395,14 @@ const ConfigProduct = () => {
         <h2>Add product</h2>
       </div>
 
-      <AddImageBlock product={product} />
+      <AddImageBlock
+        product={product}
+        setProduct={setProduct}
+        filesData={filesData}
+        setFilesData={setFilesData}
+        main={main}
+        setMain={setMain}
+      />
 
       {/* Add Image Section */}
       <div className="product-add-block">
@@ -315,10 +415,6 @@ const ConfigProduct = () => {
             vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem
             imperdiet. Nunc ut sem vitae risus tristique posuere.
           </p>
-        </div>
-
-        <div className="flex left mb-40">
-          <ProductImage2 />
         </div>
 
         <div className="flex left mb-40">
@@ -439,13 +535,14 @@ const ConfigProduct = () => {
             <div className="mb-40">
               <label className="mb-20">Sustainability</label>
               {filtersList.sustainability &&
-                filtersList.sustainability.map((sustain) => {
+                filtersList.sustainability.map((sustain, index) => {
                   const status =
                     product.sustainability &&
                     product.sustainability.includes(sustain);
                   return (
                     <div>
                       <CheckBox
+                        key={"sustain-" + index}
                         text={sustain}
                         value={status}
                         setValue={(value) => {
@@ -533,8 +630,9 @@ const ConfigProduct = () => {
                   <div>
                     {product.sizesCategory === "clothing" &&
                       Sizes &&
-                      Sizes.clothing.map((size) => (
+                      Sizes.clothing.map((size, i) => (
                         <CheckBox
+                          key={"size-" + i}
                           text={size}
                           value={product.sizes && product.sizes.includes(size)}
                           setValue={(value) => {
@@ -576,8 +674,9 @@ const ConfigProduct = () => {
                   <div>
                     {product.sizesCategory === "shoe" &&
                       Sizes &&
-                      Sizes.shoe.map((size) => (
+                      Sizes.shoe.map((size, index) => (
                         <CheckBox
+                          key={"sz-" + index}
                           text={size}
                           value={product.sizes && product.sizes.includes(size)}
                           setValue={(value) => {
@@ -623,8 +722,9 @@ const ConfigProduct = () => {
               <label className="mb-20">Colors</label>
               <div>
                 {filtersList.colors &&
-                  filtersList.colors.map((color) => (
+                  filtersList.colors.map((color, index) => (
                     <CheckBox
+                      key={"color-" + index}
                       text={color}
                       value={product.colors && product.colors.includes(color)}
                       setValue={(value) => {

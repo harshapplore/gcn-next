@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import TextArea from "@/shared/Input/TextArea";
+import Button from "@/shared/Button";
 
 import { fetchSeller } from "@/slices/user";
 import { updateShop } from "@/_controllers/shop";
@@ -12,6 +13,12 @@ const TermsAndConditions = () => {
   const [_data, _setData] = useState({});
   const [_shop, _setShop] = useState({});
 
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!seller.id) dispatch(fetchSeller());
+  }, []);
+
   useEffect(() => {
     if (!seller.shop) {
       _setShop({});
@@ -21,13 +28,21 @@ const TermsAndConditions = () => {
     _setShop(seller.shop);
   }, [seller.shop]);
 
-  console.log("Shop", _shop, seller.shop)
-
   const updateShopHandler = async (shopId) => {
+    setLoading(true);
+
     const result = await updateShop(shopId, _data);
 
+    console.log(result, _data);
+
+    _setData({
+      returnsAndRefunds: "",
+      generalConditions: "",
+      privacyPolicy: ""
+    });
     dispatch(fetchSeller());
-    _setData({});
+
+    setLoading(false);
 
     return result;
   };
@@ -66,13 +81,12 @@ const TermsAndConditions = () => {
         />
 
         <div className="settings-spacer" />
-
-        <a
-          className="button blue mr-10"
-          onClick={() => updateShopHandler(_shop.id)}
-        >
-          Save and Continue
-        </a>
+        <Button
+          loading={loading}
+          type="secondary"
+          name="Save Changes"
+          action={() => updateShopHandler(_shop.id)}
+        />
       </div>
     </div>
   );

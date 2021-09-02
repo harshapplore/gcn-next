@@ -27,4 +27,6 @@ export const updateShop = async (id, data) => {
     method: "PUT",
     data
   });
+
+  return res.data;
 };

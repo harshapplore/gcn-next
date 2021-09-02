@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import TextInput from "@/shared/Input/Text";
+import Button from "@/shared/Button";
 
 import { fetchSeller, fetchUser } from "@/slices/user";
 
@@ -18,6 +19,8 @@ const Contact = () => {
   const [_joinDate, _setJoinDate] = useState();
   const [_data, _setData] = useState({});
   const [errors, setErrors] = useState({});
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!user.id) return;
@@ -57,6 +60,8 @@ const Contact = () => {
   const updateSellerData = async ({ sellerId, userId }) => {
     if (!validate()) return;
 
+    setLoading(true);
+
     const seller = await putSeller(sellerId, _data);
 
     const user = await putUser(userId, _data);
@@ -64,6 +69,8 @@ const Contact = () => {
     dispatch(fetchSeller());
     dispatch(fetchUser());
     _setData({});
+
+    setLoading(false);
 
     return { seller, user };
   };
@@ -145,14 +152,16 @@ const Contact = () => {
             error={errors.customerServiceEmail}
           />
         </div>
-        <a
-          className="button blue mr-10"
-          onClick={() =>
+
+        <Button
+          type="secondary"
+          name="Save Changes"
+          loading={loading}
+          caps={true}
+          action={() =>
             updateSellerData({ sellerId: seller.id, userId: user.id })
           }
-        >
-          Save Changes
-        </a>
+        />
       </div>
     </div>
   );

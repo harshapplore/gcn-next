@@ -36,7 +36,7 @@ const ProductCard = ({ name, image, id, product }) => {
     const { _id, filters } = prod;
 
     const product = await putProduct(_id, {
-      stock: !prod.stock
+      stock: !prod.stock,
     });
 
     console.log(product);
@@ -157,8 +157,8 @@ const ProductListItem = ({ product }) => {
     return product;
   };
 
-  const delProduct = async () => {
-    const product = await deleteProduct(product.id);
+  const delProduct = async (id) => {
+    const product = await deleteProduct(id);
     location.reload();
   };
 
@@ -168,7 +168,7 @@ const ProductListItem = ({ product }) => {
     const { _id, stock } = prod;
 
     const product = await putProduct(_id, {
-      stock: !stock
+      stock: !stock,
     });
 
     console.log(product);
@@ -213,7 +213,10 @@ const ProductListItem = ({ product }) => {
         </span>{" "}
         in Stock
       </div>
-      <a className="shop-product-list-status w-inline-block" onClick={(e) => updateStock(e, product)}>
+      <a
+        className="shop-product-list-status w-inline-block"
+        onClick={(e) => updateStock(e, product)}
+      >
         <img
           src={
             product.stock
@@ -226,7 +229,13 @@ const ProductListItem = ({ product }) => {
           alt="checked"
         />
       </a>
-      <a className="shop-product-list-menu w-inline-block" >
+      <a
+        className="shop-product-list-menu w-inline-block cursor"
+        onClick={(e) => {
+          e.stopPropagation();
+          _setOpenContext(!_openContext);
+        }}
+      >
         <img
           src="/images/expand-more-black-24-dp-copy-6.svg"
           loading="lazy"
@@ -236,7 +245,40 @@ const ProductListItem = ({ product }) => {
         />
       </a>
 
-      {_openContext && ""}
+      {_openContext && (
+        <div className="product-context-menu">
+          <a
+            className="context-link"
+            onClick={() => router.push(`/product/${id}`)}
+          >
+            View
+          </a>
+          <a
+            className="context-link"
+            onClick={() => router.push(BASE_ROUTE + PRODUCTS + EDIT_ACTION(id))}
+          >
+            Edit
+          </a>
+          <a
+            className="context-link"
+            onClick={(e) => {
+              e.stopPropagation();
+              duplicateProduct(product);
+            }}
+          >
+            Duplicate
+          </a>
+          <a
+            className="context-link"
+            onClick={(e) => {
+              e.stopPropagation();
+              delProduct(product.id);
+            }}
+          >
+            Delete
+          </a>
+        </div>
+      )}
     </div>
   );
 };
@@ -379,7 +421,11 @@ const Products = () => {
 
       {view === "list" && (
         <div className="shop-product-list mb-40">
-          <ProductListItem product={products[0]} />
+          {products &&
+            products.length > 0 &&
+            products.map((product, index) => (
+              <ProductListItem key={"product-" + index} product={product} />
+            ))}
         </div>
       )}
 

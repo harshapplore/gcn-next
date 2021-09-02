@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchSeller } from "@/slices/seller";
 
 import TextInput from "@/shared/Input/Text";
+import Button from "@/shared/Button";
 
 import { updateShop } from "@/_controllers/shop";
 
@@ -15,6 +16,8 @@ const ShopInfo = () => {
   const [_shop, _setShop] = useState({});
   const [_data, _setData] = useState({});
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (!seller.shop) {
       _setShop({});
@@ -25,11 +28,14 @@ const ShopInfo = () => {
   }, [seller.shop]);
 
   const updateShopHandler = async (shopId) => {
+    setLoading(true);
+
     const result = await updateShop(shopId, _data);
 
     dispatch(fetchSeller());
     _setData({});
 
+    setLoading(false);
     return result;
   };
 
@@ -80,12 +86,14 @@ const ShopInfo = () => {
             setValue={(value) => _setData({ ..._data, vat: value })}
           />
         </div>
-        <a
-          className="button blue mr-10"
-          onClick={() => updateShopHandler(_shop.id)}
-        >
-          Save Changes
-        </a>
+
+        <Button
+          type="secondary"
+          loading={loading}
+          name="Save Changes"
+          caps={true}
+          action={() => updateShopHandler(_shop.id)}
+        />
       </div>
     </div>
   );
