@@ -19,5 +19,22 @@
     "Handmade and made to Order",
     "Recyclabe, Compostable, and Biodegradable"
   ],
-  "colors": ["Red", "Green", "Yellow", "Blue", "Pink", "Other"]
+  "colors": [
+    "White",
+    "Yellow",
+    "Blue",
+    "Red",
+    "Green",
+    "Black",
+    "Brown",
+    "Silver",
+    "Gold",
+    "Purple",
+    "Navy blue",
+    "Grey",
+    "Orange",
+    "Pink",
+    "Turquoise",
+    "Violet"
+  ]
 }

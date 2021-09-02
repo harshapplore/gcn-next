@@ -46,6 +46,125 @@ const ProductImage = ({ url }) => {
   );
 };
 
+const ProductImage2 = ({ url, isMain }) => {
+  const setMain = () => {};
+
+  return (
+    <div>
+      <div className="shop-img-link">
+        <a className="shop-delete w-inline-block cursor">
+          <img src="/images/clear-black-24-dp.svg" loading="lazy" alt="Close" />
+        </a>
+        <img
+          src="/images/bild-header2x.jpg"
+          loading="lazy"
+          sizes="(max-width: 479px) 46vw, 150px"
+          srcSet="/images/bild-header2x-p-500.jpeg 500w, ../images/bild-header2x-p-800.jpeg 800w, ../images/bild-header2x-p-2000.jpeg 2000w, ../images/bild-header2x-p-2600.jpeg 2600w, ../images/bild-header2x.jpg 2880w"
+          alt="Handcrafted stuff"
+          className="back-img"
+        />
+        <CheckBox
+          type="secondary"
+          text="Main"
+          value={isMain}
+          setValue={setMain}
+        />
+      </div>
+    </div>
+  );
+};
+
+const AddImageBlock = ({ product, images, setImages, files, setFiles }) => {
+  const inputRef = useRef();
+  const multiInputRef = useRef();
+
+  const [filesData, setFilesData] = useState();
+
+  return (
+    <div className="product-add-block">
+      <div className="heading-wrapper mb-40">
+        <h3>Add Photos</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          varius enim in eros elementum tristique. Duis cursus, mi quis viverra
+          ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.
+          Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc
+          ut sem vitae risus tristique posuere.
+        </p>
+      </div>
+
+      <div className="flex left mb-40">
+        <ProductImage2 />
+      </div>
+
+      <div className="flex left mb-40">
+        {product.images &&
+          product.images.length > 0 &&
+          product.images.map((data, index) => (
+            <ProductImage key={"image-" + index} url={data.url} />
+          ))}
+
+        {filesData &&
+          filesData.length > 0 &&
+          filesData.map((data, index) => (
+            <ProductImage key={"image-" + index} url={data} />
+          ))}
+
+        <a
+          className="shop-img-link w-inline-block"
+          onClick={() => triggerInput(inputRef)}
+        >
+          <input
+            ref={inputRef}
+            type="file"
+            className="hidden-input"
+            onChange={(e) => setFiles([...files, e.target.files[0]])}
+          />
+          <div className="new-img-wrapper cursor">
+            <img
+              src="/images/expand-more-black-24-dp.svg"
+              loading="lazy"
+              alt="icon"
+              className="mb-10"
+            />
+            <div>Add image</div>
+          </div>
+        </a>
+      </div>
+      <a
+        className="button icon blue w-inline-block"
+        onClick={() => triggerInput(multiInputRef)}
+      >
+        <div className="button-icon w-embed">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            enableBackground="new 0 0 24 24"
+            height="24px"
+            viewBox="0 0 24 24"
+            width="24px"
+            fill="currentColor"
+          >
+            <g>
+              <rect fill="none" height={24} width={24} />
+            </g>
+            <g>
+              <path d="M18,15v3H6v-3H4v3c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2v-3H18z M7,9l1.41,1.41L11,7.83V16h2V7.83l2.59,2.58L17,9l-5-5L7,9z" />
+            </g>
+          </svg>
+        </div>
+        <input
+          ref={multiInputRef}
+          type="file"
+          multiple
+          className="hidden-input"
+          onChange={(e) => setFiles([...e.target.files])}
+        />
+        <div className="text-block">Bulk Upload</div>
+      </a>
+    </div>
+  );
+};
+
 const ConfigProduct = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -62,6 +181,8 @@ const ConfigProduct = () => {
 
   const [files, setFiles] = useState([]);
   const [filesData, setFilesData] = useState();
+
+  console.log(files);
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState({});
@@ -86,7 +207,9 @@ const ConfigProduct = () => {
   useEffect(() => {
     if (loading.save === false) router.push(BASE_ROUTE + PRODUCTS);
 
-    if (loading.next === false) router.push(BASE_ROUTE + PRODUCTS + ADD_ACTION);
+    if (loading.next === false) {
+      location.reload();
+    }
   }, [loading]);
 
   const validate = () => {
@@ -173,13 +296,13 @@ const ConfigProduct = () => {
     setLoading({ next: false });
   };
 
-  console.log("Product ==> ", product);
-
   return (
     <div className="dynamic-content">
       <div className="heading-wrapper mb-40">
         <h2>Add product</h2>
       </div>
+
+      <AddImageBlock product={product} />
 
       {/* Add Image Section */}
       <div className="product-add-block">
@@ -193,6 +316,11 @@ const ConfigProduct = () => {
             imperdiet. Nunc ut sem vitae risus tristique posuere.
           </p>
         </div>
+
+        <div className="flex left mb-40">
+          <ProductImage2 />
+        </div>
+
         <div className="flex left mb-40">
           {product.images &&
             product.images.length > 0 &&

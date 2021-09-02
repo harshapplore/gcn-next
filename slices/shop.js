@@ -8,7 +8,8 @@ export const fetchShopProducts = createAsyncThunk(
   async (shopId) => {
 
     const query = {
-      shop: shopId
+      shop: shopId,
+      _sort: "createdAt:desc"
     }
 
     const response = await authAxios()({

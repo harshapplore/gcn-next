@@ -36,7 +36,8 @@ const UserPopup = () => {
             <a
               className="nav-link account w-inline-block cursor"
               onClick={() => {
-                if (user.type === "seller") router.push(SELLER_MAIN);
+                if (user.type === "seller")
+                  router.push(SELLER_MAIN + "/products");
                 if (user.type === "customer") router.push(CUSTOMER_MAIN);
               }}
             >
