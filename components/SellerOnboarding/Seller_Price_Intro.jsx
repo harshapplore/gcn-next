@@ -7,10 +7,7 @@ import ProgressBar from "./Utils/ProgressBar";
 const Seller_Price_Intro = ({ nextPage }) => {
     const { seller } = useSelector((state) => state.user);
     const [errors, setErrors] = useState([]);
-    
-
-
-
+  
     const validate = () => {
         const err = [];
 
