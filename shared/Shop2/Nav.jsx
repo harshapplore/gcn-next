@@ -180,8 +180,8 @@ const ShopNav = ({ name, logo, edit, children, isSellerPage }) => {
       <div className="left-container">
         <div className="image-container">
           {edit && (
-            <div className="edit-logo-button cursor">
-              <img src="/icons/edit-icon.svg" alt="edit-icon" />
+            <div className="edit-logo-button cursor" onClick={() => triggerInput(inputRef)}>
+              <img src="/icons/edit-icon.svg" alt="edit-icon"/>
               <span> Change Logo </span>
             </div>
           )}

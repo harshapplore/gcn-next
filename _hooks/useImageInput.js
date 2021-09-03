@@ -22,6 +22,7 @@ export function useImageInput() {
           width: image.width,
           height: image.height,
           file,
+          hash: Math.floor(Math.random() * 100)
         });
       };
     };

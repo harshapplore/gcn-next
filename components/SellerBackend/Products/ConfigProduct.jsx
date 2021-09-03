@@ -2,7 +2,10 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 
-import { useImageInput, useMultiImageInput, useMultiImageInput2 } from "@/_hooks";
+import {
+  useImageInput,
+  useMultiImageInput,
+} from "@/_hooks";
 
 import { fetchCategories } from "@/slices/categories";
 
@@ -84,17 +87,18 @@ const AddImageBlock = ({
   const { ref: inputRef, ...imageData } = useImageInput();
   const [imageDataTracker, setImageDataTracker] = useState(imageData);
 
-  const { ref: multiInputRef, data: imagesData, dataRef } = useMultiImageInput();
+  const {
+    ref: multiInputRef,
+    data: imagesData,
+    dataRef,
+  } = useMultiImageInput();
 
   const [error, setError] = useState("");
 
+  console.log(imageData);
+
   useEffect(() => {
     if (!imageData.url) return;
-
-    const compare =
-      JSON.stringify(imageDataTracker) == JSON.stringify(imageData);
-
-    if (compare) return;
 
     if (!(imageData.width >= 512 && imageData.height >= 512)) {
       setError(
@@ -124,8 +128,6 @@ const AddImageBlock = ({
 
     setFilesData([...filesData, ...imagesData]);
   }, [JSON.stringify(imagesData)]);
-
-  console.log(dataRef);
 
   return (
     <div className="product-add-block">
@@ -270,13 +272,17 @@ const ConfigProduct = () => {
 
   const [main, setMain] = useState({});
 
+  console.log(product); 
+
   useEffect(() => {
     if (!product.main) return;
 
-    const index = product.images.findIndex((images) => main.id === images.id);
+    const index = product.images.findIndex((image) => product.main.id === image.id);
 
-    setMain({ type: "file", index });
-  }, []);
+    console.log("Index", index);
+
+    setMain({ type: "image", index });
+  }, [product]);
 
   useEffect(async () => {
     if (!categories || !categories.length) dispatch(fetchCategories());
@@ -284,7 +290,6 @@ const ConfigProduct = () => {
 
     if (action === "edit") {
       const product = await getProduct(id);
-      console.log("//", product);
       setProduct(product);
       setFilters(product.filters || {});
     }
@@ -357,11 +362,23 @@ const ConfigProduct = () => {
     if (action === "add") {
       await addProduct({
         ...productData,
+        main: main.index ? uploadedFiles[main.index] : uploadedFiles[0],
         images: uploadedFiles,
       });
     } else if (action === "edit") {
+      let mainImage;
+
+      if (main.type === "image") mainImage = product.images[main.index];
+
+      if (main.type === "file") mainImage = uploadedFiles[main.index];
+
+      if (!main.index) {
+        mainImage = uploadedFiles[0];
+      }
+
       await putProduct(product.id, {
         ...productData,
+        main: mainImage,
         images: [...product.images, ...uploadedFiles],
       });
     }

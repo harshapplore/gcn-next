@@ -192,11 +192,10 @@ const ProductListItem = ({ product }) => {
     >
       <a className="shop-product-list-img w-inline-block">
         <img
-          src="/images/bild-header2x.jpg"
+          src={product.main && product.main.url}
           loading="lazy"
           sizes="(max-width: 479px) 25vw, 60px"
-          srcSet="/images/bild-header2x-p-500.jpeg 500w, /images/bild-header2x-p-800.jpeg 800w, /images/bild-header2x-p-2000.jpeg 2000w, /images/bild-header2x-p-2600.jpeg 2600w, /images/bild-header2x.jpg 2880w"
-          alt="Handcrafted stuff"
+          alt={product.name}
           className="back-img"
         />
       </a>
