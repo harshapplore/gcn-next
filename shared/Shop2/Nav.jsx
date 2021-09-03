@@ -10,11 +10,7 @@ import user, { fetchSeller } from "@/slices/user";
 import styled from "styled-components";
 import { OutlinedButton } from "../Button";
 
-import {
-  addToFavorites,
-  deleteFavorite,
-  deleteFavorites,
-} from "_controllers/customer";
+import { addToFavorites, deleteFavorite } from "_controllers/customer";
 import { fetchFavoriteShops } from "@/slices/favorites";
 
 const ShopNavContainer = styled.div`
@@ -29,8 +25,8 @@ const ShopNavContainer = styled.div`
       height: 200px;
 
       display: flex;
-      justify-content: center;
-      align-items: center;
+      justify-content: flex-end;
+      align-items: flex-end;
 
       background: ${({ logo }) =>
         logo ? `url("${logo}")` : "var(--background)"};
@@ -38,10 +34,20 @@ const ShopNavContainer = styled.div`
 
       background-repeat: no-repeat;
       background-size: cover;
+      background-position: center;
       border: 0.5px solid rgba(0, 0, 0, 0.05);
       box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.35);
 
       transform: translateY(-30%);
+    }
+
+    .edit-logo-button {
+      color: var(--primary);
+      transform: translateX(85px);
+
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
   }
 
@@ -104,7 +110,8 @@ const ShopNav = ({ name, logo, edit, children, isSellerPage }) => {
   }, [customer]);
 
   useEffect(() => {
-    const isFav = favoriteShops && favoriteShops.filter((fav) => fav.shop === shop.id);
+    const isFav =
+      favoriteShops && favoriteShops.filter((fav) => fav.shop === shop.id);
 
     _setIsFavorite(isFav.length ? true : false);
     isFav && setFavId(isFav[0]);
@@ -140,14 +147,14 @@ const ShopNav = ({ name, logo, edit, children, isSellerPage }) => {
   };
 
   const toggleFavorites = async () => {
-    const {id} = router.query;
+    const { id } = router.query;
 
     if (!_isFavorite) {
       await addToFavorites({
         customerId: customer.id,
         userId: user.id,
         type: "Shop",
-        shop: id
+        shop: id,
       });
     } else {
       await deleteFavorite(favId);
@@ -173,11 +180,10 @@ const ShopNav = ({ name, logo, edit, children, isSellerPage }) => {
       <div className="left-container">
         <div className="image-container">
           {edit && (
-            <OutlinedButton
-              type="secondary"
-              name="Add Logo"
-              action={() => triggerInput(inputRef)}
-            />
+            <div className="edit-logo-button cursor">
+              <img src="/icons/edit-icon.svg" alt="edit-icon" />
+              <span> Change Logo </span>
+            </div>
           )}
         </div>
       </div>
@@ -185,16 +191,6 @@ const ShopNav = ({ name, logo, edit, children, isSellerPage }) => {
         {children}
         <div className="shop-name-container">
           <h1> {name || shop.name || null}</h1>
-
-          {/* {isSellerPage && (
-            <div className="edit-button-ctr">
-              <OutlinedButton
-                type="secondary"
-                name="edit"
-                action={() => router.push("/seller-onboarding/shop-details")}
-              />
-            </div>
-          )} */}
 
           {customer.id && (
             <div className="shop-like-ctr">

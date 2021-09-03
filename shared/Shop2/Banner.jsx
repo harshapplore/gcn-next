@@ -5,11 +5,12 @@ import { triggerInput } from "libs/upload";
 import { fetchSeller } from "@/slices/user";
 import { authAxios } from "@/setups/axios";
 
+import Loader from "react-loader-spinner";
+
 import styled from "styled-components";
-import { OutlinedButton } from "../Button";
 
 const BannerContainer = styled.div`
-  height: ${({height}) => height? height : '350px'};
+  height: ${({ height }) => (height ? height : "350px")};
   background: ${({ cover }) =>
     cover ? `url('${cover}')` : "var(--background)"};
 
@@ -17,8 +18,25 @@ const BannerContainer = styled.div`
   background-size: 100vw;
 
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
+  align-items: flex-end;
+
+  .cover-edit-button {
+    background: var(--primary);
+    color: #fff;
+    margin: 20px;
+    padding: 10px 25px;
+    border-radius: 25px;
+
+    &:hover {
+      box-shadow: 1px 1px 2px -5px rgba(0, 0, 0, 0.25);
+    }
+
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+  }
 
   @media (max-width: 700px) {
     display: none;
@@ -31,6 +49,8 @@ const ShopBanner = ({ cover, edit, height }) => {
   const inputRef = useRef();
 
   const [shop, setShop] = useState({});
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (seller && seller.shop) setShop(seller.shop);
@@ -54,6 +74,8 @@ const ShopBanner = ({ cover, edit, height }) => {
     formData.append("ref", "shop");
     formData.append("refId", data.id || seller.shop.id);
 
+    setLoading(true);
+
     const res = await authAxios()({
       url: "/upload",
       method: "POST",
@@ -63,6 +85,8 @@ const ShopBanner = ({ cover, edit, height }) => {
     if (res) {
       dispatch(fetchSeller());
     }
+
+    setLoading(false);
   };
 
   return (
@@ -83,11 +107,16 @@ const ShopBanner = ({ cover, edit, height }) => {
       />
 
       {edit && (
-        <OutlinedButton
-          type="secondary"
-          name="Add Cover"
-          action={() => triggerInput(inputRef)}
-        />
+        <div
+          className="cover-edit-button cursor"
+          onClick={() => triggerInput(inputRef)}
+        >
+          {loading &&
+          <div className="loader-conatiner">
+              <Loader type="Oval" color="#fff" height={18} width={18} />
+          </div> }
+          <span> Change Cover </span>
+        </div>
       )}
     </BannerContainer>
   );

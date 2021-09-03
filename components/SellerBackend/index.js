@@ -63,8 +63,8 @@ const SellerBackend = () => {
       <Header nav={<Nav />} />
       <Fetcher />
       <div className="page-section pt-0">
-        <ShopBanner />
-        <ShopNav isSellerPage />
+        <ShopBanner edit={true} />
+        <ShopNav isSellerPage edit={true}/>
 
         <div className={styles["shop-main-ctr"]}>
           <div className={styles["side-ctr"]} id="backend-view">
