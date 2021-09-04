@@ -137,7 +137,11 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                                             type="radio"
                                             onChange={() => setSMV("yes")}
                                             value={SMV}
+<<<<<<< HEAD
                                             checked={SMV === "yes"}
+=======
+                                            checked={SMV === "Mr."}
+>>>>>>> b8eef04e793b22ec91f3fe466423b0cd40bfc4c9
                                             data-name="Has defined its mission statement, vision and values." 
                                             id="Yes-2" name="Has-defined-its-mission-statement-vision-and-values" required=""
                                             style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
