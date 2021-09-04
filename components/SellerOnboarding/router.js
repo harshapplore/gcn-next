@@ -1,6 +1,14 @@
 /* Setting to route through pages of the onboarding screen. */
 
 const GET_STARTED = "get-started";
+const BASIC_INFO = "basic-info";
+const VISION_STRATEGY = "vision-strategy";
+const GOVERNANCE_MANAGEMENT = "governance-and-management";
+const SOCIAL = "social";
+const ENVIRONMENT = "environment";
+const DONE = "about-done";
+const PRICING_INTRO = "pricing-intro";
+const PRICING_PLAN = "pricing-plan";
 const PRICING = "pricing";
 const SHOP_INFO = "shop-info";
 const CONTACT_INFO = "contact-info";
@@ -12,6 +20,14 @@ const SHOP_DETAILS = "shop-details";
 
 export const pages = [
   GET_STARTED,
+  BASIC_INFO,
+  VISION_STRATEGY,
+  GOVERNANCE_MANAGEMENT,
+  DONE,
+  PRICING_INTRO,
+  PRICING_PLAN,
+  SOCIAL,
+  ENVIRONMENT,
   PRICING,
   SHOP_INFO,
   CONTACT_INFO,
