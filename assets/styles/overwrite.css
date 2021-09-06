@@ -127,12 +127,40 @@ select {
 
 /* Flex Classes New */
 
+.flex-2{
+  display: flex;
+}
+
 .flex-gap-20 {
   gap: 20px;
 }
 
+.flex-gap-10 {
+  gap: 10px;
+}
+
 .flex-justify-start {
   justify-content: flex-start;
+}
+
+.flex-justify-around {
+  justify-content: space-around;
+}
+
+.flex-justify-between {
+  justify-content: space-between;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-1 > * {
+  flex: 1;
+}
+
+.width-100 {
+  width: 100%;
 }
 
 /* Margins */

@@ -13,9 +13,9 @@ const Seller_About_Done = ({ nextPage }) => {
     // }, [seller]);
 
 console.log(nextPage)
-
+   
     // const validate = () => {
-    //     const err = [];
+    //     const err = [];;
 
 
     //     setErrors(err);

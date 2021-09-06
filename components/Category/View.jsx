@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchCategories } from "@/slices/categories";
 import { fetchFavoriteItems, fetchFavoriteShops } from "@/slices/favorites";
 
+import TopFilter from "@/shared/Shop2/Filters/Top";
+
 import Select from "@/shared/Input/Select";
 import Toggle from "@/shared/Input/Toggle";
 
@@ -205,7 +207,7 @@ const View = () => {
       </div>
 
       <div className="container">
-        <div className="flex">
+        <div className="flex-2">
           <div className="shop-filter popup-mobile mt-40">
             <div className="scroll-y">
               <div className="filter-mobile-block w-form">
@@ -330,6 +332,12 @@ const View = () => {
             </div>
             <Toggle name="Free Delivery" value="" setValue={() => {}} />
 
+            <CheckBox
+              text="Sale"
+              value={filters.sale}
+              setValue={(value) => setFilters({ ...filters, sale: value })}
+            />
+
             <div className="mobile-only">
               <div className="center">
                 <a className="button gray w-inline-block">
@@ -446,58 +454,10 @@ const View = () => {
                 <div className="text-block">50-150€</div>
               </a>
             </div>
-            <div className="hide-mobile">
-              <div>
-                <div className="w-form">
-                  <form id="email-form-3" className="flex left-4">
-                    <Select
-                      placeholder="Sustainability"
-                      choices={["First", "Second", "Third"]}
-                      value={filters.sustainability}
-                      setValue={(value) =>
-                        setFilters({ ...filters, sustainability: value })
-                      }
-                    />
-
-                    <Select
-                      placeholder="Brand"
-                      choices={["First", "Second", "Third"]}
-                      value={filters.brand}
-                      setValue={(value) =>
-                        setFilters({ ...filters, brand: value })
-                      }
-                    />
-
-                    <Select
-                      placeholder="Price"
-                      choices={["First", "Second", "Third"]}
-                      value={filters.price}
-                      setValue={(value) =>
-                        setFilters({ ...filters, price: value })
-                      }
-                    />
-
-                    <Select
-                      placeholder="Colour"
-                      choices={["First", "Second", "Third"]}
-                      value={filters.color}
-                      setValue={(value) =>
-                        setFilters({ ...filters, color: value })
-                      }
-                    />
-
-                    <CheckBox text="Sale" value={false} setValue={() => {}} />
-
-                    <Select
-                      placeholder="Sort By"
-                      choices={["First", "Second", "Third"]}
-                      value={filters.sortBy}
-                      setValue={(value) =>
-                        setFilters({ ...filters, sortBy: value })
-                      }
-                    />
-                  </form>
-                </div>
+            {/* className="hide-mobile" */}
+            <div>
+              <div className="flex flex-justify-start flex-gap-10 flex-1 mb-40">
+                <TopFilter filters={filters} setFilters={setFilters} />
               </div>
             </div>
             <div className="flex left-4">
