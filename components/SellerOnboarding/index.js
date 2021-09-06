@@ -30,6 +30,8 @@ import Seller_About_Done from "./Seller_About_Done";
 import Seller_Price_Intro from "./Seller_Price_Intro";
 import Seller_Price_Plan from "./Seller_Price_Plan";
 import Seller_Governance_Management from "./Seller_Governance_Management";
+import Seller_Social from "./Seller_Social";
+import Seller_Environmental from "./Seller_Environmental";
 
 const SellerOnboarding = () => {
   const router = useRouter();
@@ -91,17 +93,19 @@ const SellerOnboarding = () => {
 
       {/* {activePageIndex === 2 && <ShopInfo next={nextPage} />} */}
       {activePageIndex === 3 && <Seller_Governance_Management nextPage={nextPage} />}
-      {activePageIndex === 4 && <Seller_About_Done nextPage={nextPage} />}
+      {activePageIndex === 4 && <Seller_Social nextPage={nextPage} />}
+      {activePageIndex === 5 && <Seller_Environmental nextPage={nextPage} />}
+      {activePageIndex === 6 && <Seller_About_Done nextPage={nextPage} />}
       {/* {activePageIndex === 3 && <ContactInfo next={nextPage} />} */}
       {/* {activePageIndex === 4 && <GetPaidInfo next={nextPage} />} */}
-      {activePageIndex === 5 && <Seller_Price_Intro nextPage={nextPage} />}
+      {activePageIndex === 7 && <Seller_Price_Intro nextPage={nextPage} />}
       {/* {activePageIndex === 5 && <PaymentOptionsInfo next={nextPage} />} */}
-      {activePageIndex === 6 && < Seller_Price_Plan nextPage={nextPage} />}
+      {activePageIndex === 8 && < Seller_Price_Plan nextPage={nextPage} />}
       {/* Page 4 */}
-      {activePageIndex === 7 && <TermsNConditions nextPage={nextPage} />}
+      {activePageIndex === 9 && <TermsNConditions nextPage={nextPage} />}
       {/* Page 5 */}
-      {activePageIndex === 8 && <ShopName nextPage={nextPage} />}
-      {activePageIndex === 9 && <ShopDetails />}
+      {activePageIndex === 10 && <ShopName nextPage={nextPage} />}
+      {activePageIndex === 11 && <ShopDetails />}
       <Footer />
     </>
   );
