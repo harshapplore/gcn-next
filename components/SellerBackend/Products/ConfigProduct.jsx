@@ -105,13 +105,13 @@ const AddImageBlock = ({
         "Product Image should be greater than 512 pixels on both sides."
       );
 
-      setTimeout(() => setError(""), 2000);
+      setTimeout(() => setError(""), 5000);
       return;
     }
 
     if (imageData.size > 5240000) {
       setError("Product Image cannot be larger than 5 mb.");
-      setTimeout(() => setError(""), 2000);
+      setTimeout(() => setError(""), 5000);
       return;
     }
 
@@ -338,6 +338,9 @@ const ConfigProduct = () => {
     if (product.sale && !product.salePrice)
       errors.salePrice = "Please provide the Product price during sale.";
 
+    if(action === "add" && filesData.length === 0)
+      errors.images = "You must provide at least one product image.";
+
     setErrors(errors);
 
     if (Object.keys(errors).length) return false;
@@ -409,7 +412,7 @@ const ConfigProduct = () => {
   return (
     <div className="dynamic-content">
       <div className="heading-wrapper mb-40">
-        <h2>Add product</h2>
+        <h2> Add product </h2>
       </div>
 
       <AddImageBlock
@@ -420,8 +423,9 @@ const ConfigProduct = () => {
         main={main}
         setMain={setMain}
       />
+      {errors.images && <ErrorInput message={errors.images}/>}
 
-      {/* Add Image Section */}
+      {/* Add Image Section
       <div className="product-add-block">
         <div className="heading-wrapper mb-40">
           <h3>Add Photos</h3>
@@ -498,7 +502,7 @@ const ConfigProduct = () => {
           />
           <div className="text-block">Bulk Upload</div>
         </a>
-      </div>
+      </div> */}
 
       <div className="w-form">
         <form>

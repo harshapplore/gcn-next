@@ -1,8 +1,11 @@
 import React from "react";
 import { Provider } from "react-redux";
+import { Provider as UrqlProvider } from "urql";
 
 import Head from "next/head";
 import store from "store";
+
+import urqlClient from "setups/urql";
 
 import "@/assets/styles/normalize.css";
 import "@/assets/styles/webflow.css";
@@ -62,7 +65,9 @@ function MyApp({ Component, pageProps }) {
         />
         <meta name="robots" content="noindex,nofollow" />
       </Head>
-      <Component {...pageProps} />
+      <UrqlProvider value={urqlClient}>
+        <Component {...pageProps} />
+      </UrqlProvider>
     </Provider>
   );
 }
