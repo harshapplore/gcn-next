@@ -67,7 +67,7 @@ const DownIcon = () => {
         strokeLinecap="butt"
         strokeLinejoin="miter"
         strokeMiterlimit={10}
-        strokeDasharray
+        strokeDasharray="true"
         strokeDashoffset={0}
         fontFamily="none"
         fontWeight="none"
@@ -129,15 +129,14 @@ const CheckDropdown = ({ choices, value, setValue, placeholder, width }) => {
   };
 
   const toggleChoice = (choice) => {
-    const index = value.findIndex(val => val === choice);
+    const index = value.findIndex((val) => val === choice);
 
-    if(index === -1){
+    if (index === -1) {
       setValue([...value, choice]);
-    }else{
+    } else {
       setValue([...value.slice(0, index), ...value.slice(index + 1)]);
     }
-      
-  }
+  };
 
   return (
     <DropdownContainer width={width}>
@@ -167,7 +166,7 @@ const CheckDropdown = ({ choices, value, setValue, placeholder, width }) => {
             <div
               key={"choice" + index}
               className="d-list-item"
-              onClick={e => {
+              onClick={(e) => {
                 e.stopPropagation();
                 toggleChoice(choice);
               }}
