@@ -173,8 +173,20 @@ const View = () => {
   const [filters, setFilters] = useState({});
 
   useEffect(async () => {
-    const { id } = router.query;
-    const products = await getProducts({ category: id });
+    const products = await getProducts();
+
+    /// !todo: map url to page reload
+    const {
+      category,
+      sustainability,
+      shop,
+      price,
+      color,
+      sortBy,
+      deliversTo,
+      shopLocation,
+      deliveryTimes,
+    } = router.query;
 
     if (products && products.length) setProducts(products);
   }, [router.query]);
@@ -213,9 +225,8 @@ const View = () => {
             <div className="scroll-y">
               <div>
                 <SideFilter filters={filters} setFilters={setFilters} />
-
               </div>
-            </div>  
+            </div>
           </div>
           <div className="shop-content">
             <div className="mobile-only mb-20">

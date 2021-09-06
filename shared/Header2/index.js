@@ -14,7 +14,12 @@ const Header = ({ nav }) => {
   const {errors} = useSelector(state => state.errors);
 
   const [showForm, setShowForm] = useState(false);
+  const [search, setSearch] = useState("");
 
+  useEffect(() => {
+    const {search} = router.query;
+    if(search) setSearch(search);
+  }, [router.query]);
 
   return (
     <div className="navbar">
@@ -24,12 +29,12 @@ const Header = ({ nav }) => {
 
       <div className="navbar-top">
         <div className="brand-wrapper" onClick={() => router.push("/")}>
-          <a className="brand w-inline-block w--current">
+          <a className="brand w-inline-block w--current cursor">
             <img src="/images/fill-2.svg" alt="Green Cloud Nine Logo" />
           </a>
         </div>
         <div className="form-search w-form">
-          <form
+          <div
             id="search-form"
             name="search-form"
             data-name="Search Form"
@@ -38,19 +43,18 @@ const Header = ({ nav }) => {
             <input
               type="text"
               className="search-bar w-input"
-              maxLength={256}
-              name="Searchbar"
-              data-name="Searchbar"
               placeholder="I'm searching for"
-              id="Searchbar"
-              required
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              onKeyUp={(e) => e.keyCode === 13? router.push(`/search?search=${search}`): ""}
             />
             <img
               src="/images/search-black-24-dp.svg"
               alt="search"
-              className="search-icon"
+              className="search-icon cursor"
+              onClick={() => router.push(`/search?search=${search}`)}
             />
-          </form>
+        </div>
         </div>
         <div className="clearfix" />
         <div className="right-icon-nav">

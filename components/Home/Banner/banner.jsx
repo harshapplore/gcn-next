@@ -17,7 +17,10 @@ const Banner = () => {
       />
       <div className="container">
         <div className="home-banner-content">
-          <div className="button icon orange mx-10 w-inline-block">
+          <div
+            className="button icon orange mx-10 w-inline-block"
+            onClick={() => router.push("/products")}
+          >
             <div className="button-icon w-embed">
               <Image {...UpIcon} alt="" />
             </div>

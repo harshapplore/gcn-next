@@ -2,10 +2,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 
-import {
-  useImageInput,
-  useMultiImageInput,
-} from "@/_hooks";
+import { useImageInput, useMultiImageInput } from "@/_hooks";
 
 import { fetchCategories } from "@/slices/categories";
 
@@ -272,12 +269,14 @@ const ConfigProduct = () => {
 
   const [main, setMain] = useState({});
 
-  console.log(product); 
+  console.log("Product", product);
 
   useEffect(() => {
     if (!product.main) return;
 
-    const index = product.images.findIndex((image) => product.main.id === image.id);
+    const index = product.images.findIndex(
+      (image) => product.main.id === image.id
+    );
 
     console.log("Index", index);
 
@@ -338,7 +337,7 @@ const ConfigProduct = () => {
     if (product.sale && !product.salePrice)
       errors.salePrice = "Please provide the Product price during sale.";
 
-    if(action === "add" && filesData.length === 0)
+    if (action === "add" && filesData.length === 0)
       errors.images = "You must provide at least one product image.";
 
     setErrors(errors);
@@ -369,19 +368,17 @@ const ConfigProduct = () => {
         images: uploadedFiles,
       });
     } else if (action === "edit") {
-      let mainImage;
 
-      if (main.type === "image") mainImage = product.images[main.index];
-
-      if (main.type === "file") mainImage = uploadedFiles[main.index];
-
-      if (!main.index) {
-        mainImage = uploadedFiles[0];
-      }
+      console.log("=>",uploadedFiles[main.index]);
 
       await putProduct(product.id, {
         ...productData,
-        main: mainImage,
+        main:
+          main.type === "image"
+            ? product.images[main.index]
+            : main.index
+            ? uploadedFiles[main.index]
+            : uploadedFiles[0],
         images: [...product.images, ...uploadedFiles],
       });
     }
@@ -423,7 +420,7 @@ const ConfigProduct = () => {
         main={main}
         setMain={setMain}
       />
-      {errors.images && <ErrorInput message={errors.images}/>}
+      {errors.images && <ErrorInput message={errors.images} />}
 
       {/* Add Image Section
       <div className="product-add-block">

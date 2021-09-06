@@ -16,4 +16,4 @@ const ProductsView = () => {
   );
 };
 
-export default CategoryView;
+export default ProductsView;

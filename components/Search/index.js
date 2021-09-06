@@ -1,27 +1,19 @@
-import Head from "next/head";
+import Header from "@/shared/Header2";
+import Nav from "@/shared/Nav2";
+import Footer from "@/shared/Footer";
+import Fetcher from "@/shared/Fetcher";
 
-const Search = () => {
+import View from "./View";
+
+const SearchView = () => {
   return (
     <>
-      <Head> Search Results | Green Cloud Nine</Head>
-      <div className="w-container">
-        <h1>Search results</h1>
-        <form action="/search" className="w-form">
-          <label htmlFor="search">Search</label>
-          <input
-            type="search"
-            className="w-input"
-            maxLength={256}
-            name="query"
-            placeholder="Search…"
-            id="search"
-            required
-          />
-          <input type="submit" defaultValue="Search" className="w-button" />
-        </form>
-      </div>
+      <Header nav={<Nav />} />
+      <Fetcher />
+      <View />
+      <Footer />
     </>
   );
 };
 
-export default Search;
+export default SearchView;
