@@ -7,6 +7,8 @@ import ProgressBar from "./Utils/ProgressBar";
 const Seller_Price_Plan = ({ nextPage }) => {
     const { seller } = useSelector((state) => state.user);
     const [errors, setErrors] = useState([]);
+    const [bonsai, setBonsai] = useState(false);
+    const [oak, setOak] = useState(true);
     // console.log(seller)
     // useEffect(() => {
     //   if (seller.questionaire) setInitials(seller.questionaire);
@@ -25,24 +27,19 @@ const Seller_Price_Plan = ({ nextPage }) => {
         return true;
     };
 
-    const submit = async (e) => {
+    const oakSubmit = async (e) => {
         e.preventDefault();
 
         if (!validate()) return;
-
-
-        // const response = await authAxios()({
-        //   url: `sellers/${seller.id}`,
-        //   method: "PUT",
-        //   data: {
-        //     onboardStatus: 1,
-        //     questionaire: answers,
-        //   },
-        // });
-
-        // if (response) {
+      if(oak)
         nextPage();
-        // }
+    };
+    const bonsaiSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!validate()) return;
+      if(bonsai)
+        nextPage();
     };
 
     return (
@@ -52,22 +49,24 @@ const Seller_Price_Plan = ({ nextPage }) => {
             <h1 className="headline-2 mb-10">Choose your pricing plan</h1>
           </div>
           <div className="pricing-plan-wrapper">
-            <div className="pricing-item">
-              <h2 className="pricing-heading">Bonsai</h2>
+          
+            <div className={`pricing-item ${bonsai ? "selected" : ""}`}>
+              <h2 className="pricing-heading" onClick={()=> setBonsai(!bonsai)}>Bonsai</h2>
               <div className="pricing-commision">12% commission fee on<br/>all transactions<br/></div>
               <div className="pricing-listing">€ 0,20 listing fee <br/>per item<br/></div>
               <div className="pricing-items">(max 15 items)<br/></div>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. </p>
             </div>
-            <div className="pricing-item selected">
-              <h2 className="pricing-heading">Oak</h2>
+            <div className={`pricing-item ${oak ? "selected" : ""}`}>
+              <h2 className="pricing-heading" onClick={()=> setOak(!oak) }>Oak</h2>
               <div className="pricing-commision">12% commission fee on<br/>all transactions<br/></div>
               <div className="pricing-listing">€ 29,- per month</div>
               <div className="pricing-items">(Unlimited listings)</div>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. </p>
             </div>
           </div>
-          <a href="#" className="button blue mb-60">Continue with Oak</a>
+          <div style={{marginRight:"40px"}} className="button blue mr-40  mb-60" onClick={oakSubmit}>Continue with Oak</div>                            
+          <div  className="button blue mb-60" onClick={bonsaiSubmit}>Continue with Bonsai</div>                            
           <div className="div-block-3">
             <div className="headline-5 mr-40">Not sure yet? Try our beta version</div>
             <a href="#" className="button orange">Try Beta Version</a>

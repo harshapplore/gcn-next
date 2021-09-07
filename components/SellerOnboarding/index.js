@@ -32,6 +32,7 @@ import Seller_Price_Plan from "./Seller_Price_Plan";
 import Seller_Governance_Management from "./Seller_Governance_Management";
 import Seller_Social from "./Seller_Social";
 import Seller_Environmental from "./Seller_Environmental";
+import Seller_Price_Billing from "./Seller_Price_Billing";
 
 const SellerOnboarding = () => {
   const router = useRouter();
@@ -91,21 +92,23 @@ const SellerOnboarding = () => {
       {/* Page 3 */} 
       {activePageIndex === 2 && <Seller_Vision_Strategy nextPage={nextPage} />}
 
-      {/* {activePageIndex === 2 && <ShopInfo next={nextPage} />} */}
       {activePageIndex === 3 && <Seller_Governance_Management nextPage={nextPage} />}
       {activePageIndex === 4 && <Seller_Social nextPage={nextPage} />}
       {activePageIndex === 5 && <Seller_Environmental nextPage={nextPage} />}
       {activePageIndex === 6 && <Seller_About_Done nextPage={nextPage} />}
-      {/* {activePageIndex === 3 && <ContactInfo next={nextPage} />} */}
-      {/* {activePageIndex === 4 && <GetPaidInfo next={nextPage} />} */}
       {activePageIndex === 7 && <Seller_Price_Intro nextPage={nextPage} />}
-      {/* {activePageIndex === 5 && <PaymentOptionsInfo next={nextPage} />} */}
       {activePageIndex === 8 && < Seller_Price_Plan nextPage={nextPage} />}
+      {activePageIndex === 9 && < Seller_Price_Billing nextPage={nextPage} />}
       {/* Page 4 */}
-      {activePageIndex === 9 && <TermsNConditions nextPage={nextPage} />}
+      {/* {activePageIndex === 2 && <ShopInfo next={nextPage} />} */}
+      {/* {activePageIndex === 5 && <PaymentOptionsInfo nextPage={nextPage} />} */}
+      {/* {activePageIndex === 10 && <ContactInfo nextPage={nextPage} />} */}
+      {activePageIndex === 10 && <ContactInfo nextPage={nextPage} />}
+      {/* {activePageIndex === 4 && <GetPaidInfo nextPage={nextPage} />} */}
+      {activePageIndex === 11 && <TermsNConditions nextPage={nextPage} />}
       {/* Page 5 */}
-      {activePageIndex === 10 && <ShopName nextPage={nextPage} />}
-      {activePageIndex === 11 && <ShopDetails />}
+      {activePageIndex === 12 && <ShopName nextPage={nextPage} />}
+      {activePageIndex === 13 && <ShopDetails />}
       <Footer />
     </>
   );
