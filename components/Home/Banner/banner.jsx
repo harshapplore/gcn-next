@@ -1,28 +1,26 @@
 import { useState } from "react";
+import router from "next/router";
 import Image from "next/image";
 
-import SignIn from "@/shared/Auth/Login";
-import Register from "@/shared/Auth/Register";
-
 import UpIcon from "@/assets/images/up-icon.svg";
+import GreenCloudNineBanner from "@/assets/images/gcn-banner.png";
 
 const Banner = () => {
-  const [showSignIn, setShowSignIn] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
-
   return (
     <div className="page-section banner">
       <img
-        src="images/bild-header2x.jpg"
+        src={GreenCloudNineBanner.src}
         loading="lazy"
         sizes="100vw"
-        srcSet="images/bild-header2x-p-500.jpeg 500w, images/bild-header2x-p-800.jpeg 800w, images/bild-header2x-p-2000.jpeg 2000w, images/bild-header2x-p-2600.jpeg 2600w, images/bild-header2x.jpg 2880w"
-        alt="Handcrafted stuff"
+        alt="Green Cloud Nine - Banner"
         className="back-img"
       />
       <div className="container">
         <div className="home-banner-content">
-          <div className="button icon orange mx-10 w-inline-block">
+          <div
+            className="button icon orange mx-10 w-inline-block"
+            onClick={() => router.push("/products")}
+          >
             <div className="button-icon w-embed">
               <Image {...UpIcon} alt="" />
             </div>
@@ -30,6 +28,7 @@ const Banner = () => {
           </div>
           <div
             className="button icon blue mx-10 w-inline-block"
+            onClick={() => router.push("/seller-info")}
           >
             <div className="button-icon w-embed">
               <img src={UpIcon.src} alt="" />
@@ -38,16 +37,6 @@ const Banner = () => {
           </div>
         </div>
       </div>
-      {showSignIn && (
-        <SignIn
-          close={() => setShowSignIn(false)}
-          showRegister={() => {
-            setShowSignIn(false);
-            setShowRegister(true);
-          }}
-        />
-      )}
-      {showRegister && <Register close={() => setShowRegister(false)} />}
     </div>
   );
 };

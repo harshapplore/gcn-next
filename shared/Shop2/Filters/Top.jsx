@@ -24,8 +24,6 @@ const TopFilter = ({ filters, setFilters }) => {
 
   const { data: shopsData, fetching, error } = result;
 
-  console.log("-->", shopsData);
-
   return (
     <>
       <CheckDropdown

@@ -161,8 +161,6 @@ const Shipping = ({ checkout }) => {
 
     const shipValid = shipping.sameAsBilling || validate(shipping, "shipping");
 
-    console.log("-->", shipValid, billValid);
-
     if (!billValid || !shipValid) return;
 
     setShipping({ ...billing, ...shipping });

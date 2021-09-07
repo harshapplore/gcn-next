@@ -5,7 +5,7 @@ import Fetcher from "@/shared/Fetcher";
 
 import View from "./View";
 
-const SearchView = () => {
+const ProductsView = () => {
   return (
     <>
       <Header nav={<Nav />} />
@@ -16,4 +16,4 @@ const SearchView = () => {
   );
 };
 
-export default SearchView;
+export default ProductsView;

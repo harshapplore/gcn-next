@@ -145,14 +145,16 @@ const SignIn = ({ close, showRegister }) => {
           </div>
           <div className="center">
             <div className="mb-20">or</div>
-            <a href="https://test.greencloudnine.com/connect/google">
+            <a
+              href={process.env.NEXT_PUBLIC_SERVER_ENDPOINT + "/connect/google"}
+            >
               <div className="mb-10">
                 <div className="button secondary w-button">
                   Continue with Google
                 </div>
               </div>
             </a>
-            <a href="https://test.greencloudnine.com/connect/facebook">
+            <a href={process.env.NEXT_PUBLIC_SERVER_ENDPOINT + "/connect/facebook"}>
               <div className="mb-10">
                 <div className="button secondary w-button">
                   Continue with Facebook

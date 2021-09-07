@@ -180,3 +180,19 @@ select {
 .success {
   color: var(--primary);
 }
+
+.spacer-10{
+  height: 10px;
+}
+
+.spacer-20{
+  height: 20px;
+}
+
+.spacer-40{
+  height: 40px;
+}
+
+.spacer-60 {
+  height: 60px;
+}

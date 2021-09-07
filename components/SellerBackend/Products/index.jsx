@@ -11,7 +11,7 @@ import { BASE_ROUTE, PRODUCTS, ADD_ACTION, EDIT_ACTION } from "../routes";
 import { fetchShopProducts } from "@/slices/shop";
 import { addProduct, deleteProduct, putProduct } from "@/_controllers/product";
 
-const ProductCard = ({ name, image, id, product }) => {
+const ProductCard = ({id, product }) => {
   const router = useRouter();
 
   const [_openContext, _setOpenContext] = useState(false);
@@ -39,8 +39,6 @@ const ProductCard = ({ name, image, id, product }) => {
       stock: !prod.stock,
     });
 
-    console.log(product);
-
     location.reload();
   };
 
@@ -60,10 +58,10 @@ const ProductCard = ({ name, image, id, product }) => {
     >
       <a className="shop-product-img w-inline-block">
         <img
-          src={image && image.url}
+          src={product.main && product.main.url}
           loading="lazy"
           sizes="(max-width: 479px) 83vw, (max-width: 767px) 45vw, (max-width: 991px) 30vw, (max-width: 1279px) 17vw, 218.40000915527344px"
-          alt="Handicrafted stuff"
+          alt={product.name}
           className="back-img"
         />
       </a>
@@ -248,13 +246,13 @@ const ProductListItem = ({ product }) => {
         <div className="product-context-menu">
           <a
             className="context-link"
-            onClick={() => router.push(`/product/${id}`)}
+            onClick={() => router.push(`/product/${product.id}`)}
           >
             View
           </a>
           <a
             className="context-link"
-            onClick={() => router.push(BASE_ROUTE + PRODUCTS + EDIT_ACTION(id))}
+            onClick={() => router.push(BASE_ROUTE + PRODUCTS + EDIT_ACTION(product.id))}
           >
             Edit
           </a>
