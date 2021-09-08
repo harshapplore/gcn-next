@@ -8,10 +8,12 @@ import { fetchFavoriteItems, fetchFavoriteShops } from "@/slices/favorites";
 import TopFilter from "@/shared/Shop2/Filters/Top";
 import SideFilter from "@/shared/Shop2/Filters/Side";
 
-
 import { getProducts } from "@/_controllers/product";
 import { addToFavorites, deleteFavorite } from "@/_controllers/customer";
 
+import { queryBuilder, filterConverter, filterQuery } from "@/_methods/filters";
+
+import urqlClient from "setups/urql";
 
 const Rating = ({ rating }) => {
   let filled = rating;
@@ -170,14 +172,30 @@ const View = () => {
   const [products, setProducts] = useState([]);
   const [filters, setFilters] = useState({});
 
-  console.log(filters);
-
   useEffect(async () => {
     const { id } = router.query;
     const products = await getProducts({ category: id });
 
     if (products && products.length) setProducts(products);
   }, [router.query]);
+
+  useEffect(async () => {
+    console.log("Running");
+
+    const _data = filterConverter(filters);
+
+    const query = queryBuilder(_data);
+
+
+    // const result = await urqlClient.query(query).toPromise();
+
+    const result = await urqlClient.query(filterQuery, _data).toPromise();
+
+    console.log("q -->", _data);
+    console.log("data --->", result);
+
+    setProducts(result.data && result.data.products);
+  }, [JSON.stringify(filters)]);
 
   useEffect(() => {
     if (!categories.length) {
@@ -213,9 +231,8 @@ const View = () => {
             <div className="scroll-y">
               <div>
                 <SideFilter filters={filters} setFilters={setFilters} />
-
               </div>
-            </div>  
+            </div>
           </div>
           <div className="shop-content">
             <div className="mobile-only mb-20">
@@ -242,7 +259,7 @@ const View = () => {
                 </a>
               </div>
             </div>
-            
+
             <div className="hide-mobile">
               <div className="flex left-2 mb-40 flex-1 flex-gap-10">
                 <TopFilter filters={filters} setFilters={setFilters} />
