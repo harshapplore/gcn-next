@@ -157,33 +157,34 @@ const View = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { customer } = useSelector((state) => state.customer);
-  const { categories } = useSelector((state) => state.categories);
   const { favoriteItems, favoriteShops } = useSelector(
     (state) => state.favorites
   );
 
   const [products, setProducts] = useState([]);
-  const [filters, setFilters] = useState({});
-
-  useEffect(() => {}, []);
 
   useEffect(async () => {
-    const {
-      search
-    } = router.query;
+    const { search } = router.query;
 
     const query = {};
 
-    if(!search) return;
+    console.log(search);
 
-    if(search) {
+    if (!search) {
+      setProducts([]);
+      return;
+    }
+
+    if (search) {
       query.name_contains = search;
     }
 
     const products = await getProducts(query);
 
-    if (products && products.length) setProducts(products);
-  }, [router.query]);
+    console.log(products);
+
+    setProducts(products);
+  }, [router.query.search]);
 
   useEffect(() => {
     if (!customer.id) return;
@@ -210,18 +211,18 @@ const View = () => {
       <div className="container">
         <div className="spacer-40" />
         <div className="flex left-4">
-              {products &&
-                products.length > 0 &&
-                products.map((product, index) => (
-                  <ShopItem
-                    key={"pro" + index}
-                    product={product}
-                    favorites={favoriteItems}
-                  />
-                ))}
-            </div>
-          </div>
+          {products &&
+            products.length > 0 &&
+            products.map((product, index) => (
+              <ShopItem
+                key={"pro" + index}
+                product={product}
+                favorites={favoriteItems}
+              />
+            ))}
         </div>
+      </div>
+    </div>
   );
 };
 

@@ -16,8 +16,6 @@ const ShopsQuery = `
 `;
 
 const TopFilter = ({ filters, setFilters }) => {
-  console.log(filters);
-
   const [result, reexecuteQuery] = useQuery({
     query: ShopsQuery,
   });
@@ -40,10 +38,10 @@ const TopFilter = ({ filters, setFilters }) => {
         setValue={(value) => setFilters({ ...filters, brand: value })}
       />
 
-      <FilterDropdown
+      <CheckDropdown
         choices={__filters.price}
         placeholder="Price"
-        value={filters.price}
+        value={filters.price || []}
         setValue={(value) => setFilters({ ...filters, price: value })}
       />
 

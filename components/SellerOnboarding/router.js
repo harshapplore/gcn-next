@@ -9,6 +9,7 @@ const ENVIRONMENT = "environment";
 const DONE = "about-done";
 const PRICING_INTRO = "pricing-intro";
 const PRICING_PLAN = "pricing-plan";
+const PRICING_PLAN_BILLING = "pricing-billing";
 const PRICING = "pricing";
 const SHOP_INFO = "shop-info";
 const CONTACT_INFO = "contact-info";
@@ -28,8 +29,9 @@ export const pages = [
   DONE,
   PRICING_INTRO,
   PRICING_PLAN,
-  PRICING,
+  PRICING_PLAN_BILLING,
   SHOP_INFO,
+  PRICING,
   CONTACT_INFO,
   GET_PAID_INFO,
   PAYMENT_OPTIONS,
