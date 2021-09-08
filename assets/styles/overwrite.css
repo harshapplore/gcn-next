@@ -196,3 +196,20 @@ select {
 .spacer-60 {
   height: 60px;
 }
+
+.input-x-edit {
+  height: 48px;
+  margin-bottom: 0px;
+  padding-right: 15px;
+  padding-left: 15px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  background-color: transparent;
+  /* box-shadow: inset 0 0 0 1.5px #5e5855; */
+  -webkit-transition: box-shadow 200ms ease;
+  transition: box-shadow 200ms ease;
+  color: #5e5855;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
