@@ -33,10 +33,16 @@ const Footer = () => {
               <a className="social-icon w-inline-block">
                 <img src="/images/group-2.svg" loading="lazy" alt="Twitter" />
               </a>
-              <a className="social-icon w-inline-block">
+              <a
+                href="https://www.instagram.com/greencloudnine/"
+                className="social-icon w-inline-block"
+              >
                 <img src="/images/group.svg" loading="lazy" alt="Instagram" />
               </a>
-              <a className="social-icon w-inline-block">
+              <a
+                href="https://www.facebook.com/greencloudnine"
+                className="social-icon w-inline-block"
+              >
                 <img
                   src="/images/facebook-black-24-dp.svg"
                   loading="lazy"

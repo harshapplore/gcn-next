@@ -64,7 +64,7 @@ const Product = ({ product }) => {
     >
       <div className="potw-item">
         <img
-          src={product.images[0] && product.images[0].url}
+          src={product.main && product.main.url}
           loading="lazy"
           sizes="(max-width: 479px) 22vw, (max-width: 1279px) 23vw, 288px"
           alt={product.name}

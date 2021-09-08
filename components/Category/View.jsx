@@ -8,12 +8,12 @@ import { fetchFavoriteItems, fetchFavoriteShops } from "@/slices/favorites";
 import TopFilter from "@/shared/Shop2/Filters/Top";
 import SideFilter from "@/shared/Shop2/Filters/Side";
 
-import Select from "@/shared/Input/Select";
-import Toggle from "@/shared/Input/Toggle";
-
 import { getProducts } from "@/_controllers/product";
 import { addToFavorites, deleteFavorite } from "@/_controllers/customer";
-import CheckBox from "@/shared/Input/Checkbox";
+
+import { queryBuilder, filterConverter, filterQuery } from "@/_methods/filters";
+
+import urqlClient from "setups/urql";
 
 const Rating = ({ rating }) => {
   let filled = rating;
@@ -179,6 +179,24 @@ const View = () => {
     if (products && products.length) setProducts(products);
   }, [router.query]);
 
+  useEffect(async () => {
+    console.log("Running");
+
+    const _data = filterConverter(filters);
+
+    const query = queryBuilder(_data);
+
+
+    // const result = await urqlClient.query(query).toPromise();
+
+    const result = await urqlClient.query(filterQuery, _data).toPromise();
+
+    console.log("q -->", _data);
+    console.log("data --->", result);
+
+    setProducts(result.data && result.data.products);
+  }, [JSON.stringify(filters)]);
+
   useEffect(() => {
     if (!categories.length) {
       dispatch(fetchCategories());
@@ -213,9 +231,8 @@ const View = () => {
             <div className="scroll-y">
               <div>
                 <SideFilter filters={filters} setFilters={setFilters} />
-
               </div>
-            </div>  
+            </div>
           </div>
           <div className="shop-content">
             <div className="mobile-only mb-20">
@@ -241,85 +258,15 @@ const View = () => {
                   <div className="text-block">Filter (3)</div>
                 </a>
               </div>
-              <a className="tag filter w-inline-block">
-                <div className="button-icon filter w-embed">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={24}
-                    height={24}
-                    viewBox="0 0 24 24"
-                  >
-                    <g fill="none" fillRule="evenodd">
-                      <path
-                        d="M0 0L24 0 24 24 0 24z"
-                        transform="translate(-94.000000, -499.000000) translate(24.000000, 497.000000) translate(70.000000, 2.000000)"
-                      />
-                      <path
-                        fill="currentColor"
-                        fillRule="nonzero"
-                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-                        transform="translate(-94.000000, -499.000000) translate(24.000000, 497.000000) translate(70.000000, 2.000000)"
-                      />
-                    </g>
-                  </svg>
-                </div>
-                <div className="text-block">Upcycled</div>
-              </a>
-              <a className="tag filter w-inline-block">
-                <div className="button-icon filter w-embed">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={24}
-                    height={24}
-                    viewBox="0 0 24 24"
-                  >
-                    <g fill="none" fillRule="evenodd">
-                      <path
-                        d="M0 0L24 0 24 24 0 24z"
-                        transform="translate(-94.000000, -499.000000) translate(24.000000, 497.000000) translate(70.000000, 2.000000)"
-                      />
-                      <path
-                        fill="currentColor"
-                        fillRule="nonzero"
-                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-                        transform="translate(-94.000000, -499.000000) translate(24.000000, 497.000000) translate(70.000000, 2.000000)"
-                      />
-                    </g>
-                  </svg>
-                </div>
-                <div className="text-block">Green</div>
-              </a>
-              <a className="tag filter w-inline-block">
-                <div className="button-icon filter w-embed">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={24}
-                    height={24}
-                    viewBox="0 0 24 24"
-                  >
-                    <g fill="none" fillRule="evenodd">
-                      <path
-                        d="M0 0L24 0 24 24 0 24z"
-                        transform="translate(-94.000000, -499.000000) translate(24.000000, 497.000000) translate(70.000000, 2.000000)"
-                      />
-                      <path
-                        fill="currentColor"
-                        fillRule="nonzero"
-                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-                        transform="translate(-94.000000, -499.000000) translate(24.000000, 497.000000) translate(70.000000, 2.000000)"
-                      />
-                    </g>
-                  </svg>
-                </div>
-                <div className="text-block">50-150€</div>
-              </a>
             </div>
-            {/* className="hide-mobile" */}
-            <div>
-              <div className="flex flex-justify-start flex-gap-10 flex-1 mb-40">
+
+            <div className="hide-mobile">
+              <div className="flex left-2 mb-40 flex-1 flex-gap-10">
                 <TopFilter filters={filters} setFilters={setFilters} />
+                <div />
               </div>
             </div>
+            <div className="spacer-20" />
             <div className="flex left-4">
               {/* { Items list here} */}
 

@@ -32,8 +32,11 @@ const ButtonComponent = styled.div`
 
   span {
     display: inline-block;
-    margin-right: 10px;
     vertical-align: middle;
+  }
+
+  span.icon{
+    margin-right: 10px;
   }
 `;
 
@@ -70,8 +73,12 @@ const OutlinedButtonComponent = styled.div`
 
   span {
     display: inline-block;
-    margin-right: 10px;
+    
     vertical-align: middle;
+  }
+
+  span.icon{
+    margin-right: 10px;
   }
 `;
 
@@ -80,7 +87,7 @@ export const Button = ({ name, action, type, caps, loading }) => {
     <>
       <ButtonComponent type={type} caps={caps} onClick={action}>
         {loading && (
-          <span>
+          <span className="icon">
             <Loader type="Oval" color="#fff" height={24} width={24} />
           </span>
         )}
@@ -94,7 +101,7 @@ export const OutlinedButton = ({ name, action, type, caps, loading }) => {
   return (
     <OutlinedButtonComponent type={type} caps={caps} onClick={action}>
       {loading && (
-        <span>
+        <span className="icon">
           <Loader type="Oval" color="#1a689e" height={24} width={24} />
         </span>
       )}

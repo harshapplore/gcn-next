@@ -1,138 +1,80 @@
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchFavoriteItems } from "@/slices/favorites";
+import { getLatestProducts, getProducts } from "@/_controllers/product";
 
+import { addToFavorites, deleteFavorite } from "@/_controllers/customer";
+import router from "next/router";
+
+const ProductCard = ({ product, customerId }) => {
+  return (
+    <>
+      <div className="flex-child-32">
+        <div className="potw-item">
+          <img
+            src={product.main && product.main.url}
+            alt="Handcrafted stuff"
+            className="back-img"
+          />
+          <a className="potw-name w-inline-block">
+            <div>{product.name}</div>
+            <img
+              src="images/expand-more-black-24-dp.svg"
+              loading="lazy"
+              alt="Next"
+            />
+          </a>
+          {customerId && (
+            <a className="potw-like w-inline-block">
+              <img
+                src="images/favorite-border-black-24-dp-2.svg"
+                loading="lazy"
+                width={25}
+                alt="Like"
+                className="orange-heart"
+              />
+              <img
+                src="images/favorite-border-black-24-dp_1.svg"
+                loading="lazy"
+                alt="Like"
+                className="heart"
+              />
+            </a>
+          )}
+        </div>
+      </div>
+    </>
+  );
+};
 
 const PageSection = () => {
+  const [_products, _setProducts] = useState();
+
+  const { customer } = useSelector((state) => state.customer);
+
+  useEffect(async () => {
+    const products = await getProducts({
+      price_gt: 10,
+      _sort: "name:asc",
+      _limit: 5,
+    });
+
+    _setProducts(products);
+  }, []);
+
   return (
     <div className="page-section border-bottom">
       <div className="container">
         <div className="flex center mb-60">
           <h1>Products of the week</h1>
-          <a href="#" className="button w-button">
-            More
-          </a>
+          <a className="button w-button">More</a>
         </div>
         <div className="flex">
-          <div className="flex-child-32">
-            <div className="potw-item">
-              <img
-                src="images/bild-header2x.jpg"
-                loading="lazy"
-                sizes="(max-width: 479px) 29vw, (max-width: 767px) 30vw, (max-width: 1279px) 31vw, 384px"
-                srcSet="
-            images/bild-header2x-p-500.jpeg   500w,
-            images/bild-header2x-p-800.jpeg   800w,
-            images/bild-header2x-p-2000.jpeg 2000w,
-            images/bild-header2x-p-2600.jpeg 2600w,
-            images/bild-header2x.jpg         2880w
-          "
-                alt="Handcrafted stuff"
-                className="back-img"
-              />
-              <a href="#" className="potw-name w-inline-block">
-                <div>Musterproduktname</div>
-                <img
-                  src="images/expand-more-black-24-dp.svg"
-                  loading="lazy"
-                  alt="Next"
-                />
-              </a>
-              <a href="#" className="potw-like w-inline-block">
-                <img
-                  src="images/favorite-border-black-24-dp-2.svg"
-                  loading="lazy"
-                  width={25}
-                  alt="Like"
-                  className="orange-heart"
-                />
-                <img
-                  src="images/favorite-border-black-24-dp_1.svg"
-                  loading="lazy"
-                  alt="Like"
-                  className="heart"
-                />
-              </a>
-            </div>
-          </div>
-          <div className="flex-child-32">
-            <div className="potw-item">
-              <img
-                src="images/bild-header2x.jpg"
-                loading="lazy"
-                sizes="(max-width: 479px) 29vw, (max-width: 767px) 30vw, (max-width: 1279px) 31vw, 384px"
-                srcSet="
-            images/bild-header2x-p-500.jpeg   500w,
-            images/bild-header2x-p-800.jpeg   800w,
-            images/bild-header2x-p-2000.jpeg 2000w,
-            images/bild-header2x-p-2600.jpeg 2600w,
-            images/bild-header2x.jpg         2880w
-          "
-                alt="Handcrafted stuff"
-                className="back-img"
-              />
-              <a href="#" className="potw-name w-inline-block">
-                <div>Musterproduktname</div>
-                <img
-                  src="images/expand-more-black-24-dp.svg"
-                  loading="lazy"
-                  alt="Next"
-                />
-              </a>
-              <a href="#" className="potw-like active w-inline-block">
-                <img
-                  src="images/favorite-border-black-24-dp-2.svg"
-                  loading="lazy"
-                  width={25}
-                  alt="Like"
-                  className="orange-heart"
-                />
-                <img
-                  src="images/favorite-border-black-24-dp_1.svg"
-                  loading="lazy"
-                  alt="Like"
-                  className="heart"
-                />
-              </a>
-            </div>
-          </div>
-          <div className="flex-child-32">
-            <div className="potw-item">
-              <img
-                src="images/bild-header2x.jpg"
-                loading="lazy"
-                sizes="(max-width: 479px) 29vw, (max-width: 767px) 30vw, (max-width: 1279px) 31vw, 384px"
-                srcSet="
-            images/bild-header2x-p-500.jpeg   500w,
-            images/bild-header2x-p-800.jpeg   800w,
-            images/bild-header2x-p-2000.jpeg 2000w,
-            images/bild-header2x-p-2600.jpeg 2600w,
-            images/bild-header2x.jpg         2880w
-          "
-                alt="Handcrafted stuff"
-                className="back-img"
-              />
-              <a href="#" className="potw-name w-inline-block">
-                <div>Musterproduktname</div>
-                <img
-                  src="images/expand-more-black-24-dp.svg"
-                  loading="lazy"
-                  alt="Next"
-                />
-              </a>
-              <a href="#" className="potw-like w-inline-block">
-                <img
-                  src="images/favorite-border-black-24-dp-2.svg"
-                  loading="lazy"
-                  alt="Like"
-                  className="orange-heart"
-                />
-                <img
-                  src="images/favorite-border-black-24-dp_1.svg"
-                  loading="lazy"
-                  alt="Like"
-                  className="heart"
-                />
-              </a>
-            </div>
-          </div>
+          {_products &&
+            _products.length > 0 &&
+            _products.map((product) => (
+              <ProductCard product={product} customerId={customer.id} />
+            ))}
         </div>
       </div>
     </div>

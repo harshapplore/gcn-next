@@ -19,10 +19,10 @@ const Sidebar = ({ filters, setFilters }) => {
       </div>
       <div className="shop-select-text first">Shop Location:</div>
       <div className="mb-20">
-        <CheckDropdown
-          placeholder="Countries"
+        <FilterDropdown
+          placeholder="Country"
           choices={__countries}
-          value={filters.shopLocation || []}
+          value={filters.shopLocation}
           setValue={(value) => setFilters({ ...filters, shopLocation: value })}
         />
       </div>
