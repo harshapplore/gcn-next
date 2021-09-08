@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import ShopProgressBar from "./Utils/ShopProgressBar";
 
 
-const Seller_Price_Billing = ({ nextPage }) => {
+const Seller_Shop_Info = ({ nextPage }) => {
     const { seller } = useSelector((state) => state.user);
     const [errors, setErrors] = useState([]);
 
@@ -19,8 +19,19 @@ const Seller_Price_Billing = ({ nextPage }) => {
     const [stripe, setStripe] = useState(false);
     const [paypal, setPaypal] = useState(false);
     const [creditCard, setCreditCard] = useState(false);
-    
-    const [language, setLanguage] = useState("");
+
+    const [editName, setEditName] = useState(false);
+    const [name, setName] = useState("");
+    const [editCEO, setEditCEO] = useState(false);
+    const [CEO, setCEO] = useState("");
+    const [editPhone, setEditPhone] = useState(false);
+    const [phone, setPhone] = useState("");
+    const [editEmail, setEditEmail] = useState(false);
+    const [email, setEmail] = useState("");
+    const [editCardNumber, setEditCardNumber] = useState(false);
+    const [cardNumber, setCardNumber] = useState("");
+    const [editNameOnCard, setEditNameOnCard] = useState(false);
+    const [nameOnCard, setNameOnCard] = useState("");
     const [currency, setCurrency] = useState("");
     const [region, setRegion] = useState("");
     const [expiryYear, setExpiryYear] = useState("");
@@ -61,7 +72,7 @@ const Seller_Price_Billing = ({ nextPage }) => {
         // });
 
         // if (cardConfirmation) {
-            nextPage();
+        nextPage();
         // }
     };
 
@@ -70,6 +81,7 @@ const Seller_Price_Billing = ({ nextPage }) => {
             <div className="container">
                 <div className="heading-wrapper">
                     <h1 className="headline-2 mb-30">Create your Shop</h1>
+                    <br />
                     <ShopProgressBar />
                     <div className="settings-block">
                         <h3 className="headline-5 mb-50">Basic Information</h3>
@@ -105,30 +117,66 @@ const Seller_Price_Billing = ({ nextPage }) => {
                                         </div>
                                         <div className="account-form-1 mb-0">
                                             <div className="input-x input-x--flex ">
-                                                <div>Thomas Martin</div>
+                                                {!editName ? <div className={`${!editName ? "" : " hidden"}`}>{name ? name : "Thomas Martin"}</div> :
+                                                    <input
+                                                        onChange={(e) => setName(e.target.value)}
+                                                        value={name}
+                                                        type="text"
+                                                        className="input-x-edit w-input"
+                                                        maxlength="256"
+                                                        placeholder="Name *"
+                                                        required=""
+                                                    />}
                                                 <div className="input-x__change">
-                                                    <div>Change</div>
+                                                    <div style={{ cursor: "pointer" }} onClick={() => setEditName(!editName)}>Change</div>
                                                     <img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
                                                 </div>
                                             </div>
                                             <div className="input-x input-x--flex">
-                                                <div>CEO</div>
+                                                {!editCEO ? <div className={`${!editCEO ? "" : " hidden"}`}>{CEO ? CEO : "CEO"}</div> :
+                                                    <input
+                                                        onChange={(e) => setCEO(e.target.value)}
+                                                        value={CEO}
+                                                        type="text"
+                                                        className="input-x-edit w-input"
+                                                        maxlength="256"
+                                                        placeholder="CEO *"
+                                                        required=""
+                                                    />}
                                                 <div className="input-x__change">
-                                                    <div>Change</div>
+                                                    <div style={{ cursor: "pointer" }} onClick={() => setEditCEO(!editCEO)}>Change</div>
                                                     <img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
                                                 </div>
                                             </div>
                                             <div className="input-x input-x--flex">
-                                                <div>2-(056)634-6566</div>
+                                                {!editPhone ? <div className={`${!editPhone ? "" : " hidden"}`}>{phone ? phone : "2-(056)634-6566"}</div> :
+                                                    <input
+                                                        onChange={(e) => setPhone(e.target.value)}
+                                                        value={phone}
+                                                        type="text"
+                                                        className="input-x-edit w-input"
+                                                        maxlength="256"
+                                                        placeholder="Phone number *"
+                                                        required=""
+                                                    />}
                                                 <div className="input-x__change">
-                                                    <div>Change</div>
+                                                    <div style={{ cursor: "pointer" }} onClick={() => setEditPhone(!editPhone)}>Change</div>
                                                     <img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
                                                 </div>
                                             </div>
                                             <div className="input-x input-x--flex">
-                                                <div>thomas.martin@gmail.com</div>
+                                                {!editEmail ? <div className={`${!editEmail ? "" : " hidden"}`}>{email ? email : "thomas.martin@gmail.com"}</div> :
+                                                    <input
+                                                        onChange={(e) => setEmail(e.target.value)}
+                                                        value={email}
+                                                        type="text"
+                                                        className="input-x-edit w-input"
+                                                        maxlength="256"
+                                                        placeholder="Email *"
+                                                        required=""
+                                                    />}
                                                 <div className="input-x__change">
-                                                    <div>Change</div>
+                                                    <div style={{ cursor: "pointer" }} onClick={() => setEditEmail(!editEmail)}>Change</div>
                                                     <img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
                                                 </div>
                                             </div>
@@ -200,16 +248,34 @@ const Seller_Price_Billing = ({ nextPage }) => {
                                                 </div>
                                                 <div>
                                                     <div className="input-x input-x--flex mb-15">
-                                                        <div>Card Number</div>
+                                                        {!editCardNumber ? <div className={`${!editCardNumber ? "" : " hidden"}`}>{cardNumber ? cardNumber : "Card Number"}</div> :
+                                                            <input
+                                                                onChange={(e) => setCardNumber(e.target.value)}
+                                                                value={cardNumber}
+                                                                type="text"
+                                                                className="input-x-edit w-input"
+                                                                maxlength="256"
+                                                                placeholder="Card Number *"
+                                                                required=""
+                                                            />}
                                                         <div className="input-x__change">
-                                                            <div>Change</div>
+                                                            <div style={{ cursor: "pointer" }} onClick={() => setEditCardNumber(!editCardNumber)}>Change</div>
                                                             <img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
                                                         </div>
                                                     </div>
                                                     <div className="input-x input-x--flex mb-15">
-                                                        <div>Name on Card</div>
+                                                    {!editNameOnCard ? <div className={`${!editNameOnCard ? "" : " hidden"}`}>{nameOnCard ? nameOnCard : "Name on Card"}</div> :
+                                                            <input
+                                                                onChange={(e) => setNameOnCard(e.target.value)}
+                                                                value={nameOnCard}
+                                                                type="text"
+                                                                className="input-x-edit w-input"
+                                                                maxlength="256"
+                                                                placeholder="Name on card *"
+                                                                required=""
+                                                            />}
                                                         <div className="input-x__change">
-                                                            <div>Change</div>
+                                                            <div style={{ cursor: "pointer" }} onClick={() => setEditNameOnCard(!editNameOnCard)}>Change</div>
                                                             <img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
                                                         </div>
                                                     </div>
@@ -334,7 +400,7 @@ const Seller_Price_Billing = ({ nextPage }) => {
                                         </div>
                                     </li>
                                 </ol>
-                                <a href="#" className="button blue">Save and Continue</a>
+                                <div className="button blue" onClick={submit}>Save and Continue</div>
                             </form>
                         </div>
                     </div>
@@ -344,4 +410,4 @@ const Seller_Price_Billing = ({ nextPage }) => {
     );
 };
 
-export default Seller_Price_Billing;
+export default Seller_Shop_Info;

@@ -6,7 +6,7 @@
     "Most Recent",
     "Most Sold"
   ],
-  "price": ["€ 20", "€ 20 to € 50", "€ 50 to € 100", "> € 100"],
+  "price": ["€ 0 to € 20", "€ 20 to € 50", "€ 50 to € 100", "> € 100"],
   "sustainability": [
     "Organic Raw Materials",
     "Durability and Extended Life",

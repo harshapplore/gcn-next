@@ -12,12 +12,12 @@ const ShopProgressBar = () => {
             <div>Basic Information</div>
           </div>
           <div className="questionnaire-spacer"></div>
-          <div className={`questionnaire-step`}>
+          <div className={`questionnaire-step ${routers.query.section=== "terms-and-conditions" ? "current":""}`}>
             <div className="questionnaire-step__indicator">2</div>
             <div>Terms and Conditions</div>
           </div>
           <div className="questionnaire-spacer"></div>
-          <div className={`questionnaire-step`}>
+          <div className={`questionnaire-step ${routers.query.section=== "shipping-details" ? "current":""}`}>
             <div className="questionnaire-step__indicator">3</div>
             <div>Shipping Settings</div>
           </div>
