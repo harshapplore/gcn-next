@@ -51,7 +51,6 @@ const DownIcon = () => {
         strokeLinecap="butt"
         strokeLinejoin="miter"
         strokeMiterlimit={10}
-        strokeDasharray
         strokeDashoffset={0}
         fontFamily="none"
         fontWeight="none"

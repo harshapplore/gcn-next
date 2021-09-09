@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 
+import { useCloseMe } from "@/_hooks";
+
 const DropdownContainer = styled.div`
   min-width: 300px;
   min-height: 25px;
@@ -66,7 +68,6 @@ const DownIcon = () => {
         strokeLinecap="butt"
         strokeLinejoin="miter"
         strokeMiterlimit={10}
-        strokeDasharray={true}
         strokeDashoffset={0}
         fontFamily="none"
         fontWeight="none"
@@ -118,13 +119,15 @@ const CloseIcon = ({ onClick }) => {
 const Dropdown = ({ choices, value, setValue, placeholder, width }) => {
   const [isOpen, setOpen] = useState(false);
 
+  const ref = useCloseMe(() => setOpen(false));
+
   const update = (index) => {
     setValue(choices[index]);
     setOpen(false);
   };
 
   return (
-    <DropdownContainer width={width}>
+    <DropdownContainer width={width} ref={ref}>
       <span>
         <div className="d-choice" onClick={() => setOpen(!isOpen)}>
           <span className="d-text">
