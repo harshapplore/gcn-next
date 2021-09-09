@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import QS from "query-string";
 
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCategories } from "@/slices/categories";
@@ -8,12 +9,11 @@ import { fetchFavoriteItems, fetchFavoriteShops } from "@/slices/favorites";
 import TopFilter from "@/shared/Shop2/Filters/Top";
 import SideFilter from "@/shared/Shop2/Filters/Side";
 
-import Select from "@/shared/Input/Select";
-import Toggle from "@/shared/Input/Toggle";
-
 import { getProducts } from "@/_controllers/product";
 import { addToFavorites, deleteFavorite } from "@/_controllers/customer";
-import CheckBox from "@/shared/Input/Checkbox";
+
+import { urqlClient } from "@/setups/urql";
+import { filterQuery, filterConverter } from "@/_methods/filters";
 
 const Rating = ({ rating }) => {
   let filled = rating;
@@ -172,24 +172,37 @@ const View = () => {
   const [products, setProducts] = useState([]);
   const [filters, setFilters] = useState({});
 
+  useEffect(() => {}, [])
+
   useEffect(async () => {
     const products = await getProducts();
 
-    /// !todo: map url to page reload
-    const {
-      category,
-      sustainability,
-      shop,
-      price,
-      color,
-      sortBy,
-      deliversTo,
-      shopLocation,
-      deliveryTimes,
-    } = router.query;
+    if (router.query.filters) {
+      const _filters = JSON.parse(decodeURIComponent(router.query.filters));
 
-    if (products && products.length) setProducts(products);
+      console.log("filters",_filters);
+
+      if(JSON.stringify(_filters) !== JSON.stringify(filters))
+        setFilters(_filters);
+
+      if (Object.keys(filters)) {
+        const data = filterConverter(_filters);
+        const results = await urqlClient.query(filterQuery, data).toPromise();
+
+        console.log(results);
+
+        setProducts(results.data && results.data.products);
+        return;
+      }
+    }
+
+    setProducts(products);
   }, [router.query]);
+
+  useEffect(() => {
+    if (Object.keys(filters))
+      router.push("/products?filters=" + JSON.stringify(filters));
+  }, [JSON.stringify(filters)]);
 
   useEffect(() => {
     if (!categories.length) {

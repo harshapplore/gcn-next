@@ -70,8 +70,9 @@ const Nav = () => {
     <div className="settings-nav">
       {links &&
         links.length > 0 &&
-        links.map((link) => (
+        links.map((link, index) => (
           <NavLink
+            key={"link"+index}
             name={link.name}
             link={link.link}
             isActive={link.link === linkFactory(activeTab)}

@@ -1,9 +1,19 @@
 export const filterConverter = (data) => {
   const newData = {};
 
-  const { brand, price, sortBy, ...rest } = data;
+  console.log("fC", data);
+
+  const { brand, price, sortBy, pickUp, freeDelivery, sale, deliversTo, ...rest } = data;
 
   if (brand) newData.shopName = brand;
+
+  if(sale) newData.sale = sale;
+
+  if(pickUp) newData.pickUp = pickUp;
+
+  if(deliversTo && deliversTo.length) newData.deliversTo = deliversTo;
+
+  if(freeDelivery) newData.freeDelivery = freeDelivery;
 
   if (price && price.length > 0) {
     if (price.length === 1) {
@@ -134,14 +144,28 @@ export const queryBuilder = ({
 };
 
 export const filterQuery = `
-  query test($sustainability: [String], $colors: [String], $price_lt: Float, $price_gt: Float, $shopName: String, $sortBy: String) {
+  query test($sustainability: [String], $colors: [String], $price_lt: Float, $price_gt: Float, $shopName: String, $sortBy: String, $category: String, $freeDelivery: Boolean, $sale: Boolean, $pickUp: Boolean, $deliversTo: [String], $deliveryTime: String, $shopLocation: String, $search: String) {
     products(where: {
+      name_contains: $search
       sustainability_in: $sustainability
       colors_in: $colors
       price_lt: $price_lt
       price_gt: $price_gt
+      sale: $sale
+      category: {
+        id: $category
+      },
       shop: {
         name: $shopName
+        country: $shopLocation
+        freeDelivery: $freeDelivery
+        pickUp: $pickUp
+        shipping: {
+          country: $deliversTo
+          weights: {
+            deliveryTime: $deliveryTime
+          }
+        }
       }
     } sort: $sortBy){
       id

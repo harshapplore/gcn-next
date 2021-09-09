@@ -46,13 +46,13 @@ const Header = ({ nav }) => {
               placeholder="I'm searching for"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              onKeyUp={(e) => e.keyCode === 13? router.push(`/search?search=${search}`): ""}
+              onKeyUp={(e) => e.keyCode === 13? router.push(`/products?filters=${JSON.stringify({search})}`): ""}
             />
             <img
               src="/images/search-black-24-dp.svg"
               alt="search"
               className="search-icon cursor"
-              onClick={() => router.push(`/search?search=${search}`)}
+              onClick={() => router.push(`/products?filters=${JSON.stringify({search})}`)}
             />
         </div>
         </div>

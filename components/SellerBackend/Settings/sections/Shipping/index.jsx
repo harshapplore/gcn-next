@@ -46,13 +46,6 @@ const ShipWeight = ({ weight, setWeight }) => {
         width="200px"
       />
 
-      {/* <Select
-        choices={[]}
-        value=""
-        setValue={(index) => setWeight({ ...weight, serviceProvider: "" })}
-        placeholder="Shipping Service Provider"
-      /> */}
-
       <Select
         choices={deliveryTimes}
         value=""
@@ -89,6 +82,7 @@ const Ship = ({ country, weights, updateCountry, deleteCountry, save }) => {
           weights.map((weight, index) => {
             return (
               <ShipWeight
+                key={"weight" + index}
                 weight={weight}
                 setWeight={(weight) =>
                   updateCountry({
@@ -118,6 +112,10 @@ const Ship = ({ country, weights, updateCountry, deleteCountry, save }) => {
 };
 
 const AddCountry = ({ availableCountries, close }) => {
+  const { shippingCost, setShippingCost } = useContext(ShippingContext);
+  const context = useContext(ShippingContext);
+  const [error, setError] = useState("");
+
   const [country, setCountry] = useState("");
   const weights = [
     {
@@ -150,8 +148,7 @@ const AddCountry = ({ availableCountries, close }) => {
     },
   ];
 
-  const { shippingCost, setShippingCost } = useContext(ShippingContext);
-  const [error, setError] = useState("");
+  console.log("sc ->", shippingCost, context);
 
   const addCountry = () => {
     setError("");
@@ -198,23 +195,47 @@ const Shipping = ({ shop }) => {
 
   const [showAddCountry, setShowAddCountry] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
-    if (!shop.shipping) {
+    if (!shop.shipping || !shop.shipping.length) {
       setShippingCost([]);
       setShippingOptions({});
       return;
     }
 
-    const { shippingCost, ...options } = shop.shipping;
+    const shipping = shop.shipping.filter((ship) => ship !== null);
 
-    setShippingCost(shippingCost);
-    setShippingOptions(options);
+    setShippingCost(shipping);
   }, [shop.shipping]);
 
-  const updateShipping = async (id) => {
-    const shop = await updateShop(id, {
-      shipping: { shippingCost, ...shippingOptions },
+  useEffect(() => {
+    const {
+      freeDelivery,
+      freeDeliveryAmount,
+      freeDeliveryCurrency,
+      pickUp,
+      co2NeutralDelivery,
+    } = shop;
+
+    console.log(shop);
+
+    setShippingOptions({
+      freeDelivery,
+      freeDeliveryAmount,
+      freeDeliveryCurrency,
+      pickUp,
+      co2NeutralDelivery,
     });
+  }, [shop]);
+
+  const updateShipping = async (id) => {
+    setLoading(true);
+    const shop = await updateShop(id, {
+      shipping: shippingCost,
+      ...shippingOptions,
+    });
+    setLoading(false);
   };
 
   return (
@@ -283,7 +304,7 @@ const Shipping = ({ shop }) => {
                 <div className={styles["ship-input"]}>
                   <TextInput
                     placeholder={100}
-                    value={shippingOptions.freeDeliveryAmount}
+                    value={shippingOptions.freeDeliveryAmount || 500}
                     setValue={(value) =>
                       setShippingOptions({
                         ...shippingOptions,
@@ -327,11 +348,14 @@ const Shipping = ({ shop }) => {
                   }
                 />
               </div>
-              <div
-                className="delivery-cost-button-wrapper moved-up"
-                onClick={() => updateShipping(shop.id)}
-              >
-                <a className="button blue">Save Changes</a>
+              <div className="delivery-cost-button-wrapper moved-up">
+                <Button
+                  type="secondary"
+                  loading={loading}
+                  action={() => updateShipping(shop.id)}
+                  name="Save Changes"
+                  caps={true}
+                />
               </div>
             </div>
           </form>
