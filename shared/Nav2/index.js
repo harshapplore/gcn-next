@@ -25,7 +25,17 @@ const Nav2 = () => {
   }, []);
 
   useEffect(() => {
-    const { id } = router.query;
+    const { filters } = router.query;
+
+    if(!filters) return;
+
+    const _filters = JSON.parse(decodeURIComponent(filters));
+
+    console.log("filters", _filters);
+
+    if(!_filters.category) return;
+
+    const id = _filters.category;
 
     const index =
       categories && categories.findIndex((category) => id === category.id);
@@ -41,7 +51,9 @@ const Nav2 = () => {
           categories.map((category, index) => (
             <LinkBlock
               key={"cat" + index}
-              to={`/category/${category.id}`}
+              to={`/products?filters=${JSON.stringify({
+                category: category.id,
+              })}`}
               name={category.name}
               active={activeIndex === index}
             />

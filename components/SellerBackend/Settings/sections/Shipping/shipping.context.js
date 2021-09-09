@@ -1,8 +1,8 @@
 import { createContext } from "react";
 
 const initialValue = {
-  shippingCosts: [],
-  setShippingCosts: () => {},
+  shippingCost: [],
+  setShippingCost: () => {},
 };
 
 export default createContext(initialValue);

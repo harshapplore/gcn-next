@@ -30,7 +30,7 @@ const Footer = () => {
               <a className="social-icon first w-inline-block">
                 <img src="/images/group-3.svg" loading="lazy" alt="Pinterest" />
               </a>
-              <a className="social-icon w-inline-block">
+              <a href="https://twitter.com/GreenCloudNine" className="social-icon w-inline-block">
                 <img src="/images/group-2.svg" loading="lazy" alt="Twitter" />
               </a>
               <a

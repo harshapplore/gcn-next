@@ -176,18 +176,17 @@ const View = () => {
     const { id } = router.query;
     const products = await getProducts({ category: id });
 
+    setFilters({});
+
+    console.log("Q triggered");
+    console.log("f", filters);
+
     if (products && products.length) setProducts(products);
   }, [router.query]);
 
   useEffect(async () => {
-    console.log("Running");
-
     const _data = filterConverter(filters);
-
     const query = queryBuilder(_data);
-
-
-    // const result = await urqlClient.query(query).toPromise();
 
     const result = await urqlClient.query(filterQuery, _data).toPromise();
 
@@ -196,6 +195,7 @@ const View = () => {
 
     setProducts(result.data && result.data.products);
   }, [JSON.stringify(filters)]);
+
 
   useEffect(() => {
     if (!categories.length) {
