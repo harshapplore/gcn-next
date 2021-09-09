@@ -82,10 +82,10 @@ const OutlinedButtonComponent = styled.div`
   }
 `;
 
-export const Button = ({ name, action, type, caps, loading }) => {
+export const Button = ({ name, id ,action, type, caps, loading }) => {
   return (
     <>
-      <ButtonComponent type={type} caps={caps} onClick={action}>
+      <ButtonComponent id={id} type={type} caps={caps} onClick={action}>
         {loading && (
           <span className="icon">
             <Loader type="Oval" color="#fff" height={24} width={24} />
@@ -97,9 +97,9 @@ export const Button = ({ name, action, type, caps, loading }) => {
   );
 };
 
-export const OutlinedButton = ({ name, action, type, caps, loading }) => {
+export const OutlinedButton = ({ name,id, action, type, caps, loading }) => {
   return (
-    <OutlinedButtonComponent type={type} caps={caps} onClick={action}>
+    <OutlinedButtonComponent id={id} type={type} caps={caps} onClick={action}>
       {loading && (
         <span className="icon">
           <Loader type="Oval" color="#1a689e" height={24} width={24} />

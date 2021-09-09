@@ -18,6 +18,7 @@ const PAYMENT_OPTIONS = "payment-options";
 const TERMS_N_CONITIONS = "terms-and-conditions";
 const SHOP_NAME = "shop-name";
 const SHIPPING_DETAILS = "shipping-details";
+const SHOP_DETAILS = "shop-details";
 
 export const pages = [
   GET_STARTED,
@@ -33,9 +34,10 @@ export const pages = [
   SHOP_INFO,
   TERMS_N_CONITIONS,
   SHIPPING_DETAILS,
-  PRICING,
-  CONTACT_INFO,
-  GET_PAID_INFO,
-  PAYMENT_OPTIONS,
-  SHOP_NAME,
+  SHOP_DETAILS,
+  // PRICING,
+  // CONTACT_INFO,
+  // GET_PAID_INFO,
+  // PAYMENT_OPTIONS,
+  // SHOP_NAME,
 ];

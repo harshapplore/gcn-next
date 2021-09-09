@@ -22,7 +22,7 @@ const ShopProgressBar = () => {
             <div>Shipping Settings</div>
           </div>
           <div className="questionnaire-spacer"></div>
-          <div className={`questionnaire-step`}>
+          <div className={`questionnaire-step ${routers.query.section=== "shop-details" ? "current":""}`}>
             <div className="questionnaire-step__indicator">4</div>
             <div>Shop Information</div>
           </div>
