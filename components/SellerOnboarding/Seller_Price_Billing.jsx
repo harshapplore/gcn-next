@@ -1,125 +1,180 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import Seller_Payouts from "./Seller_Payouts";
 
 import ProgressBar from "./Utils/ProgressBar";
 
 
 const Seller_Price_Billing = ({ nextPage }) => {
-    const { seller } = useSelector((state) => state.user);
-    const [errors, setErrors] = useState([]);
-    const [name, setName] = useState("");
-    const [street, setStreet] = useState("");
-    const [postalCode, setPostalCode] = useState("");
-    const [city, setCity] = useState("");
-    const [VAT, setVAT] = useState("");
-    const [applePay, setApplePay] = useState(false);
-    const [stripe, setStripe] = useState(false);
-    const [paypal, setPaypal] = useState(false);
-    const [creditCard, setCreditCard] = useState(false);
-    const [cardNumber, setCardNumber] = useState("");
-    const [nameOnCard, setNameOnCard] = useState("");
-    const [expiryDate, setExpiryDate] = useState("");
-    const [expiryYear, setExpiryYear] = useState("");
-    const [expiryMonth, setExpiryMonth] = useState("");
-    const [cardConfirmation, setCardConfirmation] = useState("");
-    // console.log(seller)
-    // useEffect(() => {
-    //   if (seller.questionaire) setInitials(seller.questionaire);
-    // }, [seller]);
+  const { seller } = useSelector((state) => state.user);
+  const [errors, setErrors] = useState([]);
+  const [name, setName] = useState("");
+  const [street, setStreet] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [city, setCity] = useState("");
+  const [VAT, setVAT] = useState("");
+  const [IBAN, setIBAN] = useState("");
+  const [idFront, setIdFront] = useState("");
+  const [idBack, setIdBack] = useState("");
+  const [addressFront, setAddressFront] = useState("");
+  const [addressBack, setAddressBack] = useState("");
+  // const [applePay, setApplePay] = useState(false);
+  // const [stripe, setStripe] = useState(false);
+  // const [paypal, setPaypal] = useState(false);
+  // const [creditCard, setCreditCard] = useState(false);
+  // const [cardNumber, setCardNumber] = useState("");
+  // const [nameOnCard, setNameOnCard] = useState("");
+  // const [expiryDate, setExpiryDate] = useState("");
+  // const [expiryYear, setExpiryYear] = useState("");
+  // const [expiryMonth, setExpiryMonth] = useState("");
+  // const [cardConfirmation, setCardConfirmation] = useState("");
+  // console.log(seller)
+  // useEffect(() => {
+  //   if (seller.questionaire) setInitials(seller.questionaire);
+  // }, [seller]);
 
-    const checkBoxStyle = { opacity: 0, position: "absolute", zIndex: -1 }
-
-
-
-    const validate = () => {
-        const err = [];
-
-
-        setErrors(err);
-
-        if (err.length) return false;
-
-        return true;
-    };
-
-    const submit = async (e) => {
-        e.preventDefault();
-
-        if (!validate()) return;
+  const checkBoxStyle = { opacity: 0, position: "absolute", zIndex: -1 }
 
 
-        // const response = await authAxios()({
-        //   url: `sellers/${seller.id}`,
-        //   method: "PUT",
-        //   data: {
-        //     onboardStatus: 1,
-        //     questionaire: answers,
-        //   },
-        // });
 
-        if (cardConfirmation) {
-        nextPage();
-        }
-    };
+  const validate = () => {
+    const err = [];
 
-    return (
-        <div className="page-section wf-section">
-            <div className="container">
-                <div className="heading-wrapper">
-                    <h1 className="headline-2 mb-50">Billing Settings</h1>
-                    <div className="settings-block">
-                        <div className="w-form">
-                            <form id="wf-form-Plan-Billing" name="wf-form-Plan-Billing" data-name="Plan Billing">
-                                <h2 className="headline-5 mb-30">Your billing details</h2>
-                                <input
-                                    onChange={(e) => setName(e.target.value)}
-                                    value={name}
-                                    type="text"
-                                    className="input-x mb-15 w-input"
-                                    maxLength="256"
-                                    placeholder="Name or Company Name *"
-                                    required=""
-                                />
-                                <div className="account-form-1">
-                                    <input
-                                        onChange={(e) => setStreet(e.target.value)}
-                                        value={street}
-                                        type="tel"
-                                        className="input-x w-input"
-                                        maxLength="256"
-                                        placeholder="Street Name *"
-                                        id="Street-Name" required=""
-                                    />
-                                    <input
-                                        onChange={(e) => setPostalCode(e.target.value)}
-                                        value={postalCode}
-                                        type="text"
-                                        className="input-x w-input"
-                                        maxLength="256"
-                                        placeholder="Postal Code *"
-                                        required=""
-                                    />
-                                    <input
-                                        onChange={(e) => setCity(e.target.value)}
-                                        value={city}
-                                        type="text"
-                                        className="input-x w-input"
-                                        maxLength="256"
-                                        placeholder="City *"
-                                        required="" />
-                                    <input
-                                        onChange={(e) => setVAT(e.target.value)}
-                                        value={VAT}
-                                        type="text"
-                                        className="input-x w-input"
-                                        maxLength="256"
-                                        placeholder="VAT *"
-                                        required=""
-                                    />
-                                </div>
-                                <div className="settings-spacer"></div>
-                                <h2 className="headline-5 mb-30">How do you want to pay?</h2>
-                                <div className="account-form-1 mb-50">
+
+    setErrors(err);
+
+    if (err.length) return false;
+
+    return true;
+  };
+
+  const submit = async (e) => {
+    e.preventDefault();
+
+    if (!validate()) return;
+
+
+    // const response = await authAxios()({
+    //   url: `sellers/${seller.id}`,
+    //   method: "PUT",
+    //   data: {
+    //     onboardStatus: 1,
+    //     questionaire: answers,
+    //   },
+    // });
+
+    nextPage();
+  };
+
+  return (
+    <div className="page-section wf-section">
+      <div className="container">
+        <div className="heading-wrapper">
+          <h1 className="headline-2 mb-50">Billing Settings</h1>
+          <div className="settings-block">
+            <div className="w-form">
+              <form id="wf-form-Plan-Billing" name="wf-form-Plan-Billing" data-name="Plan Billing">
+                <h2 className="headline-5 mb-30">Your billing details</h2>
+                <input
+                  onChange={(e) => setName(e.target.value)}
+                  value={name}
+                  type="text"
+                  className="input-x mb-15 w-input"
+                  maxLength="256"
+                  placeholder="Name or Company Name *"
+                  required=""
+                />
+                <div className="account-form-1">
+                  <input
+                    onChange={(e) => setStreet(e.target.value)}
+                    value={street}
+                    type="tel"
+                    className="input-x w-input"
+                    maxLength="256"
+                    placeholder="Street Name *"
+                    id="Street-Name" required=""
+                  />
+                  <input
+                    onChange={(e) => setPostalCode(e.target.value)}
+                    value={postalCode}
+                    type="text"
+                    className="input-x w-input"
+                    maxLength="256"
+                    placeholder="Postal Code *"
+                    required=""
+                  />
+                  <input
+                    onChange={(e) => setCity(e.target.value)}
+                    value={city}
+                    type="text"
+                    className="input-x w-input"
+                    maxLength="256"
+                    placeholder="City *"
+                    required="" />
+                  <input
+                    onChange={(e) => setVAT(e.target.value)}
+                    value={VAT}
+                    type="text"
+                    className="input-x w-input"
+                    maxLength="256"
+                    placeholder="VAT *"
+                    required=""
+                  />
+                </div>
+                <div className="settings-spacer"></div>
+                <h2 className="headline-5 mb-30">How do you want to pay?</h2>
+                <div className="product-add-block-bank">
+                  <p className="mb-20"> IBAN </p>
+                  <div className="mb-40 flex left-2">
+                    <input
+                      onChange={(e) => setIBAN(e.target.value)}
+                      value={IBAN}
+                      type="text"
+                      className="input-x w-input"
+                      maxLength="256"
+                      placeholder="IBAN *"
+                      required="" />
+                    <div />
+                  </div>
+
+                  <input type="file" onChange={(e) => setIdFront(e.target.files[0])} style={{ display: "none" }} id="id-frontview" />
+                  <input type="file" onChange={(e) => setIdBack(e.target.files[0])} style={{ display: "none" }} id="id-backview" />
+                  <input type="file" onChange={(e) => setAddressFront(e.target.files[0])} style={{ display: "none" }} id="address-frontview" />
+                  <input type="file" onChange={(e) => setAddressBack(e.target.files[0])} style={{ display: "none" }} id="address-backview" />
+                  {/* <div className="spacer-20" /> */}
+
+                  <p className="mb-20"> Identity Documents</p>
+
+                  <div className="flex left-4 flex-wrap" >
+                    <div className="product-add-block">
+                      <label className="button" htmlFor="id-frontview" >Upload Front View</label  >
+
+                      {/* <OutlinedButton id={id} name="Upload Front View" /> */}
+                    </div>
+                    <div className="product-add-block">
+                      <label className="button" htmlFor="id-backview" >Upload Back View</label  >
+
+                      {/* <OutlinedButton id={id} name="Upload Back View" /> */}
+                    </div>
+                  </div>
+
+                  <div className="spacer-40" />
+                  <p className="mb-20"> Proof Of Address Documents</p>
+
+                  <div className="flex left-4 flex-wrap">
+                    <div className="product-add-block">
+                      <label className="button" htmlFor="address-frontview" >Upload Front View</label  >
+                      {/* <OutlinedButton name="Upload Front View" /> */}
+                    </div>
+                    <div className="product-add-block">
+                      <label className="button" htmlFor="address-backview" >Upload Back View</label  >
+                      {/* <OutlinedButton name="Upload Back View" /> */}
+                    </div>
+                  </div>
+                </div>
+
+                {/* <Seller_Payouts id="id-proof" /> */}
+                {/* <div className="account-form-1 mb-50">
                                     <div className="payment-method-option">
                                         <img src="../images/about-1.jpg" loading="lazy" width="135" height="71" alt="" className="payment-method-option-img" />
                                         <label className="w-checkbox checkbox-field mb-0">
@@ -255,15 +310,15 @@ const Seller_Price_Billing = ({ nextPage }) => {
                                         <option value="2027">2027</option>
                                     </select>
                                     <span onClick={()=>setCardConfirmation(!cardConfirmation)} className="button blue secondary">Confirm Card Information</span>
-                                </div>
-                                <div className="button blue" onClick={submit}> Save & Continue </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                                </div> */}
+                <div className="button blue" onClick={submit}> Save & Continue </div>
+              </form>
             </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Seller_Price_Billing;
