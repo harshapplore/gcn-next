@@ -47,6 +47,7 @@ const NavBlock = () => {
   };
 
   return (
+    <div className="nav-area">
     <div className="shop-content pt-0">
       <div className="scroll-x">
         {blocks.map((block, index) => (
@@ -60,6 +61,7 @@ const NavBlock = () => {
           />
         ))}
       </div>
+    </div>
     </div>
   );
 };

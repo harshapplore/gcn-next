@@ -7,7 +7,6 @@ import CheckBox from "./Checkbox";
 import {useCloseMe} from "@/_hooks";
 
 const DropdownContainer = styled.div`
-  min-width: 300px;
   min-height: 25px;
   width: ${(props) => (props.width ? props.width : "auto")};
   color: #555;

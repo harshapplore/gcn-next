@@ -11,7 +11,7 @@ const Seller_Shop_Terms = ({ nextPage }) => {
     const [returnAndRefund, setReturnAndRefund] = useState("");
     const [generalCondition, setGeneralCondition] = useState("");
     const [privacyPolicy, setPrivacyPolicy] = useState("");
-    const [termLanguage, setTermLanguage] = useState("english");
+    // const [termLanguage, setTermLanguage] = useState("english");
 
     // console.log(seller)
     // useEffect(() => {
@@ -63,19 +63,7 @@ const Seller_Shop_Terms = ({ nextPage }) => {
                         <div className="w-form">
                             <form >
                                 <div className="terms-headline mb-20">
-                                    <h4 className="headline-5">Returns and Refungs (Wiederrufungsrecht)</h4>
-                                    <div>
-                                        <span
-                                            onClick={(e) => setTermLanguage("english")}
-                                            className={`terms-language ${termLanguage==="english" && "current"}`}
-                                            style={{cursor:"pointer"}}
-                                            >English {" "}</span>
-                                        <span 
-                                        onClick={(e) => setTermLanguage("deutsch")}
-                                        className={`terms-language ${termLanguage==="deutsch" && "current"}`}
-                                        style={{cursor:"pointer"}}
-                                        >Deutsch</span>
-                                    </div>
+                                    <h4 className="headline-5">Returns and Refungs</h4>
                                 </div>
                                 <textarea
                                     onChange={(e) => setReturnAndRefund(e.target.value)}
@@ -84,7 +72,7 @@ const Seller_Shop_Terms = ({ nextPage }) => {
                                     className="input-x input-x--text-area w-input"></textarea>
                                 <div className="settings-spacer"></div>
                                 <div className="terms-headline mb-20">
-                                    <h4 className="headline-5">General Conditions (AGB)</h4>
+                                    <h4 className="headline-5">General Conditions</h4>
                                 </div>
                                 <textarea
                                     onChange={(e) => setGeneralCondition(e.target.value)}
@@ -92,7 +80,7 @@ const Seller_Shop_Terms = ({ nextPage }) => {
                                     maxLength="5000"
                                     className="input-x input-x--text-area w-input"></textarea>
                                 <div className="settings-spacer"></div>
-                                <h4 className="headline-5 mb-20">Privacy Policy (Datenschutz)</h4>
+                                <h4 className="headline-5 mb-20">Privacy Policy</h4>
                                 <textarea
                                     onChange={(e) => setPrivacyPolicy(e.target.value)}
                                     placeholder="Type in here…"

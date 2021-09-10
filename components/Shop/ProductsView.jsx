@@ -7,159 +7,14 @@ import { fetchFavoriteItems, fetchFavoriteShops } from "@/slices/favorites";
 
 import TopFilter from "@/shared/Shop2/Filters/Top";
 import SideFilter from "@/shared/Shop2/Filters/Side";
-
 import { getProducts } from "@/_controllers/product";
-import { addToFavorites, deleteFavorite } from "@/_controllers/customer";
 
 import { urqlClient } from "@/setups/urql";
 import { filterQuery, filterConverter } from "@/_methods/filters";
 
-const Rating = ({ rating }) => {
-  let filled = rating;
-  let empty = 5 - rating;
+import ProductView from "@/shared/Shop2/Product/View";
 
-  const ele = [];
-
-  while (filled > 0) {
-    ele.push(
-      <img
-        key={"filled-" + filled}
-        src="/images/star-black-24-dp-copy-4.svg"
-        loading="lazy"
-        alt="Filled Star"
-        className="shop-product-star"
-      />
-    );
-
-    filled--;
-  }
-
-  while (empty > 0) {
-    ele.push(
-      <img
-        key={"empty-" + empty}
-        src="/images/star-black-24-dp-copy.svg"
-        loading="lazy"
-        alt="Empty star"
-        className="shop-product-star"
-      />
-    );
-    empty--;
-  }
-
-  return <div>{ele}</div>;
-};
-
-const ShopItem = ({ product, favorites }) => {
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
-  const { customer } = useSelector((state) => state.customer);
-
-  const [showFavButton, setShowFavButton] = useState(false);
-  const [_isFavorite, _setIsFavorite] = useState(null);
-
-  useEffect(async () => {
-    if (!user || !user.id) {
-      setShowFavButton(false);
-    }
-
-    if (user.id && user.type === "seller") {
-      setShowFavButton(false);
-    }
-
-    if (user.id && user.type === "customer") {
-      setShowFavButton(true);
-    }
-  }, [user]);
-
-  useEffect(async () => {
-    if (!favorites || !favorites.length > 0) return;
-
-    const index = favorites.findIndex((fav) => fav.productId === product.id);
-    console.log(favorites, index);
-
-    if (index >= 0) _setIsFavorite(true);
-    if (index === -1) _setIsFavorite(false);
-  }, [favorites, product]);
-
-  const toggleFavorites = async (e) => {
-    e.stopPropagation();
-
-    if (!_isFavorite) {
-      const updated = await addToFavorites({
-        customerId: customer.id,
-        userId: user.id,
-        product: product.id,
-        type: "Product",
-      });
-    } else {
-      const index = favorites.findIndex((fav) => fav.productId === product.id);
-
-      await deleteFavorite(favorites[index].favId);
-    }
-
-    dispatch(fetchFavoriteItems(customer.id));
-  };
-
-  return (
-    <div
-      className="shop-product-item"
-      onClick={() => router.push(`/product/${product.id}`)}
-    >
-      <a className="shop-product-img w-inline-block">
-        <img
-          src={product.images && product.images[0] && product.images[0].url}
-          loading="lazy"
-          sizes="(max-width: 479px) 83vw, (max-width: 767px) 45vw, (max-width: 991px) 30vw, (max-width: 1279px) 17vw, 218.40000915527344px"
-          alt={product.name}
-          className="back-img"
-        />
-      </a>
-
-      {showFavButton && (
-        <a
-          className="potw-like active w-inline-block"
-          onClick={toggleFavorites}
-        >
-          {_isFavorite && (
-            <img
-              src="/images/favorite-border-black-24-dp-2.svg"
-              loading="lazy"
-              width={25}
-              alt="Like"
-              className="orange-heart"
-            />
-          )}
-          <img
-            src="/images/favorite-border-black-24-dp_1.svg"
-            loading="lazy"
-            alt="Like"
-            className="heart"
-          />
-        </a>
-      )}
-      <div className="shop-product-info">
-        <a className="link">{product.name}</a>
-        <div
-          className="by-seller"
-          onClick={(e) => {
-            e.stopPropagation();
-            router.push(`/shop/${product.shop && product.shop.id}`);
-          }}
-        >
-          By {product.shop && product.shop.name}
-        </div>
-        <div className="shop-product-price">€ {product.price}</div>
-        <div>
-          <Rating rating={product.rating || 0} />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const View = () => {
+const View = ({shop}) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { customer } = useSelector((state) => state.customer);
@@ -171,9 +26,13 @@ const View = () => {
   const [products, setProducts] = useState([]);
   const [filters, setFilters] = useState({});
 
-  useEffect(async () => {
-    const products = await getProducts();
+  useEffect(() => {
+    if(!shop.name) return;
 
+    setFilters({...filters, shopName: shop.name})
+  }, [shop.name])
+
+  useEffect(async () => {
     if (router.query.filters) {
       const _filters = JSON.parse(decodeURIComponent(router.query.filters));
 
@@ -196,14 +55,14 @@ const View = () => {
 
   useEffect(() => {
     if (Object.keys(filters).length)
-      router.push("/products?filters=" + JSON.stringify(filters));
+      if(shop.id) router.push(`/shop/${shop.id}?filters=${JSON.stringify(filters)}`);
   }, [JSON.stringify(filters)]);
 
   useEffect(() => {
     if (!categories.length) {
       dispatch(fetchCategories());
     }
-  }, [router.query]);
+  }, [router.query, shop]);
 
   useEffect(() => {
     if (!customer.id) return;
@@ -216,7 +75,7 @@ const View = () => {
   }, [customer.id]);
 
   return (
-    <div className="page-section pt-0 wf-section">
+    <>
       <div className="container">
         <div className="breadcrumbs-wrapper">
           <a href="index.html" className="overline-text">
@@ -232,7 +91,7 @@ const View = () => {
           <div className="shop-filter popup-mobile mt-40">
             <div className="scroll-y">
               <div>
-                <SideFilter filters={filters} setFilters={setFilters} />
+                <SideFilter filters={filters} setFilters={setFilters} shopView={true}/>
               </div>
             </div>
           </div>
@@ -336,24 +195,14 @@ const View = () => {
             {/* className="hide-mobile" */}
             <div>
               <div className="flex flex-justify-start flex-gap-10 flex-1 mb-40">
-                <TopFilter filters={filters} setFilters={setFilters} />
+                <TopFilter filters={filters} setFilters={setFilters} shopView={true}/>
               </div>
             </div>
-            <div className="flex left-4">
-              {products &&
-                products.length > 0 &&
-                products.map((product, index) => (
-                  <ShopItem
-                    key={"pro" + index}
-                    product={product}
-                    favorites={favoriteItems}
-                  />
-                ))}
-            </div>
+            <ProductView products={products} favoriteItems={favoriteItems} />
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

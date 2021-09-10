@@ -52,13 +52,17 @@ const ShopNavContainer = styled.div`
   }
 
   .right-container {
+    flex: 1;
+
     .shop-name-container {
       padding-inline: 24px;
       padding-top: 24px;
 
-      display: flex;
-      align-items: center;
-      gap: 24px;
+      .name {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
 
       .edit-button-ctr {
         > div {
@@ -87,7 +91,7 @@ const ShopNavContainer = styled.div`
   }
 `;
 
-const ShopNav = ({ name, logo, edit, children, isSellerPage }) => {
+const ShopNav = ({ name, logo, description, edit, children, isSellerPage }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { seller } = useSelector((state) => state.user);
@@ -176,12 +180,14 @@ const ShopNav = ({ name, logo, edit, children, isSellerPage }) => {
           })
         }
       />
-      ;
       <div className="left-container">
         <div className="image-container">
           {edit && (
-            <div className="edit-logo-button cursor" onClick={() => triggerInput(inputRef)}>
-              <img src="/icons/edit-icon.svg" alt="edit-icon"/>
+            <div
+              className="edit-logo-button cursor"
+              onClick={() => triggerInput(inputRef)}
+            >
+              <img src="/icons/edit-icon.svg" alt="edit-icon" />
               <span> Change Logo </span>
             </div>
           )}
@@ -190,44 +196,36 @@ const ShopNav = ({ name, logo, edit, children, isSellerPage }) => {
       <div className="right-container">
         {children}
         <div className="shop-name-container">
-          <h1> {name || shop.name || null}</h1>
+          <div className="name mb-10">
+            <h1> {name || shop.name || null}</h1>
 
-          {customer.id && (
-            <div className="shop-like-ctr">
-              <a
-                className="potw-like active w-inline-block"
-                onClick={toggleFavorites}
-              >
-                {_isFavorite && (
+            {customer.id && (
+              <div className="shop-like-ctr">
+                <a
+                  className="potw-like active w-inline-block"
+                  onClick={toggleFavorites}
+                >
+                  {_isFavorite && (
+                    <img
+                      src="/images/favorite-border-black-24-dp-2.svg"
+                      loading="lazy"
+                      width={25}
+                      alt="Like"
+                      className="orange-heart"
+                    />
+                  )}
                   <img
-                    src="/images/favorite-border-black-24-dp-2.svg"
+                    src="/images/favorite-border-black-24-dp_1.svg"
                     loading="lazy"
-                    width={25}
                     alt="Like"
-                    className="orange-heart"
+                    className="heart"
                   />
-                )}
-                <img
-                  src="/images/favorite-border-black-24-dp_1.svg"
-                  loading="lazy"
-                  alt="Like"
-                  className="heart"
-                />
-              </a>
-            </div>
-          )}
-        </div>
-        {/* {isSellerPage && (
-          <div
-            className="signout-button-ctr"
-            onClick={() => {
-              localStorage.clear();
-              location.reload();
-            }}
-          >
-            Sign Out
+                </a>
+              </div>
+            )}
           </div>
-        )} */}
+          {!isSellerPage && <p className="mb-20 ml-10"> {description}</p>}
+        </div>
       </div>
     </ShopNavContainer>
   );

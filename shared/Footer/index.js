@@ -27,15 +27,18 @@ const Footer = () => {
               <a className="footer-inline-link dark">€ (EUr)</a>
             </div>
             <div className="social-wrapper">
-              <a className="social-icon first w-inline-block">
+              <a className="social-icon first w-inline-block cursor">
                 <img src="/images/group-3.svg" loading="lazy" alt="Pinterest" />
               </a>
-              <a href="https://twitter.com/GreenCloudNine" className="social-icon w-inline-block">
+              <a
+                href="https://twitter.com/GreenCloudNine"
+                className="social-icon w-inline-block cursor"
+              >
                 <img src="/images/group-2.svg" loading="lazy" alt="Twitter" />
               </a>
               <a
                 href="https://www.instagram.com/greencloudnine/"
-                className="social-icon w-inline-block"
+                className="social-icon w-inline-block cursor"
               >
                 <img src="/images/group.svg" loading="lazy" alt="Instagram" />
               </a>
@@ -49,7 +52,14 @@ const Footer = () => {
                   alt="Facebook"
                 />
               </a>
-              <a className="social-icon last w-inline-block">
+              <a
+                className="social-icon last w-inline-block cursor"
+                onClick={() =>
+                  navigator.clipboard.writeText(
+                    "https://app.greencloudnine.com"
+                  )
+                }
+              >
                 <img
                   src="/images/share-black-24-dp.svg"
                   loading="lazy"
