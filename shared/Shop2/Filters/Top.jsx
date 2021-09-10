@@ -15,7 +15,7 @@ const ShopsQuery = `
   }
 `;
 
-const TopFilter = ({ filters, setFilters }) => {
+const TopFilter = ({ filters, setFilters, shopView }) => {
   const [result, reexecuteQuery] = useQuery({
     query: ShopsQuery,
   });
@@ -31,12 +31,12 @@ const TopFilter = ({ filters, setFilters }) => {
         setValue={(value) => setFilters({ ...filters, sustainability: value })}
       />
 
-      <FilterDropdown
+      {!shopView && <FilterDropdown
         choices={(shopsData && shopsData.shops.map((shop) => shop.name)) || []}
         placeholder="Shop"
         value={filters.brand}
         setValue={(value) => setFilters({ ...filters, brand: value })}
-      />
+      /> }
 
       <CheckDropdown
         choices={__filters.price}

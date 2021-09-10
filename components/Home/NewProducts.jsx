@@ -59,7 +59,7 @@ const Product = ({ product }) => {
 
   return (
     <div
-      className="flex-child-24"
+      className="flex-child-24 cursor"
       onClick={() => router.push(`/product/${product._id}`)}
     >
       <div className="potw-item">

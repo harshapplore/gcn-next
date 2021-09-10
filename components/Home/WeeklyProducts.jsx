@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchFavoriteItems } from "@/slices/favorites";
 import { getLatestProducts, getProducts } from "@/_controllers/product";
@@ -8,15 +9,15 @@ import router from "next/router";
 
 const ProductCard = ({ product, customerId }) => {
   return (
-    <>
-      <div className="flex-child-32">
+    <Link href={`/product/${product.id}`}>
+      <div className="flex-child-32 cursor">
         <div className="potw-item">
           <img
             src={product.main && product.main.url}
             alt="Handcrafted stuff"
             className="back-img"
           />
-          <a className="potw-name w-inline-block">
+          <a className="potw-name w-inline-block cursor">
             <div>{product.name}</div>
             <img
               src="images/expand-more-black-24-dp.svg"
@@ -43,7 +44,7 @@ const ProductCard = ({ product, customerId }) => {
           )}
         </div>
       </div>
-    </>
+    </Link>
   );
 };
 

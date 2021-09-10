@@ -1,13 +1,85 @@
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 import FilterDropdown from "@/shared/Input/FilterDropdown";
 import Toggle from "@/shared/Input/Toggle";
+
+import CheckBox from "@/shared/Input/Checkbox";
 import CheckDropdown from "@/shared/Input/CheckDropdown";
 
 import __countries from "@/_data/countries.json";
 import __deliveryTimes from "@/_data/deliveryTimes.json";
 
-const Sidebar = ({ filters, setFilters }) => {
+const Sidebar = ({ filters, setFilters, shopView }) => {
+  const router = useRouter();
+  const { categories } = useSelector((state) => state.categories);
+
+  const [activeIndex, setActiveIndex] = useState();
+
+  useEffect(() => {
+    const { filters } = router.query;
+
+    if (!filters) return;
+
+    const _filters = JSON.parse(decodeURIComponent(filters));
+
+    if (!_filters.category) {
+      setActiveIndex(null);
+      return;
+    }
+
+    if (_filters.category) {
+      const index = categories.findIndex((cat) => cat.id === _filters.category);
+
+      setActiveIndex(index);
+    }
+  }, [router.query.filters, categories]);
+
+  const updateTags = (value, tag) => {
+    if (value) setFilters({ ...filters, tags: [...(filters.tags || []), tag] });
+    else {
+      const index =
+        filters && filters.tags.findIndex((tagName) => tagName === tag);
+
+      setFilters({
+        ...filters,
+        tags: {
+          ...filters,
+          tag: [
+            ...filters.tags.slice(0, index),
+            ...filters.tags.slice(index + 1),
+          ],
+        },
+      });
+    }
+  };
+
   return (
     <>
+      {shopView && (
+        <div className="mb-20 hide-mobile">
+          {categories &&
+            categories.length > 0 &&
+            categories.map((category, index) => {
+              return (
+                <div
+                  key={"catg" + index}
+                  className={
+                    "tab-link-shop cursor w-inline-block" +
+                    (activeIndex === index ? " current" : "")
+                  }
+                  onClick={() =>
+                    setFilters({ ...filters, category: category.id })
+                  }
+                >
+                  <div>{category.name}</div>
+                </div>
+              );
+            })}
+        </div>
+      )}
+
       <div className="shop-select-text first">Delivers to:</div>
       <div className="mb-20">
         <CheckDropdown
@@ -27,13 +99,34 @@ const Sidebar = ({ filters, setFilters }) => {
         />
       </div>
       <div className="shop-select-text first">Delivery Time</div>
-      <div className="mb-20">
+      <div className="mb-40">
         <FilterDropdown
           choices={__deliveryTimes}
           value={filters.deliveryTime}
           setValue={(value) => setFilters({ ...filters, deliveryTime: value })}
         />
       </div>
+
+      <div className="shop-select-text first ">Filters</div>
+      <div className="spacer-10" />
+      <div className="mb-40">
+        <div className="mb-20">
+          <CheckBox text="For him" />
+        </div>
+
+        <div className="mb-20">
+          <CheckBox text="For her " value={filters.tags} />
+        </div>
+
+        <div className="mb-20">
+          <CheckBox text="For her " value={filters.tags} />
+        </div>
+
+        <div className="mb-20">
+          <CheckBox text="For her " value={filters.tags} />
+        </div>
+      </div>
+
       <div className="mb-20">
         <Toggle
           name="Pick up Available"
