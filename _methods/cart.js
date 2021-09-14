@@ -26,7 +26,7 @@ export const addToCart = (product) => {
 
   const index = cart.findIndex((item) => item.id === product.id);
 
-  if (index >= 0) {
+  if (index >= 0 && cart[index].color === product.color) {
     return saveCart([
       ...cart.slice(0, index),
       { ...cart[index], quantity: cart[index].quantity + 1 },

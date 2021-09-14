@@ -389,7 +389,7 @@ const Products = () => {
               className="shop-product-add w-inline-block"
               onClick={() => router.push(BASE_ROUTE + PRODUCTS + ADD_ACTION)}
             >
-              <div className="shop-product-add-container">
+              <div className="shop-product-add-container cursor no-select">
                 <img
                   src="/images/add-black-24-dp.svg"
                   loading="lazy"

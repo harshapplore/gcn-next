@@ -20,11 +20,11 @@ const Footer = () => {
         <div className="container">
           <div className="footer-top-flex">
             <div>
-              <a className="footer-inline-link dark">Austria</a>
+              <a className="footer-inline-link dark cursor">Austria</a>
               <div className="footer-inline-link-divider">|</div>
-              <a className="footer-inline-link dark">English</a>
+              <a className="footer-inline-link dark cursor">English</a>
               <div className="footer-inline-link-divider">|</div>
-              <a className="footer-inline-link dark">€ (EUr)</a>
+              <a className="footer-inline-link dark cursor">€ (EUr)</a>
             </div>
             <div className="social-wrapper">
               <a className="social-icon first w-inline-block cursor">

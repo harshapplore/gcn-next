@@ -46,7 +46,7 @@ const Home = () => {
       <Banner />
       <WeeklyProducts />
       <NewProducts />
-      <GreenCloudNine />
+      {/* <GreenCloudNine /> */}
       <Footer />
     </>
   );

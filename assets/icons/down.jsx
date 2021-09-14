@@ -1,4 +1,4 @@
-export default DownIcon = () => (
+export default (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     x="0px"
@@ -7,6 +7,7 @@ export default DownIcon = () => (
     height={18}
     viewBox="0 0 172 172"
     style={{ fill: "#555" }}
+    {...props}
   >
     <g
       fill="none"
