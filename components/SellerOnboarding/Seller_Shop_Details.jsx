@@ -4,6 +4,10 @@ import { useSelector } from "react-redux";
 import ShopProgressBar from "./Utils/ShopProgressBar";
 import countries from "../../_data/countries.json"
 import Select from "@/shared/Select";
+import { authAxios } from "@/setups/axios";
+import { uploadFiles } from "_controllers/product"
+
+
 
 const Seller_Shop_Details = ({ nextPage }) => {
   const { seller } = useSelector((state) => state.user);
@@ -12,7 +16,7 @@ const Seller_Shop_Details = ({ nextPage }) => {
   const [headerImage, setHeaderImage] = useState("");
   const [shopImages, setShopImages] = useState([]);
   const [shopName, setShopName] = useState("");
-  const [shopDesc, setShopDesc] = useState([]);
+  const [shopDesc, setShopDesc] = useState("");
  
 
   // console.log(seller)
@@ -30,27 +34,58 @@ const Seller_Shop_Details = ({ nextPage }) => {
 
     return true;
   };
+  const checkAvailable = async(e)=>{
+    setErrors(err)
+    const totalShops = await authAxios()({
+      url: `/shops/`,
+      method: "GET",
+    });
+    const err=[]
+    // const checkAvailablity = totalShops.filter( shop => {
+    //   shop.name
+    // } )
 
+    // checkAvailablity && checkAvailablity.length ? err.push(`Shop name already taken`) : "";
+  }
+  // console.log(res)
+  const profilepicture = []
+  profilepicture.push(profilePic)
+  const cover = []
+  cover.push(headerImage)
+  const shopimage = []
+  shopimage.push(shopImages[0])
+  shopimage.push(shopImages[1])
+  shopimage.push(shopImages[2])
+  shopimage.push(shopImages[3])
+  
+  // arr.push(idBack)
+  // arr.push(addressBack)
+  // arr.push(addressFront)
+  
   const submit = async (e) => {
     e.preventDefault();
-
+    
     if (!validate()) return;
-
-
-    // const response = await authAxios()({
-    //   url: `sellers/${seller.id}`,
-    //   method: "PUT",
-    //   data: {
-    //     onboardStatus: 1,
-    //     questionaire: answers,
-    //   },
-    // });
-
-    // if (cardConfirmation) {
-    nextPage();
-    // }
+    
+    const logo = await uploadFiles(profilepicture)
+    const head = await uploadFiles(cover)
+    const image = await uploadFiles(shopimage)
+    
+    const data = {
+      name:shopName,
+      description:shopDesc,
+      logo,
+      cover:head,
+      images:image
+    }
+    
+    const res = await authAxios()({
+      url: `/shops/${seller.shop.id} `,
+      method: "PUT",
+      data:data
+    });
+    console.log(res)
   };
-
   return (
     <div className="page-section wf-section">
       <div className="container">
@@ -69,9 +104,12 @@ const Seller_Shop_Details = ({ nextPage }) => {
                       <div className="assessment-spacer"></div>
                       <div className="account-form-1">
                         <input type="text" onChange={(e)=>setShopName(e.target.value)} className="input-x w-input" maxLength="256" value={shopName} placeholder="Shop Name *" id="Shop-Name" />
-                        <a href="#" className="button blue">Check</a>
+                        <a onClick={checkAvailable} className="button blue">Check</a>
                       </div>
                     </div>
+                    {errors && errors.length > 0 && errors.map(error =>
+                  <Message text={error} status={-1} />)
+                }
                   </li>
                   <li>
                     <div className="subtitle-2">Shop description</div>
@@ -158,7 +196,7 @@ const Seller_Shop_Details = ({ nextPage }) => {
                     </div>
                   </li>
                 </ol>
-                <a href="#" className="button blue mr-10">Save and Continue</a>
+                <div onClick={submit} className="button blue mr-10">Save and Continue</div>
               </form>
               <div className="w-form-done">
                 <div>Thank you! Your submission has been received!</div>

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import ProgressBar from "./Utils/ProgressBar";
 
-// import { authAxios } from "@/setups/axios";
+import { authAxios } from "@/setups/axios";
 
 // import Select from "@/shared/Select";
 // import CheckBox from "@/shared/Checkbox";
@@ -75,9 +75,36 @@ const Seller_Social = ({ nextPage }) => {
     // console.log(objectivesAndGoalsSustainabilty)
     const [errors, setErrors] = useState([]);
     // console.log(seller)
-    // useEffect(() => {
-    //   if (seller.questionaire) setInitials(seller.questionaire);
-    // }, [seller]);
+    useEffect(() => {
+      if (seller.socialAnswers) {
+        setDiversityCriteria(seller.socialAnswers.diversityCriteria)
+        setSalaryRangeAndEligibily(seller.socialAnswers.salaryRangeAndEligibily)
+        setGrievanceChannels(seller.socialAnswers.grievanceChannels)
+        setDiversityBrief(seller.socialAnswers.diversityBrief)
+        setTrainingToEmployee(seller.socialAnswers.trainingToEmployee)
+        setValuesAndEncourages(seller.socialAnswers.valuesAndEncourages)
+        setSubsidizeCourse(seller.socialAnswers.subsidizeCourse)
+        setIncentiveRelated(seller.socialAnswers.incentiveRelated)
+        setDegreeOfSatisfaction(seller.socialAnswers.degreeOfSatisfaction)
+        setAdminsSoftSkills(seller.socialAnswers.adminsSoftSkills)
+        setProfessionalBrief(seller.socialAnswers.professionalBrief)
+        setPleasantEnvironment(seller.socialAnswers.pleasantEnvironment)
+        setUptodateDocs(seller.socialAnswers.uptodateDocs)
+        setAccidentPreventions(seller.socialAnswers.accidentPreventions)
+        setUseOfPPE(seller.socialAnswers.useOfPPE)
+        setMoralHarrasmentPrevention(seller.socialAnswers.moralHarrasmentPrevention)
+        setSexualHarrasmentPrevention(seller.socialAnswers.sexualHarrasmentPrevention)
+        setTeamForEmployeeWellness(seller.socialAnswers.teamForEmployeeWellness)
+        setFriendlyWorkEnvironment(seller.socialAnswers.friendlyWorkEnvironment)
+        setSafetyBrief(seller.socialAnswers.safetyBrief)
+        setDialogChannel(seller.socialAnswers.dialogChannel)
+        setEncouragingValunteer(seller.socialAnswers.encouragingValunteer)
+        setInvestInSocialProject(seller.socialAnswers.investInSocialProject)
+        setInvestPercentage(seller.socialAnswers.investPercentage)
+        setObtainedBenifits(seller.socialAnswers.obtainedBenifits)
+        setStackHoldersBrief(seller.socialAnswers.stackHoldersBrief)
+      }
+    }, [seller]);
 
 
 
@@ -104,18 +131,46 @@ const Seller_Social = ({ nextPage }) => {
         if (!validate()) return;
 
 
-        // const response = await authAxios()({
-        //   url: `sellers/${seller.id}`,
-        //   method: "PUT",
-        //   data: {
-        //     onboardStatus: 1,
-        //     questionaire: answers,
-        //   },
-        // });
-
-        // if (response) {
-        nextPage();
-        // }
+        const data = {
+            diversityCriteria,
+            salaryRangeAndEligibily,
+            grievanceChannels,
+            checkBoxStyle,
+            diversityBrief,
+            pleasantEnvironment,
+            uptodateDocs,
+            accidentPreventions,
+            useOfPPE,
+            moralHarrasmentPrevention,
+            sexualHarrasmentPrevention,
+            teamForEmployeeWellness,
+            friendlyWorkEnvironment,
+            safetyBrief,
+            trainingToEmployee,
+            valuesAndEncourages,
+            subsidizeCourse,
+            incentiveRelated,
+            degreeOfSatisfaction,
+            adminsSoftSkills,
+            professionalBrief,
+            dialogChannel,
+            encouragingValunteer,
+            investInSocialProject,
+            investPercentage,
+            obtainedBenifits,
+            stackHoldersBrief,
+        }
+        const response = await authAxios()({
+            url: `sellers/${seller.id}`,
+            method: "PUT",
+            data: {
+                // onboardStatus: 1,
+                socialAnswers: data,
+            },
+        });
+        if (response.data.socialAnswers) {
+            nextPage();
+        }
     };
 
     return (
@@ -204,7 +259,7 @@ const Seller_Social = ({ nextPage }) => {
                                     obtainedBenifits={obtainedBenifits}
                                     setObtainedBenifits={setObtainedBenifits}
                                     stackHoldersBrief={stackHoldersBrief}
-                                    setStackHoldersBrief ={setStackHoldersBrief}
+                                    setStackHoldersBrief={setStackHoldersBrief}
                                     checkBoxStyle={checkBoxStyle}
                                     data={data}
                                 />

@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import ProgressBar from "./Utils/ProgressBar";
+// import { putSeller } from "../../_controllers/seller"
+import { uploadFiles } from "_controllers/product"
 
-// import { authAxios } from "@/setups/axios";
+import { authAxios } from "@/setups/axios";
 
 // import Select from "@/shared/Select";
 // import CheckBox from "@/shared/Checkbox";
@@ -39,14 +41,31 @@ const Seller_Basic_Info = ({ nextPage }) => {
   const [rawMaterialDetails, setRawMaterialDetails] = useState("")
   const [companySize, setCompanySize] = useState("")
   const [certificate, setCertificate] = useState("")
-  const [file, setFile] = useState("")
+  const [file, setFile] = useState([])
   const [certificateName, setCertificateName] = useState("")
 
   const [errors, setErrors] = useState([]);
-  // console.log(seller)
-  // useEffect(() => {
-  //   if (seller.questionaire) setInitials(seller.questionaire);
-  // }, [seller]);
+
+  const getDet = () => {
+
+  }
+
+  useEffect(() => {
+    if (seller.basicInformationAnswers) {
+      setInitials(seller.basicInformationAnswers.initials)
+      setName(seller.basicInformationAnswers.name)
+      setJobTitle(seller.basicInformationAnswers.jobTitle)
+      setOrganizationName(seller.basicInformationAnswers.organizationName)
+      setEmail(seller.basicInformationAnswers.email)
+      setMobile(seller.basicInformationAnswers.mobile)
+      setProductInfo(seller.basicInformationAnswers.productInfo)
+      setRawMaterialDetails(seller.basicInformationAnswers.rawMaterialDetails)
+      setCompanySize(seller.basicInformationAnswers.companySize)
+      setCertificate(seller.basicInformationAnswers.certificate)
+      setFile(seller.basicInformationAnswers.file)
+      setCertificateName(seller.basicInformationAnswers.certificateName)
+    }
+  }, [seller]);
 
 
 
@@ -70,6 +89,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
 
     return true;
   };
+  console.log(seller)
 
   const submit = async (e) => {
     e.preventDefault();
@@ -107,20 +127,23 @@ const Seller_Basic_Info = ({ nextPage }) => {
       certificateName,
       file
     }
-    console.log(sellerData)
+    // const filesuploaded =await uploadFiles(file)
+    // console.log(sellerData)
+    console.log(file)
+    // const response = await putSeller(seller.id,formData)
 
-    // const response = await authAxios()({
-    //   url: `sellers/${seller.id}`,
-    //   method: "PUT",
-    //   data: {
-    //     onboardStatus: 1,
-    //     questionaire: answers,
-    //   },
-    // });
-
-    // if (response) {
-    nextPage();
-    // }
+    const response = await authAxios()({
+      url: `sellers/${seller.id}`,
+      method: "PUT",
+      data: {
+        // onboardStatus: 1,
+        basicInformationAnswers: sellerData,
+      },
+    });
+    console.log(response)
+    if (response) {
+      nextPage();
+    }
   };
 
   return (
@@ -141,7 +164,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
           <div className="settings-block">
             <h3 className="headline-5 mb-50">Basic Information</h3>
             <div className="w-form">
-              <form id="email-form-7" name="email-form-7" data-name="Email Form 7">
+              <form id="email-form-7" encType="multipart/form-data" name="email-form-7" data-name="Email Form 7" >
                 <ol role="list" className="assessment-list assessment-list--1">
                   <li>
                     <div className="subtitle-2">Contact information</div>
@@ -265,27 +288,27 @@ const Seller_Basic_Info = ({ nextPage }) => {
                           <span htmlFor="No-4" className="checkbox-label w-form-label">No</span>
                         </label>
                       </div>
-                      <div className="mb-20"><strong>If yes, please upload it here:</strong></div>
-                      <div className="account-form-1">
-                        <input type="text" className="input-x w-input" htmlFor="256" value={file && file.name} name="Name-Certificate" data-name="Name Certificate" onChange={(e) => setCertificateName(file ? file.name : e.target.value)} placeholder="Name Certificate *" id="Name-Certificate-2" required="" />
-                        <div className="button icon blue w-inline-block">
-                          <div className="button-icon w-embed">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-                              <g fill="currentcolor" fillRule="evenodd" >
-                                <path d="M 0,0 H 24 V 24 H 0 Z" fill="none"></path>
-                                <path d="M17 8l-1.41 1.41L17.17 11H9v2h8.17l-1.58 1.58L17 16l4-4-4-4zM5 5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h7v-2H5V5z" transform="rotate(-90 12 12)"></path>
-                              </g>
-                            </svg>
-                          </div>
+                      {certificate === "yes" && <> <div className="mb-20"><strong>If yes, please upload it here:</strong></div>
+                        <div className="account-form-1">
+                          <input type="text" className="input-x w-input" htmlFor="256" value={file && file.name} name="Name-Certificate" data-name="Name Certificate" onChange={(e) => setCertificateName(file ? file.name : e.target.value)} placeholder="Name Certificate *" id="Name-Certificate-2" required="" />
+                          <div className="button icon blue w-inline-block">
+                            <div className="button-icon w-embed">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                                <g fill="currentcolor" fillRule="evenodd" >
+                                  <path d="M 0,0 H 24 V 24 H 0 Z" fill="none"></path>
+                                  <path d="M17 8l-1.41 1.41L17.17 11H9v2h8.17l-1.58 1.58L17 16l4-4-4-4zM5 5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h7v-2H5V5z" transform="rotate(-90 12 12)"></path>
+                                </g>
+                              </svg>
+                            </div>
 
-                          <label htmlFor="certificates" >Upload Certificate (png., jpg., pdf.)</label  >
+                            <label htmlFor="certificates" >Upload Certificate (png., jpg., pdf.)</label  >
+                          </div>
+                          <input type="file" style={{ display: "none" }} onChange={(e) => setFile(e.target.files[0])} id="certificates" />
                         </div>
-                        <input type="file" style={{ display: "none" }} onChange={(e) => setFile(e.target.files[0])} id="certificates" />
-                      </div>
-                      <label className="add-element" htmlFor="certificates" style={{ cursor: "pointer" }}>
-                        <img src="../images/add-black-24-dp.svg" loading="lazy" width="24" height="24" alt="Add" className="shop-product-list-add-icon" />
-                        <div className="delivery-country-text">Add Certificate</div>
-                      </label>
+                        <label className="add-element" htmlFor="certificates" style={{ cursor: "pointer" }}>
+                          <img src="../images/add-black-24-dp.svg" loading="lazy" width="24" height="24" alt="Add" className="shop-product-list-add-icon" />
+                          <div className="delivery-country-text">Add Certificate</div>
+                        </label> </>}
                     </div>
                   </li>
                 </ol>

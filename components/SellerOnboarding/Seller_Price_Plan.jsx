@@ -2,19 +2,24 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import ProgressBar from "./Utils/ProgressBar";
+import { authAxios } from "@/setups/axios";
 
 
 const Seller_Price_Plan = ({ nextPage }) => {
     const { seller } = useSelector((state) => state.user);
     const [errors, setErrors] = useState([]);
-    const [bonsai, setBonsai] = useState(false);
-    const [oak, setOak] = useState(true);
+    const [plan, setPlan] = useState("bonsai");
+    const [planType,setPlanType] = useState("")
     // console.log(seller)
     // useEffect(() => {
     //   if (seller.questionaire) setInitials(seller.questionaire);
     // }, [seller]);
 
+   
 
+    // plan === "bonsai" ? setPlanType("bonsai") : setPlanType("oak")
+    
+    
 
     const validate = () => {
         const err = [];
@@ -26,21 +31,29 @@ const Seller_Price_Plan = ({ nextPage }) => {
 
         return true;
     };
+    console.log(seller)
 
-    const oakSubmit = async (e) => {
+    const submit = async (e) => {
         e.preventDefault();
-
+        
+        plan === "bonsai" && setPlanType("bonsai") 
+        plan === "oak" && setPlanType("oak")
         if (!validate()) return;
-      if(oak)
-        nextPage();
+        if(planType !== ""){
+        const response = await authAxios()({
+          url: `sellers/${seller.id}`,
+          method: "PUT",
+          data: {
+              // onboardStatus: 1,
+              planType,
+          },
+      });
+      console.log(response)
+      if(response)
+      nextPage();
+    }
     };
-    const bonsaiSubmit = async (e) => {
-        e.preventDefault();
-
-        if (!validate()) return;
-      if(bonsai)
-        nextPage();
-    };
+    
 
     return (
         <div className="page-section pricing wf-section">
@@ -50,23 +63,23 @@ const Seller_Price_Plan = ({ nextPage }) => {
           </div>
           <div className="pricing-plan-wrapper">
           
-            <div className={`pricing-item ${bonsai ? "selected" : ""}`}>
-              <h2 className="pricing-heading" onClick={()=> setBonsai(!bonsai)}>Bonsai</h2>
+            <div className={`pricing-item ${plan==="bonsai" ? "selected" : ""}`}>
+              <h2 className="pricing-heading" onClick={()=> setPlan("bonsai")}>Bonsai</h2>
               <div className="pricing-commision">12% commission fee on<br/>all transactions<br/></div>
               <div className="pricing-listing">€ 0,20 listing fee <br/>per item<br/></div>
               <div className="pricing-items">(max 15 items)<br/></div>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. </p>
             </div>
-            <div className={`pricing-item ${oak ? "selected" : ""}`}>
-              <h2 className="pricing-heading" onClick={()=> setOak(!oak) }>Oak</h2>
+            <div className={`pricing-item ${plan==="oak" ? "selected" : ""}`}>
+              <h2 className="pricing-heading" onClick={()=> setPlan("oak") }>Oak</h2>
               <div className="pricing-commision">12% commission fee on<br/>all transactions<br/></div>
               <div className="pricing-listing">€ 29,- per month</div>
               <div className="pricing-items">(Unlimited listings)</div>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. </p>
             </div>
           </div>
-          <div style={{marginRight:"40px"}} className="button blue mr-40  mb-60" onClick={oakSubmit}>Continue with Oak</div>                            
-          <div  className="button blue mb-60" onClick={bonsaiSubmit}>Continue with Bonsai</div>                            
+          <div style={{marginRight:"40px"}} className="button blue mr-40  mb-60" onClick={submit}>Continue </div>                            
+                                      
           <div className="div-block-3">
             <div className="headline-5 mr-40">Not sure yet? Try our beta version</div>
             <a href="#" className="button orange">Try Beta Version</a>

@@ -6,12 +6,7 @@ import ProgressBar from "./Utils/ProgressBar";
 
 const Seller_About_Done = ({ nextPage }) => {
     const { seller } = useSelector((state) => state.user);
-    // const [errors, setErrors] = useState([]);
-    // console.log(seller)
-    // useEffect(() => {
-    //   if (seller.questionaire) setInitials(seller.questionaire);
-    // }, [seller]);
-
+  
 console.log(nextPage)
    
     // const validate = () => {
@@ -28,9 +23,6 @@ console.log(nextPage)
         e.preventDefault();
 
         // if (!validate()) return;
-
-
-        
         nextPage();
     
     };

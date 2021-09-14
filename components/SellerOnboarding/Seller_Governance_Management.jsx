@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import ProgressBar from "./Utils/ProgressBar";
 
-// import { authAxios } from "@/setups/axios";
+import { authAxios } from "@/setups/axios";
 
 // import Select from "@/shared/Select";
 // import CheckBox from "@/shared/Checkbox";
@@ -106,9 +106,52 @@ const Seller_Governance_Management = ({ nextPage }) => {
     // console.log(objectivesAndGoalsSustainabilty)
     const [errors, setErrors] = useState([]);
     // console.log(seller)
-    // useEffect(() => {
-    //   if (seller.questionaire) setInitials(seller.questionaire);
-    // }, [seller]);
+    useEffect(() => {
+        if (seller.governanceAndManagementAnswers) {
+            setDirectorAct(seller.governanceAndManagementAnswers.directorAct)
+            setResponsibleForIrregularities(seller.governanceAndManagementAnswers.responsibleForIrregularities)
+            setPrincipleOfBusinessConduct(seller.governanceAndManagementAnswers.principleOfBusinessConduct)
+            setChannelForEmployee(seller.governanceAndManagementAnswers.channelForEmployee)
+            setIntegrityBrief(seller.governanceAndManagementAnswers.innovationBrief)
+            setFinancialPlan(seller.governanceAndManagementAnswers.financialPlan)
+            setFinancialPerformance(seller.governanceAndManagementAnswers.financialPerformance)
+            setMonitoringManagement(seller.governanceAndManagementAnswers.monitoringManagement)
+            setDiscloseInfo(seller.governanceAndManagementAnswers.discloseInfo)
+            setFinancialBrief(seller.governanceAndManagementAnswers.financialBrief)
+            setEfficiency(seller.governanceAndManagementAnswers.efficiency)
+            setQualityOfProduct(seller.governanceAndManagementAnswers.qualityOfProduct)
+            setImprovedProtfolio(seller.governanceAndManagementAnswers.improvedProtfolio)
+            setBenefitInItsDimensions(seller.governanceAndManagementAnswers.benefitInItsDimensions)
+            setRND(seller.governanceAndManagementAnswers.RND)
+            setInvolvingCustomers(seller.governanceAndManagementAnswers.involvingCustomers)
+            setInnovationBrief(seller.governanceAndManagementAnswers.innovationBrief)
+            setCommunicationChannel(seller.governanceAndManagementAnswers.communicationChannel)
+            setAnswerReceived(seller.governanceAndManagementAnswers.answerReceived)
+            setGoalAndDeadline(seller.governanceAndManagementAnswers.goalAndDeadline)
+            setDoubtAnalysis(seller.governanceAndManagementAnswers.doubtAnalysis)
+            setProductInfo(seller.governanceAndManagementAnswers.productInfo)
+            setSatisfactionSurvey(seller.governanceAndManagementAnswers.satisfactionSurvey)
+            setSupplierDetails(seller.governanceAndManagementAnswers.supplierDetails)
+            setCriticalSupplySurvey(seller.governanceAndManagementAnswers.criticalSupplySurvey)
+            setAlternateDeliveryOption(seller.governanceAndManagementAnswers.alternateDeliveryOption)
+            setPriorityOfLocalSupplier(seller.governanceAndManagementAnswers.priorityOfLocalSupplier)
+            setpriorityOfLocalSupplierPercentage(seller.governanceAndManagementAnswers.priorityOfLocalSupplierPercentage)
+            setPurchaseCriteria(seller.governanceAndManagementAnswers.purchaseCriteria)
+            setContractWithSupllier(seller.governanceAndManagementAnswers.contractWithSupplier)
+            setLabour(seller.governanceAndManagementAnswers.labour)
+            setTax(seller.governanceAndManagementAnswers.tax)
+            setSanitary(seller.governanceAndManagementAnswers.sanitary)
+            setEnvironmental(seller.governanceAndManagementAnswers.environmental)
+            setRelationshipBrief(seller.governanceAndManagementAnswers.relationshipBrief)
+            setLicenseAndPermit(seller.governanceAndManagementAnswers.licenseAndPermit)
+            setInstructedToKnowLaw(seller.governanceAndManagementAnswers.instructedToKnowLaw)
+            setFinedForLaw(seller.governanceAndManagementAnswers.finedForLaw)
+            setFinedForLabourLaw(seller.governanceAndManagementAnswers.finedForLabourLaw)
+            setFinedForEnvironmentalLaw(seller.governanceAndManagementAnswers.finedForEnvironmentalLaw)
+            setFinedForHealthLaw(seller.governanceAndManagementAnswers.finedForHealthLaw)
+            setLawBrief(seller.governanceAndManagementAnswers.lawBrief)
+        }
+    }, [seller]);
 
 
 
@@ -135,18 +178,66 @@ const Seller_Governance_Management = ({ nextPage }) => {
         if (!validate()) return;
 
 
-        // const response = await authAxios()({
-        //   url: `sellers/${seller.id}`,
-        //   method: "PUT",
-        //   data: {
-        //     onboardStatus: 1,
-        //     questionaire: answers,
-        //   },
-        // });
+        const data = {
+            financialPlan,
+            financialPerformance,
+            monitoringManagement,
+            discloseInfo,
+            financialBrief,
+            efficiency,
+            qualityOfProduct,
+            improvedProtfolio,
+            benefitInItsDimensions,
+            RND,
+            involvingCustomers,
+            innovationBrief,
+            directorAct,
+            responsibleForIrregularities,
+            principleOfBusinessConduct,
+            channelForEmployee,
+            integrityBrief,
+            licenseAndPermit,
+            instructedToKnowLaw,
+            finedForLaw,
+            finedForLabourLaw,
+            finedForEnvironmentalLaw,
+            finedForHealthLaw,
+            lawBrief,
+            communicationChannel,
+            answerReceived,
+            goalAndDeadline,
+            doubtAnalysis,
+            productInfo,
+            satisfactionSurvey,
+            supplierDetails,
+            criticalSupplySurvey,
+            alternateDeliveryOption,
+            priorityOfLocalSupplier,
+            priorityOfLocalSupplierPercentage,
+            purchaseCriteria,
+            contractWithSupplier,
+            labour,
+            tax,
+            sanitary,
+            environmental,
+            relationshipBrief,
+        }
 
-        // if (response) {
-        nextPage();
-        // }
+        const response = await authAxios()({
+            url: `sellers/${seller.id}`,
+            method: "PUT",
+            data: {
+                // onboardStatus: 1,
+                governanceAndManagementAnswers: data,
+            },
+        });
+        console.log(response)
+
+
+
+        if (response) {
+            nextPage();
+        }
     };
 
     return (
@@ -278,6 +369,7 @@ const Seller_Governance_Management = ({ nextPage }) => {
                                     finedForHealthLaw={finedForHealthLaw}
                                     setFinedForHealthLaw={setFinedForHealthLaw}
                                     lawBrief={lawBrief}
+                                    setLawBrief={setLawBrief}
                                     checkBoxStyle={checkBoxStyle}
                                     data={data}
                                 />
