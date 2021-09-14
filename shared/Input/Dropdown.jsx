@@ -33,10 +33,14 @@ const DropdownContainer = styled.div`
     position: absolute;
     z-index: 99;
 
+    min-width: 100%;
+
     .d-list-item {
       padding: 11.5px;
       border-inline: 0.25px solid #eee;
       border-bottom: 0.5px solid #eee;
+
+      min-width: 100%;
     }
   }
 `;

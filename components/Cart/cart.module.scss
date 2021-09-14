@@ -11,14 +11,13 @@
 }
 
 .cart-delete{
-  border: 2px solid #ddd;
+  border: 2px solid #888;
   border-radius: 3px;
   padding: 10px 5px;
   margin-left: 10px;
 
   &:hover{
-    border-color: #ddd;
-    background: var(--error);
+    border-color: #aaa;
     box-shadow: 1px 1px 5px -1px rgba(0,0,0,0.15);
   }
 }
