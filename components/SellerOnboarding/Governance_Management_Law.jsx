@@ -14,6 +14,7 @@ const Governance_Management_Law = ({
     finedForHealthLaw,
     setFinedForHealthLaw,
     lawBrief,
+    setLawBrief,
     checkBoxStyle,
     data,
 }) => {

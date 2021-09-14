@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { authAxios } from "@/setups/axios";
+
 
 import ShopProgressBar from "./Utils/ShopProgressBar";
 
@@ -17,39 +19,47 @@ const Seller_Shop_Terms = ({ nextPage }) => {
     // useEffect(() => {
     //   if (seller.questionaire) setInitials(seller.questionaire);
     // }, [seller]);
-
-
-
-
-    const validate = () => {
+// console.log(seller)
+    useEffect(() => {
+        if (seller.shop) 
+        {
+            setReturnAndRefund(seller.shop.returnsAndRefunds)
+            setGeneralCondition(seller.shop.generalConditions)
+            setPrivacyPolicy(seller.shop.privacyPolicy)
+        }
+      }, []);
+      
+      const validate = () => {
         const err = [];
 
 
         setErrors(err);
 
         if (err.length) return false;
-
+        
         return true;
     };
-
+    
     const submit = async (e) => {
         e.preventDefault();
-
+        
         if (!validate()) return;
+        
+        const data = {
+            returnsAndRefunds:returnAndRefund,
+            generalConditions:generalCondition,
+            privacyPolicy
+        }
+        const res = await authAxios()({
+            url: `/shops/${seller.shop.id} `,
+            method: "PUT",
+            data:data
+          });
+        console.log(res)
 
-
-        // const response = await authAxios()({
-        //   url: `sellers/${seller.id}`,
-        //   method: "PUT",
-        //   data: {
-        //     onboardStatus: 1,
-        //     questionaire: answers,
-        //   },
-        // });
-
-        // if (cardConfirmation) {
+        if (res) {
         nextPage();
-        // }
+        }
     };
 
     return (
@@ -63,7 +73,7 @@ const Seller_Shop_Terms = ({ nextPage }) => {
                         <div className="w-form">
                             <form >
                                 <div className="terms-headline mb-20">
-                                    <h4 className="headline-5">Returns and Refungs</h4>
+                                    <h4 className="headline-5">Returns and Refunds</h4>
                                 </div>
                                 <textarea
                                     onChange={(e) => setReturnAndRefund(e.target.value)}

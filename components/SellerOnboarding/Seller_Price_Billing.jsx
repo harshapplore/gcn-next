@@ -3,21 +3,25 @@ import { useSelector } from "react-redux";
 import Seller_Payouts from "./Seller_Payouts";
 
 import ProgressBar from "./Utils/ProgressBar";
+import { authAxios } from "@/setups/axios";
+
 
 
 const Seller_Price_Billing = ({ nextPage }) => {
   const { seller } = useSelector((state) => state.user);
   const [errors, setErrors] = useState([]);
-  const [name, setName] = useState("");
-  const [street, setStreet] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
   const [VAT, setVAT] = useState("");
-  const [IBAN, setIBAN] = useState("");
-  const [idFront, setIdFront] = useState("");
-  const [idBack, setIdBack] = useState("");
-  const [addressFront, setAddressFront] = useState("");
-  const [addressBack, setAddressBack] = useState("");
+
+  // const shop = JSON.parse(localStorage.getItem("shop"))
+  // const [IBAN, setIBAN] = useState("");
+  // const [idFront, setIdFront] = useState("");
+  // const [idBack, setIdBack] = useState("");
+  // const [addressFront, setAddressFront] = useState("");
+  // const [addressBack, setAddressBack] = useState("");
   // const [applePay, setApplePay] = useState(false);
   // const [stripe, setStripe] = useState(false);
   // const [paypal, setPaypal] = useState(false);
@@ -30,12 +34,30 @@ const Seller_Price_Billing = ({ nextPage }) => {
   // const [cardConfirmation, setCardConfirmation] = useState("");
   // console.log(seller)
   // useEffect(() => {
-  //   if (seller.questionaire) setInitials(seller.questionaire);
-  // }, [seller]);
+  //   if (shop) {
+  //     setCompanyName(shop.companyName)
+  //     setStreetAddress(shop.streetAddress)
+  //     setPostalCode(shop.postalCode)
+  //     setCity(shop.city)
+  //     setVAT(shop.vat)
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    if (seller.shop) 
+    {
+      setCompanyName(seller.shop.companyName)
+      setStreetAddress(seller.shop.streetAddress)
+      setPostalCode(seller.shop.postalCode)
+      setCity(seller.shop.city)
+      setVAT(seller.shop.vat)
+     
+    }
+  }, [seller]);
 
   const checkBoxStyle = { opacity: 0, position: "absolute", zIndex: -1 }
 
-
+  console.log(seller)
 
   const validate = () => {
     const err = [];
@@ -53,17 +75,35 @@ const Seller_Price_Billing = ({ nextPage }) => {
 
     if (!validate()) return;
 
+    const data = {
+      companyName,
+      streetAddress,
+      postalCode,
+      city,
+      vat: VAT,
+    }
 
-    // const response = await authAxios()({
-    //   url: `sellers/${seller.id}`,
-    //   method: "PUT",
-    //   data: {
-    //     onboardStatus: 1,
-    //     questionaire: answers,
-    //   },
-    // });
 
-    nextPage();
+    const response = await authAxios()({
+      url: `shops/`,
+      method: "POST",
+      data
+    })
+     
+    
+    if (response.data) {
+
+      const sellerRes = await authAxios()({
+        url: `sellers/${seller.id}`,
+        method: "PUT",
+        data: {
+            // onboardStatus: 1,
+            shop:response.data.id,
+        }
+      });
+      nextPage();
+    }
+
   };
 
   return (
@@ -73,11 +113,11 @@ const Seller_Price_Billing = ({ nextPage }) => {
           <h1 className="headline-2 mb-50">Billing Settings</h1>
           <div className="settings-block">
             <div className="w-form">
-              <form id="wf-form-Plan-Billing" name="wf-form-Plan-Billing" data-name="Plan Billing">
+              <form id="wf-form-Plan-Billing" className="wf-form-Plan-Billing" data-name="Plan Billing">
                 <h2 className="headline-5 mb-30">Your billing details</h2>
                 <input
-                  onChange={(e) => setName(e.target.value)}
-                  value={name}
+                  onChange={(e) => setCompanyName(e.target.value)}
+                  value={companyName}
                   type="text"
                   className="input-x mb-15 w-input"
                   maxLength="256"
@@ -86,8 +126,8 @@ const Seller_Price_Billing = ({ nextPage }) => {
                 />
                 <div className="account-form-1">
                   <input
-                    onChange={(e) => setStreet(e.target.value)}
-                    value={street}
+                    onChange={(e) => setStreetAddress(e.target.value)}
+                    value={streetAddress}
                     type="tel"
                     className="input-x w-input"
                     maxLength="256"
@@ -122,8 +162,8 @@ const Seller_Price_Billing = ({ nextPage }) => {
                   />
                 </div>
                 <div className="settings-spacer"></div>
-                <h2 className="headline-5 mb-30">How do you want to pay?</h2>
-                <div className="product-add-block-bank">
+                {/* <h2 className="headline-5 mb-30">How do you want to  pay?</h2> */}
+                {/* <div className="product-add-block-bank">
                   <p className="mb-20"> IBAN </p>
                   <div className="mb-40 flex left-2">
                     <input
@@ -141,7 +181,6 @@ const Seller_Price_Billing = ({ nextPage }) => {
                   <input type="file" onChange={(e) => setIdBack(e.target.files[0])} style={{ display: "none" }} id="id-backview" />
                   <input type="file" onChange={(e) => setAddressFront(e.target.files[0])} style={{ display: "none" }} id="address-frontview" />
                   <input type="file" onChange={(e) => setAddressBack(e.target.files[0])} style={{ display: "none" }} id="address-backview" />
-                  {/* <div className="spacer-20" /> */}
 
                   <p className="mb-20"> Identity Documents</p>
 
@@ -149,12 +188,10 @@ const Seller_Price_Billing = ({ nextPage }) => {
                     <div className="product-add-block">
                       <label className="button" htmlFor="id-frontview" >Upload Front View</label  >
 
-                      {/* <OutlinedButton id={id} name="Upload Front View" /> */}
                     </div>
                     <div className="product-add-block">
                       <label className="button" htmlFor="id-backview" >Upload Back View</label  >
 
-                      {/* <OutlinedButton id={id} name="Upload Back View" /> */}
                     </div>
                   </div>
 
@@ -164,14 +201,12 @@ const Seller_Price_Billing = ({ nextPage }) => {
                   <div className="flex left-4 flex-wrap">
                     <div className="product-add-block">
                       <label className="button" htmlFor="address-frontview" >Upload Front View</label  >
-                      {/* <OutlinedButton name="Upload Front View" /> */}
                     </div>
                     <div className="product-add-block">
                       <label className="button" htmlFor="address-backview" >Upload Back View</label  >
-                      {/* <OutlinedButton name="Upload Back View" /> */}
                     </div>
                   </div>
-                </div>
+                </div> */}
 
                 {/* <Seller_Payouts id="id-proof" /> */}
                 {/* <div className="account-form-1 mb-50">

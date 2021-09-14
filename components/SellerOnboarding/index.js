@@ -114,7 +114,6 @@ const SellerOnboarding = () => {
       {activePageIndex === 13 && <Seller_Shop_Details />}
       {/* {activePageIndex === 13 && <TermsNConditions nextPage={nextPage} />}  */}
       {/* Page 5 */}
-      {/* {activePageIndex === 14 && <ShopDetails />} */}
       <Footer />
     </>
   );

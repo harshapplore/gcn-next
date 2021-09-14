@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { authAxios } from "@/setups/axios";
 
 import ShopProgressBar from "./Utils/ShopProgressBar";
 import countries from "../../_data/countries.json"
@@ -76,6 +77,47 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
     if (!validate()) return;
 
 
+    const data = {
+      country,
+      weights: 
+        [{
+          category: "0 to 1Kg",
+          cost: cost0to1Kg,
+          currency,
+          serviceProvider: shippingService,
+          deliveryTime
+        },
+        {
+          category: "1 to 5Kg",
+          cost: cost1to5Kg,
+          currency,
+          serviceProvider: shippingService,
+          deliveryTime
+        }, {
+          category: "5 to 10Kg",
+          cost: cost5to10Kg,
+          currency,
+          serviceProvider: shippingService,
+          deliveryTime
+        }, {
+          category: "More than 10Kg",
+          cost: costMoreThan10Kg,
+          currency,
+          serviceProvider: shippingService,
+          deliveryTime
+        }
+        ],
+
+      freeShippingFrom,
+      allowShippingToPackingStation,
+      CO2Neutral
+    }
+
+    const res = await authAxios()({
+      url: `/shops/${seller.shop.id} `,
+      method: "PUT",
+      data: data
+    });
     // const response = await authAxios()({
     //   url: `sellers/${seller.id}`,
     //   method: "PUT",
@@ -89,6 +131,7 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
     nextPage();
     // }
   };
+  console.log(seller);
 
   return (
     <div className="page-section wf-section">
@@ -118,8 +161,15 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                           </div>
                         </div>
                         <br />
+                        {/* {showCountryDetails &&
+                          countries.length && <Select choices={countries} required={true} value={countries} defaultValue="Austria" width="100%" />} */}
                         {showCountryDetails &&
-                          countries.length && <Select choices={countries} required={true} value={countries} setValue={countries} defaultValue="Austria" width="100%" />}
+                          <select
+                            onChange={(e) => setCountry(e.target.value)}
+                            className="input-x input-x--select w-select">
+                            <option value="">Austria</option>
+                            {countries.length && countries.map(option => <option key={option} value={option}>{option}</option>)}
+                          </select>}
                         {/* <Select choices={currencyOptions} required={true} value={currencyOptions} setValue={currencyOptions} defaultValue="EUD" />
                                                         <Select choices={serviceProviderOptions} required={true} value={serviceProviderOptions} setValue={serviceProviderOptions} defaultValue="Choice 1" width="inherit" />
                                                         <Select choices={deliveryTimeOptions} required={true} value={deliveryTimeOptions} setValue={deliveryTimeOptions} defaultValue="Choice 1" /> */}
@@ -153,7 +203,7 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                             <select
                               onChange={(e) => setShippingService(e.target.value)}
                               className="input-x input-x--select w-select">
-                              <option value="">Shipping Serveice Providers *</option>
+                              <option value="">Shipping Service Providers *</option>
                               {serviceProviderOptions && serviceProviderOptions.map(option => <option key={option} value={option}>{option}</option>)}
                             </select>
                             <select
@@ -190,7 +240,7 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                             <select
                               onChange={(e) => setShippingService(e.target.value)}
                               className="input-x input-x--select w-select">
-                              <option value="">Shipping Serveice Providers *</option>
+                              <option value="">Shipping Service Providers *</option>
                               {serviceProviderOptions && serviceProviderOptions.map(option => <option key={option} value={option}>{option}</option>)}
                             </select>
                             <select
@@ -227,7 +277,7 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                             <select
                               onChange={(e) => setShippingService(e.target.value)}
                               className="input-x input-x--select w-select">
-                              <option value="">Shipping Serveice Providers *</option>
+                              <option value="">Shipping Service Providers *</option>
                               {serviceProviderOptions && serviceProviderOptions.map(option => <option key={option} value={option}>{option}</option>)}
                             </select>
                             <select
@@ -264,7 +314,7 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                             <select
                               onChange={(e) => setShippingService(e.target.value)}
                               className="input-x input-x--select w-select">
-                              <option value="">Shipping Serveice Providers *</option>
+                              <option value="">Shipping Service Providers *</option>
                               {serviceProviderOptions && serviceProviderOptions.map(option => <option key={option} value={option}>{option}</option>)}
                             </select>
                             <select
@@ -280,7 +330,7 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                           </div>
                         </div>
                       </div>
-                      <div className="add-element">
+                      {/* <div className="add-element">
                         <img src="../images/add-black-24-dp.svg" loading="lazy" width="24" height="24" alt="Add" className="shop-product-list-add-icon" />
                         <div className="delivery-country-text">Add Country</div>
                       </div>
@@ -290,46 +340,46 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                         </select>
                         <img src="../images/add-black-24-dp.svg" loading="lazy" width="24" height="24" alt="Add" className="add-country__icon" />
                         <a href="#" className="add-country__button">Add Country</a>
-                      </div>
+                      </div> */}
                     </div>
                   </li>
                   <li>
-                  <div class="subtitle-2">General Delivery Options</div>
-                  <div class="assessment-list-content">
-                    <div class="assessment-spacer"></div>
-                    <div class="shipping-general-options">
-                      <label class="w-checkbox checkbox-field mb-0">
-                        <div class={`w-checkbox-input w-checkbox-input--inputType-custom checkbox ${freeShippingFrom && "w--redirected-checked"}`}></div>
-                        <input type="checkbox" id="Free shipping" checked={freeShippingFrom} style={{opacity:0,position:"absolute",zIndex:-1}} onChange={()=>setFreeShippingFrom(!freeShippingFrom)} />
-                          <span for="Free shipping" class="checkbox-label medium w-form-label">Free Shipping from</span>
-                      </label>
-                     {freeShippingFrom && <> <input type="number" class="input-x input-x--number input-x--free-shipping w-input" maxLength="256" placeholder="100"/>
-                        <select id="Currency" class="input-x input-x--select input-x--eur w-select">
-                        <option value="EUR">EUR</option>
-                        <option value="USD">USD</option>
-                      </select></>}
+                    <div className="subtitle-2">General Delivery Options</div>
+                    <div className="assessment-list-content">
+                      <div className="assessment-spacer"></div>
+                      <div className="shipping-general-options">
+                        <label className="w-checkbox checkbox-field mb-0">
+                          <div className={`w-checkbox-input w-checkbox-input--inputType-custom checkbox ${freeShippingFrom && "w--redirected-checked"}`}></div>
+                          <input type="checkbox" id="Free shipping" checked={freeShippingFrom} style={{ opacity: 0, position: "absolute", zIndex: -1 }} onChange={() => setFreeShippingFrom(!freeShippingFrom)} />
+                          <span htmlFor="Free shipping" className="checkbox-label medium w-form-label">Free Shipping from</span>
+                        </label>
+                        {freeShippingFrom && <> <input type="number" className="input-x input-x--number input-x--free-shipping w-input" maxLength="256" placeholder="100" />
+                          <select id="Currency" className="input-x input-x--select input-x--eur w-select">
+                            <option value="EUR">EUR</option>
+                            <option value="USD">USD</option>
+                          </select></>}
                       </div>
-                    <div class="shipping-general-options">
-                      <label class="w-checkbox checkbox-field mb-0">
-                        <div class={`w-checkbox-input w-checkbox-input--inputType-custom checkbox ${allowShippingToPackingStation && "w--redirected-checked"}`}></div>
-                        <input type="checkbox" id="Allow packing station" checked={allowShippingToPackingStation} style={{opacity:0,position:"absolute",zIndex:-1}} onChange={()=>setAllowShippingToPackingStation(!allowShippingToPackingStation)}/>
-                          <span for="Allow packing station" class="checkbox-label w-form-label">Allow shipping to packing station</span>
-                      </label>
+                      <div className="shipping-general-options">
+                        <label className="w-checkbox checkbox-field mb-0">
+                          <div className={`w-checkbox-input w-checkbox-input--inputType-custom checkbox ${allowShippingToPackingStation && "w--redirected-checked"}`}></div>
+                          <input type="checkbox" id="Allow packing station" checked={allowShippingToPackingStation} style={{ opacity: 0, position: "absolute", zIndex: -1 }} onChange={() => setAllowShippingToPackingStation(!allowShippingToPackingStation)} />
+                          <span htmlFor="Allow packing station" className="checkbox-label w-form-label">Allow shipping to packing station</span>
+                        </label>
                       </div>
-                    <div class="shipping-general-options">
-                      <label class="w-checkbox checkbox-field mb-0">
-                        <div class={`w-checkbox-input w-checkbox-input--inputType-custom checkbox 
+                      <div className="shipping-general-options">
+                        <label className="w-checkbox checkbox-field mb-0">
+                          <div className={`w-checkbox-input w-checkbox-input--inputType-custom checkbox 
                         ${CO2Neutral && "w--redirected-checked"}`}></div>
-                        <input type="checkbox" id="CO2-neutral" checked={CO2Neutral} 
-                        onChange={()=>setCO2Neutral(!CO2Neutral)}  style={{opacity:0,position:"absolute",zIndex:-1}}/>
-                          <span for="CO2-neutral" class="checkbox-label w-form-label">CO2-neutral local delivery</span>
-                      </label>
+                          <input type="checkbox" id="CO2-neutral" checked={CO2Neutral}
+                            onChange={() => setCO2Neutral(!CO2Neutral)} style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                          <span htmlFor="CO2-neutral" className="checkbox-label w-form-label">CO2-neutral local delivery</span>
+                        </label>
                       </div>
-                    <div class="delivery-cost-button-wrapper moved-up">
-                      <a href="#" class="button blue">Save Changes</a>
+                      {/* <div className="delivery-cost-button-wrapper moved-up">
+                      <a href="#" className="button blue">Save Changes</a>
+                    </div> */}
                     </div>
-                  </div>
-                </li>
+                  </li>
                 </ol>
                 <div onClick={submit} className="button blue mr-10">Save and Continue</div>
               </form>

@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { uploadFiles } from "_controllers/product"
 
 import ShopProgressBar from "./Utils/ShopProgressBar";
+import { authAxios } from "@/setups/axios";
+
+
 
 
 const Seller_Shop_Info = ({ nextPage }) => {
@@ -15,11 +19,11 @@ const Seller_Shop_Info = ({ nextPage }) => {
   const [orderEmail, setOrderEmail] = useState("");
   const [returnEmail, setReturnEmail] = useState("");
   const [customerServiceEmail, setCustomerServiceEmail] = useState("");
-  const [applePay, setApplePay] = useState(false);
-  const [stripe, setStripe] = useState(false);
-  const [paypal, setPaypal] = useState(false);
-  const [creditCard, setCreditCard] = useState(false);
-
+  // const [applePay, setApplePay] = useState(false);
+  // const [stripe, setStripe] = useState(false);
+  // const [paypal, setPaypal] = useState(false);
+  // const [creditCard, setCreditCard] = useState(false);
+  console.log(seller)
   const [editName, setEditName] = useState(false);
   const [name, setName] = useState("");
   const [editCEO, setEditCEO] = useState(false);
@@ -33,22 +37,36 @@ const Seller_Shop_Info = ({ nextPage }) => {
   const [idBack, setIdBack] = useState("");
   const [addressFront, setAddressFront] = useState("");
   const [addressBack, setAddressBack] = useState("");
-  const [editCardNumber, setEditCardNumber] = useState(false);
-  const [cardNumber, setCardNumber] = useState("");
-  const [editNameOnCard, setEditNameOnCard] = useState(false);
-  const [nameOnCard, setNameOnCard] = useState("");
+  // const [editCardNumber, setEditCardNumber] = useState(false);
+  // const [cardNumber, setCardNumber] = useState("");
+  // const [editNameOnCard, setEditNameOnCard] = useState(false);
+  // const [nameOnCard, setNameOnCard] = useState("");
   const [currency, setCurrency] = useState("");
+  const [language, setLanguage] = useState("");
   const [region, setRegion] = useState("");
-  const [expiryYear, setExpiryYear] = useState("");
-  const [expiryMonth, setExpiryMonth] = useState("");
+  // const [expiryYear, setExpiryYear] = useState("");
+  // const [expiryMonth, setExpiryMonth] = useState("");
   // console.log(seller)
-  // useEffect(() => {
-  //   if (seller.questionaire) setInitials(seller.questionaire);
-  // }, [seller]);
+  // const shop = JSON.parse(localStorage.getItem("shop"))
+
+  useEffect(() => {
+    if (seller.shop) {
+      setOrganizationName(seller.shop.companyName)
+      setName(seller.basicInformationAnswers.name)
+      setCEO(seller.basicInformationAnswers.jobTitle)
+      setPhone(seller.basicInformationAnswers.mobile)
+      setEmail(seller.basicInformationAnswers.email)
+      setInitials(seller.basicInformationAnswers.initials)
+    }
+  }, [seller]);
 
   const checkBoxStyle = { opacity: 0, position: "absolute", zIndex: -1 }
-
-
+  const arr = []
+  arr.push(idFront)
+  arr.push(idBack)
+  arr.push(addressBack)
+  arr.push(addressFront)
+  // console.log(arr)
 
   const validate = () => {
     const err = [];
@@ -61,26 +79,67 @@ const Seller_Shop_Info = ({ nextPage }) => {
     return true;
   };
 
-  console.log(idFront)
-  const imgStyle={display:"flex",justifyContent:"space-between"}
+  const imgStyle = { display: "flex", justifyContent: "space-between" }
   const submit = async (e) => {
     e.preventDefault();
 
     if (!validate()) return;
+    
+    const response = await uploadFiles(arr)
+    const data = {
+      phone: contactPhone,
+      contactEmail,
+      orderManagementEmail: orderEmail,
+      returnsEmail: returnEmail,
+      customerServiceEmail: customerServiceEmail,
+      iban:IBAN,
+      language,
+      currency,
+      images:response
+      // identityFrontView :idFront,
+      // identityBackView:idBack,
+      // proofOfAddressFrontView:addressFront,
+      // proofOfAddressBackView:addressBack,
+    }
+    // const iban = {
+    //   iban:IBAN
+    // }
+    const formData = new FormData()
+    formData.append("identityFrontView", idFront)
+    formData.append("identityBackView", idBack)
+    formData.append("proofOfAddressFrontView", addressFront)
+    formData.append("proofOfAddressBackView", addressBack)
+    // formData.append("iban", IBAN)
+    // formData.append("customerServiceEmail", customerServiceEmail)
+    // formData.append("returnsEmail", returnEmail)
+    // formData.append("orderManagementEmail", orderEmail)
+    // formData.append("contactEmail", contactEmail)
+    // formData.append("phone", contactPhone)
+
+    // files.map((file) => formData.append("files", file));
+// console.log(typeof formData)
+    
+  // const response = await authAxios()({
+  //   url: "/upload",
+  //   method: "POST",
+  //   data: formData,
+  // });
 
 
-    // const response = await authAxios()({
-    //   url: `sellers/${seller.id}`,
+    const res = await authAxios()({
+      url: `/shops/${seller.shop.id} `,
+      method: "PUT",
+      data:data
+    });
+    // const ibanResponse = await authAxios()({
+    //   url: `seller/${seller.id}`,
     //   method: "PUT",
-    //   data: {
-    //     onboardStatus: 1,
-    //     questionaire: answers,
-    //   },
+    //   data: iban
     // });
 
-    // if (cardConfirmation) {
-    nextPage();
-    // }
+    if (res) {
+      nextPage();
+    }
   };
 
   return (
@@ -93,7 +152,7 @@ const Seller_Shop_Info = ({ nextPage }) => {
           <div className="settings-block">
             <h3 className="headline-5 mb-50">Basic Information</h3>
             <div className="w-form">
-              <form id="email-form-7" name="email-form-7" data-name="Email Form 7">
+              <form id="email-form-7" encType="multipart/form-data" name="email-form-7" data-name="Email Form 7">
                 <ol role="list" className="assessment-list assessment-list--1">
                   <li>
                     <div className="subtitle-2">About you</div>
@@ -130,7 +189,7 @@ const Seller_Shop_Info = ({ nextPage }) => {
                             value={name}
                             type="text"
                             className="input-x-edit w-input"
-                            maxlength="256"
+                            maxLength="256"
                             placeholder="Name *"
                             required=""
                           />}
@@ -146,7 +205,7 @@ const Seller_Shop_Info = ({ nextPage }) => {
                             value={CEO}
                             type="text"
                             className="input-x-edit w-input"
-                            maxlength="256"
+                            maxLength="256"
                             placeholder="CEO *"
                             required=""
                           />}
@@ -162,7 +221,7 @@ const Seller_Shop_Info = ({ nextPage }) => {
                             value={phone}
                             type="text"
                             className="input-x-edit w-input"
-                            maxlength="256"
+                            maxLength="256"
                             placeholder="Phone number *"
                             required=""
                           />}
@@ -178,7 +237,7 @@ const Seller_Shop_Info = ({ nextPage }) => {
                             value={email}
                             type="text"
                             className="input-x-edit w-input"
-                            maxlength="256"
+                            maxLength="256"
                             placeholder="Email *"
                             required=""
                           />}
@@ -269,32 +328,32 @@ const Seller_Shop_Info = ({ nextPage }) => {
                       {/* <div className="spacer-20" /> */}
 
                       <p className="mb-20"> Identity Documents</p>
-                      
+
                       {/* URL.createObjectURL(event.target.files[0]) */}
-                      
+
                       <div style={imgStyle} >
-                          {idFront && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(idFront)} alt="id-front" style={{borderRadius:"10px"}} />}
-                      {idBack && <img className="mb-20" loading="lazy" width="220" height="240"  src={URL.createObjectURL(idBack)} alt="id-back" style={{borderRadius:"10px"}} />}
+                        {idFront && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(idFront)} alt="id-front" style={{ borderRadius: "10px" }} />}
+                        {idBack && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(idBack)} alt="id-back" style={{ borderRadius: "10px" }} />}
                       </div>
                       <div className="" style={{ display: "flex", justifyContent: "space-between" }} >
                         {/* <div className="product-add-block-bank"> */}
 
-                          <label className="button" htmlFor="id-frontview" >Upload Front View</label  >
+                        <label className="button" htmlFor="id-frontview" >Upload Front View</label  >
 
-                          {/* <OutlinedButton id={id} name="Upload Front View" /> */}
+                        {/* <OutlinedButton id={id} name="Upload Front View" /> */}
                         {/* </div> */}
                         {/* <div className="product-add-block"> */}
-                          <label className="button" htmlFor="id-backview" >Upload Back View</label  >
+                        <label className="button" htmlFor="id-backview" >Upload Back View</label  >
 
-                          {/* <OutlinedButton id={id} name="Upload Back View" /> */}
+                        {/* <OutlinedButton id={id} name="Upload Back View" /> */}
                         {/* </div> */}
                       </div>
 
                       <div className="spacer-40" />
                       <p className="mb-20"> Proof Of Address Documents</p>
                       <div style={imgStyle} >
-                      {addressFront && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(addressFront)} style={{borderRadius:"10px"}} alt="address - front" />}
-                      {addressBack && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(addressBack)} style={{borderRadius:"10px"}} alt="address-back" />}
+                        {addressFront && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(addressFront)} style={{ borderRadius: "10px" }} alt="address - front" />}
+                        {addressBack && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(addressBack)} style={{ borderRadius: "10px" }} alt="address-back" />}
                       </div>
 
                       <div className="" style={{ display: "flex", justifyContent: "space-between" }}>
@@ -322,7 +381,7 @@ const Seller_Shop_Info = ({ nextPage }) => {
                                                                 value={cardNumber}
                                                                 type="text"
                                                                 className="input-x-edit w-input"
-                                                                maxlength="256"
+                                                                maxLength="256"
                                                                 placeholder="Card Number *"
                                                                 required=""
                                                             />}
@@ -338,7 +397,7 @@ const Seller_Shop_Info = ({ nextPage }) => {
                                                                 value={nameOnCard}
                                                                 type="text"
                                                                 className="input-x-edit w-input"
-                                                                maxlength="256"
+                                                                maxLength="256"
                                                                 placeholder="Name on card *"
                                                                 required=""
                                                             />}
