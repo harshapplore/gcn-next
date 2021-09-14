@@ -5,6 +5,8 @@ import Image from "next/image";
 import UpIcon from "@/assets/images/up-icon.svg";
 import GreenCloudNineBanner from "@/assets/images/gcn-banner.png";
 
+import { BagIcon, TagIcon } from "@/assets/icons";
+
 const Banner = () => {
   return (
     <div className="page-section banner">
@@ -18,20 +20,21 @@ const Banner = () => {
       <div className="container">
         <div className="home-banner-content">
           <div
-            className="button icon orange mx-10 w-inline-block"
+            className="button icon orange green-2 mb-10 w-inline-block"
             onClick={() => router.push("/products")}
           >
             <div className="button-icon w-embed">
-              <Image {...UpIcon} alt="" />
+              <BagIcon />
             </div>
             <div className="text-block">Discover products</div>
           </div>
+          {/* <div className="vspacer-20 spacer-20" /> */}
           <div
-            className="button icon blue mx-10 w-inline-block"
+            className="button icon mb-10 ml-10 blue-2 green-2 w-inline-block"
             onClick={() => router.push("/seller-info")}
           >
             <div className="button-icon w-embed">
-              <img src={UpIcon.src} alt="" />
+              <TagIcon />
             </div>
             <div className="text-block">Sell products</div>
           </div>

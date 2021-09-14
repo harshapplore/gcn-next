@@ -35,6 +35,7 @@ const TopFilter = ({ filters, setFilters, shopView }) => {
         choices={(shopsData && shopsData.shops.map((shop) => shop.name)) || []}
         placeholder="Shop"
         value={filters.brand}
+        width="200px"
         setValue={(value) => setFilters({ ...filters, brand: value })}
       /> }
 
@@ -42,6 +43,7 @@ const TopFilter = ({ filters, setFilters, shopView }) => {
         choices={__filters.price}
         placeholder="Price"
         value={filters.price || []}
+        width="170px"
         setValue={(value) => setFilters({ ...filters, price: value })}
       />
 

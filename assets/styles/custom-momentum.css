@@ -1,3 +1,7 @@
+/* Globaler Style */
+html{
+  font-size: 0.875rem;
+}
 .potw-like.active .orange-heart{
   opacity: 1;
 }
@@ -38,15 +42,32 @@ ol.assessment-list {
   counter-reset: section;
   list-style-type: none;
 }
-ol.assessment-list--1 li::before {
+ol.assessment-list--1 li::before,
+ol.assessment-list--2 li::before,
+ol.assessment-list--3 li::before,
+ol.assessment-list--4 li::before {
   counter-increment: section;
-  content: "1." counters(section,".") ".";
   position: absolute;
   margin-left: -25px;
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.7em;
   letter-spacing: 0.1px;
+}
+ol.assessment-list--1 li::before {
+  content: "1." counters(section,".") ".";
+}
+ol.assessment-list--2 li::before {
+  content: "2." counters(section,".") ".";
+}
+ol.assessment-list--3 li::before {
+  content: "3." counters(section,".") ".";
+}
+ol.assessment-list--4 li::before {
+  content: "4." counters(section,".") ".";
+}
+.pricing-item.selected .pricing-items {
+  background-color: #5e5855;
 }
 /* Container padden in dem Bereich wo er zu groß sein würde (zw. Desktop u. Tablet, max-w +20px) */
 @media only screen and (min-width: 991px) and (max-width: 1220px) {

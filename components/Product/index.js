@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { getProduct } from "@/_controllers/product";
 import DetailsPane from "./DetailsPane";
-import Slider from "./Slider";
 
 import Header from "@/shared/Header2";
 import Nav from "@/shared/Nav2";
@@ -14,8 +13,11 @@ import Fetcher from "@/shared/Fetcher";
 import AuthForm from "@/shared/Auth/AuthForm";
 
 import Button from "@/shared/Button";
+import Dropdown from "@/shared/Input/Dropdown";
 
 import { addToCart } from "@/_methods/cart";
+
+import ImagesWrapper from "./ImagesWrapper";
 
 const ProductDetail = () => {
   const router = useRouter();
@@ -66,13 +68,11 @@ const ProductDetail = () => {
       <Header nav={<Nav />} />
       <div className="page-section">
         <div className="container w-clearfix">
-          <div className="product-image-wrapper">
-            <Slider images={product.images} />
-          </div>
+          <ImagesWrapper images={product.images} />
 
           <div className="product-info-wrapper">
             <div className="mb-20">
-              <h1 className="item-heading">{product.name}</h1>
+              <h1 className="item-heading no-select">{product.name}</h1>
               <div
                 className="overline-text cursor"
                 onClick={() => {
@@ -82,24 +82,47 @@ const ProductDetail = () => {
                 By {product.shop && product.shop.name}
               </div>
             </div>
-            <div className="item-product-price mb-40">€ {product.price}</div>
+            <div className="item-product-price mb-40 no-select">€ {product.price}</div>
 
             <div>
-              {tags.map((tag, index) => (
+              {product.tags && product.tags.map((tag, index) => (
+                <div className="tag-spacer" key={"tag" + index}>
+                  <div className="tag">{tag.replace("-", " ")}</div>
+                </div>
+              ))}
+              {product.sustainability && product.sustainability.map((tag, index) => (
                 <div className="tag-spacer" key={"tag" + index}>
                   <div className="tag">{tag}</div>
                 </div>
               ))}
             </div>
 
-            <div className="mb-80 w-form">
-              <Select
-                choices={["S", "M", "L", "XL", "XXL"]}
-                defaultValue="Size"
-                value={data.size}
-                setValue={(v) => setData({ ...v, size: data.size })}
-                width={100}
-              />
+            <div className="spacer-20" />
+
+            <div className="mb-40 w-form">
+              <div className="flex-2 flex-wrap flex-gap-20">
+                {product && product.sizes && (
+                  <Dropdown
+                    choices={product && product.sizes}
+                    placeholder="Size"
+                    value={data.size}
+                    setValue={(size) => setData({ ...data, size })}
+                    width="100px"
+                  />
+                )}
+
+                {product && product.colors && (
+                  <Dropdown
+                    choices={product && product.colors}
+                    placeholder="Color"
+                    value={data.color}
+                    setValue={(color) => setData({ ...data, color })}
+                    width="100px"
+                  />
+                )}
+              </div>
+
+              <div className="spacer-20" />
 
               <Button
                 name="Add to Cart"
@@ -114,7 +137,8 @@ const ProductDetail = () => {
                 alt="Checkmark"
               />
               <div className="item-additional-info">
-                In Stock, Delivery time: 2 – 5 days
+                {product.stock ? "In Stock" : "Currently Unavailable"}, Delivery
+                time: 2 – 5 days
               </div>
             </div>
             <div>
@@ -129,7 +153,7 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      <DetailsPane description={product.description} />
+      <DetailsPane product={product} />
 
       <div className="page-section">
         <div className="container">

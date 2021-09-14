@@ -15,6 +15,8 @@ const RadioContainer = styled.div`
     .active-button {
       background: var(--text);
       border-radius: 100%;
+      height: 22px;
+      width: 22px;
       transform: scale(0.65);
     }
   }

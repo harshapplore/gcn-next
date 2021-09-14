@@ -1,0 +1,11 @@
+@media screen and (max-width: 991px){
+  .right-icon-nav{
+    margin-top: -10px;
+    min-width: 200px;
+  }
+
+  .navbar-top{
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+}

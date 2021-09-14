@@ -11,7 +11,9 @@ const ButtonComponent = styled.div`
 
   display: inline-block;
 
-  padding: 16px 22px;
+  height: fit-content;
+
+  padding: 15px 25px;
   line-height: 24px;
   letter-spacing: 1.25px;
 
@@ -38,6 +40,14 @@ const ButtonComponent = styled.div`
   span.icon{
     margin-right: 10px;
   }
+
+  @media screen and (max-width: 400px){
+    padding: 10px 13px;
+    
+    span{
+      text-align: middle;
+    }
+  }
 `;
 
 const OutlinedButtonComponent = styled.div`
@@ -51,7 +61,7 @@ const OutlinedButtonComponent = styled.div`
 
   display: inline-block;
 
-  padding: 16px 22px;
+  padding: 15px 25px;
   line-height: 24px;
   letter-spacing: 1.25px;
 
@@ -88,7 +98,7 @@ export const Button = ({ name, id ,action, type, caps, loading }) => {
       <ButtonComponent id={id} type={type} caps={caps} onClick={action}>
         {loading && (
           <span className="icon">
-            <Loader type="Oval" color="#fff" height={24} width={24} />
+            <Loader type="Oval" color="#fff" height={18} width={18} />
           </span>
         )}
         <span>{name}</span>
@@ -102,7 +112,7 @@ export const OutlinedButton = ({ name,id, action, type, caps, loading }) => {
     <OutlinedButtonComponent id={id} type={type} caps={caps} onClick={action}>
       {loading && (
         <span className="icon">
-          <Loader type="Oval" color="#1a689e" height={24} width={24} />
+          <Loader type="Oval" color="#1a689e" height={18} width={18} />
         </span>
       )}
       <span>{name}</span>

@@ -1,7 +1,8 @@
-const CheckBox = ({ type, text, error, value, setValue }) => {
+const CheckBox = ({ type, text, error, value, setValue, styles }) => {
   return (
     <>
       <label
+        style={styles}
         className={
           "w-checkbox" +
           (type === "secondary" ? " check-main" : " checkbox-field")
