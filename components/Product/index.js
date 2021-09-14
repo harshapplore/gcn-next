@@ -8,12 +8,12 @@ import DetailsPane from "./DetailsPane";
 
 import Header from "@/shared/Header2";
 import Nav from "@/shared/Nav2";
-import Select from "@/shared/Select";
 import Fetcher from "@/shared/Fetcher";
 import AuthForm from "@/shared/Auth/AuthForm";
 
 import Button from "@/shared/Button";
 import Dropdown from "@/shared/Input/Dropdown";
+import ErrorInput from "@/shared/Input/Error";
 
 import { addToCart } from "@/_methods/cart";
 
@@ -29,14 +29,7 @@ const ProductDetail = () => {
 
   const [data, setData] = useState({});
 
-  const tags = [
-    "Tag One",
-    "Tag Two",
-    "Random Tag",
-    "Four Tag",
-    "Tag Five",
-    "Just Tag",
-  ];
+  const [error, setError] = useState("");
 
   useEffect(async () => {
     const { id } = router.query;
@@ -47,9 +40,32 @@ const ProductDetail = () => {
     }
   }, [router]);
 
+  const validated = () => {
+    let error = "";
+
+    if (product.colors && !data.color)
+      error = "Please select a color for this product.";
+
+    if (product.sizes && product.sizes.length && !data.size)
+      error = "Please select a size for this product.";
+
+    setError(error);
+
+    if (error) return false;
+
+    return true;
+  };
+
   const addToCartHandler = async () => {
+    if (!product.stock) {
+      setError("Sorry, this item is currently out of stock");
+      return;
+    }
+
+    if (!validated()) return;
     const res = await addToCart({
       ...product,
+      ...data,
       quantity: 1,
     });
 
@@ -82,19 +98,23 @@ const ProductDetail = () => {
                 By {product.shop && product.shop.name}
               </div>
             </div>
-            <div className="item-product-price mb-40 no-select">€ {product.price}</div>
+            <div className="item-product-price mb-40 no-select">
+              € {product.price}
+            </div>
 
             <div>
-              {product.tags && product.tags.map((tag, index) => (
-                <div className="tag-spacer" key={"tag" + index}>
-                  <div className="tag">{tag.replace("-", " ")}</div>
-                </div>
-              ))}
-              {product.sustainability && product.sustainability.map((tag, index) => (
-                <div className="tag-spacer" key={"tag" + index}>
-                  <div className="tag">{tag}</div>
-                </div>
-              ))}
+              {product.tags &&
+                product.tags.map((tag, index) => (
+                  <div className="tag-spacer" key={"tag" + index}>
+                    <div className="tag">{tag.replace("-", " ")}</div>
+                  </div>
+                ))}
+              {product.sustainability &&
+                product.sustainability.map((tag, index) => (
+                  <div className="tag-spacer" key={"tag" + index}>
+                    <div className="tag">{tag}</div>
+                  </div>
+                ))}
             </div>
 
             <div className="spacer-20" />
@@ -123,6 +143,13 @@ const ProductDetail = () => {
               </div>
 
               <div className="spacer-20" />
+
+              {error && (
+                <>
+                  {" "}
+                  <ErrorInput message={error} /> <div className="spacer-10" />
+                </>
+              )}
 
               <Button
                 name="Add to Cart"

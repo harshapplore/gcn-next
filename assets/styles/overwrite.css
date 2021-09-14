@@ -6,7 +6,7 @@ a:hover {
   text-decoration: none;
 }
 
-.blue-2:hover{
+.button.blue-2:hover{
   background-color: var(--secondary);
 }
 
@@ -209,6 +209,10 @@ a{
 
 .flex-justify-between {
   justify-content: space-between;
+}
+
+.flex-align-center{
+  align-items: center;
 }
 
 .flex-wrap {

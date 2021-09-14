@@ -1,11 +1,13 @@
 import { useState, useEffect, useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import router from "next/router";
 import CompensationChoices from "./CompensationChoice";
 
 import AuthForm from "@/shared/Auth/AuthForm";
 import { Button, OutlinedButton } from "@/shared/Button";
 import { Toggle2 } from "@/shared/Toggle";
 import NumberInput from "@/shared/Input/Number";
+import Dropdown from "@/shared/Input/Dropdown";
 
 import { loadCart } from "@/slices/cart";
 import { getShop } from "@/_controllers/shop";
@@ -16,6 +18,7 @@ import CartContext from "./cart.context";
 import { getSubTotalPrice, getSubTotalDelivery } from "./cart.methods";
 
 import DeleteIcon from "@/assets/icons/delete.svg";
+import __countries from "@/_data/countries.json";
 
 const CartItem = ({ product, shop, qty, setQty }) => {
   const dispatch = useDispatch();
@@ -27,62 +30,73 @@ const CartItem = ({ product, shop, qty, setQty }) => {
   };
 
   return (
-    <div className="flex mb-20">
-      <div className="flex">
-        <div className="checkout-shop-item-img">
-          <img
-            src={
-              product &&
-              product.images[0] &&
-              product.images[0].formats.thumbnail.url
-            }
-            loading="lazy"
-            sizes="(max-width: 479px) 42vw, (max-width: 767px) 23vw, 120px"
-            alt="Handcrafted stuff"
-            className="back-img"
-          />
+    <>
+      <div className="flex mb-20 flex-align-center">
+        <div className="flex flex-align-center">
+          <div className="checkout-shop-item-img">
+            <img
+              src={
+                product &&
+                product.images[0] &&
+                product.images[0].formats.thumbnail.url
+              }
+              loading="lazy"
+              sizes="(max-width: 479px) 42vw, (max-width: 767px) 23vw, 120px"
+              alt="Handcrafted stuff"
+              className="back-img"
+            />
+          </div>
+          <div
+            className="checkout-product-info cursor no-select"
+            onClick={() => router.push(`/product/${product.id}`)}
+          >
+            <h3>{product.name}</h3>
+            <div
+              className="overline-text pull-up cursor no-select"
+              onClick={() => router.push(`/shop/${shop.id}`)}
+            >
+              By {shop.name}
+            </div>
+            <br className="mobile-only" />
+            <span>Size: {product.size || ""}</span> <span> | </span>
+            <span> Color: {product.color} </span>
+          </div>
         </div>
-        <div className="checkout-product-info">
-          <h3>{product.name}</h3>
-          <div className="overline-text pull-up">By {shop.name}</div>
-          <div>Size: {product.size || ""}</div>
+        <div className="pt-20 flex-grow-1 flex-2 flex-space-between flex-align-center">
+          <div>
+            <img
+              src="/images/done-black-24-dp.svg"
+              loading="lazy"
+              alt="Checkmark"
+            />
+            <div className="item-additional-info" style={{ width: "100px" }}>
+              {product.stock ? "In Stock" : "Currently Unavailable"}
+            </div>
+          </div>
+          <div style={{ justifySelf: "flex-end" }}>
+            <NumberInput value={qty} setValue={(value) => setQty(value)} />
+            <img
+              src={DeleteIcon.src}
+              className={styles["cart-delete"]}
+              onClick={deleteItem}
+            />
+          </div>
+        </div>
+        <div className="pt-30">
+          <div className="shop-product-price">
+            € {product.price * product.quantity}
+          </div>
         </div>
       </div>
-      <div className="pt-20">
-        <img
-          src="/images/done-black-24-dp.svg"
-          loading="lazy"
-          alt="Checkmark"
-        />
-        <div className="item-additional-info">
-          {product.filters.inStock ? "In Stock" : "Currently Unavailable"}
-        </div>
-        <NumberInput value={qty} setValue={(value) => setQty(value)} />
-        <img
-          src={DeleteIcon.src}
-          className={styles["cart-delete"]}
-          onClick={deleteItem}
-        />
-      </div>
-      <div className="pt-30">
-        <div className="shop-product-price">
-          € {product.price * product.quantity}
-        </div>
-      </div>
-    </div>
+      <div className="spacer-40" />
+    </>
   );
 };
 
 /*
  * Caters to a particular shop in the view.
  */
-const CartShop = ({
-  shopId,
-  products,
-  setProducts,
-  shopMeta,
-  setShopMeta,
-}) => {
+const CartShop = ({ shopId, products, setProducts, shopMeta, setShopMeta }) => {
   const [_shop, _setShop] = useState({});
 
   useEffect(async () => {
@@ -94,10 +108,20 @@ const CartShop = ({
 
   return (
     <div className="shop-list mb-60">
-      <div className="flex mb-20">
-        <h2> {_shop.name} </h2>
+      <div className="flex mb-20 flex flex-wrap flex-align-center">
+        <h2
+          className="no-select cursor green"
+          onClick={() => router.push(`/shop/${_shop.id}`)}
+        >
+          {_shop.name}
+        </h2>
         <div className="hide-mobile">
-          <div className="button secondary">
+          <div
+            className="button secondary cursor no-select"
+            onClick={() =>
+              router.push(`/shop/${_shop.id}?tab=terms-n-conditions`)
+            }
+          >
             <div>Terms & Conditions</div>
           </div>
         </div>
@@ -163,6 +187,8 @@ const CartShopView = ({ goToShipping }) => {
     setGift,
     total,
     setTotal,
+    shipping,
+    setShipping
   } = useContext(CartContext);
 
   /*
@@ -180,8 +206,6 @@ const CartShopView = ({ goToShipping }) => {
       setSubTotals(subTotals);
     }
   }, [shops]);
-
-
 
   /**
    * Recalculates total Price & Delivery as the subtotals change.
@@ -222,11 +246,12 @@ const CartShopView = ({ goToShipping }) => {
       {showAuth && <AuthForm close={() => setShowAuth(false)} />}
 
       <div className="container">
-        <div className="heading-wrapper mb-40">
+        <div className="mb-40 flex flex-align-center flex-space-between">
           <h1>
             {shops.reduce((a, c) => a + c.products.length, 0)} items in your
             cart.
           </h1>
+          <Dropdown placeholder="Ship To" choices={__countries} value={shipping.country} setValue={(country) => setShipping({...shipping, country})}/>
         </div>
 
         {shops &&
@@ -299,7 +324,10 @@ const CartShopView = ({ goToShipping }) => {
             <div className="medium">Total Price: € {totalPrice}</div>
             <div>Delivery: € {totalDelivery}</div>
             {co2Compensation > 0 && (
-              <div>Shipping screen is broken. CO2 compensation : € {co2Compensation}</div>
+              <div>
+                Shipping screen is broken. CO2 compensation : €{" "}
+                {co2Compensation}
+              </div>
             )}
             <div>Order Total: € {total}</div>
           </div>
@@ -307,15 +335,14 @@ const CartShopView = ({ goToShipping }) => {
 
         {shops.length > 0 && (
           <div className={styles["cart-cta-buttons-ctr"]}>
-            <OutlinedButton
-              type="secondary"
+            <Button
               name={customer.id ? "Proceed to Shipping" : "Continue as Guest"}
               action={goToShipping}
             />
             {!customer.id && (
-              <Button
+              <OutlinedButton
                 type="secondary"
-                name="Login / Register "
+                name="Sign In"
                 action={() => setShowAuth(true)}
               />
             )}

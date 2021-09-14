@@ -30,7 +30,7 @@ const Banner = () => {
           </div>
           {/* <div className="vspacer-20 spacer-20" /> */}
           <div
-            className="button icon mb-10 ml-10 blue-2 green-2 w-inline-block"
+            className="button icon mb-10 ml-10 green-2 blue-2 w-inline-block"
             onClick={() => router.push("/seller-info")}
           >
             <div className="button-icon w-embed">

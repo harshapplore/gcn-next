@@ -113,7 +113,7 @@ const AddImageBlock = ({
     }
 
     setImageDataTracker(imageData);
-    setFilesData([...filesData, imageData]);
+    setFilesData([...(filesData || []), imageData]);
   }, [JSON.stringify(imageData)]);
 
   useEffect(() => {
@@ -319,7 +319,7 @@ const ConfigProduct = () => {
     if (!product.colors)
       errors.colors = "Please choose available colors for the product";
 
-    if (!product.sizes)
+    if (!product.sizes && product.sizesCategory != "none")
       errors.sizes = "Please choose appropriate sizes for the product";
 
     if (!product.currency)
@@ -330,6 +330,9 @@ const ConfigProduct = () => {
 
     if (product.sale && !product.salePrice)
       errors.salePrice = "Please provide the Product price during sale.";
+
+    if (product.salePrice && product.salePrice > product.price)
+      errors.salePrice = "Sale price cannot be more than regular price.";
 
     if (action === "add" && filesData.length === 0)
       errors.images = "You must provide at least one product image.";
