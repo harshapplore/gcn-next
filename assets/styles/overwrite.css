@@ -199,6 +199,18 @@ a{
   gap: 10px;
 }
 
+/* .banner-2{
+  height: fit-content;
+}
+
+.banner-2 > .back-img {
+  object-fit: contain;
+} */
+
+.position-relative{
+  position: relative;
+}
+
 .flex-justify-start {
   justify-content: flex-start;
 }

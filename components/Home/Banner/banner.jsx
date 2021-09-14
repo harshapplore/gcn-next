@@ -13,7 +13,6 @@ const Banner = () => {
       <img
         src={GreenCloudNineBanner.src}
         loading="lazy"
-        sizes="100vw"
         alt="Green Cloud Nine - Banner"
         className="back-img"
       />
@@ -34,7 +33,7 @@ const Banner = () => {
             onClick={() => router.push("/seller-info")}
           >
             <div className="button-icon w-embed">
-              <TagIcon />
+              <TagIcon />cover
             </div>
             <div className="text-block">Sell products</div>
           </div>
