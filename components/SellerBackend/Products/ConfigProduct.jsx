@@ -113,7 +113,7 @@ const AddImageBlock = ({
     }
 
     setImageDataTracker(imageData);
-    setFilesData([...filesData, imageData]);
+    setFilesData([...(filesData || []), imageData]);
   }, [JSON.stringify(imageData)]);
 
   useEffect(() => {
@@ -255,13 +255,9 @@ const ConfigProduct = () => {
 
   const { action, id } = router.query;
 
-  const inputRef = useRef();
-  const multiInputRef = useRef();
-
   const [product, setProduct] = useState({ images: [], filters: {} });
   const [filters, setFilters] = useState({});
 
-  const [files, setFiles] = useState([]);
   const [filesData, setFilesData] = useState();
 
   const [errors, setErrors] = useState({});
@@ -294,11 +290,6 @@ const ConfigProduct = () => {
     }
   }, []);
 
-  useMemo(async () => {
-    const fData = await readFiles(files);
-    setFilesData(fData);
-  }, [files]);
-
   useEffect(() => {
     if (loading.save === false) router.push(BASE_ROUTE + PRODUCTS);
 
@@ -328,14 +319,20 @@ const ConfigProduct = () => {
     if (!product.colors)
       errors.colors = "Please choose available colors for the product";
 
-    if (!product.sizes)
+    if (!product.sizes && product.sizesCategory != "none")
       errors.sizes = "Please choose appropriate sizes for the product";
 
     if (!product.currency)
       errors.currency = "Please choose a suitable currency.";
 
+    if (!product.tags || !product.tags.length)
+      errors.tags = "Please choose suitable tag filters for your product.";
+
     if (product.sale && !product.salePrice)
       errors.salePrice = "Please provide the Product price during sale.";
+
+    if (product.salePrice && product.salePrice > product.price)
+      errors.salePrice = "Sale price cannot be more than regular price.";
 
     if (action === "add" && filesData.length === 0)
       errors.images = "You must provide at least one product image.";
@@ -350,16 +347,17 @@ const ConfigProduct = () => {
   const save = async () => {
     const productData = {
       ...product,
-      filters,
+      ...filters,
       shop: seller.shop.id,
       seller: seller.id,
     };
 
-    const fData = filesData.map((file) => file.file);
+    const fData = filesData && filesData.map((file) => file.file);
 
-    const uploadedFiles = fData.length
-      ? (await uploadFiles(fData)).map((file) => file.id)
-      : [];
+    const uploadedFiles =
+      fData && fData.length
+        ? (await uploadFiles(fData)).map((file) => file.id)
+        : [];
 
     if (action === "add") {
       await addProduct({
@@ -368,8 +366,7 @@ const ConfigProduct = () => {
         images: uploadedFiles,
       });
     } else if (action === "edit") {
-
-      console.log("=>",uploadedFiles[main.index]);
+      console.log("=>", uploadedFiles[main.index]);
 
       await putProduct(product.id, {
         ...productData,
@@ -406,6 +403,16 @@ const ConfigProduct = () => {
     setLoading({ next: false });
   };
 
+  const updateTags = (state, tag) => {
+    if (state) setProduct({ ...product, tags: [...(product.tags || []), tag] });
+    else {
+      setProduct({
+        ...product,
+        tags: product.tags.filter((tagg) => tagg != tag),
+      });
+    }
+  };
+
   return (
     <div className="dynamic-content">
       <div className="heading-wrapper mb-40">
@@ -422,85 +429,6 @@ const ConfigProduct = () => {
       />
       {errors.images && <ErrorInput message={errors.images} />}
 
-      {/* Add Image Section
-      <div className="product-add-block">
-        <div className="heading-wrapper mb-40">
-          <h3>Add Photos</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            varius enim in eros elementum tristique. Duis cursus, mi quis
-            viverra ornare, eros dolor interdum nulla, ut commodo diam libero
-            vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem
-            imperdiet. Nunc ut sem vitae risus tristique posuere.
-          </p>
-        </div>
-
-        <div className="flex left mb-40">
-          {product.images &&
-            product.images.length > 0 &&
-            product.images.map((data, index) => (
-              <ProductImage key={"image-" + index} url={data.url} />
-            ))}
-
-          {filesData &&
-            filesData.length > 0 &&
-            filesData.map((data, index) => (
-              <ProductImage key={"image-" + index} url={data} />
-            ))}
-
-          <a
-            className="shop-img-link w-inline-block"
-            onClick={() => triggerInput(inputRef)}
-          >
-            <input
-              ref={inputRef}
-              type="file"
-              className="hidden-input"
-              onChange={(e) => setFiles([...files, e.target.files[0]])}
-            />
-            <div className="new-img-wrapper cursor">
-              <img
-                src="/images/expand-more-black-24-dp.svg"
-                loading="lazy"
-                alt="icon"
-                className="mb-10"
-              />
-              <div>Add image</div>
-            </div>
-          </a>
-        </div>
-        <a
-          className="button icon blue w-inline-block"
-          onClick={() => triggerInput(multiInputRef)}
-        >
-          <div className="button-icon w-embed">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              enableBackground="new 0 0 24 24"
-              height="24px"
-              viewBox="0 0 24 24"
-              width="24px"
-              fill="currentColor"
-            >
-              <g>
-                <rect fill="none" height={24} width={24} />
-              </g>
-              <g>
-                <path d="M18,15v3H6v-3H4v3c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2v-3H18z M7,9l1.41,1.41L11,7.83V16h2V7.83l2.59,2.58L17,9l-5-5L7,9z" />
-              </g>
-            </svg>
-          </div>
-          <input
-            ref={multiInputRef}
-            type="file"
-            multiple
-            className="hidden-input"
-            onChange={(e) => setFiles([...e.target.files])}
-          />
-          <div className="text-block">Bulk Upload</div>
-        </a>
-      </div> */}
-
       <div className="w-form">
         <form>
           {/* Description Section */}
@@ -512,7 +440,6 @@ const ConfigProduct = () => {
               <TextInput
                 type="text"
                 className="text-field grow w-input"
-                maxLength={256}
                 placeholder="Product name*"
                 value={product.name || ""}
                 setValue={(value) => setProduct({ ...product, name: value })}
@@ -552,13 +479,14 @@ const ConfigProduct = () => {
 
             <div className="mb-40">
               <label className="mb-20">Sustainability</label>
+              <div className="spacer-10" />
               {filtersList.sustainability &&
                 filtersList.sustainability.map((sustain, index) => {
                   const status =
                     product.sustainability &&
                     product.sustainability.includes(sustain);
                   return (
-                    <div>
+                    <div className="ml-10">
                       <CheckBox
                         key={"sustain-" + index}
                         text={sustain}
@@ -595,40 +523,38 @@ const ConfigProduct = () => {
                 <ErrorInput message={errors.sustainability} />
               )}
             </div>
+            <label className="mb-20">Filters</label>
 
-            <div className="mb-40">
-              <label htmlFor="name" className="mb-20">
-                Filters
-              </label>
+            <div className="mb-40 ml-10">
+              <div className="spacer-10" />
 
               <CheckBox
                 text="For Him"
-                value={filters.forHim}
-                setValue={(value) => setFilters({ ...filters, forHim: value })}
+                value={product.tags && product.tags.includes("for-him")}
+                setValue={(value) => updateTags(value, "for-him")}
               />
               <CheckBox
                 text="For Her"
-                value={filters.forHer}
-                setValue={(value) => setFilters({ ...filters, forHer: value })}
+                value={product.tags && product.tags.includes("for-her")}
+                setValue={(value) => updateTags(value, "for-her")}
               />
               <CheckBox
                 text="For Children"
-                value={filters.forChildren}
-                setValue={(value) =>
-                  setFilters({ ...filters, forChildren: value })
-                }
+                value={product.tags && product.tags.includes("for-children")}
+                setValue={(value) => updateTags(value, "for-children")}
               />
               <CheckBox
                 text="For Babies"
-                value={filters.forBabies}
-                setValue={(value) =>
-                  setFilters({ ...filters, forBabies: value })
-                }
+                value={product.tags && product.tags.includes("for-babies")}
+                setValue={(value) => updateTags(value, "for-babies")}
               />
+
+              {errors.tags && <ErrorInput message={errors.tags} />}
             </div>
 
             <div className="mb-40">
               <label className="mb-20"> Sizes </label>
+              <div className="spacer-10" />
               <div className="mb-20 ml-40">
                 <div>
                   <div className="mb-10">
@@ -724,7 +650,7 @@ const ConfigProduct = () => {
                 <div>
                   <Radio
                     text="Not Applicable"
-                    value={product.size === "none"}
+                    value={product.sizesCategory === "none"}
                     setValue={(value) =>
                       value
                         ? setProduct({ ...product, sizesCategory: "none" })
@@ -738,10 +664,14 @@ const ConfigProduct = () => {
 
             <div className="mb-20">
               <label className="mb-20">Colors</label>
-              <div>
+              <div className="spacer-10" />
+              <div className="flex flex-wrap flex-grow-1 max-content ml-10">
                 {filtersList.colors &&
                   filtersList.colors.map((color, index) => (
                     <CheckBox
+                      styles={{
+                        width: "150px",
+                      }}
                       key={"color-" + index}
                       text={color}
                       value={product.colors && product.colors.includes(color)}
@@ -771,20 +701,22 @@ const ConfigProduct = () => {
               {errors.colors && <ErrorInput message={errors.colors} />}
             </div>
 
+            <div className="spacer-20" />
+
             <div className="mb-20">
               <label className="mb-20"> Sale </label>
               <div className="ml-40 flex">
                 <Radio
                   text="Sale"
                   value={product.sale}
-                  setValue={(value) => setProduct({ ...product, sale: value })}
+                  setValue={(sale) => setProduct({ ...product, sale })}
                 />
                 {product.sale && (
                   <TextInput
                     placeholder="Sale Price*"
                     value={product.salePrice}
-                    setValue={(value) =>
-                      setProduct({ ...product, salePrice: value })
+                    setValue={(salePrice) =>
+                      setProduct({ ...product, salePrice })
                     }
                     error={errors.salePrice}
                   />
@@ -804,7 +736,7 @@ const ConfigProduct = () => {
                 className="text-field w-input"
                 placeholder="Product Price*"
                 value={product.price || ""}
-                setValue={(value) => setProduct({ ...product, price: value })}
+                setValue={(price) => setProduct({ ...product, price })}
                 error={errors.price}
               />
 
@@ -813,7 +745,7 @@ const ConfigProduct = () => {
                 className="text-field w-input"
                 placeholder="Weight (in Kgs)"
                 value={product.weight || ""}
-                setValue={(value) => setProduct({ ...product, weight: value })}
+                setValue={(weight) => setProduct({ ...product, weight })}
                 error={errors.weight}
               />
 
@@ -821,9 +753,7 @@ const ConfigProduct = () => {
                 choices={CurrenciesList}
                 placeholder="Currency"
                 value={product.currency}
-                setValue={(value) =>
-                  setProduct({ ...product, currency: value })
-                }
+                setValue={(currency) => setProduct({ ...product, currency })}
                 error={errors.currency}
               />
 
@@ -831,8 +761,8 @@ const ConfigProduct = () => {
                 choices={CountriesList}
                 placeholder="Country of Production"
                 value={product.countryOfProduction}
-                setValue={(value) =>
-                  setProduct({ ...product, countryOfProduction: value })
+                setValue={(countryOfProduction) =>
+                  setProduct({ ...product, countryOfProduction })
                 }
                 error={errors.countryOfProduction}
               />
@@ -840,15 +770,15 @@ const ConfigProduct = () => {
 
             <CheckBox
               text="In Stock"
-              value={filters.inStock}
-              setValue={(value) => setFilters({ ...filters, inStock: value })}
+              value={product.stock}
+              setValue={(stock) => setProduct({ ...product, stock })}
             />
 
             <CheckBox
               text="Pick Up Available"
-              value={filters.pickUpAvailable}
-              setValue={(value) =>
-                setFilters({ ...filters, pickUpAvailable: value })
+              value={product.pickUpAvailable}
+              setValue={(pickUpAvailable) =>
+                setProduct({ ...product, pickUpAvailable })
               }
             />
           </div>

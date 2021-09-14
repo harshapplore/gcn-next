@@ -57,7 +57,7 @@ const PageSection = () => {
     const products = await getProducts({
       price_gt: 10,
       _sort: "name:asc",
-      _limit: 5,
+      _limit: 6,
     });
 
     _setProducts(products);

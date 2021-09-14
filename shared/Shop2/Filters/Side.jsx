@@ -39,19 +39,11 @@ const Sidebar = ({ filters, setFilters, shopView }) => {
   const updateTags = (value, tag) => {
     if (value) setFilters({ ...filters, tags: [...(filters.tags || []), tag] });
     else {
-      const index =
-        filters && filters.tags.findIndex((tagName) => tagName === tag);
+      const tags = filters.tags.filter((tagg) => tagg != tag);
 
-      setFilters({
-        ...filters,
-        tags: {
-          ...filters,
-          tag: [
-            ...filters.tags.slice(0, index),
-            ...filters.tags.slice(index + 1),
-          ],
-        },
-      });
+      console.log(tags)
+
+      setFilters({ ...filters, tags });
     }
   };
 
@@ -89,6 +81,7 @@ const Sidebar = ({ filters, setFilters, shopView }) => {
           setValue={(value) => setFilters({ ...filters, deliversTo: value })}
         />
       </div>
+      <div className="spacer-20" />
       <div className="shop-select-text first">Shop Location:</div>
       <div className="mb-20">
         <FilterDropdown
@@ -98,6 +91,7 @@ const Sidebar = ({ filters, setFilters, shopView }) => {
           setValue={(value) => setFilters({ ...filters, shopLocation: value })}
         />
       </div>
+      <div className="spacer-20" />
       <div className="shop-select-text first">Delivery Time</div>
       <div className="mb-40">
         <FilterDropdown
@@ -111,19 +105,35 @@ const Sidebar = ({ filters, setFilters, shopView }) => {
       <div className="spacer-10" />
       <div className="mb-40">
         <div className="mb-20">
-          <CheckBox text="For him" />
+          <CheckBox
+            text="For him"
+            value={filters.tags && filters.tags.includes("for-him")}
+            setValue={(value) => updateTags(value, "for-him")}
+          />
         </div>
 
         <div className="mb-20">
-          <CheckBox text="For her " value={filters.tags} />
+          <CheckBox
+            text="For her "
+            value={filters.tags && filters.tags.includes("for-her")}
+            setValue={(value) => updateTags(value, "for-her")}
+          />
         </div>
 
         <div className="mb-20">
-          <CheckBox text="For her " value={filters.tags} />
+          <CheckBox
+            text="For Children"
+            value={filters.tags && filters.tags.includes("for-children")}
+            setValue={(value) => updateTags(value, "for-children")}
+          />
         </div>
 
         <div className="mb-20">
-          <CheckBox text="For her " value={filters.tags} />
+          <CheckBox
+            text="For Babies"
+            value={filters.tags && filters.tags.includes("for-babies")}
+            setValue={(value) => updateTags(value, "for-babies")}
+          />
         </div>
       </div>
 

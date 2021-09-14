@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const DropdownContainer = styled.div`
   min-height: 25px;
+  min-width: max-content;
   width: ${(props) => (props.width ? props.width : "auto")};
   color: #555;
   --svg-fill: #555;
@@ -21,15 +22,25 @@ const DropdownContainer = styled.div`
     box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.35);
   }
 
+  position: relative;
+
   .d-list-ctr {
     max-height: 200px;
     overflow-y: auto;
     cursor: pointer;
 
+    background: #fff;
+    position: absolute;
+    z-index: 99;
+
+    min-width: 100%;
+
     .d-list-item {
       padding: 11.5px;
       border-inline: 0.25px solid #eee;
       border-bottom: 0.5px solid #eee;
+
+      min-width: 100%;
     }
   }
 `;

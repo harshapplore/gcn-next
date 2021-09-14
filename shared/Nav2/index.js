@@ -67,7 +67,7 @@ const Nav2 = () => {
             alt=""
             className="button-icon"
           />
-          <div className="text-block">About Us</div>
+          <div className="text-block cursor no-select">About Us</div>
         </a>
       </div>
       <div className="mobile-menu-bar">
