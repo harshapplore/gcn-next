@@ -91,11 +91,6 @@ const Seller_Governance_Management = ({ nextPage }) => {
     const [finedForHealthLaw, setFinedForHealthLaw] = useState("")
     const [lawBrief, setLawBrief] = useState("")
 
-
-
-
-
-
     const [errors, setErrors] = useState([]);
     useEffect(() => {
         if (seller.governanceAndManagementAnswers) {
@@ -270,20 +265,6 @@ const Seller_Governance_Management = ({ nextPage }) => {
             nextPage();
         }
     };
-
-    const response = await authAxios()({
-      url: `sellers/${seller.id}`,
-      method: "PUT",
-      data: {
-        governanceAndManagementAnswers: data,
-      },
-    });
-    console.log(response);
-
-    if (response) {
-      nextPage();
-    }
-  };
 
   return (
     <div className="page-section wf-section">
