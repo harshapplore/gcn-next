@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import ShopProgressBar from "./Utils/ShopProgressBar";
 import { authAxios } from "@/setups/axios";
 import { uploadFiles } from "_controllers/product"
+import Message from "@/shared/Message";
+
 
 
 
@@ -25,7 +27,11 @@ const Seller_Shop_Details = ({ nextPage }) => {
   const validate = () => {
     const err = [];
 
-
+    !profilePic ? err.push(`Please Enter  profile picture`) : "";
+    !headerImage ? err.push(`Please Enter Header image`) : "";
+    !shopImages ? err.push(`Please Enter shop images`) : "";
+    !shopName ? err.push(`Please Enter shop name`) : "";
+    !shopDesc ? err.push(`Please Enter shop description`) : "";
     setErrors(err);
 
     if (err.length) return false;
@@ -46,30 +52,30 @@ const Seller_Shop_Details = ({ nextPage }) => {
     // checkAvailablity && checkAvailablity.length ? err.push(`Shop name already taken`) : "";
   }
   const profilepicture = []
-  profilepicture.push(profilePic)
+  profilePic && profilepicture.push(profilePic)
   const cover = []
-  cover.push(headerImage)
+  headerImage && cover.push(headerImage)
   const shopimage = []
-  shopimage.push(shopImages[0])
-  shopimage.push(shopImages[1])
-  shopimage.push(shopImages[2])
-  shopimage.push(shopImages[3])
+  shopImages[0] && shopimage.push(shopImages[0])
+  shopImages[1] && shopimage.push(shopImages[1])
+  shopImages[2] && shopimage.push(shopImages[2])
+  shopImages[3] && shopimage.push(shopImages[3])
   
   const submit = async (e) => {
     e.preventDefault();
     
     if (!validate()) return;
     
-    const logo = await uploadFiles(profilepicture)
-    const head = await uploadFiles(cover)
-    const image = await uploadFiles(shopimage)
+    const logo = profilepicture ? await uploadFiles(profilepicture) :[]
+    const head =cover ? await uploadFiles(cover) : []
+    const image =shopimage ? await uploadFiles(shopimage) : []
     
     const data = {
       name:shopName,
       description:shopDesc,
-      logo,
-      cover:head,
-      images:image
+      logo : logo.length > 0 ? logo : [] ,
+      cover:head.length >0 ? head : [] ,
+      images:image.length > 0 ? image : []  
     }
     
     const res = await authAxios()({

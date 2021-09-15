@@ -53,7 +53,7 @@ const Seller_Environmental = ({ nextPage }) => {
   const [useOfRenewableEnergyPercent, setUseOfRenewableEnergyPercent] = useState("")
   const [reductionOfWaterConsumption, setReductionOfWaterConsumption] = useState("")
   const [reductionOfWaterConsumptionPercent, setReductionOfWaterConsumptionPercent] = useState("")
-  const [environmentalBrief, setEnvironmentalBrief] = useState("")
+  // const [environmentalBrief, setEnvironmentalBrief] = useState("")
 
   const checkBoxStyle = { opacity: 0, position: "absolute", zIndex: -1 }
   const [errors, setErrors] = useState([]);
