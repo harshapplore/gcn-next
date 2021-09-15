@@ -2,15 +2,11 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import ProgressBar from "./Utils/ProgressBar";
-// import { putSeller } from "../../_controllers/seller"
 import { uploadFiles } from "_controllers/product"
 
 import { authAxios } from "@/setups/axios";
 
-// import Select from "@/shared/Select";
-// import CheckBox from "@/shared/Checkbox";
 import Message from "@/shared/Message";
-// import Button from "@/shared/Button";
 
 
 const data = {
@@ -41,14 +37,14 @@ const Seller_Basic_Info = ({ nextPage }) => {
   const [rawMaterialDetails, setRawMaterialDetails] = useState("")
   const [companySize, setCompanySize] = useState("")
   const [certificate, setCertificate] = useState("")
-  const [file, setFile] = useState([])
-  const [certificateName, setCertificateName] = useState("")
+  const [certificateOne, setCertificateOne] = useState("")
+  const [certificateTwo, setCertificateTwo] = useState("")
+  const [certificateOneName, setCertificateOneName] = useState("")
+  const [certificateTwoName, setCertificateTwoName] = useState("")
+  const [addCertificates, setAddCertificate] = useState(false)
+  
 
   const [errors, setErrors] = useState([]);
-
-  const getDet = () => {
-
-  }
 
   useEffect(() => {
     if (seller.basicInformationAnswers) {
@@ -62,8 +58,8 @@ const Seller_Basic_Info = ({ nextPage }) => {
       setRawMaterialDetails(seller.basicInformationAnswers.rawMaterialDetails)
       setCompanySize(seller.basicInformationAnswers.companySize)
       setCertificate(seller.basicInformationAnswers.certificate)
-      setFile(seller.basicInformationAnswers.file)
-      setCertificateName(seller.basicInformationAnswers.certificateName)
+      // setFile(seller.basicInformationAnswers.file)
+      // setCertificateName(seller.basicInformationAnswers.certificateName)
     }
   }, [seller]);
 
@@ -76,10 +72,15 @@ const Seller_Basic_Info = ({ nextPage }) => {
     !jobTitle ? err.push(`Please Enter the Job Title`) : "";
     !organizationName ? err.push(`Please Enter the Organization Name`) : "";
     !email ? err.push(`Please Enter the Email`) : "";
+    const validEmail = new RegExp(
+      '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
+    !validEmail.test(email) ? err.push("Please enter valid email") : "";
     !mobile ? err.push(`Please Enter the Phone number`) : "";
     !productInfo ? err.push(`Please Enter the product information`) : "";
     !companySize ? err.push(`Please Enter the company size`) : "";
-    !certificate ? err.push(`Please select the certificate`) : "";
+    !certificate ? err.push(`Please select the option`) : "";
+    certificate === "yes" && !certificateOne ? err.push(`Please select the certificate`) : "";
+    addCertificates && !certificateTwo ? err.push(`Please select the certificate`) : "";
 
     !initials ? err.push(`The credential "initial"  is missing.`) : "";
 
@@ -89,29 +90,15 @@ const Seller_Basic_Info = ({ nextPage }) => {
 
     return true;
   };
-  console.log(seller)
-
+  const arr = []
+  certificateOne && arr.push(certificateOne)
+  certificateTwo && arr.push(certificateTwo)
   const submit = async (e) => {
     e.preventDefault();
 
     console.log(errors)
     if (!validate()) return;
-
-
-
-    const formData = new FormData()
-    formData.append("initials", initials)
-    formData.append("name", name)
-    formData.append("jobtitle", jobTitle)
-    formData.append("organizationName", organizationName)
-    formData.append("email", email)
-    formData.append("mobile", mobile)
-    formData.append("productInfo", productInfo)
-    formData.append("rawMaterialDetails", rawMaterialDetails)
-    formData.append("companySize", companySize)
-    formData.append("certificate", certificate)
-    formData.append("certificateName", certificateName)
-    formData.append("file", file)
+    const certs = arr.length > 0  ? await uploadFiles(arr) : []
 
     const sellerData = {
       initials,
@@ -124,19 +111,14 @@ const Seller_Basic_Info = ({ nextPage }) => {
       rawMaterialDetails,
       companySize,
       certificate,
-      certificateName,
-      file
+      // certificateName,
+      certificates:certs.length > 0 ? certs : []
     }
-    // const filesuploaded =await uploadFiles(file)
-    // console.log(sellerData)
-    console.log(file)
-    // const response = await putSeller(seller.id,formData)
 
     const response = await authAxios()({
       url: `sellers/${seller.id}`,
       method: "PUT",
       data: {
-        // onboardStatus: 1,
         basicInformationAnswers: sellerData,
       },
     });
@@ -146,6 +128,9 @@ const Seller_Basic_Info = ({ nextPage }) => {
     }
   };
 
+  const addCertificate = ()=>{
+    setAddCertificate(true)
+  }
   return (
     <div className="page-section wf-section">
       <div className="container">
@@ -198,7 +183,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                       <input type="text" onChange={(e => setJobTitle(e.target.value))} value={jobTitle} className="input-x w-input" maxLength="256" name="Job-Title-2" data-name="Job Title 2" placeholder="Job Title" id="Job-Title-2" />
                       <input type="text" onChange={(e => setOrganizationName(e.target.value))} value={organizationName} className="input-x w-input" maxLength="256" name="Organisation-Name-3" data-name="Organisation Name 3" placeholder="Organisation Name *" id="Organisation-Name-3" required="" />
                       <input type="email" onChange={(e => setEmail(e.target.value))} value={email} className="input-x w-input" maxLength="256" name="E-Mail-Adress-2" data-name="E Mail Adress 2" placeholder="E-Mail Adress *" id="E-Mail-Adress-2" required="" />
-                      <input type="tel" onChange={(e => setMobile(e.target.value))} value={mobile} className="input-x w-input" maxLength="256" name="Phone-Number-3" data-name="Phone Number 3" placeholder="Phone Number *" id="Phone-Number-3" required="" />
+                      <input type="number" onChange={(e => setMobile(e.target.value))} value={mobile} className="input-x w-input" maxLength="256" name="Phone-Number-3" data-name="Phone Number 3" placeholder="Phone Number *" id="Phone-Number-3" required="" />
                     </div>
                   </li>
                   <li>
@@ -210,7 +195,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                         <input type="radio" value={productInfo} checked={productInfo === "Producer of raw materials"} onChange={() => setProductInfo("Producer of raw materials")} data-name="Business Section" id="Producer of raw materials-2" name="Business-Section" required="" style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
                         <span htmlFor="Producer of raw materials-2" className="checkbox-label w-form-label">Producer of raw materials</span>
                       </label>
-                      <textarea disabled={productInfo !== "Producer of raw materials"} onChange={(e) => setRawMaterialDetails(e.target.value)} placeholder="Please specifiy here…" htmlFor="5000" id="Business-Section-Specify" name="Business-Section-Specify" data-name="Business Section Specify" className="input-x input-x--text-area sct w-input"></textarea>
+                      <textarea disabled={productInfo !== "Producer of raw materials"} onChange={(e) => setRawMaterialDetails(e.target.value)} value={rawMaterialDetails} placeholder="Please specifiy here…" htmlFor="5000" id="Business-Section-Specify" name="Business-Section-Specify" data-name="Business Section Specify" className="input-x input-x--text-area sct w-input"></textarea>
                       <label className="checkbox-field w-clearfix w-radio">
                         <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${productInfo === "Producer of components / semi-finished goods" ? " w--redirected-checked" : ""}`}></div>
                         <input type="radio" value={productInfo} checked={productInfo === "Producer of components / semi-finished goods"} onChange={() => setProductInfo("Producer of components / semi-finished goods")} data-name="Business Section" id="Producer of components / semi-finished goods-2" name="Business-Section" required="" style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
@@ -290,7 +275,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                       </div>
                       {certificate === "yes" && <> <div className="mb-20"><strong>If yes, please upload it here:</strong></div>
                         <div className="account-form-1">
-                          <input type="text" className="input-x w-input" htmlFor="256" value={file && file.name} name="Name-Certificate" data-name="Name Certificate" onChange={(e) => setCertificateName(file ? file.name : e.target.value)} placeholder="Name Certificate *" id="Name-Certificate-2" required="" />
+                          <input type="text" className="input-x w-input" htmlFor="256" value={certificateOne && certificateOne.name} name="Name-Certificate" data-name="Name Certificate" onChange={(e) => setCertificateOneName(certificateOne && certificateOne.name)} placeholder="Name Certificate *" id="Name-Certificate-2" required="" />
                           <div className="button icon blue w-inline-block">
                             <div className="button-icon w-embed">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
@@ -303,19 +288,36 @@ const Seller_Basic_Info = ({ nextPage }) => {
 
                             <label htmlFor="certificates" >Upload Certificate (png., jpg., pdf.)</label  >
                           </div>
-                          <input type="file" style={{ display: "none" }} onChange={(e) => setFile(e.target.files[0])} id="certificates" />
                         </div>
-                        <label className="add-element" htmlFor="certificates" style={{ cursor: "pointer" }}>
+                          <input type="file" style={{ display: "none" }} onChange={(e) => setCertificateOne(e.target.files[0])} id="certificates" />
+                          <input type="file" style={{ display: "none" }} onChange={(e) => setCertificateTwo(e.target.files[0])} id="certificatetwo" />
+                        {addCertificates && <div className="account-form-1">
+                          <input type="text" className="input-x w-input" htmlFor="256" value={certificateTwo && certificateTwo.name} name="Name-Certificate" data-name="Name Certificate" onChange={(e) => setCertificateTwoName( certificateTwo && certificateTwo.name)} placeholder="Name Certificate *" id="Name-Certificate-2" required="" />
+                          <div className="button icon blue w-inline-block">
+                            <div className="button-icon w-embed">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                                <g fill="currentcolor" fillRule="evenodd" >
+                                  <path d="M 0,0 H 24 V 24 H 0 Z" fill="none"></path>
+                                  <path d="M17 8l-1.41 1.41L17.17 11H9v2h8.17l-1.58 1.58L17 16l4-4-4-4zM5 5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h7v-2H5V5z" transform="rotate(-90 12 12)"></path>
+                                </g>
+                              </svg>
+                            </div>
+
+                            <label htmlFor="certificatetwo" >Upload Certificate (png., jpg., pdf.)</label  >
+                          </div>
+                        </div>}
+                        <label className="add-element" htmlFor="certificatetwo" style={{ cursor: "pointer" }}>
                           <img src="../images/add-black-24-dp.svg" loading="lazy" width="24" height="24" alt="Add" className="shop-product-list-add-icon" />
-                          <div className="delivery-country-text">Add Certificate</div>
-                        </label> </>}
+                          <div className="delivery-country-text" onClick={addCertificate}>Add Certificate</div>
+                        </label> 
+                        </>}
                     </div>
                   </li>
                 </ol>
                 {errors && errors.length > 0 && errors.map(error =>
                   <Message text={error} status={-1} />)
                 }
-                <div className="button blue" onClick={submit}>Continue</div>
+                <div className="button blue" style={{ marginTop: "20px" }} onClick={submit}>Continue</div>
               </form>
             </div>
           </div>

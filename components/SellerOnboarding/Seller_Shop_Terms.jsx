@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { authAxios } from "@/setups/axios";
-
-
+import Message from "@/shared/Message";
 import ShopProgressBar from "./Utils/ShopProgressBar";
 
 
@@ -13,52 +12,48 @@ const Seller_Shop_Terms = ({ nextPage }) => {
     const [returnAndRefund, setReturnAndRefund] = useState("");
     const [generalCondition, setGeneralCondition] = useState("");
     const [privacyPolicy, setPrivacyPolicy] = useState("");
-    // const [termLanguage, setTermLanguage] = useState("english");
-
-    // console.log(seller)
-    // useEffect(() => {
-    //   if (seller.questionaire) setInitials(seller.questionaire);
-    // }, [seller]);
-// console.log(seller)
+    console.log(seller)
     useEffect(() => {
-        if (seller.shop) 
-        {
+        if (seller.shop) {
             setReturnAndRefund(seller.shop.returnsAndRefunds)
             setGeneralCondition(seller.shop.generalConditions)
             setPrivacyPolicy(seller.shop.privacyPolicy)
         }
-      }, []);
-      
-      const validate = () => {
+    }, []);
+
+    const validate = () => {
         const err = [];
 
+        !returnAndRefund ? err.push(`Please Enter return and refund`) : "";
+        !generalCondition ? err.push(`Please Enter general conditons`) : "";
+        !privacyPolicy ? err.push(`Please Enter privacy policy`) : "";
 
         setErrors(err);
 
         if (err.length) return false;
-        
+
         return true;
     };
-    
+
     const submit = async (e) => {
         e.preventDefault();
-        
+
         if (!validate()) return;
-        
+
         const data = {
-            returnsAndRefunds:returnAndRefund,
-            generalConditions:generalCondition,
+            returnsAndRefunds: returnAndRefund,
+            generalConditions: generalCondition,
             privacyPolicy
         }
         const res = await authAxios()({
             url: `/shops/${seller.shop.id} `,
             method: "PUT",
-            data:data
-          });
+            data: data
+        });
         console.log(res)
 
         if (res) {
-        nextPage();
+            nextPage();
         }
     };
 
@@ -79,6 +74,7 @@ const Seller_Shop_Terms = ({ nextPage }) => {
                                     onChange={(e) => setReturnAndRefund(e.target.value)}
                                     placeholder="Type in here…"
                                     maxLength="5000"
+                                    value={returnAndRefund}
                                     className="input-x input-x--text-area w-input"></textarea>
                                 <div className="settings-spacer"></div>
                                 <div className="terms-headline mb-20">
@@ -88,6 +84,7 @@ const Seller_Shop_Terms = ({ nextPage }) => {
                                     onChange={(e) => setGeneralCondition(e.target.value)}
                                     placeholder="Type in here…"
                                     maxLength="5000"
+                                    value={generalCondition}
                                     className="input-x input-x--text-area w-input"></textarea>
                                 <div className="settings-spacer"></div>
                                 <h4 className="headline-5 mb-20">Privacy Policy</h4>
@@ -95,9 +92,15 @@ const Seller_Shop_Terms = ({ nextPage }) => {
                                     onChange={(e) => setPrivacyPolicy(e.target.value)}
                                     placeholder="Type in here…"
                                     maxLength="5000"
+                                    value={privacyPolicy}
                                     className="input-x input-x--text-area mb-30 w-input"></textarea>
-                                <div className="button blue" onClick={submit}>Save and Continue</div>
+
+                                {errors && errors.length > 0 && errors.map(error =>
+                                    <Message text={error} status={-1} />)
+                                }
+                                <div className="button blue" style={{ marginTop: "20px" }} onClick={submit}>Save and Continue</div>
                             </form>
+
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,8 @@ import { authAxios } from "@/setups/axios";
 import ShopProgressBar from "./Utils/ShopProgressBar";
 import countries from "../../_data/countries.json"
 import Select from "@/shared/Select";
+import Message from "@/shared/Message";
+
 
 const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
   const { seller } = useSelector((state) => state.user);
@@ -22,39 +24,15 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
   const [freeShippingFrom, setFreeShippingFrom] = useState(false);
   const [allowShippingToPackingStation, setAllowShippingToPackingStation] = useState(false);
   const [CO2Neutral, setCO2Neutral] = useState(false);
+  const [freeShippingStart, setFreeShippingStart] = useState(false);
+  const [freeShippingCurrency, setFreeShippingCurrency] = useState(false);
 
   const [currency, setCurrency] = useState("");
   const [shippingService, setShippingService] = useState("");
   const [deliveryTime, setDeliveryTime] = useState("");
-  // const [applePay, setApplePay] = useState(false);
-  // const [stripe, setStripe] = useState(false);
-  // const [paypal, setPaypal] = useState(false);
-  // const [creditCard, setCreditCard] = useState(false);
-
   const currencyOptions = ["EUR", "USD"]
   const serviceProviderOptions = ["Choice 1", "Choice 2"]
   const deliveryTimeOptions = ["Choice 1", "Choice 2"]
-
-
-  const [editName, setEditName] = useState(false);
-  const [name, setName] = useState("");
-  const [editCEO, setEditCEO] = useState(false);
-  const [CEO, setCEO] = useState("");
-  const [editPhone, setEditPhone] = useState(false);
-  const [phone, setPhone] = useState("");
-  const [editEmail, setEditEmail] = useState(false);
-  const [email, setEmail] = useState("");
-  const [editCardNumber, setEditCardNumber] = useState(false);
-  const [cardNumber, setCardNumber] = useState("");
-  const [editNameOnCard, setEditNameOnCard] = useState(false);
-  const [nameOnCard, setNameOnCard] = useState("");
-  const [region, setRegion] = useState("");
-  const [expiryYear, setExpiryYear] = useState("");
-  const [expiryMonth, setExpiryMonth] = useState("");
-  // console.log(seller)
-  // useEffect(() => {
-  //   if (seller.questionaire) setInitials(seller.questionaire);
-  // }, [seller]);
 
   const checkBoxStyle = { opacity: 0, position: "absolute", zIndex: -1 }
 
@@ -63,6 +41,17 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
   const validate = () => {
     const err = [];
 
+    !country ? err.push(`Please select country`) : "";
+    !cost0to1Kg ? err.push(`Please enter 0 and 1 kg category`) : "";
+    !cost1to5Kg ? err.push(`Please enter 1 and 5 kg category`) : "";
+    !cost5to10Kg ? err.push(`Please enter 6 and 10 kg category`) : "";
+    !costMoreThan10Kg ? err.push(`Please enter more than 10Kg category`) : "";
+    !freeShippingFrom ? err.push(`Please select free shipping from option`) : "";
+    freeShippingFrom && !freeShippingStart ? err.push(`Please select free shipping from option`) : "";
+    freeShippingFrom && !freeShippingCurrency ? err.push(`Please select free shipping from option`) : "";
+    !currency ? err.push(`Please select the currency`) : "";
+    !shippingService ? err.push(`Please select shipping service`) : "";
+    !deliveryTime ? err.push(`Please select delivery time`) : "";
 
     setErrors(err);
 
@@ -79,7 +68,7 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
 
     const data = {
       country,
-      weights: 
+      weights:
         [{
           category: "0 to 1Kg",
           cost: cost0to1Kg,
@@ -118,18 +107,8 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
       method: "PUT",
       data: data
     });
-    // const response = await authAxios()({
-    //   url: `sellers/${seller.id}`,
-    //   method: "PUT",
-    //   data: {
-    //     onboardStatus: 1,
-    //     questionaire: answers,
-    //   },
-    // });
 
-    // if (cardConfirmation) {
     nextPage();
-    // }
   };
   console.log(seller);
 
@@ -161,8 +140,6 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                           </div>
                         </div>
                         <br />
-                        {/* {showCountryDetails &&
-                          countries.length && <Select choices={countries} required={true} value={countries} defaultValue="Austria" width="100%" />} */}
                         {showCountryDetails &&
                           <select
                             onChange={(e) => setCountry(e.target.value)}
@@ -170,9 +147,6 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                             <option value="">Austria</option>
                             {countries.length && countries.map(option => <option key={option} value={option}>{option}</option>)}
                           </select>}
-                        {/* <Select choices={currencyOptions} required={true} value={currencyOptions} setValue={currencyOptions} defaultValue="EUD" />
-                                                        <Select choices={serviceProviderOptions} required={true} value={serviceProviderOptions} setValue={serviceProviderOptions} defaultValue="Choice 1" width="inherit" />
-                                                        <Select choices={deliveryTimeOptions} required={true} value={deliveryTimeOptions} setValue={deliveryTimeOptions} defaultValue="Choice 1" /> */}
                         <div>
                           <div className="delivery-cost-text">Delivery cost by weight</div>
                           <div className="delivery-cost">
@@ -212,7 +186,8 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                               <option value="">Delivery time *</option>
                               {deliveryTimeOptions && deliveryTimeOptions.map(option => <option key={option} value={option}>{option}</option>)}
                             </select>
-
+                          </div>
+                          <div className="delivery-cost">
                             <div className="delivery-cost-kg">1 – 5 kg</div>
                             <div className="input-x input-x--flex">
                               {!editCost1to5Kg ? <div className={`${!editCost1to5Kg ? "" : " hidden"}`}>{cost1to5Kg ? cost1to5Kg : "Delivery cost"}</div> :
@@ -249,7 +224,8 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                               <option value="">Delivery time *</option>
                               {deliveryTimeOptions && deliveryTimeOptions.map(option => <option key={option} value={option}>{option}</option>)}
                             </select>
-
+                          </div>
+                          <div className="delivery-cost">
                             <div className="delivery-cost-kg">5 – 10 kg</div>
                             <div className="input-x input-x--flex">
                               {!editCost5to10Kg ? <div className={`${!editCost5to10Kg ? "" : " hidden"}`}>{cost5to10Kg ? cost5to10Kg : "Delivery cost"}</div> :
@@ -286,7 +262,8 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                               <option value="">Delivery time *</option>
                               {deliveryTimeOptions && deliveryTimeOptions.map(option => <option key={option} value={option}>{option}</option>)}
                             </select>
-
+                          </div>
+                          <div className="delivery-cost">
                             <div className="delivery-cost-kg">&gt; 10 kg</div>
                             <div className="input-x input-x--flex">
                               {!editcostMoreThan10Kg ? <div className={`${!editcostMoreThan10Kg ? "" : " hidden"}`}>{costMoreThan10Kg ? costMoreThan10Kg : "Delivery cost"}</div> :
@@ -330,17 +307,6 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                           </div>
                         </div>
                       </div>
-                      {/* <div className="add-element">
-                        <img src="../images/add-black-24-dp.svg" loading="lazy" width="24" height="24" alt="Add" className="shop-product-list-add-icon" />
-                        <div className="delivery-country-text">Add Country</div>
-                      </div>
-                      <div className="add-country">
-                        <select className="input-x input-x--select input-x--add-country w-select">
-                          <option value="">Country</option>
-                        </select>
-                        <img src="../images/add-black-24-dp.svg" loading="lazy" width="24" height="24" alt="Add" className="add-country__icon" />
-                        <a href="#" className="add-country__button">Add Country</a>
-                      </div> */}
                     </div>
                   </li>
                   <li>
@@ -353,9 +319,9 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                           <input type="checkbox" id="Free shipping" checked={freeShippingFrom} style={{ opacity: 0, position: "absolute", zIndex: -1 }} onChange={() => setFreeShippingFrom(!freeShippingFrom)} />
                           <span htmlFor="Free shipping" className="checkbox-label medium w-form-label">Free Shipping from</span>
                         </label>
-                        {freeShippingFrom && <> <input type="number" className="input-x input-x--number input-x--free-shipping w-input" maxLength="256" placeholder="100" />
-                          <select id="Currency" className="input-x input-x--select input-x--eur w-select">
-                            <option value="EUR">EUR</option>
+                        {freeShippingFrom && <> <input type="number" className="input-x input-x--number input-x--free-shipping w-input" onChange={(e)=>setFreeShippingStart(e.target.value)} value={freeShippingStart} maxLength="256" placeholder="100" />
+                          <select id="Currency" onChange={()=>setFreeShippingCurrency(e.target.value)} className="input-x input-x--select input-x--eur w-select">
+                            <option value={"EUR"}>EUR</option>
                             <option value="USD">USD</option>
                           </select></>}
                       </div>
@@ -381,7 +347,10 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                     </div>
                   </li>
                 </ol>
-                <div onClick={submit} className="button blue mr-10">Save and Continue</div>
+              {errors && errors.length > 0 && errors.map(error =>
+                  <Message text={error} status={-1} />)
+                }
+                <div onClick={submit} style={{ marginTop: "20px" }} className="button blue mr-10">Save and Continue</div>
               </form>
               <div className="w-form-done">
                 <div>Thank you! Your submission has been received!</div>

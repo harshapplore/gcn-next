@@ -23,20 +23,7 @@ const Seller_Price_Intro = ({ nextPage }) => {
         e.preventDefault();
 
         if (!validate()) return;
-
-
-        // const response = await authAxios()({
-        //   url: `sellers/${seller.id}`,
-        //   method: "PUT",
-        //   data: {
-        //     onboardStatus: 1,
-        //     questionaire: answers,
-        //   },
-        // });
-
-        // if (response) {
         nextPage();
-        // }
     };
 
     return (

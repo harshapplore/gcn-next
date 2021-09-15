@@ -5,10 +5,7 @@ import ProgressBar from "./Utils/ProgressBar";
 
 import { authAxios } from "@/setups/axios";
 
-// import Select from "@/shared/Select";
-// import CheckBox from "@/shared/Checkbox";
 import Message from "@/shared/Message";
-// import Button from "@/shared/Button";
 
 
 const data = {
@@ -60,7 +57,6 @@ const Seller_Environmental = ({ nextPage }) => {
 
   const checkBoxStyle = { opacity: 0, position: "absolute", zIndex: -1 }
   const [errors, setErrors] = useState([]);
-  // console.log(seller)
   useEffect(() => {
     if (seller.environmentalAnswers) {
       setHasEnvironmentalPolicy(seller.environmentalAnswers.hasEnvironmentalPolicy)
@@ -104,7 +100,41 @@ const Seller_Environmental = ({ nextPage }) => {
 
   const validate = () => {
     const err = [];
-
+    !hasEnvironmentalPolicy ? err.push(`please select the value`) : ""
+    !understandTheImpacts ? err.push(`please select the value`) : ""
+    understandTheImpacts==="yes" && !isImpactMeasured ? err.push(`please enter the value`) : ""
+    !materialCauseLessDamage ? err.push(`please select the value`) : ""
+    !useLocalMaterial ? err.push(`please select the value`) : ""
+    useLocalMaterial === "yes" && !useLocalMaterialPercentage ? err.push(`please enter the value`) : ""
+    !quantifyTheImpact ? err.push(`please select the value`) : ""
+    quantifyTheImpact ==="yes" && !percentageOfPlasticReduce ? err.push(`please enter the value`) : ""
+    quantifyTheImpact ==="yes" && !percentageOfRawMaterialReduce ? err.push(`please enter the value`) : ""
+    quantifyTheImpact ==="yes" && !percentageOfWaterReduce ? err.push(`please enter the value`) : ""
+    quantifyTheImpact ==="yes" && !percentageOfEnergyReduce ? err.push(`please enter the value`) : ""
+    quantifyTheImpact ==="yes" && !percentageOfRenewableEnergyEmployed ? err.push(`please enter the value`) : ""
+    quantifyTheImpact ==="yes" && !percentageOfGHGEmission ? err.push(`please enter the value`) : ""
+    !recycleScrapMaterials ? err.push(`please select the value`) : ""
+    recycleScrapMaterials === "yes" && !recyclePercentage ? err.push(`please enter the value`) : ""
+    !recycleAfterUsePhase ? err.push(`please select the value`) : ""
+    !aimToReturnFaulty ? err.push(`please select the value`) : ""
+    !promotesCustomersUnderstanding ? err.push(`please select the value`) : ""
+    !dataAboutEnvironmentalPractices ? err.push(`please select the value`) : ""
+    !customersDemandOnEnvironmentalPerfomance ? err.push(`please select the value`) : ""
+    !alternativeForPlastic ? err.push(`please select the value`) : ""
+    !sustainableDeliveryProcess ? err.push(`please select the value`) : ""
+    !finalDestinationForWaste ? err.push(`please select the value`) : ""
+    !selectiveWasteCollection ? err.push(`please select the value`) : ""
+    selectiveWasteCollection ==="yes" && !selectiveWasteCollectionPercent ? err.push(`please enter the value`) : ""
+    !savingPaperConsumption ? err.push(`please select the value`) : ""
+    savingPaperConsumption ==="yes" && !savingPaperConsumptionPercent ? err.push(`please enter the value`) : ""
+    !reductionOfEnergyConsumption ? err.push(`please select the value`) : ""
+    reductionOfEnergyConsumption === "yes" && !reductionOfEnergyConsumptionPercent ? err.push(`please enter the value`) : ""
+    !useOfRenewableEnergy ? err.push(`please select the value`) : ""
+    useOfRenewableEnergy ==="yes" && !useOfRenewableEnergyPercent ? err.push(`please select the value`) : ""
+    !reductionOfWaterConsumption ? err.push(`please select the value`) : ""
+    reductionOfWaterConsumption ==="yes" && !reductionOfWaterConsumptionPercent ? err.push(`please select the value`) : ""
+    !environmentalBrief ? err.push(`please enter the value`) : ""
+    
     setErrors(err);
 
     if (err.length) return false;
@@ -184,7 +214,6 @@ const Seller_Environmental = ({ nextPage }) => {
             <p>{data.p3}</p>
           </div>
           <ProgressBar />
-
           <div className="settings-block">
             <h3 className="headline-5 mb-50">5. Environmental</h3>
             <div className="w-form">
@@ -1206,7 +1235,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 {errors && errors.length > 0 && errors.map(error =>
                   <Message text={error} status={-1} />)
                 }
-                <div className="button blue" onClick={submit}>Continue</div>
+                <div className="button blue"  style={{ marginTop: "20px" }} onClick={submit}>Continue</div>
               </form>
             </div>
           </div>

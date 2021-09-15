@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import ShopProgressBar from "./Utils/ShopProgressBar";
-import countries from "../../_data/countries.json"
-import Select from "@/shared/Select";
 import { authAxios } from "@/setups/axios";
 import { uploadFiles } from "_controllers/product"
 
@@ -47,7 +45,6 @@ const Seller_Shop_Details = ({ nextPage }) => {
 
     // checkAvailablity && checkAvailablity.length ? err.push(`Shop name already taken`) : "";
   }
-  // console.log(res)
   const profilepicture = []
   profilepicture.push(profilePic)
   const cover = []
@@ -57,10 +54,6 @@ const Seller_Shop_Details = ({ nextPage }) => {
   shopimage.push(shopImages[1])
   shopimage.push(shopImages[2])
   shopimage.push(shopImages[3])
-  
-  // arr.push(idBack)
-  // arr.push(addressBack)
-  // arr.push(addressFront)
   
   const submit = async (e) => {
     e.preventDefault();

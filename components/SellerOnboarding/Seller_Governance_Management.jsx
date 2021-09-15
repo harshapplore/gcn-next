@@ -5,15 +5,13 @@ import ProgressBar from "./Utils/ProgressBar";
 
 import { authAxios } from "@/setups/axios";
 
-// import Select from "@/shared/Select";
-// import CheckBox from "@/shared/Checkbox";
+
 import Message from "@/shared/Message";
 import Governance_Management_Integrity from "./Governance_Management_Integrity";
 import Governance_Management_Financial from "./Governance_Management_Financial";
 import Governance_Management_Innovation from "./Governance_Management_Innovation";
 import Governance_Management_Relationship from "./Governance_Management_Relationship";
 import Governance_Management_Law from "./Governance_Management_Law";
-// import Button from "@/shared/Button";
 
 
 const data = {
@@ -99,13 +97,8 @@ const Seller_Governance_Management = ({ nextPage }) => {
 
 
 
-    // console.log(directorAct)
-    // console.log(responsibleForIrregularities)
-    // console.log(principleOfBusinessConduct)
-    // console.log(channelForEmployee)
-    // console.log(objectivesAndGoalsSustainabilty)
+
     const [errors, setErrors] = useState([]);
-    // console.log(seller)
     useEffect(() => {
         if (seller.governanceAndManagementAnswers) {
             setDirectorAct(seller.governanceAndManagementAnswers.directorAct)
@@ -158,16 +151,57 @@ const Seller_Governance_Management = ({ nextPage }) => {
     const validate = () => {
         const err = [];
 
-        // !SMV ? err.push(`Please select strategy, mission & vision`) : "";
-        // !isPeriodicallyRevised ? err.push(`Please select 'periodically revised'`) : "";
-        // !strategicPlan ? err.push(`Please select the strategic plan`) : "";
-        // !objectivesAndGoals ? err.push(`Please select objectives and goals`) : "";
-        // !objectivesAndGoalsSustainabilty ? err.push(`Please select the aspects of sustainability`) : "";
-
+        !financialPlan ? err.push(`please select the value`) : "";
+        !financialPerformance ? err.push(`Please select the value`) : "";
+        !monitoringManagement ? err.push(`please select the value`) : ""
+        !discloseInfo ? err.push(`please select the value`) : ""
+        !financialBrief ? err.push(`please select the value`) : ""
+        !efficiency ? err.push(`please select the value`) : ""
+        !qualityOfProduct ? err.push(`please select the value`) : ""
+        !improvedProtfolio ? err.push(`please select the value`) : ""
+        !benefitInItsDimensions ? err.push(`please select the value`) : ""
+        !RND ? err.push(`please select the value`) : ""
+        !involvingCustomers ? err.push(`please select the value`) : ""
+        !innovationBrief ? err.push(`please select the value`) : ""
+        !directorAct ? err.push(`please select the value`) : ""
+        !responsibleForIrregularities ? err.push(`please select the value`) : ""
+        !principleOfBusinessConduct ? err.push(`please select the value`) : ""
+        !channelForEmployee ? err.push(`please select the value`) : ""
+        !integrityBrief ? err.push(`please select the value`) : ""
+        !licenseAndPermit ? err.push(`please select the value`) : ""
+        !instructedToKnowLaw ? err.push(`please select the value`) : ""
+        !finedForLaw ? err.push(`please select the value`) : ""
+        !finedForLabourLaw ? err.push(`please select the value`) : ""
+        !finedForEnvironmentalLaw ? err.push(`please select the value`) : ""
+        !finedForHealthLaw ? err.push(`please select the value`) : ""
+        !lawBrief ? err.push(`please select the value`) : ""
+        !communicationChannel ? err.push(`please select the value`) : ""
+        communicationChannel === "yes" && !answerReceived ? err.push(`please select the value`) : ""
+        communicationChannel === "yes" && !goalAndDeadline ? err.push(`please select the value`) : ""
+        communicationChannel === "yes" && !doubtAnalysis ? err.push(`please select the value`) : ""
+        !productInfo ? err.push(`please select the value`) : ""
+        !satisfactionSurvey ? err.push(`please select the value`) : ""
+        !supplierDetails ? err.push(`please select the value`) : ""
+        supplierDetails === "yes" && !criticalSupplySurvey ? err.push(`please select the value`) : ""
+        supplierDetails === "yes" && !alternateDeliveryOption ? err.push(`please select the value`) : ""
+        !priorityOfLocalSupplier ? err.push(`please select the value`) : ""
+        priorityOfLocalSupplier === "yes" && !priorityOfLocalSupplierPercentage ? err.push(`please enter the value`) : ""
+        !purchaseCriteria ? err.push(`please select the value`) : ""
+        !contractWithSupplier ? err.push(`please select the value`) : ""
+        contractWithSupplier === "yes" && !labour ? err.push(`please select the value`) : ""
+        contractWithSupplier === "yes" && !tax ? err.push(`please select the value`) : ""
+        contractWithSupplier === "yes" && !sanitary ? err.push(`please select the value`) : ""
+        contractWithSupplier === "yes" && !environmental ? err.push(`please select the value`) : ""
+        !relationshipBrief ? err.push(`please select the value`) : ""
+        !licenseAndPermit ? err.push(`please select the value`) : ""
+        !instructedToKnowLaw ? err.push(`please select the value`) : ""
+        !finedForLaw ? err.push(`please select the value`) : ""
+        !finedForLabourLaw ? err.push(`please select the value`) : ""
+        !finedForEnvironmentalLaw ? err.push(`please select the value`) : ""
+        !finedForHealthLaw ? err.push(`please select the value`) : ""
+        !lawBrief ? err.push(`please select the value`) : ""
         setErrors(err);
-
         if (err.length) return false;
-
         return true;
     };
 
@@ -227,7 +261,6 @@ const Seller_Governance_Management = ({ nextPage }) => {
             url: `sellers/${seller.id}`,
             method: "PUT",
             data: {
-                // onboardStatus: 1,
                 governanceAndManagementAnswers: data,
             },
         });
@@ -374,7 +407,10 @@ const Seller_Governance_Management = ({ nextPage }) => {
                                     data={data}
                                 />
                                 <br />
-                                <div className="button blue" onClick={submit}>Continue</div>
+                                {errors && errors.length > 0 && errors.map(error =>
+                  <Message text={error} status={-1} />)
+                }
+                                <div className="button blue" style={{ marginTop: "20px" }} onClick={submit}>Continue</div>
                             </form>
                         </div>
                     </div>
