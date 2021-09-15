@@ -5,10 +5,7 @@ import ProgressBar from "./Utils/ProgressBar";
 
 import { authAxios } from "@/setups/axios";
 
-// import Select from "@/shared/Select";
-// import CheckBox from "@/shared/Checkbox";
 import Message from "@/shared/Message";
-// import Button from "@/shared/Button";
 
 
 const data = {
@@ -43,12 +40,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
 
 
   console.log(seller)
-  // console.log(strategicPlan)
-  // console.log(isPeriodicallyRevised)
-  // console.log(objectivesAndGoals)
-  // console.log(objectivesAndGoalsSustainabilty)
   const [errors, setErrors] = useState([]);
-  // console.log(seller)
   useEffect(() => {
     if (seller.visionAndStrategyAnswers) 
     {
@@ -67,10 +59,10 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
     const err = [];
 
     !SMV ? err.push(`Please select strategy, mission & vision`) : "";
-    !isPeriodicallyRevised ? err.push(`Please select 'periodically revised'`) : "";
-    !strategicPlan ? err.push(`Please select the strategic plan`) : "";
-    !objectivesAndGoals ? err.push(`Please select objectives and goals`) : "";
-    !objectivesAndGoalsSustainabilty ? err.push(`Please select the aspects of sustainability`) : "";
+    !strategicPlan  ? err.push(`Please select the strategic plan`) : "";
+    strategicPlan === "yes" && !isPeriodicallyRevised ? err.push(`Please select 'periodically revised'`) : "";
+    isPeriodicallyRevised === "yes" && !objectivesAndGoals ? err.push(`Please select objectives and goals`) : "";
+    objectivesAndGoals === "yes" && !objectivesAndGoalsSustainabilty ? err.push(`Please select the aspects of sustainability`) : "";
 
     setErrors(err);
 

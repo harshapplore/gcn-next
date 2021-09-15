@@ -6,25 +6,10 @@ import ProgressBar from "./Utils/ProgressBar";
 
 const Seller_About_Done = ({ nextPage }) => {
     const { seller } = useSelector((state) => state.user);
-  
-console.log(nextPage)
-   
-    // const validate = () => {
-    //     const err = [];;
 
-
-    //     setErrors(err);
-
-    //     if (err.length) return false;
-
-    //     return true;
-    // };
     const submit = async (e) => {
         e.preventDefault();
-
-        // if (!validate()) return;
         nextPage();
-    
     };
 
     return (

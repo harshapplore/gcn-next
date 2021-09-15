@@ -19,11 +19,6 @@ const Seller_Shop_Info = ({ nextPage }) => {
   const [orderEmail, setOrderEmail] = useState("");
   const [returnEmail, setReturnEmail] = useState("");
   const [customerServiceEmail, setCustomerServiceEmail] = useState("");
-  // const [applePay, setApplePay] = useState(false);
-  // const [stripe, setStripe] = useState(false);
-  // const [paypal, setPaypal] = useState(false);
-  // const [creditCard, setCreditCard] = useState(false);
-  console.log(seller)
   const [editName, setEditName] = useState(false);
   const [name, setName] = useState("");
   const [editCEO, setEditCEO] = useState(false);
@@ -37,17 +32,10 @@ const Seller_Shop_Info = ({ nextPage }) => {
   const [idBack, setIdBack] = useState("");
   const [addressFront, setAddressFront] = useState("");
   const [addressBack, setAddressBack] = useState("");
-  // const [editCardNumber, setEditCardNumber] = useState(false);
-  // const [cardNumber, setCardNumber] = useState("");
-  // const [editNameOnCard, setEditNameOnCard] = useState(false);
-  // const [nameOnCard, setNameOnCard] = useState("");
+
   const [currency, setCurrency] = useState("");
   const [language, setLanguage] = useState("");
   const [region, setRegion] = useState("");
-  // const [expiryYear, setExpiryYear] = useState("");
-  // const [expiryMonth, setExpiryMonth] = useState("");
-  // console.log(seller)
-  // const shop = JSON.parse(localStorage.getItem("shop"))
 
   useEffect(() => {
     if (seller.shop) {
@@ -70,7 +58,18 @@ const Seller_Shop_Info = ({ nextPage }) => {
 
   const validate = () => {
     const err = [];
-
+    !initials ? err.push(`Please Enter the Full name`) : "";
+    !organizationName ? err.push(`Please Enter the Full name`) : "";
+    !contactPhone ? err.push(`Please Enter the Full name`) : "";
+    !contactEmail ? err.push(`Please Enter the Full name`) : "";
+    !orderEmail ? err.push(`Please Enter the Full name`) : "";
+    !returnEmail ? err.push(`Please Enter the Full name`) : "";
+    !customerServiceEmail ? err.push(`Please Enter the Full name`) : "";
+    !IBAN ? err.push(`Please Enter the Full name`) : "";
+    !idFront ? err.push(`Please Enter the Full name`) : "";
+    !idBack ? err.push(`Please Enter the Full name`) : "";
+    !addressFront ? err.push(`Please Enter the Full name`) : "";
+    !addressBack ? err.push(`Please Enter the Full name`) : "";
 
     setErrors(err);
 
@@ -84,7 +83,7 @@ const Seller_Shop_Info = ({ nextPage }) => {
     e.preventDefault();
 
     if (!validate()) return;
-    
+
     const response = await uploadFiles(arr)
     const data = {
       phone: contactPhone,
@@ -92,50 +91,26 @@ const Seller_Shop_Info = ({ nextPage }) => {
       orderManagementEmail: orderEmail,
       returnsEmail: returnEmail,
       customerServiceEmail: customerServiceEmail,
-      iban:IBAN,
+      iban: IBAN,
       language,
       currency,
-      images:response
-      // identityFrontView :idFront,
-      // identityBackView:idBack,
-      // proofOfAddressFrontView:addressFront,
-      // proofOfAddressBackView:addressBack,
+      images: response
+
     }
-    // const iban = {
-    //   iban:IBAN
-    // }
+
     const formData = new FormData()
     formData.append("identityFrontView", idFront)
     formData.append("identityBackView", idBack)
     formData.append("proofOfAddressFrontView", addressFront)
     formData.append("proofOfAddressBackView", addressBack)
-    // formData.append("iban", IBAN)
-    // formData.append("customerServiceEmail", customerServiceEmail)
-    // formData.append("returnsEmail", returnEmail)
-    // formData.append("orderManagementEmail", orderEmail)
-    // formData.append("contactEmail", contactEmail)
-    // formData.append("phone", contactPhone)
 
-    // files.map((file) => formData.append("files", file));
-// console.log(typeof formData)
-    
-  // const response = await authAxios()({
-  //   url: "/upload",
-  //   method: "POST",
-  //   data: formData,
-  // });
 
 
     const res = await authAxios()({
       url: `/shops/${seller.shop.id} `,
       method: "PUT",
-      data:data
+      data: data
     });
-    // const ibanResponse = await authAxios()({
-    //   url: `seller/${seller.id}`,
-    //   method: "PUT",
-    //   data: iban
-    // });
 
     if (res) {
       nextPage();
@@ -325,28 +300,18 @@ const Seller_Shop_Info = ({ nextPage }) => {
                       <input type="file" onChange={(e) => setIdBack(e.target.files[0])} style={{ display: "none" }} id="id-backview" />
                       <input type="file" onChange={(e) => setAddressFront(e.target.files[0])} style={{ display: "none" }} id="address-frontview" />
                       <input type="file" style={{ display: "none" }} onChange={(e) => setAddressBack(e.target.files[0])} id="address-backview" />
-                      {/* <div className="spacer-20" /> */}
 
                       <p className="mb-20"> Identity Documents</p>
-
-                      {/* URL.createObjectURL(event.target.files[0]) */}
 
                       <div style={imgStyle} >
                         {idFront && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(idFront)} alt="id-front" style={{ borderRadius: "10px" }} />}
                         {idBack && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(idBack)} alt="id-back" style={{ borderRadius: "10px" }} />}
                       </div>
                       <div className="" style={{ display: "flex", justifyContent: "space-between" }} >
-                        {/* <div className="product-add-block-bank"> */}
 
                         <label className="button" htmlFor="id-frontview" >Upload Front View</label  >
 
-                        {/* <OutlinedButton id={id} name="Upload Front View" /> */}
-                        {/* </div> */}
-                        {/* <div className="product-add-block"> */}
                         <label className="button" htmlFor="id-backview" >Upload Back View</label  >
-
-                        {/* <OutlinedButton id={id} name="Upload Back View" /> */}
-                        {/* </div> */}
                       </div>
 
                       <div className="spacer-40" />
@@ -357,151 +322,10 @@ const Seller_Shop_Info = ({ nextPage }) => {
                       </div>
 
                       <div className="" style={{ display: "flex", justifyContent: "space-between" }}>
-                        {/* <div className="product-add-block"> */}
                         <label className="button" htmlFor="address-frontview" >Upload Front View</label  >
-                        {/* <OutlinedButton name="Upload Front View" /> */}
-                        {/* </div> */}
-                        {/* <div className="product-add-block"> */}
                         <label className="button" htmlFor="address-backview" >Upload Back View</label  >
-                        {/* <OutlinedButton name="Upload Back View" /> */}
-                        {/* </div> */}
                       </div>
                     </div>
-                    {/* <div className="assessment-list-content">
-                                            <div className="assessment-spacer"></div>
-                                            <div className="payment-form-1">
-                                                <div className="payment-form-2">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>
-                                                </div>
-                                                <div>
-                                                    <div className="input-x input-x--flex mb-15">
-                                                        {!editCardNumber ? <div className={`${!editCardNumber ? "" : " hidden"}`}>{cardNumber ? cardNumber : "Card Number"}</div> :
-                                                            <input
-                                                                onChange={(e) => setCardNumber(e.target.value)}
-                                                                value={cardNumber}
-                                                                type="text"
-                                                                className="input-x-edit w-input"
-                                                                maxLength="256"
-                                                                placeholder="Card Number *"
-                                                                required=""
-                                                            />}
-                                                        <div className="input-x__change">
-                                                            <div style={{ cursor: "pointer" }} onClick={() => setEditCardNumber(!editCardNumber)}>Change</div>
-                                                            <img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="input-x input-x--flex mb-15">
-                                                    {!editNameOnCard ? <div className={`${!editNameOnCard ? "" : " hidden"}`}>{nameOnCard ? nameOnCard : "Name on Card"}</div> :
-                                                            <input
-                                                                onChange={(e) => setNameOnCard(e.target.value)}
-                                                                value={nameOnCard}
-                                                                type="text"
-                                                                className="input-x-edit w-input"
-                                                                maxLength="256"
-                                                                placeholder="Name on card *"
-                                                                required=""
-                                                            />}
-                                                        <div className="input-x__change">
-                                                            <div style={{ cursor: "pointer" }} onClick={() => setEditNameOnCard(!editNameOnCard)}>Change</div>
-                                                            <img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="payment-expiration">
-                                                        <div className="subtitle-2">Expiration date</div>
-                                                        <select onChange={(e) => setExpiryMonth(e.target.value)} className="input-x input-x--select w-select">
-                                                            <option value="01">01</option>
-                                                            <option value="02">02</option>
-                                                            <option value="03">03</option>
-                                                            <option value="04">04</option>
-                                                            <option value="05">05</option>
-                                                            <option value="06">06</option>
-                                                            <option value="07">07</option>
-                                                            <option value="08">08</option>
-                                                            <option value="09">09</option>
-                                                            <option value="10">10</option>
-                                                            <option value="11">11</option>
-                                                            <option value="12">12</option>
-                                                        </select>
-                                                        <select onChange={(e) => setExpiryYear(e.target.value)} className="input-x input-x--select w-select">
-                                                            <option value="2021">2021</option>
-                                                            <option value="2022">2022</option>
-                                                            <option value="2023">2023</option>
-                                                            <option value="2024">2024</option>
-                                                            <option value="2025">2025</option>
-                                                            <option value="2026">2026</option>
-                                                            <option value="2027">2027</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="payment-button-wrapper">
-                                                <a href="#" className="button blue mr-10">Save Changes</a>
-                                                <a href="#" className="button blue secondary">Delete Adress</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="subtitle-2">Which payment methods do you accept?</div>
-                                        <div className="assessment-list-content">
-                                            <div className="assessment-spacer"></div>
-                                            <div class="account-form-1 mb-50">
-                                                <div class="payment-method-option">
-                                                    <img src="../images/about-1.jpg" loading="lazy" width="135" height="71" alt="" class="payment-method-option-img" />
-                                                    <label class="w-checkbox checkbox-field mb-0">
-                                                        <div class={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${creditCard ? " w--redirected-checked" : ""}`}></div>
-                                                        <input
-                                                            onChange={() => setCreditCard(!creditCard)}
-                                                            value={creditCard}
-                                                            type="checkbox"
-                                                            id="Payment Method 3"
-                                                            style={checkBoxStyle}
-                                                        />
-                                                        <span for="Payment Method " class="checkbox-label w-form-label">Credit card</span>
-                                                    </label>
-                                                </div>
-                                                <div class="payment-method-option">
-                                                    <img src="../images/about-1.jpg" loading="lazy" width="135" height="71" alt="" class="payment-method-option-img" />
-                                                    <label class="w-checkbox checkbox-field mb-0">
-                                                        <div class={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${stripe ? " w--redirected-checked" : ""}`}></div>
-                                                        <input
-                                                            onChange={() => setStripe(!stripe)}
-                                                            value={stripe}
-                                                            type="checkbox"
-                                                            id="Payment Method 3"
-                                                            style={checkBoxStyle}
-                                                        />
-                                                        <span for="Payment Method " class="checkbox-label w-form-label">Stripe</span>
-                                                    </label>
-                                                </div>
-                                                <div class="payment-method-option">
-                                                    <img src="../images/about-1.jpg" loading="lazy" width="135" height="71" alt="" class="payment-method-option-img" />
-                                                    <label class="w-checkbox checkbox-field mb-0">
-                                                        <div class={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${applePay ? " w--redirected-checked" : ""}`}></div>
-                                                        <input
-                                                            onChange={() => setApplePay(!applePay)}
-                                                            value={applePay}
-                                                            type="checkbox"
-                                                            id="Payment Method 2"
-                                                            style={checkBoxStyle} />
-                                                        <span for="Payment Method " class="checkbox-label w-form-label">Apple Pay</span>
-                                                    </label>
-                                                </div>
-                                                <div class="payment-method-option">
-                                                    <img src="../images/about-1.jpg" loading="lazy" width="135" height="71" alt="" class="payment-method-option-img" />
-                                                    <label class="w-checkbox checkbox-field mb-0">
-                                                        <div class={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${paypal ? " w--redirected-checked" : ""}`}></div>
-                                                        <input
-                                                            onChange={() => setPaypal(!paypal)}
-                                                            value={applePay}
-                                                            type="checkbox"
-                                                            id="Payment Method 4"
-                                                            style={checkBoxStyle}
-                                                        />
-                                                        <span for="Payment Method " class="checkbox-label w-form-label">Paypal</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div> */}
                   </li>
                   <li>
                     <div className="subtitle-2">Preferences</div>
@@ -527,7 +351,10 @@ const Seller_Shop_Info = ({ nextPage }) => {
                     </div>
                   </li>
                 </ol>
-                <div className="button blue" onClick={submit}>Save and Continue</div>
+                {errors && errors.length > 0 && errors.map(error =>
+                  <Message text={error} status={-1} />)
+                }
+                <div className="button blue" style={{ marginTop: "20px" }} onClick={submit}>Save and Continue</div>
               </form>
             </div>
           </div>

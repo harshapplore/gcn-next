@@ -26,11 +26,6 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
   const [currency, setCurrency] = useState("");
   const [shippingService, setShippingService] = useState("");
   const [deliveryTime, setDeliveryTime] = useState("");
-  // const [applePay, setApplePay] = useState(false);
-  // const [stripe, setStripe] = useState(false);
-  // const [paypal, setPaypal] = useState(false);
-  // const [creditCard, setCreditCard] = useState(false);
-
   const currencyOptions = ["EUR", "USD"]
   const serviceProviderOptions = ["Choice 1", "Choice 2"]
   const deliveryTimeOptions = ["Choice 1", "Choice 2"]
@@ -51,10 +46,7 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
   const [region, setRegion] = useState("");
   const [expiryYear, setExpiryYear] = useState("");
   const [expiryMonth, setExpiryMonth] = useState("");
-  // console.log(seller)
-  // useEffect(() => {
-  //   if (seller.questionaire) setInitials(seller.questionaire);
-  // }, [seller]);
+
 
   const checkBoxStyle = { opacity: 0, position: "absolute", zIndex: -1 }
 
@@ -118,18 +110,8 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
       method: "PUT",
       data: data
     });
-    // const response = await authAxios()({
-    //   url: `sellers/${seller.id}`,
-    //   method: "PUT",
-    //   data: {
-    //     onboardStatus: 1,
-    //     questionaire: answers,
-    //   },
-    // });
-
-    // if (cardConfirmation) {
+    
     nextPage();
-    // }
   };
   console.log(seller);
 
@@ -161,8 +143,6 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                           </div>
                         </div>
                         <br />
-                        {/* {showCountryDetails &&
-                          countries.length && <Select choices={countries} required={true} value={countries} defaultValue="Austria" width="100%" />} */}
                         {showCountryDetails &&
                           <select
                             onChange={(e) => setCountry(e.target.value)}
@@ -170,9 +150,6 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                             <option value="">Austria</option>
                             {countries.length && countries.map(option => <option key={option} value={option}>{option}</option>)}
                           </select>}
-                        {/* <Select choices={currencyOptions} required={true} value={currencyOptions} setValue={currencyOptions} defaultValue="EUD" />
-                                                        <Select choices={serviceProviderOptions} required={true} value={serviceProviderOptions} setValue={serviceProviderOptions} defaultValue="Choice 1" width="inherit" />
-                                                        <Select choices={deliveryTimeOptions} required={true} value={deliveryTimeOptions} setValue={deliveryTimeOptions} defaultValue="Choice 1" /> */}
                         <div>
                           <div className="delivery-cost-text">Delivery cost by weight</div>
                           <div className="delivery-cost">
@@ -330,17 +307,6 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                           </div>
                         </div>
                       </div>
-                      {/* <div className="add-element">
-                        <img src="../images/add-black-24-dp.svg" loading="lazy" width="24" height="24" alt="Add" className="shop-product-list-add-icon" />
-                        <div className="delivery-country-text">Add Country</div>
-                      </div>
-                      <div className="add-country">
-                        <select className="input-x input-x--select input-x--add-country w-select">
-                          <option value="">Country</option>
-                        </select>
-                        <img src="../images/add-black-24-dp.svg" loading="lazy" width="24" height="24" alt="Add" className="add-country__icon" />
-                        <a href="#" className="add-country__button">Add Country</a>
-                      </div> */}
                     </div>
                   </li>
                   <li>
