@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchFavoriteItems } from "@/slices/favorites";
-import { getLatestProducts, getProducts } from "@/_controllers/product";
+import { useSelector } from "react-redux";
+import { getProducts } from "@/_controllers/product";
 
 import { addToFavorites, deleteFavorite } from "@/_controllers/customer";
 import router from "next/router";
@@ -73,8 +72,8 @@ const PageSection = () => {
         <div className="flex">
           {_products &&
             _products.length > 0 &&
-            _products.map((product) => (
-              <ProductCard product={product} customerId={customer.id} />
+            _products.map((product, index) => (
+              <ProductCard key={"x"+index} product={product} customerId={customer.id} />
             ))}
         </div>
       </div>

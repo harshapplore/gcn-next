@@ -1,9 +1,7 @@
 [
   { "name": "Albania", "code": "AL" },
   { "name": "Austria", "code": "AT" },
-  { "name": "Belarus", "code": "BY" },
   { "name": "Belgium", "code": "BE" },
-  { "name": "Bosnia and Herzegovina", "code": "BA" },
   { "name": "Bulgaria", "code": "BG" },
   { "name": "Croatia", "code": "HR" },
   { "name": "Czech Republic", "code": "CZ" },
@@ -29,13 +27,9 @@
   { "name": "Poland", "code": "PL" },
   { "name": "Portugal", "code": "PT" },
   { "name": "Romania", "code": "RO" },
-  { "name": "Russia", "code": "RU" },
   { "name": "Serbia", "code": "RS" },
   { "name": "Slovakia", "code": "SK" },
   { "name": "Slovenia", "code": "SI" },
   { "name": "Spain", "code": "ES" },
   { "name": "Sweden", "code": "SE" },
-  { "name": "Switzerland", "code": "CH" },
-  { "name": "United Kingdom", "code": "UK" },
-  { "name": "Ukraine", "code": "UA" }
-]
+  { "name": "Switzerland", "code": "CH" }]

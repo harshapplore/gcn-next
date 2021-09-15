@@ -1,4 +1,4 @@
-export default () => (
+const TagIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     enableBackground="new 0 0 24 24"
@@ -16,3 +16,5 @@ export default () => (
     </g>
   </svg>
 );
+
+export default TagIcon;

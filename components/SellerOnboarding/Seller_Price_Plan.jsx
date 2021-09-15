@@ -10,16 +10,6 @@ const Seller_Price_Plan = ({ nextPage }) => {
     const [errors, setErrors] = useState([]);
     const [plan, setPlan] = useState("bonsai");
     const [planType,setPlanType] = useState("")
-    // console.log(seller)
-    // useEffect(() => {
-    //   if (seller.questionaire) setInitials(seller.questionaire);
-    // }, [seller]);
-
-   
-
-    // plan === "bonsai" ? setPlanType("bonsai") : setPlanType("oak")
-    
-    
 
     const validate = () => {
         const err = [];
@@ -44,7 +34,6 @@ const Seller_Price_Plan = ({ nextPage }) => {
           url: `sellers/${seller.id}`,
           method: "PUT",
           data: {
-              // onboardStatus: 1,
               planType,
           },
       });
