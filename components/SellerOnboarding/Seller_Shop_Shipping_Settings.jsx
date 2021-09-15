@@ -5,6 +5,8 @@ import { authAxios } from "@/setups/axios";
 import ShopProgressBar from "./Utils/ShopProgressBar";
 import countries from "../../_data/countries.json"
 import Select from "@/shared/Select";
+import Message from "@/shared/Message";
+
 
 const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
   const { seller } = useSelector((state) => state.user);
