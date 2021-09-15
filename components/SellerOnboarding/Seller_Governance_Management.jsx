@@ -50,7 +50,7 @@ const Seller_Governance_Management = ({ nextPage }) => {
   useEffect(() => {
     if (!seller.id) dispatch(fetchSeller());
 
-    console.log(seller);
+    
   }, []);
 
   const [directorAct, setDirectorAct] = useState("");
@@ -333,6 +333,7 @@ const Seller_Governance_Management = ({ nextPage }) => {
       method: "PUT",
       data: {
         governanceAndManagementAnswers: data,
+        qaStatus: "pending"
       },
     });
     console.log(response);

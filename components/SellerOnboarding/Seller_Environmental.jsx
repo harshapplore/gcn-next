@@ -298,6 +298,7 @@ const Seller_Environmental = ({ nextPage }) => {
       data: {
         onboardStatus: 1,
         environmentalAnswers: data,
+        qaStatus: "pending"
       },
     });
     if (response.data.environmentalAnswers) {
