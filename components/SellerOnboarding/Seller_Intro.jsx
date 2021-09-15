@@ -45,9 +45,7 @@ const Seller_Intro = ({ nextPage }) => {
         nextPage();
         
     };
-
     
-
     return (
         <div className="page-section">
             <div className="container">
