@@ -46,7 +46,7 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
     !cost1to5Kg ? err.push(`Please enter 1 and 5 kg category`) : "";
     !cost5to10Kg ? err.push(`Please enter 6 and 10 kg category`) : "";
     !costMoreThan10Kg ? err.push(`Please enter more than 10Kg category`) : "";
-    !freeShippingFrom ? err.push(`Please select free shipping from option`) : "";
+    // !freeShippingFrom ? err.push(`Please select free shipping from option`) : "";
     freeShippingFrom && !freeShippingStart ? err.push(`Please select free shipping from option`) : "";
     freeShippingFrom && !freeShippingCurrency ? err.push(`Please select free shipping from option`) : "";
     !currency ? err.push(`Please select the currency`) : "";
