@@ -1,3 +1,6 @@
+import EUVATCalculator from "eu-vat-calc";
+import countriesList from "@/_data/countriesList";
+
 import shop from "@/slices/shop";
 
 export const getShopView = (products) => {
@@ -9,6 +12,7 @@ export const getShopView = (products) => {
       shopsList.push(cartItem.shop.id);
       shops.push({
         shopId: cartItem.shop.id,
+        shop: cartItem.shop,
         products: [
           {
             ...cartItem,
@@ -23,9 +27,7 @@ export const getShopView = (products) => {
       return;
     }
 
-    const index = shops.findIndex(
-      (shop) => shop.shopId === cartItem.shop.id
-    );
+    const index = shops.findIndex((shop) => shop.shopId === cartItem.shop.id);
 
     shops[index].products.push({
       ...cartItem,
@@ -44,7 +46,7 @@ export const getProductView = (shops) => {
 };
 
 export const getSubTotalPrice = (products) => {
-  if(!products) return 0;
+  if (!products) return 0;
 
   return products.reduce(
     (a, product) => a + Math.round(product.price * product.quantity),
@@ -56,10 +58,36 @@ export const getSubTotalDelivery = () => {
   return 0;
 };
 
+export const calculateVat = ({
+  domesticCountry,
+  destinationCountry,
+  amount,
+}) => {
+  console.log("-> ", domesticCountry, destinationCountry);
+
+  if (!domesticCountry || !destinationCountry) return 0;
+
+  console.log(" ---> ");
+
+  const domesticCountryCode = countriesList.filter(
+    (country) => country.name === domesticCountry
+  )[0].code;
+  const destinationCountryCode = countriesList.filter(
+    (country) => country.name === destinationCountry
+  )[0].code;
+
+  console.log("Country Codes", destinationCountryCode, domesticCountryCode);
+
+  const calculator = new EUVATCalculator({
+    domesticCountry: domesticCountryCode,
+  });
+  const { standard_rate } = calculator.getVat(destinationCountryCode, false);
+
+  return (parseFloat(amount) * standard_rate) / 100;
+};
 
 /* Shop Meta Data Generator */
 
 // export const getShopMeta = () => {
-//   const 
+//   const
 // }
-

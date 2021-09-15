@@ -1,4 +1,4 @@
-export default (props) => (
+const CloseIcon = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={18}
@@ -27,3 +27,5 @@ export default (props) => (
     </g>
   </svg>
 );
+
+export default CloseIcon;

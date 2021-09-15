@@ -33,7 +33,7 @@ const Banner = () => {
             onClick={() => router.push("/seller-info")}
           >
             <div className="button-icon w-embed">
-              <TagIcon />cover
+              <TagIcon />
             </div>
             <div className="text-block">Sell products</div>
           </div>

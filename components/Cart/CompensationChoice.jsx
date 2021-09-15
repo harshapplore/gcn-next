@@ -2,95 +2,113 @@ import { useState, useContext } from "react";
 import CartContext from "./cart.context";
 
 import Radio from "@/shared/Input/Radio";
+import CheckBox from "@/shared/Input/Checkbox";
 
-const CompensationChoices = () => {
+const CompensationChoices = ({}) => {
   const { co2Compensation } = useContext(CartContext);
 
   const [choice, setChoice] = useState();
 
   return (
-    <div className="page-section wf-section remove-border">
-      <div className="container">
-        <div className="heading-wrapper mb-40">
-          <h2>For a greener Environment</h2>
+    <div>
+      <div className="container mb-40">
+        <div className="flex">
+          <div className="shop-product-price medium mt30">
+            Shipping CO2 offsetting (1%):
+          </div>
+          <div className="shop-product-price medium mt30">€ 0,04</div>
         </div>
-        <div className="product-add-block pb-120">
-          <p className="lead-text accent mb-40">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            varius enim in eros elementum tristique. Duis cursus, mi quis
-            viverra ornare, eros dolor interdum nulla, ut commodo diam libero
-            vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem
-            imperdiet. Nunc ut sem vitae risus tristique posuere.
-          </p>
-          <div className="w-form">
-            <form
-              id="email-form-3"
-              name="email-form-3"
-              data-name="Email Form 3"
-            >
-              <div className="certificate-item">
-                <div>
-                  <img
-                    src="images/fill-2.svg"
-                    loading="lazy"
-                    alt="Green Cloud Nine Logo"
-                    className="cert-img"
-                  />
-                </div>
-                <div className="cert-text">
-                  <div>
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                    diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                    aliquyam erat, sed diam voluptua.
-                  </div>
-                </div>
-                <div className="div-block-2">
-                  <Radio
-                    text="Choose"
-                    value={choice === "plan-1"}
-                    setValue={(value) => setChoice(value ? "plan-1" : null)}
-                  />
+        <div className="greyborder pd40">
+          <div>
+            From the € 50,40 goes to the vendor and 40 cents go to the project
+            you choose:
+          </div>
+          <div className="flex mt30">
+            <div className="flex50 flex flexleft">
+              <img
+                src="https://d3e54v103j8qbb.cloudfront.net/plugins/Basic/assets/placeholder.60f9b1840c.svg"
+                loading="lazy"
+                width={170}
+                height={50}
+                alt=""
+                className="greybg flexauto mr-20"
+              />
+              <div className="shop-product-price medium mb0">Project X</div>
+            </div>
+            <div className="flex50">
+              <CheckBox
+                text="I want to support this project"
+                value={choice === 0}
+                setValue={(value) => setChoice(0)}
+              />
+            </div>
+          </div>
+        </div>
+        {/* <div className="flex flexleft flextop spacebetween mt30">
+          <div>
+            <div className="shop-product-price medium mt30 infotext">
+              Your Green Points:
+            </div>
+          </div>
+          <div className="infobox infobox_left">
+            <div className="small">
+              THIS&nbsp;INFOBOX&nbsp;SHOULD&nbsp;ONLY&nbsp;
+              <br />
+              APPEAR ON&nbsp;HOVER&nbsp;OVER&nbsp;THE&nbsp;"i"...
+            </div>
+          </div>
+          <div className="checkout-switch-wrapper mt20 mlauto">
+            <div>
+              <div className="shop-product-price medium mt30 mlauto mb0">
+                10
+              </div>
+              <div className="checkout-switch-wrapper greenpoint_discount_checkbox w-clearfix">
+                <a
+                  href="#"
+                  className="pickup-switch-wrapper active w-inline-block"
+                >
+                  <div className="switch-switcher" />
+                </a>
+                <div className="checkout-switch-text">
+                  Use green points as discount
                 </div>
               </div>
-              <div className="certificate-item">
-                <div>
-                  <img
-                    src="images/fill-2.svg"
-                    loading="lazy"
-                    alt="Green Cloud Nine Logo"
-                    className="cert-img"
-                  />
-                </div>
-                <div className="cert-text">
-                  <div>
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                    diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                    aliquyam erat, sed diam voluptua.
-                  </div>
-                </div>
-                <div>
-                  <Radio
-                    text="Choose"
-                    value={choice === "plan-2"}
-                    setValue={(value) => setChoice(value ? "plan-2" : null)}
-                  />
-                </div>
+              <div className="shop-product-price medium mt30 mlauto mb0 orange">
+                - € 0,1
               </div>
-              <div className="cert-footer">
-                <div className="cert-footer-box left">
-                  <div>
-                    Contribute <strong>1% of your total sum</strong> to your
-                    prefered non-profit and help us safe the planet!
-                  </div>
-                </div>
-                <div className="cert-footer-box">
-                  <div className="inline">
-                    <div className="cert-price">€ {co2Compensation},-</div>
-                    <div className="small accent">to total sum</div>
-                  </div>
-                </div>
-              </div>
-            </form>
+            </div>
+          </div>
+        </div>
+      
+       */}
+      </div>
+      <div className="container greenborder mt30 mb-40">
+        <div className="flex baseline mb-40">
+          <div>
+            <div className="text-block-5 fontnow bigger mb-10">
+              Final amount incl. VAT
+            </div>
+            <div className="text-block-5 fontnow bigger mb-10">
+              CO2 compensation
+            </div>
+          </div>
+          <div>
+            <div className="text-block-5 fontnow bigger mb-10 mt20">
+              € 115,00
+            </div>
+            <div className="text-block-5 fontnow bigger mb-10 mt20">€ 0,40</div>
+          </div>
+        </div>
+        <div className="flex baseline">
+          <div>
+            <div className="text-block-5 fontnow bigger mb-10 bold">
+              To be paid incl. VAT
+            </div>
+          </div>
+          <div>
+            <div className="text-block-5 fontnow bigger mb-10 mt20 bold">
+              € 115,04
+            </div>
           </div>
         </div>
       </div>

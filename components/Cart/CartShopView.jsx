@@ -15,7 +15,11 @@ import { deleteFromCart } from "@/_methods/cart";
 
 import styles from "./cart.module.scss";
 import CartContext from "./cart.context";
-import { getSubTotalPrice, getSubTotalDelivery } from "./cart.methods";
+import {
+  getSubTotalPrice,
+  getSubTotalDelivery,
+  calculateVat,
+} from "./cart.methods";
 
 import DeleteIcon from "@/assets/icons/delete.svg";
 import __countries from "@/_data/countries.json";
@@ -146,13 +150,16 @@ const CartShop = ({ shopId, products, setProducts, shopMeta, setShopMeta }) => {
 
       <div className="subtotal-wrapper">
         <Toggle2
-          name="Pick up from Shop?"
+          name="Pick up from Shop"
           value={shopMeta.pickUp}
           setValue={(value) => setShopMeta({ ...shopMeta, pickUp: value })}
         />
         <div>
-          <div className="medium">Subtotal: € {shopMeta.price} </div>
-          <div>Delivery: € {shopMeta.delivery} </div>
+          <div className="medium">
+            Subtotal (excl. VAT): € {shopMeta.price}{" "}
+          </div>
+          <div>Packaging & Shipping: € {shopMeta.delivery} </div>
+          <div>VAT: € {shopMeta.vat} </div>
           <div>2-3 days</div>
         </div>
       </div>
@@ -169,6 +176,8 @@ const CartShopView = ({ goToShipping }) => {
 
   const [showAuth, setShowAuth] = useState(false);
   const [toggles, setToggles] = useState({});
+
+  const [vat, setVat] = useState(0);
 
   const {
     shops,
@@ -188,7 +197,7 @@ const CartShopView = ({ goToShipping }) => {
     total,
     setTotal,
     shipping,
-    setShipping
+    setShipping,
   } = useContext(CartContext);
 
   /*
@@ -198,32 +207,50 @@ const CartShopView = ({ goToShipping }) => {
     if (shops.length) {
       const subTotals = shops.map((shop) => {
         return {
+          shopId: shop.shopId,
           price: getSubTotalPrice(shop.products),
           delivery: getSubTotalDelivery(shop.products),
+          vat: calculateVat({
+            domesticCountry: shipping.country,
+            destinationCountry: shop.shop.country,
+            amount: getSubTotalPrice(shop.products),
+          }),
         };
       });
 
-      setSubTotals(subTotals);
+      const meta = subTotals.map((st) => {
+        const data = shopsMeta.filter((meta) => meta.shopId === st.shopId);
+
+        return { ...data, ...st };
+      });
+
+      console.log(meta, "--");
+
+      setShopsMeta(meta);
+
+      // setSubTotals(subTotals);
     }
-  }, [shops]);
+  }, [shops, shipping.country]);
 
   /**
    * Recalculates total Price & Delivery as the subtotals change.
    * */
   useEffect(() => {
-    const total = subTotals.reduce(
+    const total = shopsMeta.reduce(
       (a, c) => {
         return {
           price: a.price + c.price,
           delivery: a.delivery + c.delivery,
+          vat: a.vat + c.vat,
         };
       },
-      { price: 0, delivery: 0 }
+      { price: 0, delivery: 0, vat: 0 }
     );
 
     setTotalPrice(total.price);
     setTotalDelivery(total.delivery);
-  }, [subTotals]);
+    setVat(total.vat);
+  }, [shopsMeta]);
 
   useEffect(() => {
     if (!toggles.co2Compensation) {
@@ -241,7 +268,7 @@ const CartShopView = ({ goToShipping }) => {
   }, [totalPrice, totalDelivery, co2Compensation]);
 
   return (
-    <>
+    <div>
       {/* Cart Shop View */}
       {showAuth && <AuthForm close={() => setShowAuth(false)} />}
 
@@ -251,7 +278,12 @@ const CartShopView = ({ goToShipping }) => {
             {shops.reduce((a, c) => a + c.products.length, 0)} items in your
             cart.
           </h1>
-          <Dropdown placeholder="Ship To" choices={__countries} value={shipping.country} setValue={(country) => setShipping({...shipping, country})}/>
+          <Dropdown
+            placeholder="Ship To"
+            choices={__countries}
+            value={shipping.country}
+            setValue={(country) => setShipping({ ...shipping, country })}
+          />
         </div>
 
         {shops &&
@@ -289,16 +321,7 @@ const CartShopView = ({ goToShipping }) => {
       {/* Order Info & Proceed */}
       <div className="container">
         <div className="flex mb-40">
-          {toggles.co2Compensation && <CompensationChoices />}
-
           <div className="checkout-additional">
-            <Toggle2
-              name="CO2 Compensation"
-              value={toggles.co2Compensation}
-              setValue={(value) =>
-                setToggles({ ...toggles, co2Compensation: value })
-              }
-            />
             <Toggle2
               name="This order is a gift."
               value={gift.gift}
@@ -322,16 +345,39 @@ const CartShopView = ({ goToShipping }) => {
           </div>
           <div className="total-wrapper">
             <div className="medium">Total Price: € {totalPrice}</div>
-            <div>Delivery: € {totalDelivery}</div>
+            <div>Packaging & Shipping : € {totalDelivery}</div>
+            <div className="medium"> VAT : € {vat}</div>
             {co2Compensation > 0 && (
-              <div>
-                Shipping screen is broken. CO2 compensation : €{" "}
-                {co2Compensation}
-              </div>
+              <div>CO2 compensation : € {co2Compensation}</div>
             )}
             <div>Order Total: € {total}</div>
           </div>
         </div>
+
+
+        <div className="flex flexleft flextop spacebetween">
+          <div>
+            <h3 className="orange infoheader">Make your order CO2 neutral</h3>
+          </div>
+          <div className="infobox">
+            <div className="small">
+              THIS&nbsp;INFOBOX&nbsp;SHOULD&nbsp;ONLY&nbsp;
+              <br />
+              APPEAR ON&nbsp;HOVER&nbsp;OVER&nbsp;THE&nbsp;"i"...
+            </div>
+          </div>
+          <div className="checkout-switch-wrapper mt20">
+          <Toggle2
+              name="CO2 Compensation"
+              value={toggles.co2Compensation}
+              setValue={(value) =>
+                setToggles({ ...toggles, co2Compensation: value })
+              }
+            />
+          </div>
+        </div>
+        
+        {toggles.co2Compensation && <CompensationChoices />}
 
         {shops.length > 0 && (
           <div className={styles["cart-cta-buttons-ctr"]}>
@@ -349,7 +395,7 @@ const CartShopView = ({ goToShipping }) => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
