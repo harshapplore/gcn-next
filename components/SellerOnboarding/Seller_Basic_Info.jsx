@@ -78,7 +78,9 @@ const Seller_Basic_Info = ({ nextPage }) => {
     !mobile ? err.push(`Please Enter the Phone number`) : "";
     !productInfo ? err.push(`Please Enter the product information`) : "";
     !companySize ? err.push(`Please Enter the company size`) : "";
-    !certificate ? err.push(`Please select the certificate`) : "";
+    !certificate ? err.push(`Please select the option`) : "";
+    certificate === "yes" && !certificateOne ? err.push(`Please select the certificate`) : "";
+    addCertificates && !certificateTwo ? err.push(`Please select the certificate`) : "";
 
     !initials ? err.push(`The credential "initial"  is missing.`) : "";
 
@@ -89,14 +91,14 @@ const Seller_Basic_Info = ({ nextPage }) => {
     return true;
   };
   const arr = []
-  arr.push(certificateOne)
-  arr.push(certificateTwo)
+  certificateOne && arr.push(certificateOne)
+  certificateTwo && arr.push(certificateTwo)
   const submit = async (e) => {
     e.preventDefault();
 
     console.log(errors)
     if (!validate()) return;
-    const certs = await uploadFiles(arr)
+    const certs = arr.length > 0  ? await uploadFiles(arr) : []
 
     const sellerData = {
       initials,
@@ -110,7 +112,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
       companySize,
       certificate,
       // certificateName,
-      certificates:certs
+      certificates:certs.length > 0 ? certs : []
     }
 
     const response = await authAxios()({

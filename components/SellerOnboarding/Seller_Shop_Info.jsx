@@ -4,6 +4,7 @@ import { uploadFiles } from "_controllers/product"
 
 import ShopProgressBar from "./Utils/ShopProgressBar";
 import { authAxios } from "@/setups/axios";
+import Message from "@/shared/Message";
 
 
 
@@ -49,27 +50,29 @@ const Seller_Shop_Info = ({ nextPage }) => {
   }, [seller]);
 
   const checkBoxStyle = { opacity: 0, position: "absolute", zIndex: -1 }
-  const arr = []
-  arr.push(idFront)
-  arr.push(idBack)
-  arr.push(addressBack)
-  arr.push(addressFront)
+  
   // console.log(arr)
 
   const validate = () => {
     const err = [];
     !initials ? err.push(`Please Enter the Full name`) : "";
-    !organizationName ? err.push(`Please Enter the Full name`) : "";
-    !contactPhone ? err.push(`Please Enter the Full name`) : "";
-    !contactEmail ? err.push(`Please Enter the Full name`) : "";
-    !orderEmail ? err.push(`Please Enter the Full name`) : "";
-    !returnEmail ? err.push(`Please Enter the Full name`) : "";
-    !customerServiceEmail ? err.push(`Please Enter the Full name`) : "";
-    !IBAN ? err.push(`Please Enter the Full name`) : "";
-    !idFront ? err.push(`Please Enter the Full name`) : "";
-    !idBack ? err.push(`Please Enter the Full name`) : "";
-    !addressFront ? err.push(`Please Enter the Full name`) : "";
-    !addressBack ? err.push(`Please Enter the Full name`) : "";
+    !organizationName ? err.push(`Please Enter the organization name`) : "";
+    !contactPhone ? err.push(`Please Enter contact phone`) : "";
+    const validEmail = new RegExp(
+      '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
+    !contactEmail ? err.push(`Please Enter contact email`) : "";
+    !validEmail.test(contactEmail) ? err.push("Please enter valid contact email") : "";
+    !orderEmail ? err.push(`Please Enter order email`) : "";
+    !validEmail.test(orderEmail) ? err.push("Please enter valid order email") : "";
+    !returnEmail ? err.push(`Please Enter return email`) : "";
+    !validEmail.test(returnEmail) ? err.push("Please enter valid return email") : "";
+    !customerServiceEmail ? err.push(`Please Enter customer service email`) : "";
+    !validEmail.test(customerServiceEmail) ? err.push("Please enter valid service email") : "";
+    !IBAN ? err.push(`Please Enter IBAN`) : "";
+    !idFront ? err.push(`Please Enter identity front page`) : "";
+    !idBack ? err.push(`Please Enter identity back page`) : "";
+    !addressFront ? err.push(`Please Enter addressproof front page`) : "";
+    !addressBack ? err.push(`Please Enter addressproof back page`) : "";
 
     setErrors(err);
 
@@ -77,34 +80,51 @@ const Seller_Shop_Info = ({ nextPage }) => {
 
     return true;
   };
+  const identityFrontView = []
+  idFront && identityFrontView.push(idFront)
+  const identityBackView = []
+  const proofOfAddressFrontView = []
+  const proofOfAddressBackView = []
 
+  idBack && identityBackView.push(idBack)
+  addressFront &&  proofOfAddressFrontView.push(addressFront)
+  addressBack && proofOfAddressBackView.push(addressBack)
   const imgStyle = { display: "flex", justifyContent: "space-between" }
+
   const submit = async (e) => {
     e.preventDefault();
 
     if (!validate()) return;
 
-    const response = await uploadFiles(arr)
+    const idf =identityFrontView ? await uploadFiles(identityFrontView) : []
+    const idb =identityBackView ? await uploadFiles(identityBackView) :[]
+    const af = proofOfAddressFrontView ? await uploadFiles(proofOfAddressFrontView) :[]
+    const ab =proofOfAddressBackView ? await uploadFiles(proofOfAddressBackView) : []
+    
+    const ibankData = {
+         iban: IBAN,
+         identityFrontView:idf,
+         identityBackView:idb,
+         proofOfAddressFrontView:af,
+         proofOfAddressBackView:ab
+    }
+    const sellerResponse = await authAxios()({
+      url: `sellers/${seller.id}`,
+      method: "PUT",
+      data: ibankData,
+  });
     const data = {
       phone: contactPhone,
       contactEmail,
       orderManagementEmail: orderEmail,
       returnsEmail: returnEmail,
       customerServiceEmail: customerServiceEmail,
-      iban: IBAN,
+      // iban: IBAN,
       language,
       currency,
-      images: response
+      // images: response
 
     }
-
-    const formData = new FormData()
-    formData.append("identityFrontView", idFront)
-    formData.append("identityBackView", idBack)
-    formData.append("proofOfAddressFrontView", addressFront)
-    formData.append("proofOfAddressBackView", addressBack)
-
-
 
     const res = await authAxios()({
       url: `/shops/${seller.shop.id} `,
@@ -112,7 +132,7 @@ const Seller_Shop_Info = ({ nextPage }) => {
       data: data
     });
 
-    if (res) {
+    if (res && sellerResponse) {
       nextPage();
     }
   };
@@ -238,7 +258,7 @@ const Seller_Shop_Info = ({ nextPage }) => {
                           placeholder="Organization Name *"
                         />
                         <input
-                          type="text"
+                          type="number"
                           onChange={(e => setContactPhone(e.target.value))}
                           value={contactPhone}
                           className="input-x w-input"
