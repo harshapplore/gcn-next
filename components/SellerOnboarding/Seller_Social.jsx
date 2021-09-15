@@ -68,59 +68,72 @@ const Seller_Social = ({ nextPage }) => {
 
     const checkBoxStyle = { opacity: 0, position: "absolute", zIndex: -1 }
 
-    // console.log(SMV)
-    // console.log(strategicPlan)
-    // console.log(isPeriodicallyRevised)
-    // console.log(objectivesAndGoals)
-    // console.log(objectivesAndGoalsSustainabilty)
     const [errors, setErrors] = useState([]);
-    // console.log(seller)
+
     useEffect(() => {
-      if (seller.socialAnswers) {
-        setDiversityCriteria(seller.socialAnswers.diversityCriteria)
-        setSalaryRangeAndEligibily(seller.socialAnswers.salaryRangeAndEligibily)
-        setGrievanceChannels(seller.socialAnswers.grievanceChannels)
-        setDiversityBrief(seller.socialAnswers.diversityBrief)
-        setTrainingToEmployee(seller.socialAnswers.trainingToEmployee)
-        setValuesAndEncourages(seller.socialAnswers.valuesAndEncourages)
-        setSubsidizeCourse(seller.socialAnswers.subsidizeCourse)
-        setIncentiveRelated(seller.socialAnswers.incentiveRelated)
-        setDegreeOfSatisfaction(seller.socialAnswers.degreeOfSatisfaction)
-        setAdminsSoftSkills(seller.socialAnswers.adminsSoftSkills)
-        setProfessionalBrief(seller.socialAnswers.professionalBrief)
-        setPleasantEnvironment(seller.socialAnswers.pleasantEnvironment)
-        setUptodateDocs(seller.socialAnswers.uptodateDocs)
-        setAccidentPreventions(seller.socialAnswers.accidentPreventions)
-        setUseOfPPE(seller.socialAnswers.useOfPPE)
-        setMoralHarrasmentPrevention(seller.socialAnswers.moralHarrasmentPrevention)
-        setSexualHarrasmentPrevention(seller.socialAnswers.sexualHarrasmentPrevention)
-        setTeamForEmployeeWellness(seller.socialAnswers.teamForEmployeeWellness)
-        setFriendlyWorkEnvironment(seller.socialAnswers.friendlyWorkEnvironment)
-        setSafetyBrief(seller.socialAnswers.safetyBrief)
-        setDialogChannel(seller.socialAnswers.dialogChannel)
-        setEncouragingValunteer(seller.socialAnswers.encouragingValunteer)
-        setInvestInSocialProject(seller.socialAnswers.investInSocialProject)
-        setInvestPercentage(seller.socialAnswers.investPercentage)
-        setObtainedBenifits(seller.socialAnswers.obtainedBenifits)
-        setStackHoldersBrief(seller.socialAnswers.stackHoldersBrief)
-      }
+        if (seller.socialAnswers) {
+            setDiversityCriteria(seller.socialAnswers.diversityCriteria)
+            setSalaryRangeAndEligibily(seller.socialAnswers.salaryRangeAndEligibily)
+            setGrievanceChannels(seller.socialAnswers.grievanceChannels)
+            setDiversityBrief(seller.socialAnswers.diversityBrief)
+            setTrainingToEmployee(seller.socialAnswers.trainingToEmployee)
+            setValuesAndEncourages(seller.socialAnswers.valuesAndEncourages)
+            setSubsidizeCourse(seller.socialAnswers.subsidizeCourse)
+            setIncentiveRelated(seller.socialAnswers.incentiveRelated)
+            setDegreeOfSatisfaction(seller.socialAnswers.degreeOfSatisfaction)
+            setAdminsSoftSkills(seller.socialAnswers.adminsSoftSkills)
+            setProfessionalBrief(seller.socialAnswers.professionalBrief)
+            setPleasantEnvironment(seller.socialAnswers.pleasantEnvironment)
+            setUptodateDocs(seller.socialAnswers.uptodateDocs)
+            setAccidentPreventions(seller.socialAnswers.accidentPreventions)
+            setUseOfPPE(seller.socialAnswers.useOfPPE)
+            setMoralHarrasmentPrevention(seller.socialAnswers.moralHarrasmentPrevention)
+            setSexualHarrasmentPrevention(seller.socialAnswers.sexualHarrasmentPrevention)
+            setTeamForEmployeeWellness(seller.socialAnswers.teamForEmployeeWellness)
+            setFriendlyWorkEnvironment(seller.socialAnswers.friendlyWorkEnvironment)
+            setSafetyBrief(seller.socialAnswers.safetyBrief)
+            setDialogChannel(seller.socialAnswers.dialogChannel)
+            setEncouragingValunteer(seller.socialAnswers.encouragingValunteer)
+            setInvestInSocialProject(seller.socialAnswers.investInSocialProject)
+            setInvestPercentage(seller.socialAnswers.investPercentage)
+            setObtainedBenifits(seller.socialAnswers.obtainedBenifits)
+            setStackHoldersBrief(seller.socialAnswers.stackHoldersBrief)
+        }
     }, [seller]);
 
 
 
     const validate = () => {
         const err = [];
-
-        // !SMV ? err.push(`Please select strategy, mission & vision`) : "";
-        // !isPeriodicallyRevised ? err.push(`Please select 'periodically revised'`) : "";
-        // !strategicPlan ? err.push(`Please select the strategic plan`) : "";
-        // !objectivesAndGoals ? err.push(`Please select objectives and goals`) : "";
-        // !objectivesAndGoalsSustainabilty ? err.push(`Please select the aspects of sustainability`) : "";
-
+        !diversityCriteria ? err.push(`please select the value`) : ""
+        !salaryRangeAndEligibily ? err.push(`please select the value`) : ""
+        !grievanceChannels ? err.push(`please select the value`) : ""
+        !checkBoxStyle ? err.push(`please select the value`) : ""
+        !diversityBrief ? err.push(`please select the value`) : ""
+        !pleasantEnvironment ? err.push(`please select the value`) : ""
+        !uptodateDocs ? err.push(`please select the value`) : ""
+        !accidentPreventions ? err.push(`please select the value`) : ""
+        !useOfPPE ? err.push(`please select the value`) : ""
+        !moralHarrasmentPrevention ? err.push(`please select the value`) : ""
+        !sexualHarrasmentPrevention ? err.push(`please select the value`) : ""
+        !teamForEmployeeWellness ? err.push(`please select the value`) : ""
+        !friendlyWorkEnvironment ? err.push(`please select the value`) : ""
+        !safetyBrief ? err.push(`please select the value`) : ""
+        !trainingToEmployee ? err.push(`please select the value`) : ""
+        !valuesAndEncourages ? err.push(`please select the value`) : ""
+        !subsidizeCourse ? err.push(`please select the value`) : ""
+        !incentiveRelated ? err.push(`please select the value`) : ""
+        !degreeOfSatisfaction ? err.push(`please select the value`) : ""
+        !adminsSoftSkills ? err.push(`please select the value`) : ""
+        !professionalBrief ? err.push(`please select the value`) : ""
+        !dialogChannel ? err.push(`please select the value`) : ""
+        !encouragingValunteer ? err.push(`please select the value`) : ""
+        !investInSocialProject ? err.push(`please select the value`) : ""
+        investInSocialProject === "yes" && !investPercentage ? err.push(`please enter the value`) : ""
+        !obtainedBenifits ? err.push(`please select the value`) : ""
+        !stackHoldersBrief ? err.push(`please enter the value`) : ""
         setErrors(err);
-
         if (err.length) return false;
-
         return true;
     };
 
@@ -164,7 +177,6 @@ const Seller_Social = ({ nextPage }) => {
             url: `sellers/${seller.id}`,
             method: "PUT",
             data: {
-                // onboardStatus: 1,
                 socialAnswers: data,
             },
         });
@@ -267,7 +279,7 @@ const Seller_Social = ({ nextPage }) => {
                                 {errors && errors.length > 0 && errors.map(error =>
                                     <Message text={error} status={-1} />)
                                 }
-                                <div className="button blue" onClick={submit}>Continue</div>
+                                <div className="button blue" style={{ marginTop: "20px" }} onClick={submit}>Continue</div>
                             </form>
                         </div>
                     </div>

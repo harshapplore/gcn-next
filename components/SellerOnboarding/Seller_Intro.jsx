@@ -1,12 +1,4 @@
-// import { useState, useEffect } from "react";
-// import { useSelector } from "react-redux";
-
-// import { authAxios } from "@/setups/axios";
-
-// import Select from "@/shared/Select";
-// import CheckBox from "@/shared/Checkbox";
-// import Message from "@/shared/Message";
-// import Button from "@/shared/Button";
+import { useSelector } from "react-redux";
 
 const data = {
     heading: "Hello Thomas, let's get started!",
@@ -46,68 +38,15 @@ const data = {
 };
 
 const Seller_Intro = ({ nextPage }) => {
-    // const { seller } = useSelector((state) => state.user);
-
-    //   const [answers, setAnswers] = useState(() => {
-    //     let len = data.questions.length;
-    //     const arr = [];
-
-    //     while (len > 0 && len--) arr.push({});
-
-    //     return arr;
-    //   });
-
-    //   const [errors, setErrors] = useState([]);
-
-    //   useEffect(() => {
-    //     if (seller.questionaire) setAnswers(seller.questionaire);
-    //   }, [seller]);
-
-    //   const validate = () => {
-    //     const err = [];
-
-    //     answers.map((answer, index) =>
-    //       !answer.answer
-    //         ? err.push(`The answer for question "${data.questions[index]}" is missing.`)
-    //         : ""
-    //     );
-
-    //     setErrors(err);
-
-    //     if (err.length) return false;
-
-    //     return true;
-    //   };
-
+    const { seller } = useSelector((state) => state.user);
     const submit = async (e) => {
         e.preventDefault();
 
-        // if (!validate()) return;
-
-        // const response = await authAxios()({
-        //   url: `sellers/${seller.id}`,
-        //   method: "PUT",
-        //   data: {
-        //     onboardStatus: 1,
-        //     questionaire: answers,
-        //   },
-        // });
-
-        // if (response) {
         nextPage();
-        // }
+        
     };
 
-    //   const updateAnswer = (index, value) => {
-    //     setAnswers([
-    //       ...answers.slice(0, index),
-    //       {
-    //         question: data.questions[index],
-    //         answer: value,
-    //       },
-    //       ...answers.slice(index + 1),
-    //     ]);
-    //   };
+    
 
     return (
         <div className="page-section">

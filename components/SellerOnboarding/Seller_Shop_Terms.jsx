@@ -13,13 +13,7 @@ const Seller_Shop_Terms = ({ nextPage }) => {
     const [returnAndRefund, setReturnAndRefund] = useState("");
     const [generalCondition, setGeneralCondition] = useState("");
     const [privacyPolicy, setPrivacyPolicy] = useState("");
-    // const [termLanguage, setTermLanguage] = useState("english");
 
-    // console.log(seller)
-    // useEffect(() => {
-    //   if (seller.questionaire) setInitials(seller.questionaire);
-    // }, [seller]);
-// console.log(seller)
     useEffect(() => {
         if (seller.shop) 
         {
