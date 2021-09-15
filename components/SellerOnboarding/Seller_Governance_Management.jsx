@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import ProgressBar from "./Utils/ProgressBar";
 
 import { authAxios } from "@/setups/axios";
+
+import { fetchSeller } from "@/slices/user";
 
 import Message from "@/shared/Message";
 import Governance_Management_Integrity from "./Governance_Management_Integrity";
@@ -41,230 +43,304 @@ const data = {
 };
 
 const Seller_Governance_Management = ({ nextPage }) => {
-    const { seller } = useSelector((state) => state.user);
+  const { seller } = useSelector((state) => state.seller);
 
-    const [directorAct, setDirectorAct] = useState("");
-    const [responsibleForIrregularities, setResponsibleForIrregularities] = useState("")
-    const [principleOfBusinessConduct, setPrincipleOfBusinessConduct] = useState("")
-    const [channelForEmployee, setChannelForEmployee] = useState("")
-    const [integrityBrief, setIntegrityBrief] = useState("")
+  const dispatch = useDispatch();
 
-    const [financialPlan, setFinancialPlan] = useState("");
-    const [financialPerformance, setFinancialPerformance] = useState("")
-    const [monitoringManagement, setMonitoringManagement] = useState("")
-    const [discloseInfo, setDiscloseInfo] = useState("")
-    const [financialBrief, setFinancialBrief] = useState("")
-    const checkBoxStyle = { opacity: 0, position: "absolute", zIndex: -1 }
+  useEffect(() => {
+    if (!seller.id) dispatch(fetchSeller());
 
-    const [efficiency, setEfficiency] = useState("");
-    const [qualityOfProduct, setQualityOfProduct] = useState("")
-    const [improvedProtfolio, setImprovedProtfolio] = useState("")
-    const [benefitInItsDimensions, setBenefitInItsDimensions] = useState("")
-    const [RND, setRND] = useState("")
-    const [involvingCustomers, setInvolvingCustomers] = useState("")
-    const [innovationBrief, setInnovationBrief] = useState("")
+    console.log(seller);
+  }, []);
 
-    const [communicationChannel, setCommunicationChannel] = useState("");
-    const [answerReceived, setAnswerReceived] = useState("")
-    const [goalAndDeadline, setGoalAndDeadline] = useState("")
-    const [doubtAnalysis, setDoubtAnalysis] = useState("")
-    const [productInfo, setProductInfo] = useState("")
-    const [satisfactionSurvey, setSatisfactionSurvey] = useState("")
-    const [supplierDetails, setSupplierDetails] = useState("")
-    const [criticalSupplySurvey, setCriticalSupplySurvey] = useState("")
-    const [alternateDeliveryOption, setAlternateDeliveryOption] = useState("")
-    const [priorityOfLocalSupplier, setPriorityOfLocalSupplier] = useState("")
-    const [priorityOfLocalSupplierPercentage, setpriorityOfLocalSupplierPercentage] = useState("")
-    const [purchaseCriteria, setPurchaseCriteria] = useState("")
-    const [contractWithSupplier, setContractWithSupllier] = useState("")
-    const [labour, setLabour] = useState("")
-    const [tax, setTax] = useState("")
-    const [sanitary, setSanitary] = useState("")
-    const [environmental, setEnvironmental] = useState("")
-    const [relationshipBrief, setRelationshipBrief] = useState("")
+  const [directorAct, setDirectorAct] = useState("");
+  const [responsibleForIrregularities, setResponsibleForIrregularities] =
+    useState("");
+  const [principleOfBusinessConduct, setPrincipleOfBusinessConduct] =
+    useState("");
+  const [channelForEmployee, setChannelForEmployee] = useState("");
+  const [integrityBrief, setIntegrityBrief] = useState("");
 
-    const [licenseAndPermit, setLicenseAndPermit] = useState("")
-    const [instructedToKnowLaw, setInstructedToKnowLaw] = useState("")
-    const [finedForLaw, setFinedForLaw] = useState("")
-    const [finedForLabourLaw, setFinedForLabourLaw] = useState("")
-    const [finedForEnvironmentalLaw, setFinedForEnvironmentalLaw] = useState("")
-    const [finedForHealthLaw, setFinedForHealthLaw] = useState("")
-    const [lawBrief, setLawBrief] = useState("")
+  const [financialPlan, setFinancialPlan] = useState("");
+  const [financialPerformance, setFinancialPerformance] = useState("");
+  const [monitoringManagement, setMonitoringManagement] = useState("");
+  const [discloseInfo, setDiscloseInfo] = useState("");
+  const [financialBrief, setFinancialBrief] = useState("");
+  const checkBoxStyle = { opacity: 0, position: "absolute", zIndex: -1 };
 
-    const [errors, setErrors] = useState([]);
-    useEffect(() => {
-        if (seller.governanceAndManagementAnswers) {
-            setDirectorAct(seller.governanceAndManagementAnswers.directorAct)
-            setResponsibleForIrregularities(seller.governanceAndManagementAnswers.responsibleForIrregularities)
-            setPrincipleOfBusinessConduct(seller.governanceAndManagementAnswers.principleOfBusinessConduct)
-            setChannelForEmployee(seller.governanceAndManagementAnswers.channelForEmployee)
-            setIntegrityBrief(seller.governanceAndManagementAnswers.innovationBrief)
-            setFinancialPlan(seller.governanceAndManagementAnswers.financialPlan)
-            setFinancialPerformance(seller.governanceAndManagementAnswers.financialPerformance)
-            setMonitoringManagement(seller.governanceAndManagementAnswers.monitoringManagement)
-            setDiscloseInfo(seller.governanceAndManagementAnswers.discloseInfo)
-            setFinancialBrief(seller.governanceAndManagementAnswers.financialBrief)
-            setEfficiency(seller.governanceAndManagementAnswers.efficiency)
-            setQualityOfProduct(seller.governanceAndManagementAnswers.qualityOfProduct)
-            setImprovedProtfolio(seller.governanceAndManagementAnswers.improvedProtfolio)
-            setBenefitInItsDimensions(seller.governanceAndManagementAnswers.benefitInItsDimensions)
-            setRND(seller.governanceAndManagementAnswers.RND)
-            setInvolvingCustomers(seller.governanceAndManagementAnswers.involvingCustomers)
-            setInnovationBrief(seller.governanceAndManagementAnswers.innovationBrief)
-            setCommunicationChannel(seller.governanceAndManagementAnswers.communicationChannel)
-            setAnswerReceived(seller.governanceAndManagementAnswers.answerReceived)
-            setGoalAndDeadline(seller.governanceAndManagementAnswers.goalAndDeadline)
-            setDoubtAnalysis(seller.governanceAndManagementAnswers.doubtAnalysis)
-            setProductInfo(seller.governanceAndManagementAnswers.productInfo)
-            setSatisfactionSurvey(seller.governanceAndManagementAnswers.satisfactionSurvey)
-            setSupplierDetails(seller.governanceAndManagementAnswers.supplierDetails)
-            setCriticalSupplySurvey(seller.governanceAndManagementAnswers.criticalSupplySurvey)
-            setAlternateDeliveryOption(seller.governanceAndManagementAnswers.alternateDeliveryOption)
-            setPriorityOfLocalSupplier(seller.governanceAndManagementAnswers.priorityOfLocalSupplier)
-            setpriorityOfLocalSupplierPercentage(seller.governanceAndManagementAnswers.priorityOfLocalSupplierPercentage)
-            setPurchaseCriteria(seller.governanceAndManagementAnswers.purchaseCriteria)
-            setContractWithSupllier(seller.governanceAndManagementAnswers.contractWithSupplier)
-            setLabour(seller.governanceAndManagementAnswers.labour)
-            setTax(seller.governanceAndManagementAnswers.tax)
-            setSanitary(seller.governanceAndManagementAnswers.sanitary)
-            setEnvironmental(seller.governanceAndManagementAnswers.environmental)
-            setRelationshipBrief(seller.governanceAndManagementAnswers.relationshipBrief)
-            setLicenseAndPermit(seller.governanceAndManagementAnswers.licenseAndPermit)
-            setInstructedToKnowLaw(seller.governanceAndManagementAnswers.instructedToKnowLaw)
-            setFinedForLaw(seller.governanceAndManagementAnswers.finedForLaw)
-            setFinedForLabourLaw(seller.governanceAndManagementAnswers.finedForLabourLaw)
-            setFinedForEnvironmentalLaw(seller.governanceAndManagementAnswers.finedForEnvironmentalLaw)
-            setFinedForHealthLaw(seller.governanceAndManagementAnswers.finedForHealthLaw)
-            setLawBrief(seller.governanceAndManagementAnswers.lawBrief)
-        }
-    }, [seller]);
+  const [efficiency, setEfficiency] = useState("");
+  const [qualityOfProduct, setQualityOfProduct] = useState("");
+  const [improvedProtfolio, setImprovedProtfolio] = useState("");
+  const [benefitInItsDimensions, setBenefitInItsDimensions] = useState("");
+  const [RND, setRND] = useState("");
+  const [involvingCustomers, setInvolvingCustomers] = useState("");
+  const [innovationBrief, setInnovationBrief] = useState("");
 
+  const [communicationChannel, setCommunicationChannel] = useState("");
+  const [answerReceived, setAnswerReceived] = useState("");
+  const [goalAndDeadline, setGoalAndDeadline] = useState("");
+  const [doubtAnalysis, setDoubtAnalysis] = useState("");
+  const [productInfo, setProductInfo] = useState("");
+  const [satisfactionSurvey, setSatisfactionSurvey] = useState("");
+  const [supplierDetails, setSupplierDetails] = useState("");
+  const [criticalSupplySurvey, setCriticalSupplySurvey] = useState("");
+  const [alternateDeliveryOption, setAlternateDeliveryOption] = useState("");
+  const [priorityOfLocalSupplier, setPriorityOfLocalSupplier] = useState("");
+  const [
+    priorityOfLocalSupplierPercentage,
+    setpriorityOfLocalSupplierPercentage,
+  ] = useState("");
+  const [purchaseCriteria, setPurchaseCriteria] = useState("");
+  const [contractWithSupplier, setContractWithSupllier] = useState("");
+  const [labour, setLabour] = useState("");
+  const [tax, setTax] = useState("");
+  const [sanitary, setSanitary] = useState("");
+  const [environmental, setEnvironmental] = useState("");
+  const [relationshipBrief, setRelationshipBrief] = useState("");
 
+  const [licenseAndPermit, setLicenseAndPermit] = useState("");
+  const [instructedToKnowLaw, setInstructedToKnowLaw] = useState("");
+  const [finedForLaw, setFinedForLaw] = useState("");
+  const [finedForLabourLaw, setFinedForLabourLaw] = useState("");
+  const [finedForEnvironmentalLaw, setFinedForEnvironmentalLaw] = useState("");
+  const [finedForHealthLaw, setFinedForHealthLaw] = useState("");
+  const [lawBrief, setLawBrief] = useState("");
 
-    const validate = () => {
-        const err = [];
+  const [errors, setErrors] = useState([]);
+  useEffect(() => {
+    if (seller.governanceAndManagementAnswers) {
+      setDirectorAct(seller.governanceAndManagementAnswers.directorAct);
+      setResponsibleForIrregularities(
+        seller.governanceAndManagementAnswers.responsibleForIrregularities
+      );
+      setPrincipleOfBusinessConduct(
+        seller.governanceAndManagementAnswers.principleOfBusinessConduct
+      );
+      setChannelForEmployee(
+        seller.governanceAndManagementAnswers.channelForEmployee
+      );
+      setIntegrityBrief(seller.governanceAndManagementAnswers.innovationBrief);
+      setFinancialPlan(seller.governanceAndManagementAnswers.financialPlan);
+      setFinancialPerformance(
+        seller.governanceAndManagementAnswers.financialPerformance
+      );
+      setMonitoringManagement(
+        seller.governanceAndManagementAnswers.monitoringManagement
+      );
+      setDiscloseInfo(seller.governanceAndManagementAnswers.discloseInfo);
+      setFinancialBrief(seller.governanceAndManagementAnswers.financialBrief);
+      setEfficiency(seller.governanceAndManagementAnswers.efficiency);
+      setQualityOfProduct(
+        seller.governanceAndManagementAnswers.qualityOfProduct
+      );
+      setImprovedProtfolio(
+        seller.governanceAndManagementAnswers.improvedProtfolio
+      );
+      setBenefitInItsDimensions(
+        seller.governanceAndManagementAnswers.benefitInItsDimensions
+      );
+      setRND(seller.governanceAndManagementAnswers.RND);
+      setInvolvingCustomers(
+        seller.governanceAndManagementAnswers.involvingCustomers
+      );
+      setInnovationBrief(seller.governanceAndManagementAnswers.innovationBrief);
+      setCommunicationChannel(
+        seller.governanceAndManagementAnswers.communicationChannel
+      );
+      setAnswerReceived(seller.governanceAndManagementAnswers.answerReceived);
+      setGoalAndDeadline(seller.governanceAndManagementAnswers.goalAndDeadline);
+      setDoubtAnalysis(seller.governanceAndManagementAnswers.doubtAnalysis);
+      setProductInfo(seller.governanceAndManagementAnswers.productInfo);
+      setSatisfactionSurvey(
+        seller.governanceAndManagementAnswers.satisfactionSurvey
+      );
+      setSupplierDetails(seller.governanceAndManagementAnswers.supplierDetails);
+      setCriticalSupplySurvey(
+        seller.governanceAndManagementAnswers.criticalSupplySurvey
+      );
+      setAlternateDeliveryOption(
+        seller.governanceAndManagementAnswers.alternateDeliveryOption
+      );
+      setPriorityOfLocalSupplier(
+        seller.governanceAndManagementAnswers.priorityOfLocalSupplier
+      );
+      setpriorityOfLocalSupplierPercentage(
+        seller.governanceAndManagementAnswers.priorityOfLocalSupplierPercentage
+      );
+      setPurchaseCriteria(
+        seller.governanceAndManagementAnswers.purchaseCriteria
+      );
+      setContractWithSupllier(
+        seller.governanceAndManagementAnswers.contractWithSupplier
+      );
+      setLabour(seller.governanceAndManagementAnswers.labour);
+      setTax(seller.governanceAndManagementAnswers.tax);
+      setSanitary(seller.governanceAndManagementAnswers.sanitary);
+      setEnvironmental(seller.governanceAndManagementAnswers.environmental);
+      setRelationshipBrief(
+        seller.governanceAndManagementAnswers.relationshipBrief
+      );
+      setLicenseAndPermit(
+        seller.governanceAndManagementAnswers.licenseAndPermit
+      );
+      setInstructedToKnowLaw(
+        seller.governanceAndManagementAnswers.instructedToKnowLaw
+      );
+      setFinedForLaw(seller.governanceAndManagementAnswers.finedForLaw);
+      setFinedForLabourLaw(
+        seller.governanceAndManagementAnswers.finedForLabourLaw
+      );
+      setFinedForEnvironmentalLaw(
+        seller.governanceAndManagementAnswers.finedForEnvironmentalLaw
+      );
+      setFinedForHealthLaw(
+        seller.governanceAndManagementAnswers.finedForHealthLaw
+      );
+      setLawBrief(seller.governanceAndManagementAnswers.lawBrief);
+    }
+  }, [seller]);
 
-        !financialPlan ? err.push(`please select the value`) : "";
-        !financialPerformance ? err.push(`Please select the value`) : "";
-        !monitoringManagement ? err.push(`please select the value`) : ""
-        !discloseInfo ? err.push(`please select the value`) : ""
-        // !financialBrief ? err.push(`please select the value`) : ""
-        !efficiency ? err.push(`please select the value`) : ""
-        !qualityOfProduct ? err.push(`please select the value`) : ""
-        !improvedProtfolio ? err.push(`please select the value`) : ""
-        !benefitInItsDimensions ? err.push(`please select the value`) : ""
-        !RND ? err.push(`please select the value`) : ""
-        !involvingCustomers ? err.push(`please select the value`) : ""
-        // !innovationBrief ? err.push(`please select the value`) : ""
-        !directorAct ? err.push(`please select the value`) : ""
-        !responsibleForIrregularities ? err.push(`please select the value`) : ""
-        !principleOfBusinessConduct ? err.push(`please select the value`) : ""
-        !channelForEmployee ? err.push(`please select the value`) : ""
-        // !integrityBrief ? err.push(`please select the value`) : ""
-        !licenseAndPermit ? err.push(`please select the value`) : ""
-        !instructedToKnowLaw ? err.push(`please select the value`) : ""
-        !finedForLaw ? err.push(`please select the value`) : ""
-        !finedForLabourLaw ? err.push(`please select the value`) : ""
-        !finedForEnvironmentalLaw ? err.push(`please select the value`) : ""
-        !finedForHealthLaw ? err.push(`please select the value`) : ""
-        // !lawBrief ? err.push(`please select the value`) : ""
-        !communicationChannel ? err.push(`please select the value`) : ""
-        communicationChannel === "yes" && !answerReceived ? err.push(`please select the value`) : ""
-        communicationChannel === "yes" && !goalAndDeadline ? err.push(`please select the value`) : ""
-        communicationChannel === "yes" && !doubtAnalysis ? err.push(`please select the value`) : ""
-        !productInfo ? err.push(`please select the value`) : ""
-        !satisfactionSurvey ? err.push(`please select the value`) : ""
-        !supplierDetails ? err.push(`please select the value`) : ""
-        supplierDetails === "yes" && !criticalSupplySurvey ? err.push(`please select the value`) : ""
-        supplierDetails === "yes" && !alternateDeliveryOption ? err.push(`please select the value`) : ""
-        !priorityOfLocalSupplier ? err.push(`please select the value`) : ""
-        priorityOfLocalSupplier === "yes" && !priorityOfLocalSupplierPercentage ? err.push(`please enter the value`) : ""
-        !purchaseCriteria ? err.push(`please select the value`) : ""
-        !contractWithSupplier ? err.push(`please select the value`) : ""
-        contractWithSupplier === "yes" && !labour ? err.push(`please select the value`) : ""
-        contractWithSupplier === "yes" && !tax ? err.push(`please select the value`) : ""
-        contractWithSupplier === "yes" && !sanitary ? err.push(`please select the value`) : ""
-        contractWithSupplier === "yes" && !environmental ? err.push(`please select the value`) : ""
-        // !relationshipBrief ? err.push(`please select the value`) : ""
-        // !licenseAndPermit ? err.push(`please select the value`) : ""
-        // !instructedToKnowLaw ? err.push(`please select the value`) : ""
-        // !finedForLaw ? err.push(`please select the value`) : ""
-        // !finedForLabourLaw ? err.push(`please select the value`) : ""
-        // !finedForEnvironmentalLaw ? err.push(`please select the value`) : ""
-        // !finedForHealthLaw ? err.push(`please select the value`) : ""
-        // !lawBrief ? err.push(`please select the value`) : ""
-        setErrors(err);
-        if (err.length) return false;
-        return true;
+  const validate = () => {
+    const err = [];
+
+    !financialPlan ? err.push(`please select the value`) : "";
+    !financialPerformance ? err.push(`Please select the value`) : "";
+    !monitoringManagement ? err.push(`please select the value`) : "";
+    !discloseInfo ? err.push(`please select the value`) : "";
+    // !financialBrief ? err.push(`please select the value`) : ""
+    !efficiency ? err.push(`please select the value`) : "";
+    !qualityOfProduct ? err.push(`please select the value`) : "";
+    !improvedProtfolio ? err.push(`please select the value`) : "";
+    !benefitInItsDimensions ? err.push(`please select the value`) : "";
+    !RND ? err.push(`please select the value`) : "";
+    !involvingCustomers ? err.push(`please select the value`) : "";
+    // !innovationBrief ? err.push(`please select the value`) : ""
+    !directorAct ? err.push(`please select the value`) : "";
+    !responsibleForIrregularities ? err.push(`please select the value`) : "";
+    !principleOfBusinessConduct ? err.push(`please select the value`) : "";
+    !channelForEmployee ? err.push(`please select the value`) : "";
+    // !integrityBrief ? err.push(`please select the value`) : ""
+    !licenseAndPermit ? err.push(`please select the value`) : "";
+    !instructedToKnowLaw ? err.push(`please select the value`) : "";
+    !finedForLaw ? err.push(`please select the value`) : "";
+    !finedForLabourLaw ? err.push(`please select the value`) : "";
+    !finedForEnvironmentalLaw ? err.push(`please select the value`) : "";
+    !finedForHealthLaw ? err.push(`please select the value`) : "";
+    // !lawBrief ? err.push(`please select the value`) : ""
+    !communicationChannel ? err.push(`please select the value`) : "";
+    communicationChannel === "yes" && !answerReceived
+      ? err.push(`please select the value`)
+      : "";
+    communicationChannel === "yes" && !goalAndDeadline
+      ? err.push(`please select the value`)
+      : "";
+    communicationChannel === "yes" && !doubtAnalysis
+      ? err.push(`please select the value`)
+      : "";
+    !productInfo ? err.push(`please select the value`) : "";
+    !satisfactionSurvey ? err.push(`please select the value`) : "";
+    !supplierDetails ? err.push(`please select the value`) : "";
+    supplierDetails === "yes" && !criticalSupplySurvey
+      ? err.push(`please select the value`)
+      : "";
+    supplierDetails === "yes" && !alternateDeliveryOption
+      ? err.push(`please select the value`)
+      : "";
+    !priorityOfLocalSupplier ? err.push(`please select the value`) : "";
+    priorityOfLocalSupplier === "yes" && !priorityOfLocalSupplierPercentage
+      ? err.push(`please enter the value`)
+      : "";
+    !purchaseCriteria ? err.push(`please select the value`) : "";
+    !contractWithSupplier ? err.push(`please select the value`) : "";
+    contractWithSupplier === "yes" && !labour
+      ? err.push(`please select the value`)
+      : "";
+    contractWithSupplier === "yes" && !tax
+      ? err.push(`please select the value`)
+      : "";
+    contractWithSupplier === "yes" && !sanitary
+      ? err.push(`please select the value`)
+      : "";
+    contractWithSupplier === "yes" && !environmental
+      ? err.push(`please select the value`)
+      : "";
+    // !relationshipBrief ? err.push(`please select the value`) : ""
+    // !licenseAndPermit ? err.push(`please select the value`) : ""
+    // !instructedToKnowLaw ? err.push(`please select the value`) : ""
+    // !finedForLaw ? err.push(`please select the value`) : ""
+    // !finedForLabourLaw ? err.push(`please select the value`) : ""
+    // !finedForEnvironmentalLaw ? err.push(`please select the value`) : ""
+    // !finedForHealthLaw ? err.push(`please select the value`) : ""
+    // !lawBrief ? err.push(`please select the value`) : ""
+    setErrors(err);
+    if (err.length) return false;
+    return true;
+  };
+
+  const submit = async (e) => {
+    e.preventDefault();
+
+    console.log(errors);
+    if (!validate()) return;
+
+    const data = {
+      financialPlan,
+      financialPerformance,
+      monitoringManagement,
+      discloseInfo,
+      financialBrief,
+      efficiency,
+      qualityOfProduct,
+      improvedProtfolio,
+      benefitInItsDimensions,
+      RND,
+      involvingCustomers,
+      innovationBrief,
+      directorAct,
+      responsibleForIrregularities,
+      principleOfBusinessConduct,
+      channelForEmployee,
+      integrityBrief,
+      licenseAndPermit,
+      instructedToKnowLaw,
+      finedForLaw,
+      finedForLabourLaw,
+      finedForEnvironmentalLaw,
+      finedForHealthLaw,
+      lawBrief,
+      communicationChannel,
+      answerReceived,
+      goalAndDeadline,
+      doubtAnalysis,
+      productInfo,
+      satisfactionSurvey,
+      supplierDetails,
+      criticalSupplySurvey,
+      alternateDeliveryOption,
+      priorityOfLocalSupplier,
+      priorityOfLocalSupplierPercentage,
+      purchaseCriteria,
+      contractWithSupplier,
+      labour,
+      tax,
+      sanitary,
+      environmental,
+      relationshipBrief,
     };
 
-    const submit = async (e) => {
-        e.preventDefault();
+    const response = await authAxios()({
+      url: `sellers/${seller.id}`,
+      method: "PUT",
+      data: {
+        governanceAndManagementAnswers: data,
+      },
+    });
+    console.log(response);
 
-        console.log(errors)
-        if (!validate()) return;
-
-
-        const data = {
-            financialPlan,
-            financialPerformance,
-            monitoringManagement,
-            discloseInfo,
-            financialBrief,
-            efficiency,
-            qualityOfProduct,
-            improvedProtfolio,
-            benefitInItsDimensions,
-            RND,
-            involvingCustomers,
-            innovationBrief,
-            directorAct,
-            responsibleForIrregularities,
-            principleOfBusinessConduct,
-            channelForEmployee,
-            integrityBrief,
-            licenseAndPermit,
-            instructedToKnowLaw,
-            finedForLaw,
-            finedForLabourLaw,
-            finedForEnvironmentalLaw,
-            finedForHealthLaw,
-            lawBrief,
-            communicationChannel,
-            answerReceived,
-            goalAndDeadline,
-            doubtAnalysis,
-            productInfo,
-            satisfactionSurvey,
-            supplierDetails,
-            criticalSupplySurvey,
-            alternateDeliveryOption,
-            priorityOfLocalSupplier,
-            priorityOfLocalSupplierPercentage,
-            purchaseCriteria,
-            contractWithSupplier,
-            labour,
-            tax,
-            sanitary,
-            environmental,
-            relationshipBrief,
-        }
-
-        const response = await authAxios()({
-            url: `sellers/${seller.id}`,
-            method: "PUT",
-            data: {
-                governanceAndManagementAnswers: data,
-            },
-        });
-        console.log(response)
-
-
-
-        if (response) {
-            nextPage();
-        }
-    };
+    if (response) {
+      nextPage();
+    }
+  };
 
   return (
     <div className="page-section wf-section">
