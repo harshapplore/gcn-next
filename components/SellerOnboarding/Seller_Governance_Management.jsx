@@ -356,11 +356,7 @@ const Seller_Governance_Management = ({ nextPage }) => {
           <div className="settings-block">
             <h3 className="headline-5 mb-50">Governance and Management</h3>
             <div className="w-form">
-              <form
-                id="email-form-7"
-                name="email-form-7"
-                data-name="Email Form 7"
-              >
+              <form>
                 <Governance_Management_Integrity
                   directorAct={directorAct}
                   setDirectorAct={setDirectorAct}
