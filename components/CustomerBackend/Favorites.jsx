@@ -131,7 +131,6 @@ const Favorites = () => {
     );
   }, [customer]);
 
-  console.log(_products, "---");
 
   return (
     <div className="dynamic-content">

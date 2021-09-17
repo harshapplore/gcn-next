@@ -4,7 +4,7 @@ import Header from "@/shared/Header2";
 import Nav from "@/shared/Nav2";
 import { useSelector, useDispatch } from "react-redux";
 import Auth from '@/shared/Auth/Auth';
-import { Button } from '@/shared/Button';
+import { Button, OutlinedButton } from '@/shared/Button';
 import styled from 'styled-components'
 
 const Hero = styled.div`
@@ -127,6 +127,21 @@ const StyledButton = styled.div`
     }
 
 `
+const StyledOutlinedButton = styled.div`
+    color: rgb(248, 147, 31);
+    border: 2px solid rgb(248, 147, 31);
+    padding: 1.25em;
+    border-radius: 5px;
+    display:inline-block;
+    cursor: pointer;
+    transition: 0.2s ease;
+    margin-top: 1.5em;
+    :hover{
+        color: #ffae52;
+        border: 2px solid #ffae52;
+    }
+
+`
 const SubHeader = styled.div`
     margin-bottom: 0.5em;
     font-weight: 500;
@@ -138,7 +153,7 @@ const Grid = styled.div`
     width: 100%;
     column-gap: 2em;
 `
-const GridItem=styled.div`
+const GridItem = styled.div`
     width: 100%;
 `
 const Settings = () => {
@@ -219,19 +234,23 @@ const Settings = () => {
                     </SettingsContainer>
 
                     <SettingsContainer>
-                        <div style={{width: '100%'}}>
+                        <div style={{ width: '100%' }}>
                             <Identifier>Billing Details</Identifier>
                             <Grid>
-                                <GridItem><StyledInput type="text" placeholder="First Name"/></GridItem>
-                                <GridItem><StyledInput type="text" placeholder="Last Name"/></GridItem>
-                                <GridItem><StyledInput type="text" placeholder="Company"/></GridItem>
-                                <GridItem><StyledInput type="text" placeholder="Street Address"/></GridItem>
-                                <GridItem><StyledInput type="text" placeholder="City"/></GridItem>
-                                <GridItem><StyledInput type="text" placeholder="Postal Address"/></GridItem>
-                                <GridItem><StyledInput type="text" placeholder="VAT"/></GridItem>
-                                <GridItem></GridItem>
+                                <GridItem><StyledInput type="text" placeholder="First Name" /></GridItem>
+                                <GridItem><StyledInput type="text" placeholder="Last Name" /></GridItem>
+                                <GridItem><StyledInput type="text" placeholder="Company" /></GridItem>
+                                <GridItem><StyledInput type="text" placeholder="Street Address" /></GridItem>
+                                <GridItem><StyledInput type="text" placeholder="City" /></GridItem>
+                                <GridItem><StyledInput type="text" placeholder="Postal Address" /></GridItem>
+                                <GridItem><StyledInput type="text" placeholder="VAT" /></GridItem>
                             </Grid>
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', columnGap: '1em', width: '50%', marginLeft: '50%' }}>
+                                <StyledButton>Save Changes</StyledButton>
+                                <StyledOutlinedButton>Delete Address</StyledOutlinedButton>
+                            </div>
                         </div>
+
                     </SettingsContainer>
                 </Right>
             </MainSection>
