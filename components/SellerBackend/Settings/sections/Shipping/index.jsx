@@ -28,7 +28,7 @@ const ShipWeight = ({ weight, setWeight }) => {
   };
 
   return (
-    <div className="delivery-cost">
+    <div className="delivery-cost-shipping">
       <div className="delivery-cost-kg">{weight.category}</div>
       <TextInput
         placeholder="Delivery Cost*"

@@ -271,19 +271,19 @@ const Seller_Governance_Management = ({ nextPage }) => {
         }
     };
 
-    const response = await authAxios()({
-      url: `sellers/${seller.id}`,
-      method: "PUT",
-      data: {
-        governanceAndManagementAnswers: data,
-      },
-    });
-    console.log(response);
+    // const response = await authAxios()({
+    //   url: `sellers/${seller.id}`,
+    //   method: "PUT",
+    //   data: {
+    //     governanceAndManagementAnswers: data,
+    //   },
+    // });
+    // console.log(response);
 
-    if (response) {
-      nextPage();
-    }
-  };
+    // if (response) {
+    //   nextPage();
+    // }
+  
 
   return (
     <div className="page-section wf-section">
@@ -442,6 +442,6 @@ const Seller_Governance_Management = ({ nextPage }) => {
       </div>
     </div>
   );
+              
 };
-
 export default Seller_Governance_Management;

@@ -28,10 +28,10 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
   const [freeShippingCurrency, setFreeShippingCurrency] = useState(false);
 
   const [currency, setCurrency] = useState("");
-  const [shippingService, setShippingService] = useState("");
+  // const [shippingService, setShippingService] = useState("");
   const [deliveryTime, setDeliveryTime] = useState("");
   const currencyOptions = ["EUR", "USD"]
-  const serviceProviderOptions = ["Choice 1", "Choice 2"]
+  // const serviceProviderOptions = ["Choice 1", "Choice 2"]
   const deliveryTimeOptions = ["Choice 1", "Choice 2"]
 
   const checkBoxStyle = { opacity: 0, position: "absolute", zIndex: -1 }
@@ -50,7 +50,7 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
     freeShippingFrom && !freeShippingStart ? err.push(`Please select free shipping from option`) : "";
     freeShippingFrom && !freeShippingCurrency ? err.push(`Please select free shipping from option`) : "";
     !currency ? err.push(`Please select the currency`) : "";
-    !shippingService ? err.push(`Please select shipping service`) : "";
+    // !shippingService ? err.push(`Please select shipping service`) : "";
     !deliveryTime ? err.push(`Please select delivery time`) : "";
 
     setErrors(err);
@@ -73,26 +73,26 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
           category: "0 to 1Kg",
           cost: cost0to1Kg,
           currency,
-          serviceProvider: shippingService,
+          // serviceProvider: shippingService,
           deliveryTime
         },
         {
           category: "1 to 5Kg",
           cost: cost1to5Kg,
           currency,
-          serviceProvider: shippingService,
+          // serviceProvider: shippingService,
           deliveryTime
         }, {
           category: "5 to 10Kg",
           cost: cost5to10Kg,
           currency,
-          serviceProvider: shippingService,
+          // serviceProvider: shippingService,
           deliveryTime
         }, {
           category: "More than 10Kg",
           cost: costMoreThan10Kg,
           currency,
-          serviceProvider: shippingService,
+          // serviceProvider: shippingService,
           deliveryTime
         }
         ],
@@ -174,12 +174,12 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                               <option value="EUR">EUR</option>
                               {currencyOptions && currencyOptions.map(option => <option key={option} value={option}>{option}</option>)}
                             </select>
-                            <select
+                            {/* <select
                               onChange={(e) => setShippingService(e.target.value)}
                               className="input-x input-x--select w-select">
                               <option value="">Shipping Service Providers *</option>
                               {serviceProviderOptions && serviceProviderOptions.map(option => <option key={option} value={option}>{option}</option>)}
-                            </select>
+                            </select> */}
                             <select
                               onChange={(e) => setDeliveryTime(e.target.value)}
                               className="input-x input-x--select w-select">
@@ -212,12 +212,12 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                               <option value="EUR">EUR</option>
                               {currencyOptions && currencyOptions.map(option => <option key={option} value={option}>{option}</option>)}
                             </select>
-                            <select
+                            {/* <select
                               onChange={(e) => setShippingService(e.target.value)}
                               className="input-x input-x--select w-select">
                               <option value="">Shipping Service Providers *</option>
                               {serviceProviderOptions && serviceProviderOptions.map(option => <option key={option} value={option}>{option}</option>)}
-                            </select>
+                            </select> */}
                             <select
                               onChange={(e) => setDeliveryTime(e.target.value)}
                               className="input-x input-x--select w-select">
@@ -243,19 +243,18 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                                 <img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
                               </div>
                             </div>
-
                             <select
                               onChange={(e) => setCurrency(e.target.value)}
                               className="input-x input-x--select w-select">
                               <option value="EUR">EUR</option>
                               {currencyOptions && currencyOptions.map(option => <option key={option} value={option}>{option}</option>)}
                             </select>
-                            <select
+                            {/* <select
                               onChange={(e) => setShippingService(e.target.value)}
                               className="input-x input-x--select w-select">
                               <option value="">Shipping Service Providers *</option>
                               {serviceProviderOptions && serviceProviderOptions.map(option => <option key={option} value={option}>{option}</option>)}
-                            </select>
+                            </select> */}
                             <select
                               onChange={(e) => setDeliveryTime(e.target.value)}
                               className="input-x input-x--select w-select">
@@ -288,12 +287,12 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                               <option value="EUR">EUR</option>
                               {currencyOptions && currencyOptions.map(option => <option key={option} value={option}>{option}</option>)}
                             </select>
-                            <select
+                            {/* <select
                               onChange={(e) => setShippingService(e.target.value)}
                               className="input-x input-x--select w-select">
                               <option value="">Shipping Service Providers *</option>
                               {serviceProviderOptions && serviceProviderOptions.map(option => <option key={option} value={option}>{option}</option>)}
-                            </select>
+                            </select> */}
                             <select
                               onChange={(e) => setDeliveryTime(e.target.value)}
                               className="input-x input-x--select w-select">

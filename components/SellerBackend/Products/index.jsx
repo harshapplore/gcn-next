@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import qS from "query-string";
 
 import Rating from "@/shared/Rating";
+import { authAxios } from "@/setups/axios";
+
 
 import { BASE_ROUTE, PRODUCTS, ADD_ACTION, EDIT_ACTION } from "../routes";
 
@@ -286,12 +288,38 @@ const Products = () => {
   const { seller } = useSelector((state) => state.user);
   const { products } = useSelector((state) => state.shop);
 
-  const [view, setView] = useState("card");
+  const [view, setView] = useState(seller.view ? seller.view : "card");
 
   useEffect(() => {
     if (seller.id && seller.shop && !products.length)
       dispatch(fetchShopProducts(seller.shop.id));
+    if(seller.view){
+      setView(seller.view)
+    }
   }, [seller]);
+  
+  const viewCard =async ()=>{
+    setView("card")
+    const response = await authAxios()({
+      url: `sellers/${seller.id}`,
+      method: "PUT",
+      data: {
+        view :"card"
+      },
+    });
+    console.log(response)
+  }
+  const viewList =async ()=>{
+    setView("list")
+    const response = await authAxios()({
+      url: `sellers/${seller.id}`,
+      method: "PUT",
+      data: {
+        view : "list"
+      },
+    });
+    console.log(response)
+  }
 
   return (
     <div className="dynamic-content">
@@ -338,7 +366,7 @@ const Products = () => {
         </div>
         <a
           className="shop-view current w-inline-block cursor"
-          onClick={() => setView("card")}
+          onClick={ viewCard }
         >
           <div className="icon-24 w-embed">
             <svg
@@ -360,7 +388,7 @@ const Products = () => {
         </a>
         <a
           className="shop-view w-inline-block cursor"
-          onClick={() => setView("list")}
+          onClick={ viewList }
         >
           <div className="icon-24 w-embed">
             <svg
