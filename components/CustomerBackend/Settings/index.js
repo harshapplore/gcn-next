@@ -1,20 +1,42 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-
+import { changeEmail, changeName, changePassword } from '@/_controllers/customer';
 const Settings = () => {
     const { customer: { user } } = useSelector((state) => state.customer);
-    console.log(user)
+
+    const [name, setName] = React.useState('');
+    const [confirmName, setConfirmName] = React.useState('');
+
+    const [email, setEmail] = React.useState('');
+    const [confirmEmail, setConfirmEmail] = React.useState('');
+
+    const [currPassword, setCurrPassword] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [confirmPassword, setConfirmPassword] = React.useState('');
+
+    const attemptNameChange = () => {
+        if (name === confirmName) {
+            changeName(user.id, {
+                name: name
+            }).then(res => console.log(res));
+        }
+    }
+    const attemptEmailChange = () => {
+        if (email === confirmEmail) {
+            changeEmail(user.id, {
+                email: email
+            }).then(res => console.log(res));
+        }
+    }
+    const attemptPasswordChange = () => {
+        if (password === confirmPassword) {
+            changePassword(currPassword, password)
+                .then(res => console.log(res))
+        }
+    }
+
     return (
         <>
-            <div className="hide-mobile">
-                <div className="heading-wrapper mb-60">
-                    <div className="flex nospace mb-40">
-                        <h1 className="headline-2">Hello {user.name}!</h1>
-                        <div className="ml15 mr15 edit">Edit profile</div>
-                        <div className="ml15">Sign out</div>
-                    </div>
-                </div>
-            </div>
             <div className="flex">
                 <h2 className="headline-4 mb-30">My Account Settings</h2>
                 <div className="settings-nav">
@@ -36,14 +58,14 @@ const Settings = () => {
                     </div>
                     <div className="w-form">
                         <form id="wf-form-Change-Password" name="wf-form-Change-Password" data-name="Change Password">
-                            <h4 className="subtitle-2 mb-10">Change my name</h4><input type="password" className="input-x mb-15 w-input" maxLength="256" name="Current-Name-2" data-name="Current Name 2" placeholder="Current Name *" id="Current-Name" required="" />
-                            <div className="input-x input-x--flex mb-15"><input type="password" className="input-x__input-field w-input" maxLength="256" name="New-Name" data-name="New Name" placeholder="New Name *" id="New-Name" required="" />
-                                <a href="#" className="input-ext__show">Show</a>
+                            <h4 className="subtitle-2 mb-10">Change my name</h4><input type="text" className="input-x mb-15 w-input" maxLength="256" name="Current-Name-2" data-name="Current Name 2" placeholder="Current Name *" id="Current-Name" required="" />
+                            <div className="input-x input-x--flex mb-15"><input type="text" className="input-x__input-field w-input" maxLength="256" name="New-Name" data-name="New Name" placeholder="New Name *" id="New-Name" required="" value={name} onChange={(e) => setName(e.target.value)} />
+
                             </div>
-                            <div className="input-x input-x--flex mb-30"><input type="password" className="input-x__input-field w-input" maxLength="256" name="Confirm-New-Name" data-name="Confirm New Name" placeholder="Confirm New Name *" id="Confirm-New-Name" required="" />
-                                <a href="#" className="input-ext__show">Show</a>
+                            <div className="input-x input-x--flex mb-30"><input type="text" className="input-x__input-field w-input" maxLength="256" name="Confirm-New-Name" data-name="Confirm New Name" placeholder="Confirm New Name *" id="Confirm-New-Name" required="" value={confirmName} onChange={(e) => setConfirmName(e.target.value)} />
+
                             </div>
-                            <a href="#" className="button blue mr-10 orange">Save Changes</a>
+                            <div onClick={() => attemptNameChange()} className="button blue mr-10 orange">Save Changes</div>
                         </form>
                         <div className="w-form-done"></div>
                         <div className="w-form-fail"></div>
@@ -59,14 +81,14 @@ const Settings = () => {
                     </div>
                     <div className="w-form">
                         <form id="wf-form-Change-Password" name="wf-form-Change-Password" data-name="Change Password">
-                            <h4 className="subtitle-2 mb-10">Change Password</h4><input type="password" className="input-x mb-15 w-input" maxLength={256} name="Current-Password" data-name="Current Password" placeholder="Current Password *" id="Current-Password" required />
-                            <div className="input-x input-x--flex mb-15"><input type="password" className="input-x__input-field w-input" maxLength={256} name="New-Password" data-name="New Password" placeholder="New Password *" id="New-Password" required />
+                            <h4 className="subtitle-2 mb-10">Change Password</h4><input type="password" className="input-x mb-15 w-input" maxLength={256} name="Current-Password" data-name="Current Password" placeholder="Current Password *" id="Current-Password" required value={currPassword} onChange={(e) => setCurrPassword(e.target.value)} />
+                            <div className="input-x input-x--flex mb-15"><input type="password" className="input-x__input-field w-input" maxLength={256} name="New-Password" data-name="New Password" placeholder="New Password *" id="New-Password" required value={password} onChange={(e) => setPassword(e.target.value)} />
                                 <a href="#" className="input-ext__show">Show</a>
                             </div>
-                            <div className="input-x input-x--flex mb-30"><input type="password" className="input-x__input-field w-input" maxLength={256} name="Confirm-New-Password" data-name="Confirm New Password" placeholder="Confirm New Password *" id="Confirm-New-Password" required />
+                            <div className="input-x input-x--flex mb-30"><input type="password" className="input-x__input-field w-input" maxLength={256} name="Confirm-New-Password" data-name="Confirm New Password" placeholder="Confirm New Password *" id="Confirm-New-Password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                                 <a href="#" className="input-ext__show">Show</a>
                             </div>
-                            <a href="#" className="button blue mr-10 orange">Save Changes</a>
+                            <div onClick={()=>attemptPasswordChange()} className="button blue mr-10 orange">Save Changes</div>
                         </form>
                         <div className="w-form-done" />
                         <div className="w-form-fail" />
@@ -84,14 +106,12 @@ const Settings = () => {
                     </div>
                     <div className="w-form">
                         <form id="wf-form-Change-Password" name="wf-form-Change-Password" data-name="Change Password">
-                            <h4 className="subtitle-2 mb-10">Change E-Mail Adress</h4><input type="password" className="input-x mb-15 w-input" maxLength={256} name="Current-E-Mail-Adress" data-name="Current E-Mail Adress" placeholder="Current E-Mail *" id="Current-E-Mail-Adress" required />
-                            <div className="input-x input-x--flex mb-15"><input type="password" className="input-x__input-field w-input" maxLength={256} name="New-Mail-2" data-name="New Mail 2" placeholder="New E-Mail *" id="New-Mail" required />
-                                <a href="#" className="input-ext__show">Show</a>
+                            <h4 className="subtitle-2 mb-10">Change E-Mail Adress</h4><input type="text" className="input-x mb-15 w-input" maxLength={256} name="Current-E-Mail-Adress" data-name="Current E-Mail Adress" placeholder="Current E-Mail *" id="Current-E-Mail-Adress" required />
+                            <div className="input-x input-x--flex mb-15"><input type="text" className="input-x__input-field w-input" maxLength={256} name="New-Mail-2" data-name="New Mail 2" placeholder="New E-Mail *" id="New-Mail" required value={email} onChange={(e) => setEmail(e.target.value)} />
                             </div>
-                            <div className="input-x input-x--flex mb-30"><input type="password" className="input-x__input-field w-input" maxLength={256} name="Confirm-New-mail" data-name="Confirm New mail" placeholder="Confirm New E-Mail *" id="Confirm-New-mail" required />
-                                <a href="#" className="input-ext__show">Show</a>
+                            <div className="input-x input-x--flex mb-30"><input type="text" className="input-x__input-field w-input" maxLength={256} name="Confirm-New-mail" data-name="Confirm New mail" placeholder="Confirm New E-Mail *" id="Confirm-New-mail" required value={confirmEmail} onChange={() => setConfirmEmail(e.target.value)} />
                             </div>
-                            <a href="#" className="button blue mr-10 orange">Save Changes</a>
+                            <div onClick={() => attemptEmailChange} className="button blue mr-10 orange">Save Changes</div>
                         </form>
                         <div className="w-form-done" />
                         <div className="w-form-fail" />
