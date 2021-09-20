@@ -3,9 +3,13 @@ import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 
 import qS from "query-string";
+import Loader from "react-loader-spinner";
+
 
 import Rating from "@/shared/Rating";
 import { authAxios } from "@/setups/axios";
+
+import __filters from "@/_data/filters.json";
 
 
 import { BASE_ROUTE, PRODUCTS, ADD_ACTION, EDIT_ACTION } from "../routes";
@@ -13,7 +17,7 @@ import { BASE_ROUTE, PRODUCTS, ADD_ACTION, EDIT_ACTION } from "../routes";
 import { fetchShopProducts } from "@/slices/shop";
 import { addProduct, deleteProduct, putProduct } from "@/_controllers/product";
 
-const ProductCard = ({id, product }) => {
+const ProductCard = ({ id, product }) => {
   const router = useRouter();
 
   const [_openContext, _setOpenContext] = useState(false);
@@ -50,11 +54,11 @@ const ProductCard = ({id, product }) => {
       onClick={() =>
         router.push(
           BASE_ROUTE +
-            PRODUCTS +
-            `?${qS.stringify({
-              action: "edit",
-              id,
-            })}`
+          PRODUCTS +
+          `?${qS.stringify({
+            action: "edit",
+            id,
+          })}`
         )
       }
     >
@@ -182,11 +186,11 @@ const ProductListItem = ({ product }) => {
       onClick={() =>
         router.push(
           BASE_ROUTE +
-            PRODUCTS +
-            `?${qS.stringify({
-              action: "edit",
-              id: product.id,
-            })}`
+          PRODUCTS +
+          `?${qS.stringify({
+            action: "edit",
+            id: product.id,
+          })}`
         )
       }
     >
@@ -282,45 +286,68 @@ const ProductListItem = ({ product }) => {
   );
 };
 
-const Products = () => {
+const Products = ({ filters, setFilters }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { seller } = useSelector((state) => state.user);
   const { products } = useSelector((state) => state.shop);
 
   const [view, setView] = useState(seller.view ? seller.view : "card");
+  const [sorting, setSorting] = useState("");
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
+
+
+  var filteredProducts = products.slice()
+  if (search) {
+    filteredProducts = products.filter((product) =>
+      product.name.toLowerCase().includes(search) || product.description.toLowerCase().includes(search)
+    );
+  }
+  if (sorting && sorting === __filters.sortBy[1].toString()) {
+    filteredProducts = filteredProducts.sort((a, b) => (-a.price + b.price))
+  } else if (sorting && sorting === __filters.sortBy[0].toString()) {
+    filteredProducts = filteredProducts.sort((a, b) => (a.price - b.price))
+  } else if (sorting && sorting === __filters.sortBy[3].toString()) {
+    filteredProducts = filteredProducts
+  }
+
+  // console.log(filteredProducts)
 
   useEffect(() => {
+
     if (seller.id && seller.shop && !products.length)
       dispatch(fetchShopProducts(seller.shop.id));
-    if(seller.view){
+    if (seller.view) {
       setView(seller.view)
     }
   }, [seller]);
-  
-  const viewCard =async ()=>{
-    setView("card")
-    const response = await authAxios()({
-      url: `sellers/${seller.id}`,
-      method: "PUT",
-      data: {
-        view :"card"
-      },
-    });
-    console.log(response)
-  }
-  const viewList =async ()=>{
-    setView("list")
-    const response = await authAxios()({
-      url: `sellers/${seller.id}`,
-      method: "PUT",
-      data: {
-        view : "list"
-      },
-    });
-    console.log(response)
-  }
 
+  const viewCard = async () => {
+    setView("card")
+    setLoading(true)
+    const response = await authAxios()({
+      url: `sellers/${seller.id}`,
+      method: "PUT",
+      data: {
+        view: "card"
+      },
+    });
+    setLoading(false)
+  }
+  const viewList = async () => {
+    setView("list")
+    setLoading(true)
+    const response = await authAxios()({
+      url: `sellers/${seller.id}`,
+      method: "PUT",
+      data: {
+        view: "list"
+      },
+    });
+    setLoading(false)
+  }
+ 
   return (
     <div className="dynamic-content">
       <div className="shop-filter-bar">
@@ -339,6 +366,7 @@ const Products = () => {
               data-name="Searchbar 2"
               placeholder="I'm searching for"
               id="Searchbar-2"
+              onChange={(e) => setSearch(e.target.value)}
               required
             />
             <img
@@ -346,27 +374,31 @@ const Products = () => {
               loading="lazy"
               alt="search"
               className="search-icon"
+            // onClick={searchProducts}
             />
           </form>
         </div>
         <div className="mb-0 mr-7 w-form">
+          {/* <FilterDropdown
+            choices={__filters.sortBy}
+            placeholder="Sort By"
+            value={filters.sortBy}
+            setValue={(value) => setFilters({ ...filters, sortBy: value })}
+          /> */}
           <form id="email-form-3" name="email-form-3" data-name="Email Form 3">
             <select
               id="field-2"
-              name="field-2"
-              data-name="Field 2"
+              onChange={e => setSorting(e.target.value)}
               className="text-field select width-24 mb-0 w-select"
             >
               <option value>Sort by</option>
-              <option value="First">First Choice</option>
-              <option value="Second">Second Choice</option>
-              <option value="Third">Third Choice</option>
+              {__filters.sortBy && __filters.sortBy.map(choice => <option key={choice} value={choice}>{choice}</option>)}
             </select>
           </form>
         </div>
         <a
           className="shop-view current w-inline-block cursor"
-          onClick={ viewCard }
+          onClick={viewCard}
         >
           <div className="icon-24 w-embed">
             <svg
@@ -388,7 +420,7 @@ const Products = () => {
         </a>
         <a
           className="shop-view w-inline-block cursor"
-          onClick={ viewList }
+          onClick={viewList}
         >
           <div className="icon-24 w-embed">
             <svg
@@ -411,42 +443,68 @@ const Products = () => {
       </div>
 
       {view === "card" && (
-        <div className="flex left-4">
-          <>
-            <a
-              className="shop-product-add w-inline-block"
-              onClick={() => router.push(BASE_ROUTE + PRODUCTS + ADD_ACTION)}
-            >
-              <div className="shop-product-add-container cursor no-select">
-                <img
-                  src="/images/add-black-24-dp.svg"
-                  loading="lazy"
-                  width={58}
-                  height={58}
-                  alt="Add"
-                />
-                <div>Add product</div>
-              </div>
-            </a>
+        <>
+          {loading && (
+            <span className="icon" style={{ textAlign: "center" }}>
+              <Loader type="Oval" color="#1a689e" height={25} width={25} />
+            </span>
+          )}
+          <div className="flex left-4">
+            <>
+              <a
+                className="shop-product-add w-inline-block"
+                onClick={() => router.push(BASE_ROUTE + PRODUCTS + ADD_ACTION)}
+              >
+                <div className="shop-product-add-container cursor no-select">
+                  <img
+                    src="/images/add-black-24-dp.svg"
+                    loading="lazy"
+                    width={58}
+                    height={58}
+                    alt="Add"
+                  />
+                  <div>Add product</div>
+                </div>
+              </a>
 
-            {products &&
-              products.length > 0 &&
-              products.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  image={product.images[0]}
-                  name={product.name}
-                  id={product.id}
-                  product={product}
-                />
-              ))}
-          </>
-        </div>
+              {!loading && filteredProducts.length > 0 ?
+                filteredProducts.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    image={product.images[0]}
+                    name={product.name}
+                    id={product.id}
+                    product={product}
+                  />
+                ))
+                : products &&
+                products.length > 0 &&
+                products.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    image={product.images[0]}
+                    name={product.name}
+                    id={product.id}
+                    product={product}
+                  />
+                ))}
+            </>
+          </div>
+        </>
       )}
 
       {view === "list" && (
         <div className="shop-product-list mb-40">
-          {products &&
+          {loading && (
+            <span className="icon" style={{ textAlign: "center" }} >
+              <Loader type="Oval" color="#1a689e" height={25} width={25} />
+            </span>
+          )}
+          {!loading && filteredProducts.length > 0 ?
+            filteredProducts.map((product, index) => (
+              <ProductListItem key={"product-" + index} product={product} />
+            ))
+            : products &&
             products.length > 0 &&
             products.map((product, index) => (
               <ProductListItem key={"product-" + index} product={product} />
