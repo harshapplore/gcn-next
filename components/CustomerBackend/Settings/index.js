@@ -1,9 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchUser } from "@/slices/user";
 import { changeEmail, changeName, changePassword } from '@/_controllers/customer';
 const Settings = () => {
     const { customer: { user } } = useSelector((state) => state.customer);
-
+    const dispatch = useDispatch()
     const [name, setName] = React.useState('');
     const [confirmName, setConfirmName] = React.useState('');
 
@@ -18,20 +19,29 @@ const Settings = () => {
         if (name === confirmName) {
             changeName(user.id, {
                 name: name
-            }).then(res => console.log(res));
+            }).then(res => {
+                console.log(res);
+                dispatch(fetchUser())
+            })
         }
     }
     const attemptEmailChange = () => {
         if (email === confirmEmail) {
             changeEmail(user.id, {
                 email: email
-            }).then(res => console.log(res));
+            }).then(res => {
+                console.log(res);
+                dispatch(fetchUser())
+            })
         }
     }
     const attemptPasswordChange = () => {
         if (password === confirmPassword) {
             changePassword(currPassword, password)
-                .then(res => console.log(res))
+                .then(res => {
+                    console.log(res);
+                    dispatch(fetchUser())
+                })
         }
     }
 
@@ -88,7 +98,7 @@ const Settings = () => {
                             <div className="input-x input-x--flex mb-30"><input type="password" className="input-x__input-field w-input" maxLength={256} name="Confirm-New-Password" data-name="Confirm New Password" placeholder="Confirm New Password *" id="Confirm-New-Password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                                 <a href="#" className="input-ext__show">Show</a>
                             </div>
-                            <div onClick={()=>attemptPasswordChange()} className="button blue mr-10 orange">Save Changes</div>
+                            <div onClick={() => attemptPasswordChange()} className="button blue mr-10 orange">Save Changes</div>
                         </form>
                         <div className="w-form-done" />
                         <div className="w-form-fail" />
