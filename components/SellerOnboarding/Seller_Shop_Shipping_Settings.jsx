@@ -319,8 +319,8 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                           <span htmlFor="Free shipping" className="checkbox-label medium w-form-label">Free Shipping from</span>
                         </label>
                         {freeShippingFrom && <> <input type="number" className="input-x input-x--number input-x--free-shipping w-input" onChange={(e)=>setFreeShippingStart(e.target.value)} value={freeShippingStart} maxLength="256" placeholder="100" />
-                          <select id="Currency" onChange={()=>setFreeShippingCurrency(e.target.value)} className="input-x input-x--select input-x--eur w-select">
-                            <option value={"EUR"}>EUR</option>
+                          <select id="Currency" onChange={(e)=>setFreeShippingCurrency(e.target.value)} className="input-x input-x--select input-x--eur w-select">
+                            <option value="EUR">EUR</option>
                             <option value="USD">USD</option>
                           </select></>}
                       </div>

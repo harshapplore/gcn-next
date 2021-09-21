@@ -71,7 +71,7 @@ const Ship = ({ country, weights, updateCountry, deleteCountry, save }) => {
             src="/images/expand-more-black-24-dp-copy-6.svg"
             loading="lazy"
             alt="expand"
-          />
+          /> 
         </div>
       </div>
       <div>

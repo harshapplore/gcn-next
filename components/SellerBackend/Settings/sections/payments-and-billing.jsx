@@ -9,7 +9,7 @@ import Message from "@/shared/Message";
 
 const Payments = () => {
   const { seller } = useSelector((state) => state.user);
-
+  console.log(seller)
   const [IBAN, setIBAN] = useState("");
   const [idFront, setIdFront] = useState("");
   const [idBack, setIdBack] = useState("");
@@ -23,14 +23,23 @@ const Payments = () => {
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
-    if (seller.shop) {
-      setCompanyName(seller.shop.companyName)
-      setStreetAddress(seller.shop.streetAddress)
-      setPostalCode(seller.shop.postalCode)
-      setCity(seller.shop.city)
-      setVAT(seller.shop.vat)
+    if (seller) 
+    {
+      // setIBAN(seller.iban)
+      // setIdFront(seller.identityFrontView.)
+      // setIdBack(seller.identityBackView)
+      // setAddressFront(seller.proofOfAddressFrontView)
+      // setAddressBack(seller.proofOfAddressBackView)
 
+      if (seller.shop) {
+        setCompanyName(seller.shop.companyName)
+        setStreetAddress(seller.shop.streetAddress)
+        setPostalCode(seller.shop.postalCode)
+        setCity(seller.shop.city)
+        setVAT(seller.shop.vat)
+      }
     }
+
   }, [seller]);
 
   const validate = () => {
@@ -60,7 +69,7 @@ const Payments = () => {
   addressBack && proofOfAddressBackView.push(addressBack)
   const imgStyle = { display: "flex", justifyContent: "space-between" }
 
-  const submit = async () => {
+  const submit = async (e) => {
 
     e.preventDefault();
 
@@ -83,6 +92,7 @@ const Payments = () => {
       method: "PUT",
       data: ibankData,
     });
+    console.log("updated")
   }
 
   return (
@@ -158,6 +168,7 @@ const Payments = () => {
           <a
             id="w-node-f58e9903-c090-0e6b-e66d-899582061220-0db831b0"
             className="button blue"
+            style={{height:"50px"}}
           >
             Change my plan
           </a>

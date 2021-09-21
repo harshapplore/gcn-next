@@ -136,58 +136,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <div className="center">Not applicable</div>
                 </div>
                 <div className="assessment-spacer"></div>
-                <div className="single-choice-row">
-                  <div>If so, do the objectives and targets consider one or more aspects of sustainability?</div>
-
-                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
-                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${SMV === "yes" ? " w--redirected-checked" : ""}`}></div>
-                    <input
-                      type="radio"
-                      onChange={() => setSMV("yes")}
-                      value={SMV}
-                      checked={SMV === "yes"}
-                      data-name="Has defined its mission statement, vision and values."
-                      id="Yes-2" name="Has-defined-its-mission-statement-vision-and-values" required=""
-                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
-                    <span htmlFor="Yes-5" className="hidden w-form-label">Yes</span>
-                  </label>
-                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
-                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${SMV === "no" ? " w--redirected-checked" : ""}`}></div>
-                    <input
-                      type="radio"
-                      onChange={() => setSMV("no")}
-                      value={SMV}
-                      checked={SMV === "no"}
-                      data-name="Has defined its mission statement, vision and values."
-                      id="Yes-2" name="Has-defined-its-mission-statement-vision-and-values" required=""
-                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
-                    <span htmlFor="Yes-5" className="hidden w-form-label">Yes</span>
-                  </label>
-                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
-                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${SMV === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
-                    <input
-                      type="radio"
-                      onChange={() => setSMV("considering or planning")}
-                      value={SMV}
-                      checked={SMV === "considering or planning"}
-                      data-name="Has defined its mission statement, vision and values."
-                      id="Yes-2" name="Has-defined-its-mission-statement-vision-and-values" required=""
-                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
-                    <span htmlFor="Yes-5" className="hidden w-form-label">considering or planning</span>
-                  </label>
-                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
-                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${SMV === "not applicable" ? " w--redirected-checked" : ""}`}></div>
-                    <input
-                      type="radio"
-                      onChange={() => setSMV("not applicable")}
-                      value={SMV}
-                      checked={SMV === "not applicable"}
-                      data-name="Has defined its mission statement, vision and values."
-                      id="Yes-2" name="Has-defined-its-mission-statement-vision-and-values" required=""
-                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
-                    <span htmlFor="Yes-5" className="hidden w-form-label">not applicable</span>
-                  </label>
-                </div>
+                
                 <div className="single-choice-row">
                   <div>Prepares its strategic plan.</div>
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
@@ -239,6 +188,58 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                     <span htmlFor="Yes-5" className="hidden w-form-label">not applicable</span>
                   </label>
                 </div>
+                {strategicPlan === "yes" && <div className="single-choice-row">
+                  <div>If so, do the objectives and targets consider one or more aspects of sustainability?</div>
+
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${SMV === "yes" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="radio"
+                      onChange={() => setSMV("yes")}
+                      value={SMV}
+                      checked={SMV === "yes"}
+                      data-name="Has defined its mission statement, vision and values."
+                      id="Yes-2" name="Has-defined-its-mission-statement-vision-and-values" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">Yes</span>
+                  </label>
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${SMV === "no" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="radio"
+                      onChange={() => setSMV("no")}
+                      value={SMV}
+                      checked={SMV === "no"}
+                      data-name="Has defined its mission statement, vision and values."
+                      id="Yes-2" name="Has-defined-its-mission-statement-vision-and-values" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">Yes</span>
+                  </label>
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${SMV === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="radio"
+                      onChange={() => setSMV("considering or planning")}
+                      value={SMV}
+                      checked={SMV === "considering or planning"}
+                      data-name="Has defined its mission statement, vision and values."
+                      id="Yes-2" name="Has-defined-its-mission-statement-vision-and-values" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">considering or planning</span>
+                  </label>
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${SMV === "not applicable" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="radio"
+                      onChange={() => setSMV("not applicable")}
+                      value={SMV}
+                      checked={SMV === "not applicable"}
+                      data-name="Has defined its mission statement, vision and values."
+                      id="Yes-2" name="Has-defined-its-mission-statement-vision-and-values" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">not applicable</span>
+                  </label>
+                </div>}
                 {strategicPlan === "yes" && <div className="single-choice-row">
                   <div>If so, is it periodically revised?</div>
 

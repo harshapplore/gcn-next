@@ -38,6 +38,14 @@ const Seller_Basic_Info = ({ nextPage }) => {
   const [certificateTwoName, setCertificateTwoName] = useState("");
   const [addCertificates, setAddCertificate] = useState(false);
 
+  const [semiFinishedGoods, setSemiFinishedGoods] = useState("");
+  const [finishedGoods, setFinishedGoods] = useState("");
+  const [distributor, setDistributor] = useState("");
+  const [retailer, setRetailer] = useState("");
+  const [serviceProvider, setServiceProvider] = useState("");
+  const [moreThanOneBussiness, setMoreThanOneBussiness] = useState("");
+
+
   const [errors, setErrors] = useState([]);
 
   const [certificates, setCertificates] = useState([]);
@@ -54,6 +62,16 @@ const Seller_Basic_Info = ({ nextPage }) => {
       setRawMaterialDetails(seller.basicInformationAnswers.rawMaterialDetails);
       setCompanySize(seller.basicInformationAnswers.companySize);
       setCertificate(seller.basicInformationAnswers.certificate);
+      setSemiFinishedGoods(seller.basicInformationAnswers.semiFinishedGoods)
+      setFinishedGoods(seller.basicInformationAnswers.finishedGoods)
+      setDistributor(seller.basicInformationAnswers.distributor)
+      setRetailer(seller.basicInformationAnswers.retailer)
+      setServiceProvider(seller.basicInformationAnswers.serviceProvider)
+      setMoreThanOneBussiness(seller.basicInformationAnswers.moreThanOneBussiness)
+      if(seller.basicInformationAnswers.certificates[0])
+      setCertificateOneName(seller.basicInformationAnswers.certificates[0].name)
+      if(seller.basicInformationAnswers.certificates[1])
+      setCertificateTwoName(seller.basicInformationAnswers.certificates[1].name)
     }
   }, [seller]);
 
@@ -81,7 +99,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
     setErrors(err);
 
     if (err.length) return false;
-
+ 
     return true;
   };
   const arr = [];
@@ -103,6 +121,12 @@ const Seller_Basic_Info = ({ nextPage }) => {
       mobile,
       productInfo,
       rawMaterialDetails,
+      semiFinishedGoods,
+      finishedGoods,
+      distributor,
+      retailer,
+      serviceProvider,
+      moreThanOneBussiness,
       companySize,
       certificate,
       // certificateName,
@@ -133,6 +157,8 @@ const Seller_Basic_Info = ({ nextPage }) => {
           <br />
           <h1 className="headline-2 mb-10"> {data.heading} </h1>
           <div className="overline-text mb-40">{data.subheading}</div>
+          
+          <h3 className="headline-5 mb-50">Please fill out the entire form in one session, since progress will be lost otherwise.</h3>
 
           <div className=" mb-40  w-richtext">
             <p>{data.p1}</p>
@@ -151,9 +177,8 @@ const Seller_Basic_Info = ({ nextPage }) => {
                       <div className="assessment-radios">
                         <label className="checkbox-field mb-0 w-clearfix w-radio">
                           <div
-                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-                              initials === "Mr." ? " w--redirected-checked" : ""
-                            }`}
+                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${initials === "Mr." ? " w--redirected-checked" : ""
+                              }`}
                           ></div>
                           <input
                             type="radio"
@@ -174,11 +199,10 @@ const Seller_Basic_Info = ({ nextPage }) => {
                         </label>
                         <label className="checkbox-field mb-0 w-clearfix w-radio">
                           <div
-                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-                              initials === "Mrs."
-                                ? " w--redirected-checked"
-                                : ""
-                            }`}
+                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${initials === "Mrs."
+                              ? " w--redirected-checked"
+                              : ""
+                              }`}
                           ></div>
                           <input
                             type="radio"
@@ -198,9 +222,8 @@ const Seller_Basic_Info = ({ nextPage }) => {
                         </label>
                         <label className="checkbox-field mb-0 w-clearfix w-radio">
                           <div
-                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-                              initials === "Ms." ? " w--redirected-checked" : ""
-                            }`}
+                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${initials === "Ms." ? " w--redirected-checked" : ""
+                              }`}
                           ></div>
                           <input
                             type="radio"
@@ -220,11 +243,10 @@ const Seller_Basic_Info = ({ nextPage }) => {
                         </label>
                         <label className="checkbox-field mb-0 w-clearfix w-radio">
                           <div
-                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-                              initials === "Miss"
-                                ? " w--redirected-checked"
-                                : ""
-                            }`}
+                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${initials === "Miss"
+                              ? " w--redirected-checked"
+                              : ""
+                              }`}
                           ></div>
                           <input
                             type="radio"
@@ -260,7 +282,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                         maxLength="256"
                         name="Job-Title-2"
                         data-name="Job Title 2"
-                        placeholder="Job Title"
+                        placeholder="Job Title *"
                         id="Job-Title-2"
                       />
                       <input
@@ -312,11 +334,10 @@ const Seller_Basic_Info = ({ nextPage }) => {
                       <div className="assessment-spacer"></div>
                       <label className="checkbox-field w-clearfix w-radio">
                         <div
-                          className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-                            productInfo === "Producer of raw materials"
-                              ? " w--redirected-checked"
-                              : ""
-                          }`}
+                          className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${productInfo === "Producer of raw materials"
+                            ? " w--redirected-checked"
+                            : ""
+                            }`}
                         ></div>
                         <input
                           type="radio"
@@ -349,12 +370,11 @@ const Seller_Basic_Info = ({ nextPage }) => {
                       )}
                       <label className="checkbox-field w-clearfix w-radio">
                         <div
-                          className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-                            productInfo ===
+                          className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${productInfo ===
                             "Producer of components / semi-finished goods"
-                              ? " w--redirected-checked"
-                              : ""
-                          }`}
+                            ? " w--redirected-checked"
+                            : ""
+                            }`}
                         ></div>
                         <input
                           type="radio"
@@ -382,13 +402,23 @@ const Seller_Basic_Info = ({ nextPage }) => {
                           Producer of components / semi-finished goods
                         </span>
                       </label>
+                      {productInfo === "Producer of components / semi-finished goods" && (
+                        <textarea
+                          disabled={productInfo !== "Producer of components / semi-finished goods"}
+                          onChange={(e) =>
+                            setSemiFinishedGoods(e.target.value)
+                          }
+                          value={semiFinishedGoods}
+                          placeholder="Please specifiy here…"
+                          className="input-x input-x--text-area sct w-input"
+                        ></textarea>
+                      )}
                       <label className="checkbox-field w-clearfix w-radio">
                         <div
-                          className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-                            productInfo === "Producer of finished goods"
-                              ? " w--redirected-checked"
-                              : ""
-                          }`}
+                          className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${productInfo === "Producer of finished goods"
+                            ? " w--redirected-checked"
+                            : ""
+                            }`}
                         ></div>
                         <input
                           type="radio"
@@ -411,13 +441,23 @@ const Seller_Basic_Info = ({ nextPage }) => {
                           Producer of finished goods
                         </span>
                       </label>
+                      {productInfo === "Producer of finished goods" && (
+                        <textarea
+                          disabled={productInfo !== "Producer of finished goods"}
+                          onChange={(e) =>
+                            setFinishedGoods(e.target.value)
+                          }
+                          value={finishedGoods}
+                          placeholder="Please specifiy here…"
+                          className="input-x input-x--text-area sct w-input"
+                        ></textarea>
+                      )}
                       <label className="checkbox-field w-clearfix w-radio">
                         <div
-                          className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-                            productInfo === "Distributor"
-                              ? " w--redirected-checked"
-                              : ""
-                          }`}
+                          className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${productInfo === "Distributor"
+                            ? " w--redirected-checked"
+                            : ""
+                            }`}
                         ></div>
                         <input
                           type="radio"
@@ -441,13 +481,23 @@ const Seller_Basic_Info = ({ nextPage }) => {
                           Distributor
                         </span>
                       </label>
+                      {productInfo === "Distributor" && (
+                        <textarea
+                          disabled={productInfo !== "Distributor"}
+                          onChange={(e) =>
+                            setDistributor(e.target.value)
+                          }
+                          value={distributor}
+                          placeholder="Please specifiy here…"
+                          className="input-x input-x--text-area sct w-input"
+                        ></textarea>
+                      )}
                       <label className="checkbox-field w-clearfix w-radio">
                         <div
-                          className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-                            productInfo === "Retailer"
-                              ? " w--redirected-checked"
-                              : ""
-                          }`}
+                          className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${productInfo === "Retailer"
+                            ? " w--redirected-checked"
+                            : ""
+                            }`}
                         ></div>
                         <input
                           type="radio"
@@ -471,13 +521,23 @@ const Seller_Basic_Info = ({ nextPage }) => {
                           Retailer
                         </span>
                       </label>
+                      {productInfo === "Retailer" && (
+                        <textarea
+                          disabled={productInfo !== "Retailer"}
+                          onChange={(e) =>
+                            setRetailer(e.target.value)
+                          }
+                          value={retailer}
+                          placeholder="Please specifiy here…"
+                          className="input-x input-x--text-area sct w-input"
+                        ></textarea>
+                      )}
                       <label className="checkbox-field w-clearfix w-radio">
                         <div
-                          className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-                            productInfo === "Service provider"
-                              ? " w--redirected-checked"
-                              : ""
-                          }`}
+                          className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${productInfo === "Service provider"
+                            ? " w--redirected-checked"
+                            : ""
+                            }`}
                         ></div>
                         <input
                           type="radio"
@@ -501,13 +561,23 @@ const Seller_Basic_Info = ({ nextPage }) => {
                           Service provider
                         </span>
                       </label>
+                      {productInfo === "Service provider" && (
+                        <textarea
+                          disabled={productInfo !== "Service provider"}
+                          onChange={(e) =>
+                            setServiceProvider(e.target.value)
+                          }
+                          value={serviceProvider}
+                          placeholder="Please specifiy here…"
+                          className="input-x input-x--text-area sct w-input"
+                        ></textarea>
+                      )}
                       <label className="checkbox-field w-clearfix w-radio">
                         <div
-                          className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-                            productInfo === "More than one business"
-                              ? " w--redirected-checked"
-                              : ""
-                          }`}
+                          className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${productInfo === "More than one business"
+                            ? " w--redirected-checked"
+                            : ""
+                            }`}
                         ></div>
                         <input
                           type="radio"
@@ -533,6 +603,17 @@ const Seller_Basic_Info = ({ nextPage }) => {
                           More than one business
                         </span>
                       </label>
+                      {productInfo === "More than one business" && (
+                        <textarea
+                          disabled={productInfo !== "More than one business"}
+                          onChange={(e) =>
+                            setMoreThanOneBussiness(e.target.value)
+                          }
+                          value={moreThanOneBussiness}
+                          placeholder="Please specifiy here…"
+                          className="input-x input-x--text-area sct w-input"
+                        ></textarea>
+                      )}
                     </div>
                   </li>
                   <li>
@@ -542,11 +623,10 @@ const Seller_Basic_Info = ({ nextPage }) => {
                       <div className="assessment-radios">
                         <label className="checkbox-field mb-0 w-clearfix w-radio">
                           <div
-                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-                              companySize === "Less than 10"
-                                ? " w--redirected-checked"
-                                : ""
-                            }`}
+                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${companySize === "Less than 10"
+                              ? " w--redirected-checked"
+                              : ""
+                              }`}
                           ></div>
                           <input
                             type="radio"
@@ -573,11 +653,10 @@ const Seller_Basic_Info = ({ nextPage }) => {
                         </label>
                         <label className="checkbox-field mb-0 w-clearfix w-radio">
                           <div
-                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-                              companySize === "10-49 employees"
-                                ? " w--redirected-checked"
-                                : ""
-                            }`}
+                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${companySize === "10-49 employees"
+                              ? " w--redirected-checked"
+                              : ""
+                              }`}
                           ></div>
                           <input
                             type="radio"
@@ -604,11 +683,10 @@ const Seller_Basic_Info = ({ nextPage }) => {
                         </label>
                         <label className="checkbox-field mb-0 w-clearfix w-radio">
                           <div
-                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-                              companySize === "50-249 employees"
-                                ? " w--redirected-checked"
-                                : ""
-                            }`}
+                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${companySize === "50-249 employees"
+                              ? " w--redirected-checked"
+                              : ""
+                              }`}
                           ></div>
                           <input
                             type="radio"
@@ -635,11 +713,10 @@ const Seller_Basic_Info = ({ nextPage }) => {
                         </label>
                         <label className="checkbox-field mb-0 w-clearfix w-radio">
                           <div
-                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-                              companySize === "More than 250 employees"
-                                ? " w--redirected-checked"
-                                : ""
-                            }`}
+                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${companySize === "More than 250 employees"
+                              ? " w--redirected-checked"
+                              : ""
+                              }`}
                           ></div>
                           <input
                             type="radio"
@@ -680,11 +757,10 @@ const Seller_Basic_Info = ({ nextPage }) => {
                       <div className="assessment-radios">
                         <label className="checkbox-field mb-0 w-clearfix w-radio">
                           <div
-                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-                              certificate === "yes"
-                                ? " w--redirected-checked"
-                                : ""
-                            }`}
+                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${certificate === "yes"
+                              ? " w--redirected-checked"
+                              : ""
+                              }`}
                           ></div>
                           <input
                             value={certificate}
@@ -710,11 +786,10 @@ const Seller_Basic_Info = ({ nextPage }) => {
                         </label>
                         <label className="checkbox-field mb-0 w-clearfix w-radio">
                           <div
-                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-                              certificate === "no"
-                                ? " w--redirected-checked"
-                                : ""
-                            }`}
+                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${certificate === "no"
+                              ? " w--redirected-checked"
+                              : ""
+                              }`}
                           ></div>
                           <input
                             value={certificate}
@@ -741,7 +816,6 @@ const Seller_Basic_Info = ({ nextPage }) => {
                       </div>
                       {certificate === "yes" && (
                         <>
-                          {" "}
                           <div className="mb-20">
                             <strong>If yes, please upload it here:</strong>
                           </div>
@@ -750,12 +824,12 @@ const Seller_Basic_Info = ({ nextPage }) => {
                               type="text"
                               className="input-x w-input"
                               htmlFor="256"
-                              value={certificateOne && certificateOne.name}
+                              value={certificateOneName}
                               name="Name-Certificate"
                               data-name="Name Certificate"
                               onChange={(e) =>
                                 setCertificateOneName(
-                                  certificateOne && certificateOne.name
+                                  e.target.value
                                 )
                               }
                               placeholder="Name Certificate *"
@@ -809,19 +883,19 @@ const Seller_Basic_Info = ({ nextPage }) => {
                                 type="text"
                                 className="input-x w-input"
                                 htmlFor="256"
-                                value={certificateTwo && certificateTwo.name}
+                                value={certificateTwoName}
                                 name="Name-Certificate"
                                 data-name="Name Certificate"
                                 onChange={(e) =>
                                   setCertificateTwoName(
-                                    certificateTwo && certificateTwo.name
+                                    e.target.value
                                   )
                                 }
                                 placeholder="Name Certificate *"
                                 id="Name-Certificate-2"
                                 required=""
                               />
-                              <div className="button icon blue w-inline-block">
+                              <label htmlFor="certificatetwo" className="button cursor icon blue w-inline-block">
                                 <div className="button-icon w-embed">
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -841,10 +915,10 @@ const Seller_Basic_Info = ({ nextPage }) => {
                                   </svg>
                                 </div>
 
-                                <label htmlFor="certificatetwo">
+                                <div className="cursor">
                                   Upload Certificate (png., jpg., pdf.)
-                                </label>
-                              </div>
+                                </div>
+                              </label> 
                             </div>
                           )}
                           <label
