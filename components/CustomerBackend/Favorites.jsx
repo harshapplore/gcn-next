@@ -17,7 +17,9 @@ const FavProduct = ({ product, favId }) => {
     await deleteFavorite(favId);
     location.reload();
   };
-
+  if(!product){
+    return null
+  }
   return (
     <div className="flex-child-32">
       <div className="potw-item">
@@ -129,7 +131,6 @@ const Favorites = () => {
     );
   }, [customer]);
 
-  console.log(_products, "---");
 
   return (
     <div className="dynamic-content">

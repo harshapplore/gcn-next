@@ -13,13 +13,14 @@ import Order from "./Order";
 import OrdersList from "./OrdersList";
 import Favorites from "./Favorites";
 
-import { FAVORITES, ORDER_LIST } from "./routes";
+import { FAVORITES, ORDER_LIST, ACCOUNT_SETTINGS } from "./routes";
+import Settings from "./Settings";
 
 const CustomerBackend = () => {
   const router = useRouter();
 
   const { customer } = useSelector((state) => state.customer);
-
+  
   const [activeTab, setActiveTab] = useState(0);
   const [orderId, setOrderId] = useState();
 
@@ -37,6 +38,9 @@ const CustomerBackend = () => {
 
     if (section === ORDER_LIST.split("/").pop()) {
       setActiveTab(1);
+    }
+    if (section === ACCOUNT_SETTINGS.split("/").pop()) {
+      setActiveTab(2);
     }
 
     if (orderId) setOrderId(orderId);
@@ -85,7 +89,7 @@ const CustomerBackend = () => {
             <div className="flex">
               {/* Sidebar */}
               <div className="shop-filter">
-                <div className="scroll-x">
+                <div>
                   <a
                     className={
                       "tab-link-shop w-inline-block" +
@@ -95,7 +99,7 @@ const CustomerBackend = () => {
                   >
                     <div>Favorites</div>
                   </a>
-                  <a
+                  <div
                     className={
                       "tab-link-shop w-inline-block" +
                       (activeTab === 1 ? " current" : "")
@@ -103,7 +107,16 @@ const CustomerBackend = () => {
                     onClick={() => router.push(ORDER_LIST)}
                   >
                     <div>Order History</div>
-                  </a>
+                  </div>
+                  <div
+                    className={
+                      "tab-link-shop w-inline-block" +
+                      (activeTab === 2 ? " current" : "")
+                    }
+                    onClick={() => router.push(ACCOUNT_SETTINGS)}
+                  >
+                    <div>Account Settings</div>
+                  </div>
                 </div>
               </div>
 
@@ -111,6 +124,7 @@ const CustomerBackend = () => {
                 {activeTab === 0 && <Favorites />}
                 {activeTab === 1 && !orderId && <OrdersList />}
                 {activeTab === 1 && orderId && <Order orderId={orderId}/>}
+                {activeTab === 2 && <Settings />}
               </div>
             </div>
           </div>
