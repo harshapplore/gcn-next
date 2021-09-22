@@ -28,7 +28,7 @@ const ShipWeight = ({ weight, setWeight }) => {
   };
 
   return (
-    <div className="delivery-cost">
+    <div className="delivery-cost-shipping">
       <div className="delivery-cost-kg">{weight.category}</div>
       <TextInput
         placeholder="Delivery Cost*"
@@ -71,7 +71,7 @@ const Ship = ({ country, weights, updateCountry, deleteCountry, save }) => {
             src="/images/expand-more-black-24-dp-copy-6.svg"
             loading="lazy"
             alt="expand"
-          />
+          /> 
         </div>
       </div>
       <div>

@@ -120,7 +120,7 @@ const Register = ({ close }) => {
 
                   <Select
                     choices={["Europe"]}
-                    defaultValue="Region"
+                    defaultValue="Europe"
                     value={data.region}
                     setValue={(value) => setData({ ...data, region: value })}
                     error={errors.region}
