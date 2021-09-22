@@ -65,18 +65,18 @@ export const calculateVat = ({
 }) => {
   console.log("-> ", domesticCountry, destinationCountry);
 
-  if (!domesticCountry || !destinationCountry) return 0;
-
+//   if (!domesticCountry || !destinationCountry) return 0;
+    return 0;
   console.log(" ---> ");
 
-  const domesticCountryCode = countriesList.filter(
-    (country) => country.name === domesticCountry
-  )[0].code;
-  const destinationCountryCode = countriesList.filter(
-    (country) => country.name === destinationCountry
-  )[0].code;
+//   const domesticCountryCode = countriesList.filter(
+//     (country) => country.name === domesticCountry
+//   )[0].code;
+//   const destinationCountryCode = countriesList.filter(
+//     (country) => country.name === destinationCountry
+//   )[0].code;
 
-  console.log("Country Codes", destinationCountryCode, domesticCountryCode);
+//   console.log("Country Codes", destinationCountryCode, domesticCountryCode);
 
   const calculator = new EUVATCalculator({
     domesticCountry: domesticCountryCode,

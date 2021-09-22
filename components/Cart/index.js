@@ -16,17 +16,17 @@ import CartShopView from "./CartShopView";
 import Shipping from "./Shipping";
 
 import {
-  getShopView,
-  getProductView,
-  getSubTotalPrice,
-  getSubTotalDelivery,
+    getShopView,
+    getProductView,
+    getSubTotalPrice,
+    getSubTotalDelivery,
 } from "./cart.methods";
 
 import {
-  getCart,
-  saveCart,
-  getShopsMeta,
-  saveShopsMeta,
+    getCart,
+    saveCart,
+    getShopsMeta,
+    saveShopsMeta,
 } from "@/_methods/cart";
 
 import { getShop } from "@/_controllers/shop";
@@ -35,181 +35,187 @@ import shop from "@/slices/shop";
 
 
 const Cart = () => {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  const { customer } = useSelector((state) => state.customer);
-  const { user } = useSelector((state) => state.user);
-  const { cart } = useSelector((state) => state.cart);
+    const { customer } = useSelector((state) => state.customer);
+    const { user } = useSelector((state) => state.user);
+    const { cart } = useSelector((state) => state.cart);
 
-  const [showShipping, setShowShipping] = useState();
+    const [showShipping, setShowShipping] = useState();
 
-  const [shops, setShops] = useState([]);
-  const [shopsMeta, setShopsMeta] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [shipping, setShipping] = useState({});
-  const [billing, setBilling] = useState({});
-  const [pickUpOrder, setPickUpOrder] = useState(false);
-  const [gift, setGift] = useState({ gift: false, giftMessage: "" });
-  const [subTotals, setSubTotals] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [totalDelivery, setTotalDelivery] = useState(0);
-  const [co2Compensation, setCo2Compensation] = useState(0);
-  const [total, setTotal] = useState(0);
+    const [shops, setShops] = useState([]);
+    const [shopsMeta, setShopsMeta] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [shipping, setShipping] = useState({});
+    const [billing, setBilling] = useState({});
+    const [pickUpOrder, setPickUpOrder] = useState(false);
+    const [gift, setGift] = useState({ gift: false, giftMessage: "" });
+    const [subTotals, setSubTotals] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [totalDelivery, setTotalDelivery] = useState(0);
+    const [co2Compensation, setCo2Compensation] = useState(0);
+    const [total, setTotal] = useState(0);
 
-  const value = {
-    shops,
-    shopsMeta,
-    products,
-    shipping,
-    billing,
-    products,
-    subTotals,
-    gift,
-    pickUpOrder,
-    totalPrice,
-    totalDelivery,
-    co2Compensation,
-    total,
-    setShops,
-    setShopsMeta,
-    setProducts,
-    setBilling,
-    setGift,
-    setPickUpOrder,
-    setShipping,
-    setSubTotals,
-    setTotalPrice,
-    setTotalDelivery,
-    setCo2Compensation,
-    setTotal,
-  };
+    const [checkoutLoading, setCheckOutLoading] = useState(false)
 
-  useEffect(() => {
-    dispatch(loadCart());
-  }, []);
-
-  useEffect(async () => {
-    if (cart && cart.length > 0) setProducts(cart);
-    else setProducts([]);
-  }, [cart]);
-
-  useEffect(() => {
-    if (!products) return;
-
-    const shops = getShopView(products);
-    setShops(shops);
-
-    const savedShopMeta = getShopsMeta();
-
-    const shopsMeta = shops.map((shop) => {
-      const price = getSubTotalPrice(shop.products);
-      const delivery = getSubTotalDelivery(shop.products);
-
-      const index = savedShopMeta.findIndex(
-        (meta) => shop.shopId === meta.shopId
-      );
-
-      return {
-        shopId: shop.shopId,
-        pickUp: index !== -1 ? savedShopMeta[index].pickUp : false,
-        price,
-        delivery,
-        subtotal: price + delivery,
-      };
-    });
-
-    setShopsMeta(shopsMeta);
-  }, [products]);
-
-  useEffect(async () => {
-    if (!shops || !shops.length) return;
-
-    const products = getProductView(shops);
-
-    saveCart(products);
-
-    const savedShopMeta = getShopsMeta();
-
-    const shopsMeta = shops.map((shop) => {
-      const price = getSubTotalPrice(shop.products);
-      const delivery = getSubTotalDelivery(shop.products);
-
-      const index = savedShopMeta.findIndex(
-        (meta) => shop.shopId === meta.shopId
-      );
-
-      return {
-        shopId: shop.shopId,
-        pickUp: index !== -1 ? savedShopMeta[index].pickUp : false,
-        price,
-        delivery,
-        subtotal: price + delivery,
-      };
-    });
-
-    setShopsMeta(shopsMeta);
-  }, [shops]);
-
-  useEffect(() => {
-    if (!shopsMeta || !shopsMeta.length) return;
-
-    saveShopsMeta(shopsMeta);
-  }, [shopsMeta]);
-
-  const checkout = async () => {
-    let products = shops.map((shop) => shop.products).flat();
-
-    products = products.map((product) => ({
-      ...product,
-      images: product.images.length
-        ? product.images.map((image) => image.url)
-        : ["https://google.com/non"],
-    }));
-
-    const url = await getCheckoutUrl({
-      customerId: customer.id,
-      userId: user.id,
-      email: user.email,
-      payTypes: ["card"],
-      deliveryCharges: totalDelivery,
-      currency: "eur",
-      ...gift,
-      products,
-      co2Compensation,
-      pickUpOrder,
-      billing,
-      shipping,
-      total,
-      snapshot: {
+    const value = {
         shops,
-        subTotals,
+        shopsMeta,
+        products,
         shipping,
         billing,
-        shopsMeta
-      },
-    });
+        products,
+        subTotals,
+        gift,
+        pickUpOrder,
+        totalPrice,
+        totalDelivery,
+        co2Compensation,
+        total,
+        setShops,
+        setShopsMeta,
+        setProducts,
+        setBilling,
+        setGift,
+        setPickUpOrder,
+        setShipping,
+        setSubTotals,
+        setTotalPrice,
+        setTotalDelivery,
+        setCo2Compensation,
+        setTotal,
+    };
 
-    location.assign(url);
-  };
+    useEffect(() => {
+        dispatch(loadCart());
+    }, []);
 
-  return (
-    <>
-      <Header nav={<Nav />} />
-      <Head>
-        <title>Cart | Green Cloud Nine</title>
-      </Head>
-      <Fetcher />
+    useEffect(async () => {
+        if (cart && cart.length > 0) setProducts(cart);
+        else setProducts([]);
+    }, [cart]);
 
-      <CartContext.Provider value={value}>
-        <div className="page-section">
-          <CartShopView goToShipping={() => setShowShipping(true)} />
+    useEffect(() => {
+        if (!products) return;
 
-          {showShipping && <Shipping checkout={checkout} />}
-        </div>
-        <Footer />
-      </CartContext.Provider>
-    </>
-  );
+        const shops = getShopView(products);
+        setShops(shops);
+
+        const savedShopMeta = getShopsMeta();
+
+        const shopsMeta = shops.map((shop) => {
+            const price = getSubTotalPrice(shop.products);
+            const delivery = getSubTotalDelivery(shop.products);
+
+            const index = savedShopMeta.findIndex(
+                (meta) => shop.shopId === meta.shopId
+            );
+
+            return {
+                shopId: shop.shopId,
+                pickUp: index !== -1 ? savedShopMeta[index].pickUp : false,
+                price,
+                delivery,
+                subtotal: price + delivery,
+            };
+        });
+
+        setShopsMeta(shopsMeta);
+    }, [products]);
+
+    useEffect(async () => {
+        if (!shops || !shops.length) return;
+
+        const products = getProductView(shops);
+
+        saveCart(products);
+
+        const savedShopMeta = getShopsMeta();
+
+        const shopsMeta = shops.map((shop) => {
+            const price = getSubTotalPrice(shop.products);
+            const delivery = getSubTotalDelivery(shop.products);
+
+            const index = savedShopMeta.findIndex(
+                (meta) => shop.shopId === meta.shopId
+            );
+
+            return {
+                shopId: shop.shopId,
+                pickUp: index !== -1 ? savedShopMeta[index].pickUp : false,
+                price,
+                delivery,
+                subtotal: price + delivery,
+            };
+        });
+
+        setShopsMeta(shopsMeta);
+    }, [shops]);
+
+    useEffect(() => {
+        if (!shopsMeta || !shopsMeta.length) return;
+
+        saveShopsMeta(shopsMeta);
+    }, [shopsMeta]);
+
+    const checkout = async () => {
+        console.log("NFJDFDJsddjfhdj")
+        setCheckOutLoading(true)
+        let products = shops.map((shop) => shop.products).flat();
+        console.log("NFJDFDJ")
+        
+        products = products.map((product) => ({
+            ...product,
+            images: product.images.length
+                ? product.images.map((image) => image.url)
+                : ["https://google.com/non"],
+        }));
+
+        const url = await getCheckoutUrl({
+            customerId: customer.id,
+            userId: user.id,
+            email: user.email,
+            payTypes: ["card"],
+            deliveryCharges: totalDelivery,
+            currency: "eur",
+            ...gift,
+            products,
+            co2Compensation,
+            pickUpOrder,
+            billing,
+            shipping,
+            total,
+            snapshot: {
+                shops,
+                subTotals,
+                shipping,
+                billing,
+                shopsMeta
+            },
+        });
+        setCheckOutLoading(false);
+
+        location.assign(url);
+    };
+
+    return (
+        <>
+            <Header nav={<Nav />} />
+            <Head>
+                <title>Cart | Green Cloud Nine</title>
+            </Head>
+            <Fetcher />
+
+            <CartContext.Provider value={value}>
+                <div className="page-section">
+                    <CartShopView goToShipping={() => setShowShipping(true)} />
+
+                    {showShipping && <Shipping checkout={checkout} loading={checkoutLoading} />}
+                </div>
+                <Footer />
+            </CartContext.Provider>
+        </>
+    );
 };
 
 export default Cart;
