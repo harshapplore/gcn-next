@@ -47,27 +47,28 @@ const CustomerBackend = () => {
     else setOrderId(null);
   }, [router.query]);
 
+  console.log(customer)
   return (
     <>
       <Head> <title> {customer.user && customer.user.name} | Green Cloud Nine </title></Head>
       <Header nav={<Nav />} />
       <Fetcher />
       <div>
-        <div className="page-section-alert wf-section">
+        {/* <div className="page-section-alert wf-section">
           <div className="container">
             <div>
               This is some text inside of a <a className="white-link">div</a>{" "}
               block.
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="page-section wf-section">
           <div className="container">
             <div className="flex mb-40">
               <div className="shop-filter">
                 <div className="logo-floater lower">
                   <img
-                    src={customer || "/images/bild-header2x.jpg"}
+                    src={customer.user?.image || "/images/bild-header2x.jpg"}
                     loading="lazy"
                     sizes="(max-width: 479px) 110px, (max-width: 767px) 140px, 200px"
                     alt={customer.user && customer.user.name}

@@ -124,11 +124,11 @@ export const deleteFavorite = async (id) => {
 
 export const getAllOrders = async ({ customerId}) => {
   const filter = QS.stringify({
-    customer: customerId
+    "user.id": customerId
   });
 
   const res = await authAxios()({
-    url: `/orders?${filter}`,
+    url: `/orders?${filter}&_sort=createdAt:DESC`,
     method: "GET",
   });
 

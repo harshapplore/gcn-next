@@ -62,7 +62,7 @@ const Settings = () => {
                 <div className="account-form-2">
                     <div>
                         <div className="label">Current Name</div>
-                        <div>{user.name}</div>
+                        <div>{user?.name}</div>
                         <div className="label mgt-20">Membership since</div>
                         <div>01.01.2021</div>
                     </div>
@@ -110,9 +110,9 @@ const Settings = () => {
                 <div className="account-form-2">
                     <div>
                         <div className="label">Current E-Mail Adress</div>
-                        <div>{user.email}</div>
+                        <div>{user?.email}</div>
                         <div className="label mgt-20">Status</div>
-                        <div>{user.confirmed ? "Confirmed" : "Unconfirmed"}</div>
+                        <div>{user?.confirmed ? "Confirmed" : "Unconfirmed"}</div>
                     </div>
                     <div className="w-form">
                         <form id="wf-form-Change-Password" name="wf-form-Change-Password" data-name="Change Password">
