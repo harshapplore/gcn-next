@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import ProgressBar from "./Utils/ProgressBar";
+import { scrollToElement } from "@/utils/scroll";
 
 import { authAxios } from "@/setups/axios";
 
@@ -65,6 +66,9 @@ const Seller_Social = ({ nextPage }) => {
     const [investPercentage, setInvestPercentage] = useState("")
     const [obtainedBenifits, setObtainedBenifits] = useState("")
     const [stackHoldersBrief, setStackHoldersBrief] = useState("")
+    const [sellerName, setSellerName] = useState("")
+    const [topError, setTopErrors] = useState("");
+
 
     const checkBoxStyle = { opacity: 0, position: "absolute", zIndex: -1 }
 
@@ -99,6 +103,8 @@ const Seller_Social = ({ nextPage }) => {
             setObtainedBenifits(seller.socialAnswers.obtainedBenifits)
             setStackHoldersBrief(seller.socialAnswers.stackHoldersBrief)
         }
+        if (seller.user)
+            setSellerName(seller.user.name)
     }, [seller]);
 
 
@@ -140,9 +146,11 @@ const Seller_Social = ({ nextPage }) => {
     const submit = async (e) => {
         e.preventDefault();
 
-        console.log(errors)
-        if (!validate()) return;
-
+        if (!validate()) {
+            setTopErrors("Please fill all the values")
+            scrollToElement("#environment")
+            return;
+          } 
 
         const data = {
             diversityCriteria,
@@ -192,7 +200,7 @@ const Seller_Social = ({ nextPage }) => {
                     <br />
                     <br />
                     {/* <br /> */}
-                    <h1 className="headline-2 mb-10"> {data.heading} </h1>
+                    <h1 className="headline-2 mb-10"> Hello {sellerName} , let's get started! </h1>
                     <div className="overline-text mb-40">{data.subheading}</div>
 
                     <div className=" mb-40  w-richtext">
@@ -206,6 +214,8 @@ const Seller_Social = ({ nextPage }) => {
                         <h3 className="headline-5 mb-50">4. Social</h3>
                         <div className="w-form">
                             <form id="email-form-7" name="email-form-7" data-name="Email Form 7">
+                                {topError && <Message text={topError} status={-1} />}
+                                {topError && <br />}
                                 <Social_Valuing_Diversity
                                     diversityCriteria={diversityCriteria}
                                     setDiversityCriteria={setDiversityCriteria}

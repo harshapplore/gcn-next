@@ -784,7 +784,7 @@ const Governance_Management_Relationship = ({
                 value={relationshipBrief}
                 onChange={(e) => setRelationshipBrief(e.target.value)}
                 placeholder="(If any) Use this space to briefly tell us how the company relates to its suppliers and customers. Describe the channels of communication with and support to customers and criteria for selecting suppliers."
-                maxlength="5000"
+                maxLength="5000"
                 className="input-x input-x--text-area vision-notes w-input" />
         </>
     )

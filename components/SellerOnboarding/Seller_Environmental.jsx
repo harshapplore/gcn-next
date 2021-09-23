@@ -5,6 +5,7 @@ import ProgressBar from "./Utils/ProgressBar";
 
 import { authAxios } from "@/setups/axios";
 import { fetchSeller } from "@/slices/user";
+import { scrollToElement } from "@/utils/scroll";
 
 import Message from "@/shared/Message";
 
@@ -61,6 +62,8 @@ const Seller_Environmental = ({ nextPage }) => {
   const [reductionOfWaterConsumption, setReductionOfWaterConsumption] = useState("")
   const [reductionOfWaterConsumptionPercent, setReductionOfWaterConsumptionPercent] = useState("")
   const [environmentalBrief, setEnvironmentalBrief] = useState("")
+  const [sellerName, setSellerName] = useState("")
+  const [topError, setTopErrors] = useState("");
 
   const checkBoxStyle = { opacity: 0, position: "absolute", zIndex: -1 };
   const [errors, setErrors] = useState([]);
@@ -151,6 +154,8 @@ const Seller_Environmental = ({ nextPage }) => {
       );
       setEnvironmentalBrief(seller.environmentalAnswers.environmentalBrief);
     }
+    if(seller.user)
+    setSellerName(seller.user.name)
   }, [seller]);
 
   const validate = () => {
@@ -190,6 +195,7 @@ const Seller_Environmental = ({ nextPage }) => {
     reductionOfWaterConsumption ==="yes" && !reductionOfWaterConsumptionPercent ? err.push(`please select the value`) : ""
     // !environmentalBrief ? err.push(`please enter the value`) : ""
     
+    
     setErrors(err);
 
     if (err.length) return false;
@@ -200,8 +206,11 @@ const Seller_Environmental = ({ nextPage }) => {
   const submit = async (e) => {
     e.preventDefault();
 
-    console.log(errors);
-    if (!validate()) return;
+    if (!validate()) {
+      setTopErrors("Please fill all the values")
+      scrollToElement("#environment")
+      return;
+    }    
 
     const data = {
       hasEnvironmentalPolicy,
@@ -261,7 +270,7 @@ const Seller_Environmental = ({ nextPage }) => {
           <br />
           <br />
           {/* <br /> */}
-          <h1 className="headline-2 mb-10"> {data.heading} </h1>
+          <h1 className="headline-2 mb-10"> Hello {sellerName} , let's get started! </h1>
           <div className="overline-text mb-40">{data.subheading}</div>
 
           <div className=" mb-40  w-richtext">
@@ -270,9 +279,11 @@ const Seller_Environmental = ({ nextPage }) => {
             <p>{data.p3}</p>
           </div>
           <ProgressBar />
-          <div className="settings-block">
+          <div className="settings-block" id="environment">
             <h3 className="headline-5 mb-50">5. Environmental</h3>
             <div className="w-form">
+            {topError && <Message text={topError} status={-1} />}
+              {topError && <br/>}
               <form
                 id="email-form-7"
                 name="email-form-7"
@@ -2621,6 +2632,7 @@ const Seller_Environmental = ({ nextPage }) => {
 
                 {errors &&
                   errors.length > 0 &&
+
                   errors.map((error) => <Message text={error} status={-1} />)}
                 <div
                   className="button blue"

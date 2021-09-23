@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { scrollToElement } from "@/utils/scroll";
 
 import ProgressBar from "./Utils/ProgressBar";
 import { uploadFiles } from "_controllers/product";
@@ -21,7 +22,7 @@ const data = {
 
 const Seller_Basic_Info = ({ nextPage }) => {
   const { seller, user } = useSelector((state) => state.user);
-
+  const [sellerName, setSellerName] = useState("")
   const [initials, setInitials] = useState("");
   const [name, setName] = useState("");
   const [jobTitle, setJobTitle] = useState("");
@@ -45,8 +46,10 @@ const Seller_Basic_Info = ({ nextPage }) => {
   const [serviceProvider, setServiceProvider] = useState("");
   const [moreThanOneBussiness, setMoreThanOneBussiness] = useState("");
 
+  const imgStyle = { display: "flex", justifyContent: "space-between" }
 
   const [errors, setErrors] = useState([]);
+  const [topError, setTopErrors] = useState("");
 
   const [certificates, setCertificates] = useState([]);
 
@@ -68,11 +71,17 @@ const Seller_Basic_Info = ({ nextPage }) => {
       setRetailer(seller.basicInformationAnswers.retailer)
       setServiceProvider(seller.basicInformationAnswers.serviceProvider)
       setMoreThanOneBussiness(seller.basicInformationAnswers.moreThanOneBussiness)
-      if(seller.basicInformationAnswers.certificates[0])
-      setCertificateOneName(seller.basicInformationAnswers.certificates[0].name)
-      if(seller.basicInformationAnswers.certificates[1])
-      setCertificateTwoName(seller.basicInformationAnswers.certificates[1].name)
+      if (seller.basicInformationAnswers.certificates[0])
+        setCertificateOneName(seller.basicInformationAnswers.certificates[0].name)
+      // if (seller.basicInformationAnswers.certificates[0])
+      //   setCertificateOne(seller.basicInformationAnswers.certificates[0])
+      // if (seller.basicInformationAnswers.certificates[1])
+      //   setCertificateTwo(seller.basicInformationAnswers.certificates[1])
+      if (seller.basicInformationAnswers.certificates[1])
+        setCertificateTwoName(seller.basicInformationAnswers.certificates[1].name)
     }
+    if (seller.user)
+      setSellerName(seller.user.name)
   }, [seller]);
 
   const validate = () => {
@@ -87,10 +96,10 @@ const Seller_Basic_Info = ({ nextPage }) => {
     !productInfo ? err.push(`Please enter the product information`) : "";
     !companySize ? err.push(`Please enter the company size`) : "";
     !certificate ? err.push(`Please select the option`) : "";
-    certificate === "yes" && !certificateOne
+    certificate === "yes" && !certificateOneName
       ? err.push(`Please select the certificate`)
       : "";
-    addCertificates && !certificateTwo
+    addCertificates && !certificateTwoName
       ? err.push(`Please select the certificate`)
       : "";
 
@@ -99,7 +108,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
     setErrors(err);
 
     if (err.length) return false;
- 
+
     return true;
   };
   const arr = [];
@@ -109,7 +118,11 @@ const Seller_Basic_Info = ({ nextPage }) => {
     e.preventDefault();
 
     console.log(errors);
-    if (!validate()) return;
+    if (!validate()) {
+      setTopErrors("Please fill all the values")
+      scrollToElement("#environment")
+      return;
+    }
     const certs = arr.length > 0 ? await uploadFiles(arr) : [];
 
     const sellerData = {
@@ -155,9 +168,9 @@ const Seller_Basic_Info = ({ nextPage }) => {
         <div className="heading-wrapper">
           <br />
           <br />
-          <h1 className="headline-2 mb-10"> {data.heading} </h1>
+          <h1 className="headline-2 mb-10">Hello {sellerName} , let's get started! </h1>
           <div className="overline-text mb-40">{data.subheading}</div>
-          
+
           <h3 className="headline-5 mb-50">Please fill out the entire form in one session, since progress will be lost otherwise.</h3>
 
           <div className=" mb-40  w-richtext">
@@ -165,10 +178,12 @@ const Seller_Basic_Info = ({ nextPage }) => {
             <p>{data.p2}</p>
           </div>
           <ProgressBar />
-          <div className="settings-block">
+          <div className="settings-block" id="basicInfo">
             <h3 className="headline-5 mb-50">Basic Information</h3>
             <div className="w-form">
               <form encType="multipart/form-data">
+                {topError && <Message text={topError} status={-1} />}
+                {topError && <br />}
                 <ol role="list" className="assessment-list assessment-list--1">
                   <li>
                     <div className="subtitle-2">Contact information</div>
@@ -265,7 +280,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                         type="text"
                         onChange={(e) => setName(e.target.value)}
                         value={user.name}
-                        disabled="true"
+                        disabled
                         className="input-x w-input"
                         maxLength="256"
                         name="Full-Name-5"
@@ -301,7 +316,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                         type="email"
                         onChange={(e) => setEmail(e.target.value)}
                         value={user.email}
-                        disabled="true"
+                        disabled
                         className="input-x w-input"
                         maxLength="256"
                         name="E-Mail-Adress-2"
@@ -814,11 +829,37 @@ const Seller_Basic_Info = ({ nextPage }) => {
                           </span>
                         </label>
                       </div>
+
                       {certificate === "yes" && (
                         <>
                           <div className="mb-20">
                             <strong>If yes, please upload it here:</strong>
                           </div>
+                          <div style={imgStyle} >
+                            {certificateOne && <div style={{position:"relative"}}>
+                              <img className="mb-20" loading="lazy" width="100%" height="240" src={URL.createObjectURL(certificateOne)} alt="id-front" style={{ borderRadius: "10px" }} />
+
+                              <a className="shop-delete w-inline-block cursor" onClick={() => {
+                                setCertificateOneName("")
+                                setCertificateOne("")
+                              }}>
+                                <img className="" src="/images/clear-black-24-dp.svg" loading="lazy" alt="Close" />
+                              </a>
+                            </div>
+                            }
+                            {/* {certificateTwo && 
+                            <div  style={{position:"relative"}}>
+                            <img className="mb-20" loading="lazy" width="100%" height="240" src={URL.createObjectURL(certificateTwo)} alt="id-back" style={{ borderRadius: "10px" }} />
+                            <a className="shop-delete w-inline-block cursor" onClick={() => {
+                                setCertificateTwoName("")
+                                setCertificateTwo("")
+                              }}>
+                                <img className="" src="/images/clear-black-24-dp.svg" loading="lazy" alt="Close" />
+                              </a>
+                            </div>
+                            } */}
+                          </div>
+
                           <div className="account-form-1">
                             <input
                               type="text"
@@ -836,7 +877,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                               id="Name-Certificate-2"
                               required=""
                             />
-                            <div className="button icon blue w-inline-block">
+                            <label htmlFor="certificates" className="button icon blue w-inline-block">
                               <div className="button-icon w-embed">
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
@@ -856,10 +897,18 @@ const Seller_Basic_Info = ({ nextPage }) => {
                                 </svg>
                               </div>
 
-                              <label htmlFor="certificates">
+                              <div >
                                 Upload Certificate (png., jpg., pdf.)
-                              </label>
-                            </div>
+                              </div>
+                            </label>
+                            <span>
+                              <a className="shop-delete w-inline-block cursor" onClick={() => {
+                                setCertificateOneName("")
+                                setCertificateOne("")
+                              }}>
+                                <img src="/images/clear-black-24-dp.svg" loading="lazy" alt="Close" />
+                              </a>
+                            </span>
                           </div>
                           <input
                             type="file"
@@ -869,7 +918,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                             }
                             id="certificates"
                           />
-                          <input
+                          {/* <input
                             type="file"
                             style={{ display: "none" }}
                             onChange={(e) =>
@@ -918,7 +967,13 @@ const Seller_Basic_Info = ({ nextPage }) => {
                                 <div className="cursor">
                                   Upload Certificate (png., jpg., pdf.)
                                 </div>
-                              </label> 
+                              </label>
+                              <a className="shop-delete w-inline-block cursor" onClick={() => {
+                                setCertificateTwoName("")
+                                setCertificateTwo("")
+                              }}>
+                                <img src="/images/clear-black-24-dp.svg" loading="lazy" alt="Close" />
+                              </a>
                             </div>
                           )}
                           <label
@@ -940,7 +995,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                             >
                               Add Certificate
                             </div>
-                          </label>
+                          </label> */}
                         </>
                       )}
                     </div>
