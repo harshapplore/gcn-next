@@ -27,7 +27,7 @@ const Social_Valuing_Diversity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${diversityCriteria === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDiversityCriteria("yes")}
                         value={diversityCriteria}
                         checked={diversityCriteria === "yes"}
@@ -37,7 +37,7 @@ const Social_Valuing_Diversity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${diversityCriteria === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDiversityCriteria("no")}
                         value={diversityCriteria}
                         checked={diversityCriteria === "no"}
@@ -47,7 +47,7 @@ const Social_Valuing_Diversity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${diversityCriteria === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDiversityCriteria("considering or planning")}
                         value={diversityCriteria}
                         checked={diversityCriteria === "considering or planning"}
@@ -57,7 +57,7 @@ const Social_Valuing_Diversity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${diversityCriteria === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDiversityCriteria("not applicable")}
                         value={diversityCriteria}
                         checked={diversityCriteria === "not applicable"}
@@ -70,7 +70,7 @@ const Social_Valuing_Diversity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${salaryRangeAndEligibily === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSalaryRangeAndEligibily("yes")}
                         value={salaryRangeAndEligibily}
                         checked={salaryRangeAndEligibily === "yes"}
@@ -80,7 +80,7 @@ const Social_Valuing_Diversity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${salaryRangeAndEligibily === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSalaryRangeAndEligibily("no")}
                         value={salaryRangeAndEligibily}
                         checked={salaryRangeAndEligibily === "no"}
@@ -90,7 +90,7 @@ const Social_Valuing_Diversity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${salaryRangeAndEligibily === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSalaryRangeAndEligibily("considering or planning")}
                         value={salaryRangeAndEligibily}
                         checked={salaryRangeAndEligibily === "considering or planning"}
@@ -100,7 +100,7 @@ const Social_Valuing_Diversity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${salaryRangeAndEligibily === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSalaryRangeAndEligibily("not applicable")}
                         value={salaryRangeAndEligibily}
                         checked={salaryRangeAndEligibily === "not applicable"}
@@ -114,7 +114,7 @@ const Social_Valuing_Diversity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${grievanceChannels === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setGrievanceChannels("yes")}
                         value={grievanceChannels}
                         checked={grievanceChannels === "yes"}
@@ -124,7 +124,7 @@ const Social_Valuing_Diversity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${grievanceChannels === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setGrievanceChannels("no")}
                         value={grievanceChannels}
                         checked={grievanceChannels === "no"}
@@ -134,7 +134,7 @@ const Social_Valuing_Diversity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${grievanceChannels === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setGrievanceChannels("considering or planning")}
                         value={grievanceChannels}
                         checked={grievanceChannels === "considering or planning"}
@@ -144,7 +144,7 @@ const Social_Valuing_Diversity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${grievanceChannels === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setGrievanceChannels("not applicable")}
                         value={grievanceChannels}
                         checked={grievanceChannels === "not applicable"}
@@ -156,7 +156,7 @@ const Social_Valuing_Diversity = ({
                 value={diversityBrief}
                 onChange={(e) => setDiversityBrief(e.target.value)}
                 placeholder="(If any) Use this space to briefly tell us what strategies the company adopts to ensure equity in the hiring process and equal internal treatment."
-                maxlength="5000" className="input-x input-x--text-area vision-notes w-input" />
+                maxLength="5000" className="input-x input-x--text-area vision-notes w-input" />
 
         </>
     )

@@ -29,7 +29,7 @@ const Governance_Management_Integrity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${directorAct === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDirectorAct("yes")}
                         value={directorAct}
                         checked={directorAct === "yes"}
@@ -39,7 +39,7 @@ const Governance_Management_Integrity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${directorAct === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDirectorAct("no")}
                         value={directorAct}
                         checked={directorAct === "no"}
@@ -49,7 +49,7 @@ const Governance_Management_Integrity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${directorAct === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDirectorAct("considering or planning")}
                         value={directorAct}
                         checked={directorAct === "considering or planning"}
@@ -59,7 +59,7 @@ const Governance_Management_Integrity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${directorAct === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDirectorAct("not applicable")}
                         value={directorAct}
                         checked={directorAct === "not applicable"}
@@ -72,7 +72,7 @@ const Governance_Management_Integrity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${responsibleForIrregularities === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setResponsibleForIrregularities("yes")}
                         value={responsibleForIrregularities}
                         checked={responsibleForIrregularities === "yes"}
@@ -82,7 +82,7 @@ const Governance_Management_Integrity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${responsibleForIrregularities === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setResponsibleForIrregularities("no")}
                         value={responsibleForIrregularities}
                         checked={responsibleForIrregularities === "no"}
@@ -92,7 +92,7 @@ const Governance_Management_Integrity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${responsibleForIrregularities === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setResponsibleForIrregularities("considering or planning")}
                         value={responsibleForIrregularities}
                         checked={responsibleForIrregularities === "considering or planning"}
@@ -102,7 +102,7 @@ const Governance_Management_Integrity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${responsibleForIrregularities === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setResponsibleForIrregularities("not applicable")}
                         value={responsibleForIrregularities}
                         checked={responsibleForIrregularities === "not applicable"}
@@ -115,7 +115,7 @@ const Governance_Management_Integrity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${principleOfBusinessConduct === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setPrincipleOfBusinessConduct("yes")}
                         value={principleOfBusinessConduct}
                         checked={principleOfBusinessConduct === "yes"}
@@ -127,7 +127,7 @@ const Governance_Management_Integrity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${principleOfBusinessConduct === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setPrincipleOfBusinessConduct("no")}
                         value={principleOfBusinessConduct}
                         checked={principleOfBusinessConduct === "no"}
@@ -139,7 +139,7 @@ const Governance_Management_Integrity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${principleOfBusinessConduct === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setPrincipleOfBusinessConduct("considering or planning")}
                         value={principleOfBusinessConduct}
                         checked={principleOfBusinessConduct === "considering or planning"}
@@ -151,7 +151,7 @@ const Governance_Management_Integrity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${principleOfBusinessConduct === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setPrincipleOfBusinessConduct("not applicable")}
                         value={principleOfBusinessConduct}
                         checked={principleOfBusinessConduct === "not applicable"}
@@ -167,7 +167,7 @@ const Governance_Management_Integrity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${channelForEmployee === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setChannelForEmployee("yes")}
                         value={channelForEmployee}
                         checked={channelForEmployee === "Mr."}
@@ -177,7 +177,7 @@ const Governance_Management_Integrity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${channelForEmployee === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setChannelForEmployee("no")}
                         value={channelForEmployee}
                         checked={channelForEmployee === "no"}
@@ -187,7 +187,7 @@ const Governance_Management_Integrity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${channelForEmployee === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setChannelForEmployee("considering or planning")}
                         value={channelForEmployee}
                         checked={channelForEmployee === "considering or planning"}
@@ -197,7 +197,7 @@ const Governance_Management_Integrity = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${channelForEmployee === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setChannelForEmployee("not applicable")}
                         value={channelForEmployee}
                         checked={channelForEmployee === "not applicable"}

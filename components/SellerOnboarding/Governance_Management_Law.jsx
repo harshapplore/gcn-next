@@ -44,7 +44,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${licenseAndPermit === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setLicenseAndPermit("yes")}
                         value={licenseAndPermit}
                         checked={licenseAndPermit === "yes"}
@@ -54,7 +54,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${licenseAndPermit === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setLicenseAndPermit("no")}
                         value={licenseAndPermit}
                         checked={licenseAndPermit === "no"}
@@ -64,7 +64,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${licenseAndPermit === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setLicenseAndPermit("considering or planning")}
                         value={licenseAndPermit}
                         checked={licenseAndPermit === "considering or planning"}
@@ -74,7 +74,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${licenseAndPermit === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setLicenseAndPermit("not applicable")}
                         value={licenseAndPermit}
                         checked={licenseAndPermit === "not applicable"}
@@ -87,7 +87,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${instructedToKnowLaw === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setInstructedToKnowLaw("yes")}
                         value={instructedToKnowLaw}
                         checked={instructedToKnowLaw === "yes"}
@@ -97,7 +97,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${instructedToKnowLaw === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setInstructedToKnowLaw("no")}
                         value={instructedToKnowLaw}
                         checked={instructedToKnowLaw === "no"}
@@ -107,7 +107,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${instructedToKnowLaw === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setInstructedToKnowLaw("considering or planning")}
                         value={instructedToKnowLaw}
                         checked={instructedToKnowLaw === "considering or planning"}
@@ -117,7 +117,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${instructedToKnowLaw === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setInstructedToKnowLaw("not applicable")}
                         value={instructedToKnowLaw}
                         checked={instructedToKnowLaw === "not applicable"}
@@ -130,7 +130,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForLaw === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinedForLaw("yes")}
                         value={finedForLaw}
                         checked={finedForLaw === "yes"}
@@ -142,7 +142,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForLaw === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinedForLaw("no")}
                         value={finedForLaw}
                         checked={finedForLaw === "no"}
@@ -154,7 +154,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForLaw === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinedForLaw("considering or planning")}
                         value={finedForLaw}
                         checked={finedForLaw === "considering or planning"}
@@ -166,7 +166,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForLaw === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinedForLaw("not applicable")}
                         value={finedForLaw}
                         checked={finedForLaw === "not applicable"}
@@ -182,7 +182,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForLabourLaw === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinedForLabourLaw("yes")}
                         value={finedForLabourLaw}
                         checked={finedForLabourLaw === "Mr."}
@@ -192,7 +192,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForLabourLaw === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinedForLabourLaw("no")}
                         value={finedForLabourLaw}
                         checked={finedForLabourLaw === "no"}
@@ -202,7 +202,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForLabourLaw === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinedForLabourLaw("considering or planning")}
                         value={finedForLabourLaw}
                         checked={finedForLabourLaw === "considering or planning"}
@@ -212,7 +212,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForLabourLaw === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinedForLabourLaw("not applicable")}
                         value={finedForLabourLaw}
                         checked={finedForLabourLaw === "not applicable"}
@@ -226,7 +226,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForEnvironmentalLaw === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinedForEnvironmentalLaw("yes")}
                         value={finedForEnvironmentalLaw}
                         checked={finedForEnvironmentalLaw === "Mr."}
@@ -236,7 +236,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForEnvironmentalLaw === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinedForEnvironmentalLaw("no")}
                         value={finedForEnvironmentalLaw}
                         checked={finedForEnvironmentalLaw === "no"}
@@ -246,7 +246,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForEnvironmentalLaw === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinedForEnvironmentalLaw("considering or planning")}
                         value={finedForEnvironmentalLaw}
                         checked={finedForEnvironmentalLaw === "considering or planning"}
@@ -256,7 +256,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForEnvironmentalLaw === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinedForEnvironmentalLaw("not applicable")}
                         value={finedForEnvironmentalLaw}
                         checked={finedForEnvironmentalLaw === "not applicable"}
@@ -270,7 +270,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForHealthLaw === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinedForHealthLaw("yes")}
                         value={finedForHealthLaw}
                         checked={finedForHealthLaw === "Mr."}
@@ -280,7 +280,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForHealthLaw === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinedForHealthLaw("no")}
                         value={finedForHealthLaw}
                         checked={finedForHealthLaw === "no"}
@@ -290,7 +290,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForHealthLaw === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinedForHealthLaw("considering or planning")}
                         value={finedForHealthLaw}
                         checked={finedForHealthLaw === "considering or planning"}
@@ -300,7 +300,7 @@ const Governance_Management_Law = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForHealthLaw === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinedForHealthLaw("not applicable")}
                         value={finedForHealthLaw}
                         checked={finedForHealthLaw === "not applicable"}

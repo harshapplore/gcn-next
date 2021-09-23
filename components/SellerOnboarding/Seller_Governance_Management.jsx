@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import ProgressBar from "./Utils/ProgressBar";
 
 import { authAxios } from "@/setups/axios";
+import { scrollToElement } from "@/utils/scroll";
+
 
 import { fetchSeller } from "@/slices/user";
 
@@ -104,6 +106,8 @@ const Seller_Governance_Management = ({ nextPage }) => {
   const [finedForHealthLaw, setFinedForHealthLaw] = useState("");
   const [lawBrief, setLawBrief] = useState("");
   const [sellerName, setSellerName] = useState("")
+  const [topError, setTopErrors] = useState("");
+
   const [errors, setErrors] = useState([]);
   
   useEffect(() => {

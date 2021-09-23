@@ -46,7 +46,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${pleasantEnvironment === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setPleasantEnvironment("yes")}
                         value={pleasantEnvironment}
                         checked={pleasantEnvironment === "yes"}
@@ -56,7 +56,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${pleasantEnvironment === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setPleasantEnvironment("no")}
                         value={pleasantEnvironment}
                         checked={pleasantEnvironment === "no"}
@@ -66,7 +66,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${pleasantEnvironment === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setPleasantEnvironment("considering or planning")}
                         value={pleasantEnvironment}
                         checked={pleasantEnvironment === "considering or planning"}
@@ -76,7 +76,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${pleasantEnvironment === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setPleasantEnvironment("not applicable")}
                         value={pleasantEnvironment}
                         checked={pleasantEnvironment === "not applicable"}
@@ -89,7 +89,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${uptodateDocs === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setUptodateDocs("yes")}
                         value={uptodateDocs}
                         checked={uptodateDocs === "yes"}
@@ -99,7 +99,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${uptodateDocs === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setUptodateDocs("no")}
                         value={uptodateDocs}
                         checked={uptodateDocs === "no"}
@@ -109,7 +109,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${uptodateDocs === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setUptodateDocs("considering or planning")}
                         value={uptodateDocs}
                         checked={uptodateDocs === "considering or planning"}
@@ -119,7 +119,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${uptodateDocs === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setUptodateDocs("not applicable")}
                         value={uptodateDocs}
                         checked={uptodateDocs === "not applicable"}
@@ -133,7 +133,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${accidentPreventions === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setAccidentPreventions("yes")}
                         value={accidentPreventions}
                         checked={accidentPreventions === "yes"}
@@ -143,7 +143,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${accidentPreventions === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setAccidentPreventions("no")}
                         value={accidentPreventions}
                         checked={accidentPreventions === "no"}
@@ -153,7 +153,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${accidentPreventions === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setAccidentPreventions("considering or planning")}
                         value={accidentPreventions}
                         checked={accidentPreventions === "considering or planning"}
@@ -163,7 +163,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${accidentPreventions === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setAccidentPreventions("not applicable")}
                         value={accidentPreventions}
                         checked={accidentPreventions === "not applicable"}
@@ -177,7 +177,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${useOfPPE === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setUseOfPPE("yes")}
                         value={useOfPPE}
                         checked={useOfPPE === "yes"}
@@ -187,7 +187,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${useOfPPE === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setUseOfPPE("no")}
                         value={useOfPPE}
                         checked={useOfPPE === "no"}
@@ -197,7 +197,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${useOfPPE === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setUseOfPPE("considering or planning")}
                         value={useOfPPE}
                         checked={useOfPPE === "considering or planning"}
@@ -207,7 +207,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${useOfPPE === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setUseOfPPE("not applicable")}
                         value={useOfPPE}
                         checked={useOfPPE === "not applicable"}
@@ -221,7 +221,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${moralHarrasmentPrevention === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setMoralHarrasmentPrevention("yes")}
                         value={moralHarrasmentPrevention}
                         checked={moralHarrasmentPrevention === "yes"}
@@ -231,7 +231,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${moralHarrasmentPrevention === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setMoralHarrasmentPrevention("no")}
                         value={moralHarrasmentPrevention}
                         checked={moralHarrasmentPrevention === "no"}
@@ -241,7 +241,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${moralHarrasmentPrevention === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setMoralHarrasmentPrevention("considering or planning")}
                         value={moralHarrasmentPrevention}
                         checked={moralHarrasmentPrevention === "considering or planning"}
@@ -251,7 +251,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${moralHarrasmentPrevention === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setMoralHarrasmentPrevention("not applicable")}
                         value={moralHarrasmentPrevention}
                         checked={moralHarrasmentPrevention === "not applicable"}
@@ -265,7 +265,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${sexualHarrasmentPrevention === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSexualHarrasmentPrevention("yes")}
                         value={sexualHarrasmentPrevention}
                         checked={sexualHarrasmentPrevention === "yes"}
@@ -275,7 +275,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${sexualHarrasmentPrevention === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSexualHarrasmentPrevention("no")}
                         value={sexualHarrasmentPrevention}
                         checked={sexualHarrasmentPrevention === "no"}
@@ -285,7 +285,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${sexualHarrasmentPrevention === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSexualHarrasmentPrevention("considering or planning")}
                         value={sexualHarrasmentPrevention}
                         checked={sexualHarrasmentPrevention === "considering or planning"}
@@ -295,7 +295,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${sexualHarrasmentPrevention === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSexualHarrasmentPrevention("not applicable")}
                         value={sexualHarrasmentPrevention}
                         checked={sexualHarrasmentPrevention === "not applicable"}
@@ -309,7 +309,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${teamForEmployeeWellness === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setTeamForEmployeeWellness("yes")}
                         value={teamForEmployeeWellness}
                         checked={teamForEmployeeWellness === "yes"}
@@ -319,7 +319,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${teamForEmployeeWellness === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setTeamForEmployeeWellness("no")}
                         value={teamForEmployeeWellness}
                         checked={teamForEmployeeWellness === "no"}
@@ -329,7 +329,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${teamForEmployeeWellness === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setTeamForEmployeeWellness("considering or planning")}
                         value={teamForEmployeeWellness}
                         checked={teamForEmployeeWellness === "considering or planning"}
@@ -339,7 +339,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${teamForEmployeeWellness === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setTeamForEmployeeWellness("not applicable")}
                         value={teamForEmployeeWellness}
                         checked={teamForEmployeeWellness === "not applicable"}
@@ -353,7 +353,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${friendlyWorkEnvironment === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFriendlyWorkEnvironment("yes")}
                         value={friendlyWorkEnvironment}
                         checked={friendlyWorkEnvironment === "yes"}
@@ -363,7 +363,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${friendlyWorkEnvironment === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFriendlyWorkEnvironment("no")}
                         value={friendlyWorkEnvironment}
                         checked={friendlyWorkEnvironment === "no"}
@@ -373,7 +373,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${friendlyWorkEnvironment === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFriendlyWorkEnvironment("considering or planning")}
                         value={friendlyWorkEnvironment}
                         checked={friendlyWorkEnvironment === "considering or planning"}
@@ -383,7 +383,7 @@ const Social_Health_Safety = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${friendlyWorkEnvironment === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFriendlyWorkEnvironment("not applicable")}
                         value={friendlyWorkEnvironment}
                         checked={friendlyWorkEnvironment === "not applicable"}
@@ -395,7 +395,7 @@ const Social_Health_Safety = ({
                 value={safetyBrief}
                 onChange={(e) => setSafetyBrief(e.target.value)}
                 placeholder="(If any) Use this space to briefly tell us what working environment conditions the company offers its employees. Is the use of PPE necessary/mandatory/encouraged? What strategies have been adopted to prevent harassment situations?"
-                maxlength="5000" className="input-x input-x--text-area vision-notes w-input" />
+                maxLength="5000" className="input-x input-x--text-area vision-notes w-input" />
 
 
         </>

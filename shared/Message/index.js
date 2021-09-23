@@ -2,7 +2,7 @@ const Message = ({ text, status }) => {
   return (
     <>
       {status === -1 && (
-        <div className="w-form-fail show">
+        <div className="w-form-fail-border show">
           <div> {text} </div>
         </div>
       )}
