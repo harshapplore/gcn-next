@@ -50,7 +50,7 @@ const Rating = ({ rating }) => {
   return <div>{ele}</div>;
 };
 
-const ShopItem = ({ product, favorites }) => {
+export const ShopItem = ({ product, favorites }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);

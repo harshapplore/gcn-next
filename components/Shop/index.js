@@ -18,130 +18,74 @@ import TermsNConditions from "./TNC";
 import AboutUs from "./AboutUs";
 
 import { getShop } from "@/_controllers/shop";
+import MoreShops from "./MoreShops";
 
 const Shop = () => {
-  const router = useRouter();
+    const router = useRouter();
 
-  const { query } = router;
+    const { query } = router;
 
-  const [shop, setShop] = useState({});
+    const [shop, setShop] = useState({});
 
-  useEffect(async () => {
-    const { id } = router.query;
+    useEffect(async () => {
+        const { id } = router.query;
 
-    if (!id) return;
+        if (!id) return;
 
-    const shop = await getShop(id);
+        const shop = await getShop(id);
 
-    setShop(shop);
-  }, [router.query]);
+        setShop(shop);
+    }, [router.query]);
 
-  console.log(shop);
+    console.log(shop);
 
-  return (
-    <>
-      <Head>
-        <title> {shop.name} | Green Cloud Nine </title>
-      </Head>
-      <Header nav={<Nav />} />
-      <Fetcher />
-      <div className="page-section pt-0">
-        <ShopBanner cover={shop.cover} />
-        <ShopNav
-          name={shop.name}
-          logo={shop.logo && shop.logo.url}
-          description={shop.description}
-        >
-          <ShopNavBlocks />
-        </ShopNav>
+    return (
+        <>
+            <Head>
+                <title> {shop.name} | Green Cloud Nine </title>
+            </Head>
+            <Header nav={<Nav />} />
+            <Fetcher />
+            <div className="page-section pt-0">
+                <ShopBanner cover={shop.cover} />
+                <ShopNav
+                    name={shop.name}
+                    shopId={shop.id}
+                    logo={shop.logo && shop.logo.url}
+                    description={shop.description}
+                >
+                    <ShopNavBlocks />
+                </ShopNav>
 
-        <div className="container">
-          {(!query.tab || query.tab === "products") && (
-            <ProductsView shop={shop} />
-          )}
+                <div className="container">
+                    {(!query.tab || query.tab === "products") && (
+                        <ProductsView shop={shop} />
+                    )}
 
-          {query.tab === "certificates" && <Certifications />}
+                    {query.tab === "certificates" && <Certifications />}
 
-          {query.tab === "terms-n-conditions" && (
-            <TermsNConditions
-              generalConditions={shop.generalConditions}
-              privacyPolicy={shop.privacyPolicy}
-              returnsAndRefunds={shop.returnsAndRefunds}
-            />
-          )}
+                    {query.tab === "terms-n-conditions" && (
+                        <TermsNConditions
+                            generalConditions={shop.generalConditions}
+                            privacyPolicy={shop.privacyPolicy}
+                            returnsAndRefunds={shop.returnsAndRefunds}
+                        />
+                    )}
 
-          {query.tab === "about-us" && <AboutUs />}
-        </div>
-      </div>
-
-      <div className="container">
-        <div className="spacer-20" />
-        <div className="heading-wrapper mb-40">
-          <h2>Similar shops</h2>
-        </div>
-        <div className="flex">
-          <div className="flex-child-32">
-            <div className="potw-item">
-              <img
-                src="/images/bild-header2x.jpg"
-                loading="lazy"
-                sizes="(max-width: 479px) 83vw, (max-width: 991px) 46vw, (max-width: 1279px) 31vw, 384px"
-                alt="Handcrafted stuff"
-                className="back-img"
-              />
-              <a className="potw-name w-inline-block">
-                <div>Mustershop</div>
-                <img
-                  src="/images/expand-more-black-24-dp.svg"
-                  loading="lazy"
-                  alt="Next"
-                />
-              </a>
+                    {query.tab === "about-us" && <AboutUs />}
+                </div>
             </div>
-          </div>
-          <div className="flex-child-32">
-            <div className="potw-item">
-              <img
-                src="/images/bild-header2x.jpg"
-                loading="lazy"
-                sizes="(max-width: 479px) 83vw, (max-width: 991px) 46vw, (max-width: 1279px) 31vw, 384px"
-                alt="Handcrafted stuff"
-                className="back-img"
-              />
-              <a className="potw-name w-inline-block">
-                <div>Mustershop</div>
-                <img
-                  src="/images/expand-more-black-24-dp.svg"
-                  loading="lazy"
-                  alt="Next"
-                />
-              </a>
+
+            <div className="container">
+                <div className="spacer-20" />
+                <div className="heading-wrapper mb-40">
+                    <h2>Similar shops</h2>
+                </div>
+                <MoreShops shopId={shop.id}/>
             </div>
-          </div>
-          <div className="flex-child-32">
-            <div className="potw-item">
-              <img
-                src="/images/bild-header2x.jpg"
-                loading="lazy"
-                sizes="(max-width: 479px) 83vw, (max-width: 991px) 46vw, (max-width: 1279px) 31vw, 384px"
-                alt="Handcrafted stuff"
-                className="back-img"
-              />
-              <a className="potw-name w-inline-block">
-                <div>Mustershop</div>
-                <img
-                  src="/images/expand-more-black-24-dp.svg"
-                  loading="lazy"
-                  alt="Next"
-                />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <Footer />
-    </>
-  );
+            <Footer />
+        </>
+    );
 };
 
 export default Shop;

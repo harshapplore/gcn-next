@@ -91,144 +91,147 @@ const ShopNavContainer = styled.div`
   }
 `;
 
-const ShopNav = ({ name, logo, description, edit, children, isSellerPage }) => {
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const { seller } = useSelector((state) => state.user);
-  const { customer } = useSelector((state) => state.customer);
-  const { favoriteShops } = useSelector((state) => state.favorites);
+const ShopNav = ({ name, logo, description, edit, children, isSellerPage,shopId }) => {
+    const dispatch = useDispatch();
+    const router = useRouter();
+    const { seller } = useSelector((state) => state.user);
+    const { customer } = useSelector((state) => state.customer);
+    const { favoriteShops } = useSelector((state) => state.favorites);
 
-  const inputRef = useRef();
-  const [shop, setShop] = useState({});
+    const inputRef = useRef();
+    const [shop, setShop] = useState({});
 
-  const [_isFavorite, _setIsFavorite] = useState(false);
-  const [favId, setFavId] = useState("");
+    const [_isFavorite, _setIsFavorite] = useState(false);
+    const [favId, setFavId] = useState("");
 
-  useEffect(() => {
-    if (seller && seller.shop) setShop(seller.shop);
-  }, [seller]);
+    useEffect(() => { 
+        if (seller && seller.shop) setShop(seller.shop);
+    }, [seller]);
 
-  useEffect(() => {
-    if (customer.id && !favoriteShops.length)
-      dispatch(fetchFavoriteShops(customer._id));
-  }, [customer]);
+    useEffect(() => {
+        if (customer.id && !favoriteShops?.length)
+            dispatch(fetchFavoriteShops(customer._id));
+    }, [customer]);
 
-  useEffect(() => {
-    const isFav =
-      favoriteShops && favoriteShops.filter((fav) => fav.shop === shop.id);
+    useEffect(() => { 
+        const isFav = favoriteShops && favoriteShops.filter((fav) => fav.shopId === shopId);
 
-    _setIsFavorite(isFav.length ? true : false);
-    isFav && setFavId(isFav[0]);
-  }, [favoriteShops]);
+        _setIsFavorite(isFav?.length > 0 ? true : false);
+        isFav && setFavId(isFav[0]);
+    }, [favoriteShops, shop]);
 
-  const upload = async (e, data) => {
-    e.preventDefault();
+    const upload = async (e, data) => {
+        e.preventDefault();
 
-    const file = e.target.files[0];
+        const file = e.target.files[0];
 
-    if (!file) return;
+        if (!file) return;
 
-    const extension = file.name.split(".").pop();
+        const extension = file.name.split(".").pop();
 
-    const formData = new FormData();
+        const formData = new FormData();
 
-    formData.append("files", e.target.files[0], seller.id + `.${extension}`);
-    formData.append("path", data.path);
-    formData.append("field", data.field);
+        formData.append("files", e.target.files[0], seller.id + `.${extension}`);
+        formData.append("path", data.path);
+        formData.append("field", data.field);
 
-    formData.append("ref", "shop");
-    formData.append("refId", data.id || seller.shop.id);
+        formData.append("ref", "shop");
+        formData.append("refId", data.id || seller.shop.id);
 
-    const res = await authAxios()({
-      url: "/upload",
-      method: "POST",
-      data: formData,
-    });
+        const res = await authAxios()({
+            url: "/upload",
+            method: "POST",
+            data: formData,
+        });
 
-    if (res) {
-      dispatch(fetchSeller());
-    }
-  };
-
-  const toggleFavorites = async () => {
-    const { id } = router.query;
-
-    if (!_isFavorite) {
-      await addToFavorites({
-        customerId: customer.id,
-        userId: user.id,
-        type: "Shop",
-        shop: id,
-      });
-    } else {
-      await deleteFavorite(favId);
-    }
-  };
-
-  console.log(customer);
-
-  return (
-    <ShopNavContainer logo={logo || (shop.logo && shop.logo.url)}>
-      <input
-        ref={inputRef}
-        type="file"
-        className="hidden-input"
-        onChange={(e) =>
-          upload(e, {
-            field: "logo",
-            path: "/shop/logo",
-          })
+        if (res) {
+            dispatch(fetchSeller());
         }
-      />
-      <div className="left-container">
-        <div className="image-container">
-          {edit && (
-            <div
-              className="edit-logo-button cursor"
-              onClick={() => triggerInput(inputRef)}
-            >
-              <img src="/icons/edit-icon.svg" alt="edit-icon" />
-              <span> Change Logo </span>
-            </div>
-          )}
-        </div>
-      </div>
-      <div className="right-container">
-        {children}
-        <div className="shop-name-container">
-          <div className="name mb-10">
-            <h1> {name || shop.name || null}</h1>
+    };
 
-            {customer.id && (
-              <div className="shop-like-ctr">
-                <a
-                  className="potw-like active w-inline-block"
-                  onClick={toggleFavorites}
-                >
-                  {_isFavorite && (
-                    <img
-                      src="/images/favorite-border-black-24-dp-2.svg"
-                      loading="lazy"
-                      width={25}
-                      alt="Like"
-                      className="orange-heart"
-                    />
-                  )}
-                  <img
-                    src="/images/favorite-border-black-24-dp_1.svg"
-                    loading="lazy"
-                    alt="Like"
-                    className="heart"
-                  />
-                </a>
-              </div>
-            )}
-          </div>
-          {!isSellerPage && <p className="mb-20 ml-10"> {description}</p>}
-        </div>
-      </div>
-    </ShopNavContainer>
-  );
+    const toggleFavorites = async () => {
+        const { id } = router.query;
+
+        if (!_isFavorite) {
+            await addToFavorites({
+                customerId: customer.id,
+                userId: user.id,
+                type: "Shop",
+                shop: shopId,
+            });
+        } else {
+            await deleteFavorite(favId.favId);
+        }
+
+        dispatch(fetchFavoriteShops(customer._id));
+    };
+
+    console.log(_isFavorite);
+
+    console.log(shop)
+
+    return (
+        <ShopNavContainer logo={logo || (shop.logo && shop.logo.url)}>
+            <input
+                ref={inputRef}
+                type="file"
+                className="hidden-input"
+                onChange={(e) =>
+                    upload(e, {
+                        field: "logo",
+                        path: "/shop/logo",
+                    })
+                }
+            />
+            <div className="left-container">
+                <div className="image-container">
+                    {edit && (
+                        <div
+                            className="edit-logo-button cursor"
+                            onClick={() => triggerInput(inputRef)}
+                        >
+                            <img src="/icons/edit-icon.svg" alt="edit-icon" />
+                            <span> Change Logo </span>
+                        </div>
+                    )}
+                </div>
+            </div>
+            <div className="right-container">
+                {children}
+                <div className="shop-name-container">
+                    <div className="name mb-10">
+                        <h1> {name || shop.name || null}</h1>
+
+                        {customer.id && (
+                            <div className="shop-like-ctr cursor">
+                                <a
+                                    className="potw-like active w-inline-block"
+                                    onClick={toggleFavorites}
+                                >
+                                    {_isFavorite && (
+                                        <img
+                                            src="/images/favorite-border-black-24-dp-2.svg"
+                                            loading="lazy"
+                                            width={25}
+                                            alt="Like"
+                                            className="orange-heart"
+                                        />
+                                    )}
+                                    <img
+                                        src="/images/favorite-border-black-24-dp_1.svg"
+                                        loading="lazy"
+                                        alt="Like"
+                                        className="heart"
+                                    />
+                                </a>
+                            </div>
+                        )}
+                    </div>
+                    {!isSellerPage && <p className="mb-20 ml-10"> {description}</p>}
+                </div>
+            </div>
+        </ShopNavContainer>
+    );
 };
 
 export default ShopNav;

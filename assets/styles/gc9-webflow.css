@@ -8887,3 +8887,9 @@ label {
   font-style: normal;
   font-display: swap;
 }
+
+.flex-container-more-products {
+    display: grid;
+    grid-column-gap: 50px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}

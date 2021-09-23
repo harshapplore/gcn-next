@@ -18,6 +18,7 @@ import ErrorInput from "@/shared/Input/Error";
 import { addToCart } from "@/_methods/cart";
 
 import ImagesWrapper from "./ImagesWrapper";
+import MoreProducts from "./MoreProducts";
 
 const ProductDetail = () => {
     const router = useRouter();
@@ -194,7 +195,9 @@ const ProductDetail = () => {
                     <div className="heading-wrapper mb-40">
                         <h2>You may also like ...</h2>
                     </div>
-                    <div className="flex">
+                    {product.shop && <MoreProducts shop={product.shop && product.shop.name}/>}
+
+                    {/* <div className="flex">
                         <div className="flex-child-32">
                             <div className="potw-item">
                                 <img
@@ -296,7 +299,7 @@ const ProductDetail = () => {
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>
