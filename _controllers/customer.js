@@ -81,7 +81,7 @@ export const getFavoriteShops = async ({ customerId }) => {
     url: `/favorites?${filter}`,
     method: "GET",
   });
-
+  console.log(res)
   return res.data;
 };
 
@@ -124,15 +124,29 @@ export const deleteFavorite = async (id) => {
 
 export const getAllOrders = async ({ customerId}) => {
   const filter = QS.stringify({
-    customer: customerId
+    "user.id": customerId
   });
 
   const res = await authAxios()({
-    url: `/orders?${filter}`,
+    url: `/orders?${filter}&_sort=createdAt:DESC`,
     method: "GET",
   });
 
   return res.data;
+};
+
+export const cancelOrder = async ({ orderId, shopId, }) => {
+    const res = await authAxios()({
+        url: `/orders/cancleOrder`,
+        method: "POST",
+        data: {
+            orderId,
+            shopId,
+            Status: "Cancelled"
+        }
+    });
+
+    return res.data;
 };
 
 /**

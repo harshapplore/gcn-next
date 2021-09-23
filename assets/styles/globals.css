@@ -19,3 +19,17 @@ html {
 .order-item:nth-child(even) {
   background-color: transparent;
 }
+
+.d-flex {
+    display: flex;
+}
+.align-item-center {
+    align-items: center;
+}
+.justify-content-center {
+    justify-content: center;
+}
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}

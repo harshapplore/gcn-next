@@ -25,7 +25,7 @@ const Social = () => {
 
     setProvider(provider);
 
-    const url = `/auth/${provider}/callback?${QS.stringify(params)}`;
+    const url = `/users/googleAuth?${QS.stringify(params)}`;
     const res = await axios()({
       url,
       method: "GET",
@@ -42,6 +42,7 @@ const Social = () => {
   }, [router.query]);
 
   useEffect(() => {
+
     if (!user || !user.type) return;
 
     localStorage.setItem("data", JSON.stringify(user));

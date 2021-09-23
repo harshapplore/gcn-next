@@ -9,6 +9,14 @@ export const getShop = async (id) => {
 
   return res.data;
 };
+export const getShops = async () => {
+    const res = await axios()({
+        url: `/shops`,
+        method: "get",
+    });
+
+    return res.data;
+};
 
 export const getShopByFilter = async (id, filter) => {
   const qFilter = QS.stringify(filter);
