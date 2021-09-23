@@ -27,62 +27,40 @@ const Seller_Environmental = ({ nextPage }) => {
   }, []);
 
   const [hasEnvironmentalPolicy, setHasEnvironmentalPolicy] = useState("");
-  const [understandTheImpacts, setUnderstandTheImpacts] = useState("");
-  const [isImpactMeasured, setIsImpactMeasured] = useState("");
-  const [materialCauseLessDamage, setMaterialCauseLessDamage] = useState("");
-  const [useLocalMaterial, setUseLocalMaterial] = useState("");
-  const [useLocalMaterialPercentage, setUseLocalMaterialPercentage] =
-    useState("");
-  const [quantifyTheImpact, setQuantifyTheImpact] = useState("");
-  const [percentageOfPlasticReduce, setPercentageOfPlasticReduce] =
-    useState("");
-  const [percentageOfRawMaterialReduce, setPercentageOfRawMaterialReduce] =
-    useState("");
-  const [percentageOfWaterReduce, setPercentageOfWaterReduce] = useState("");
-  const [percentageOfEnergyReduce, setPercentageOfEnergyReduce] = useState("");
-  const [
-    percentageOfRenewableEnergyEmployed,
-    setPercentageOfRenewableEnergyEmployed,
-  ] = useState("");
-  const [percentageOfGHGEmission, setPercentageOfGHGEmission] = useState("");
-  const [recycleScrapMaterials, setRecycleScrapMaterials] = useState("");
-  const [recyclePercentage, setRecyclePercentage] = useState("");
-  const [recycleAfterUsePhase, setRecycleAfterUsePhase] = useState("");
-  const [aimToReturnFaulty, setAimToReturnFaulty] = useState("");
-  const [promotesCustomersUnderstanding, setPromotesCustomersUnderstanding] =
-    useState("");
-  const [dataAboutEnvironmentalPractices, setDataAboutEnvironmentalPractices] =
-    useState("");
-  const [
-    customersDemandOnEnvironmentalPerfomance,
-    setCustomersDemandOnEnvironmentalPerfomance,
-  ] = useState("");
-  const [alternativeForPlastic, setAlternativeForPlastic] = useState("");
-  const [sustainableDeliveryProcess, setSustainableDeliveryProcess] =
-    useState("");
-  const [finalDestinationForWaste, setFinalDestinationForWaste] = useState("");
-  const [selectiveWasteCollection, setSelectiveWasteCollection] = useState("");
-  const [selectiveWasteCollectionPercent, setSelectiveWasteCollectionPercent] =
-    useState("");
-  const [savingPaperConsumption, setSavingPaperConsumption] = useState("");
-  const [savingPaperConsumptionPercent, setSavingPaperConsumptionPercent] =
-    useState("");
-  const [reductionOfEnergyConsumption, setReductionOfEnergyConsumption] =
-    useState("");
-  const [
-    reductionOfEnergyConsumptionPercent,
-    setReductionOfEnergyConsumptionPercent,
-  ] = useState("");
-  const [useOfRenewableEnergy, setUseOfRenewableEnergy] = useState("");
-  const [useOfRenewableEnergyPercent, setUseOfRenewableEnergyPercent] =
-    useState("");
-  const [reductionOfWaterConsumption, setReductionOfWaterConsumption] =
-    useState("");
-  const [
-    reductionOfWaterConsumptionPercent,
-    setReductionOfWaterConsumptionPercent,
-  ] = useState("");
-  const [environmentalBrief, setEnvironmentalBrief] = useState("");
+
+  const [understandTheImpacts, setUnderstandTheImpacts] = useState("")
+  const [isImpactMeasured, setIsImpactMeasured] = useState("")
+  const [materialCauseLessDamage, setMaterialCauseLessDamage] = useState("")
+  const [useLocalMaterial, setUseLocalMaterial] = useState("")
+  const [useLocalMaterialPercentage, setUseLocalMaterialPercentage] = useState("")
+  const [quantifyTheImpact, setQuantifyTheImpact] = useState("")
+  const [percentageOfPlasticReduce, setPercentageOfPlasticReduce] = useState("")
+  const [percentageOfRawMaterialReduce, setPercentageOfRawMaterialReduce] = useState("")
+  const [percentageOfWaterReduce, setPercentageOfWaterReduce] = useState("")
+  const [percentageOfEnergyReduce, setPercentageOfEnergyReduce] = useState("")
+  const [percentageOfRenewableEnergyEmployed, setPercentageOfRenewableEnergyEmployed] = useState("")
+  const [percentageOfGHGEmission, setPercentageOfGHGEmission] = useState("")
+  const [recycleScrapMaterials, setRecycleScrapMaterials] = useState("")
+  const [recyclePercentage, setRecyclePercentage] = useState("")
+  const [recycleAfterUsePhase, setRecycleAfterUsePhase] = useState("")
+  const [aimToReturnFaulty, setAimToReturnFaulty] = useState("")
+  const [promotesCustomersUnderstanding, setPromotesCustomersUnderstanding] = useState("")
+  const [dataAboutEnvironmentalPractices, setDataAboutEnvironmentalPractices] = useState("")
+  const [customersDemandOnEnvironmentalPerfomance, setCustomersDemandOnEnvironmentalPerfomance] = useState("")
+  const [alternativeForPlastic, setAlternativeForPlastic] = useState("")
+  const [sustainableDeliveryProcess, setSustainableDeliveryProcess] = useState("")
+  const [finalDestinationForWaste, setFinalDestinationForWaste] = useState("")
+  const [selectiveWasteCollection, setSelectiveWasteCollection] = useState("")
+  const [selectiveWasteCollectionPercent, setSelectiveWasteCollectionPercent] = useState("")
+  const [savingPaperConsumption, setSavingPaperConsumption] = useState("")
+  const [savingPaperConsumptionPercent, setSavingPaperConsumptionPercent] = useState("")
+  const [reductionOfEnergyConsumption, setReductionOfEnergyConsumption] = useState("")
+  const [reductionOfEnergyConsumptionPercent, setReductionOfEnergyConsumptionPercent] = useState("")
+  const [useOfRenewableEnergy, setUseOfRenewableEnergy] = useState("")
+  const [useOfRenewableEnergyPercent, setUseOfRenewableEnergyPercent] = useState("")
+  const [reductionOfWaterConsumption, setReductionOfWaterConsumption] = useState("")
+  const [reductionOfWaterConsumptionPercent, setReductionOfWaterConsumptionPercent] = useState("")
+  const [environmentalBrief, setEnvironmentalBrief] = useState("")
 
   const checkBoxStyle = { opacity: 0, position: "absolute", zIndex: -1 };
   const [errors, setErrors] = useState([]);
@@ -177,71 +155,41 @@ const Seller_Environmental = ({ nextPage }) => {
 
   const validate = () => {
     const err = [];
-    !hasEnvironmentalPolicy ? err.push(`please select the value`) : "";
-    !understandTheImpacts ? err.push(`please select the value`) : "";
-    understandTheImpacts === "yes" && !isImpactMeasured
-      ? err.push(`please enter the value`)
-      : "";
-    !materialCauseLessDamage ? err.push(`please select the value`) : "";
-    !useLocalMaterial ? err.push(`please select the value`) : "";
-    useLocalMaterial === "yes" && !useLocalMaterialPercentage
-      ? err.push(`please enter the value`)
-      : "";
-    !quantifyTheImpact ? err.push(`please select the value`) : "";
-    quantifyTheImpact === "yes" && !percentageOfPlasticReduce
-      ? err.push(`please enter the value`)
-      : "";
-    quantifyTheImpact === "yes" && !percentageOfRawMaterialReduce
-      ? err.push(`please enter the value`)
-      : "";
-    quantifyTheImpact === "yes" && !percentageOfWaterReduce
-      ? err.push(`please enter the value`)
-      : "";
-    quantifyTheImpact === "yes" && !percentageOfEnergyReduce
-      ? err.push(`please enter the value`)
-      : "";
-    quantifyTheImpact === "yes" && !percentageOfRenewableEnergyEmployed
-      ? err.push(`please enter the value`)
-      : "";
-    quantifyTheImpact === "yes" && !percentageOfGHGEmission
-      ? err.push(`please enter the value`)
-      : "";
-    !recycleScrapMaterials ? err.push(`please select the value`) : "";
-    recycleScrapMaterials === "yes" && !recyclePercentage
-      ? err.push(`please enter the value`)
-      : "";
-    !recycleAfterUsePhase ? err.push(`please select the value`) : "";
-    !aimToReturnFaulty ? err.push(`please select the value`) : "";
-    !promotesCustomersUnderstanding ? err.push(`please select the value`) : "";
-    !dataAboutEnvironmentalPractices ? err.push(`please select the value`) : "";
-    !customersDemandOnEnvironmentalPerfomance
-      ? err.push(`please select the value`)
-      : "";
-    !alternativeForPlastic ? err.push(`please select the value`) : "";
-    !sustainableDeliveryProcess ? err.push(`please select the value`) : "";
-    !finalDestinationForWaste ? err.push(`please select the value`) : "";
-    !selectiveWasteCollection ? err.push(`please select the value`) : "";
-    selectiveWasteCollection === "yes" && !selectiveWasteCollectionPercent
-      ? err.push(`please enter the value`)
-      : "";
-    !savingPaperConsumption ? err.push(`please select the value`) : "";
-    savingPaperConsumption === "yes" && !savingPaperConsumptionPercent
-      ? err.push(`please enter the value`)
-      : "";
-    !reductionOfEnergyConsumption ? err.push(`please select the value`) : "";
-    reductionOfEnergyConsumption === "yes" &&
-    !reductionOfEnergyConsumptionPercent
-      ? err.push(`please enter the value`)
-      : "";
-    !useOfRenewableEnergy ? err.push(`please select the value`) : "";
-    useOfRenewableEnergy === "yes" && !useOfRenewableEnergyPercent
-      ? err.push(`please select the value`)
-      : "";
-    !reductionOfWaterConsumption ? err.push(`please select the value`) : "";
-    reductionOfWaterConsumption === "yes" && !reductionOfWaterConsumptionPercent
-      ? err.push(`please select the value`)
-      : "";
-
+    !hasEnvironmentalPolicy ? err.push(`please select the value`) : ""
+    !understandTheImpacts ? err.push(`please select the value`) : ""
+    understandTheImpacts==="yes" && !isImpactMeasured ? err.push(`please enter the value`) : ""
+    !materialCauseLessDamage ? err.push(`please select the value`) : ""
+    !useLocalMaterial ? err.push(`please select the value`) : ""
+    useLocalMaterial === "yes" && !useLocalMaterialPercentage ? err.push(`please enter the value`) : ""
+    !quantifyTheImpact ? err.push(`please select the value`) : ""
+    quantifyTheImpact ==="yes" && !percentageOfPlasticReduce ? err.push(`please enter the value`) : ""
+    quantifyTheImpact ==="yes" && !percentageOfRawMaterialReduce ? err.push(`please enter the value`) : ""
+    quantifyTheImpact ==="yes" && !percentageOfWaterReduce ? err.push(`please enter the value`) : ""
+    quantifyTheImpact ==="yes" && !percentageOfEnergyReduce ? err.push(`please enter the value`) : ""
+    quantifyTheImpact ==="yes" && !percentageOfRenewableEnergyEmployed ? err.push(`please enter the value`) : ""
+    quantifyTheImpact ==="yes" && !percentageOfGHGEmission ? err.push(`please enter the value`) : ""
+    !recycleScrapMaterials ? err.push(`please select the value`) : ""
+    recycleScrapMaterials === "yes" && !recyclePercentage ? err.push(`please enter the value`) : ""
+    !recycleAfterUsePhase ? err.push(`please select the value`) : ""
+    !aimToReturnFaulty ? err.push(`please select the value`) : ""
+    !promotesCustomersUnderstanding ? err.push(`please select the value`) : ""
+    !dataAboutEnvironmentalPractices ? err.push(`please select the value`) : ""
+    !customersDemandOnEnvironmentalPerfomance ? err.push(`please select the value`) : ""
+    !alternativeForPlastic ? err.push(`please select the value`) : ""
+    !sustainableDeliveryProcess ? err.push(`please select the value`) : ""
+    !finalDestinationForWaste ? err.push(`please select the value`) : ""
+    !selectiveWasteCollection ? err.push(`please select the value`) : ""
+    selectiveWasteCollection ==="yes" && !selectiveWasteCollectionPercent ? err.push(`please enter the value`) : ""
+    !savingPaperConsumption ? err.push(`please select the value`) : ""
+    savingPaperConsumption ==="yes" && !savingPaperConsumptionPercent ? err.push(`please enter the value`) : ""
+    !reductionOfEnergyConsumption ? err.push(`please select the value`) : ""
+    reductionOfEnergyConsumption === "yes" && !reductionOfEnergyConsumptionPercent ? err.push(`please enter the value`) : ""
+    !useOfRenewableEnergy ? err.push(`please select the value`) : ""
+    useOfRenewableEnergy ==="yes" && !useOfRenewableEnergyPercent ? err.push(`please select the value`) : ""
+    !reductionOfWaterConsumption ? err.push(`please select the value`) : ""
+    reductionOfWaterConsumption ==="yes" && !reductionOfWaterConsumptionPercent ? err.push(`please select the value`) : ""
+    // !environmentalBrief ? err.push(`please enter the value`) : ""
+    
     setErrors(err);
 
     if (err.length) return false;

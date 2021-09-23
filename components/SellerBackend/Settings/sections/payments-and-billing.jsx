@@ -1,304 +1,148 @@
+import { authAxios } from "@/setups/axios";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { uploadFiles } from "_controllers/product"
+import Message from "@/shared/Message";
+
+
+
+
 const Payments = () => {
+  const { seller } = useSelector((state) => state.user);
+  console.log(seller)
+  const [IBAN, setIBAN] = useState("");
+  const [idFront, setIdFront] = useState("");
+  const [idBack, setIdBack] = useState("");
+  const [addressFront, setAddressFront] = useState("");
+  const [addressBack, setAddressBack] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [city, setCity] = useState("");
+  const [VAT, setVAT] = useState("");
+  const [errors, setErrors] = useState([]);
+
+  useEffect(() => {
+    if (seller) 
+    {
+      // setIBAN(seller.iban)
+      // setIdFront(seller.identityFrontView.)
+      // setIdBack(seller.identityBackView)
+      // setAddressFront(seller.proofOfAddressFrontView)
+      // setAddressBack(seller.proofOfAddressBackView)
+
+      if (seller.shop) {
+        setCompanyName(seller.shop.companyName)
+        setStreetAddress(seller.shop.streetAddress)
+        setPostalCode(seller.shop.postalCode)
+        setCity(seller.shop.city)
+        setVAT(seller.shop.vat)
+      }
+    }
+
+  }, [seller]);
+
+  const validate = () => {
+    const err = [];
+
+    !companyName ? err.push(`please enter the organization name`) : ""
+    !streetAddress ? err.push(`please enter the street`) : ""
+    !postalCode ? err.push(`please enter the postal code`) : ""
+    !city ? err.push(`please enter the city`) : ""
+    !VAT ? err.push(`please enter VAT`) : ""
+    setErrors(err);
+
+    if (err.length) return false;
+
+    return true;
+  };
+
+
+  const identityFrontView = []
+  idFront && identityFrontView.push(idFront)
+  const identityBackView = []
+  const proofOfAddressFrontView = []
+  const proofOfAddressBackView = []
+
+  idBack && identityBackView.push(idBack)
+  addressFront && proofOfAddressFrontView.push(addressFront)
+  addressBack && proofOfAddressBackView.push(addressBack)
+  const imgStyle = { display: "flex", justifyContent: "space-between" }
+
+  const submit = async (e) => {
+
+    e.preventDefault();
+
+    if (!validate()) return;
+
+    const idf = identityFrontView ? await uploadFiles(identityFrontView) : []
+    const idb = identityBackView ? await uploadFiles(identityBackView) : []
+    const af = proofOfAddressFrontView ? await uploadFiles(proofOfAddressFrontView) : []
+    const ab = proofOfAddressBackView ? await uploadFiles(proofOfAddressBackView) : []
+
+    const ibankData = {
+      iban: IBAN,
+      identityFrontView: idf,
+      identityBackView: idb,
+      proofOfAddressFrontView: af,
+      proofOfAddressBackView: ab
+    }
+    const sellerResponse = await authAxios()({
+      url: `sellers/${seller.id}`,
+      method: "PUT",
+      data: ibankData,
+    });
+    console.log("updated")
+  }
+
   return (
     <>
       <div className="settings-block">
         <h3 className="headline-5 mb-20">How you will get paid</h3>
-        <div className="dynamic-content">
-          <div className="payment-method-wrapper">
-            <div className="payment-method">
-              <img
-                src="/imagesimages/about-1.jpg"
-                loading="lazy"
-                width={61}
-                height={30}
-                alt=""
-                className="payment-method-img"
-              />
-              <div className="delivery-country-text">Payment Method</div>
-              <div className="show-details">
-                <div>Show Details</div>
-                <img
-                  src="/imagesimages/expand-more-black-24-dp-copy-6.svg"
-                  loading="lazy"
-                  alt="expand"
-                />
-              </div>
-            </div>
-            <div className="mb-0 w-form">
-              <div className="payment-form-1">
-                <div className="payment-form-2">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse varius enim in eros elementum tristique.
-                  </p>
-                  <div className="payment-default">
-                    <label className="w-checkbox checkbox-field mb-0">
-                      <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox w--redirected-checked" />
-                      <input
-                        type="checkbox"
-                        id="Default Payment Method"
-                        name="Default-Payment-Method"
-                        data-name="Default Payment Method"
-                        defaultChecked
-                        style={{
-                          opacity: 0,
-                          position: "absolute",
-                          zIndex: -1,
-                        }}
-                      />
-                      <span
-                        htmlFor="Default Payment Method"
-                        className="checkbox-label w-form-label"
-                      >
-                        Set as default payment method
-                      </span>
-                    </label>
-                  </div>
-                </div>
-                <div>
-                  <div className="input-x input-x--flex mb-15">
-                    <input
-                      type="number"
-                      className="input-x__input-field w-input"
-                      maxLength={256}
-                      name="Card-Number"
-                      data-name="Card Number"
-                      placeholder="Card Number"
-                      id="Card-Number"
-                      required
-                    />
-                    <div className="input-x__change">
-                      <div>Change</div>
-                      <img
-                        src="/imagesimages/edit-black-24-dp.svg"
-                        loading="lazy"
-                        alt="Edit"
-                        className="change__img"
-                      />
-                    </div>
-                  </div>
-                  <div className="input-x input-x--flex mb-15">
-                    <input
-                      type="text"
-                      className="input-x__input-field w-input"
-                      maxLength={256}
-                      name="Name-on-Card"
-                      data-name="Name On Card"
-                      placeholder="Name on Card"
-                      id="Name-on-Card"
-                      required
-                    />
-                    <div className="input-x__change">
-                      <div>Change</div>
-                      <img
-                        src="/images/edit-black-24-dp.svg"
-                        loading="lazy"
-                        alt="Edit"
-                        className="change__img"
-                      />
-                    </div>
-                  </div>
-                  <div className="payment-expiration">
-                    <div className="subtitle-2">Expiration date</div>
-                    <select
-                      name="Expiration-Month-2"
-                      data-name="Expiration Month 2"
-                      id="Expiration-Month-2"
-                      required
-                      className="input-x input-x--select w-select"
-                    >
-                      <option value={1}>01</option>
-                    </select>
-                    <select
-                      name="Expiration-Year-2"
-                      data-name="Expiration Year 2"
-                      id="Expiration-Year-2"
-                      required
-                      className="input-x input-x--select w-select"
-                    >
-                      <option value={2021}>2021</option>
-                      <option value={2022}>2022</option>
-                      <option value={2023}>2023</option>
-                      <option value={2024}>2024</option>
-                      <option value={2025}>2025</option>
-                      <option value={2026}>2026</option>
-                      <option value={2027}>2027</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div className="payment-button-wrapper">
-                <a className="button blue mr-10">Save Changes</a>
-                <a className="button blue secondary">Delete Adress</a>
-              </div>
-            </div>
+        <div className="subtitle-2">How you will get paid</div>
+        <div className="product-add-block">
+          <p className="mb-20"> IBAN </p>
+          <div className="mb-40 flex left-2">
+            <input
+              onChange={(e) => setIBAN(e.target.value)}
+              value={IBAN}
+              type="text"
+              className="input-x w-input"
+              maxLength="256"
+              placeholder="IBAN *"
+              required="" />
+            <div />
           </div>
-        </div>
-        <div className="dynamic-content">
-          <div className="payment-method-wrapper">
-            <div className="payment-method">
-              <img
-                src="/images/about-1.jpg"
-                loading="lazy"
-                width={61}
-                height={30}
-                alt=""
-                className="payment-method-img"
-              />
-              <div className="delivery-country-text">Payment Method</div>
-              <div className="show-details">
-                <div>Show Details</div>
-                <img
-                  src="/images/expand-more-black-24-dp-copy-6.svg"
-                  loading="lazy"
-                  alt="expand"
-                />
-              </div>
-            </div>
+
+          <input type="file" onChange={(e) => setIdFront(e.target.files[0])} style={{ display: "none" }} id="id-frontview" />
+          <input type="file" onChange={(e) => setIdBack(e.target.files[0])} style={{ display: "none" }} id="id-backview" />
+          <input type="file" onChange={(e) => setAddressFront(e.target.files[0])} style={{ display: "none" }} id="address-frontview" />
+          <input type="file" style={{ display: "none" }} onChange={(e) => setAddressBack(e.target.files[0])} id="address-backview" />
+
+          <p className="mb-20"> Identity Documents</p>
+
+          <div style={imgStyle} >
+            {idFront && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(idFront)} alt="id-front" style={{ borderRadius: "10px" }} />}
+            {idBack && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(idBack)} alt="id-back" style={{ borderRadius: "10px" }} />}
           </div>
-        </div>
-        <div className="add-country">
-          <img
-            src="/images/add-black-24-dp.svg"
-            loading="lazy"
-            width={24}
-            height={24}
-            alt="Add"
-            className="shop-product-list-add-icon"
-          />
-          <div className="delivery-country-text">Add Payment Method</div>
-        </div>
-      </div>
-      <div className="settings-block">
-        <h3 className="headline-5 mb-30">
-          Which payment options do you accept?
-        </h3>
-        <div className="w-form">
-          <div className="account-form-1 mb-50">
-            <div className="payment-method-option">
-              <img
-                src="/images/about-1.jpg"
-                loading="lazy"
-                width={135}
-                height={71}
-                alt=""
-                className="payment-method-option-img"
-              />
-              <label className="w-checkbox checkbox-field mb-0">
-                <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox w--redirected-checked" />
-                <input
-                  type="checkbox"
-                  id="Payment Method 1"
-                  name="Payment-Method-1"
-                  data-name="Payment Method 1"
-                  defaultChecked
-                  style={{
-                    opacity: 0,
-                    position: "absolute",
-                    zIndex: -1,
-                  }}
-                />
-                <span
-                  htmlFor="Payment Method 1"
-                  className="checkbox-label w-form-label"
-                >
-                  Payment Method
-                </span>
-              </label>
-            </div>
-            <div className="payment-method-option">
-              <img
-                src="/images/about-1.jpg"
-                loading="lazy"
-                width={135}
-                height={71}
-                alt=""
-                className="payment-method-option-img"
-              />
-              <label className="w-checkbox checkbox-field mb-0">
-                <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox" />
-                <input
-                  type="checkbox"
-                  id="Payment Method 3"
-                  name="Payment-Method-3"
-                  data-name="Payment Method 3"
-                  style={{
-                    opacity: 0,
-                    position: "absolute",
-                    zIndex: -1,
-                  }}
-                />
-                <span
-                  htmlFor="Payment Method 3"
-                  className="checkbox-label w-form-label"
-                >
-                  Payment Method
-                </span>
-              </label>
-            </div>
-            <div className="payment-method-option">
-              <img
-                src="/images/about-1.jpg"
-                loading="lazy"
-                width={135}
-                height={71}
-                alt=""
-                className="payment-method-option-img"
-              />
-              <label className="w-checkbox checkbox-field mb-0">
-                <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox w--redirected-checked" />
-                <input
-                  type="checkbox"
-                  id="Payment Method 2"
-                  name="Payment-Method-2"
-                  data-name="Payment Method 2"
-                  defaultChecked
-                  style={{
-                    opacity: 0,
-                    position: "absolute",
-                    zIndex: -1,
-                  }}
-                />
-                <span
-                  htmlFor="Payment Method 2"
-                  className="checkbox-label w-form-label"
-                >
-                  Payment Method
-                </span>
-              </label>
-            </div>
-            <div className="payment-method-option">
-              <img
-                src="/images/about-1.jpg"
-                loading="lazy"
-                width={135}
-                height={71}
-                alt=""
-                className="payment-method-option-img"
-              />
-              <label className="w-checkbox checkbox-field mb-0">
-                <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox" />
-                <input
-                  type="checkbox"
-                  id="Payment Method 4"
-                  name="Payment-Method-4"
-                  data-name="Payment Method 4"
-                  style={{
-                    opacity: 0,
-                    position: "absolute",
-                    zIndex: -1,
-                  }}
-                />
-                <span
-                  htmlFor="Payment Method 4"
-                  className="checkbox-label w-form-label"
-                >
-                  Payment Method
-                </span>
-              </label>
-            </div>
+          <div className="" style={{ display: "flex", justifyContent: "space-between" }} >
+
+            <label className="button" htmlFor="id-frontview" >Upload Front View</label  >
+
+            <label className="button" htmlFor="id-backview" >Upload Back View</label  >
           </div>
-          <a className="button blue mr-10">Save Changes</a>
+
+          <div className="spacer-40" />
+          <p className="mb-20"> Proof Of Address Documents</p>
+          <div style={imgStyle} >
+            {addressFront && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(addressFront)} style={{ borderRadius: "10px" }} alt="address - front" />}
+            {addressBack && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(addressBack)} style={{ borderRadius: "10px" }} alt="address-back" />}
+          </div>
+
+          <div className="" style={{ display: "flex", justifyContent: "space-between" }}>
+            <label className="button" htmlFor="address-frontview" >Upload Front View</label  >
+            <label className="button" htmlFor="address-backview" >Upload Back View</label  >
+          </div>
         </div>
       </div>
       <div className="settings-block">
@@ -324,6 +168,7 @@ const Payments = () => {
           <a
             id="w-node-f58e9903-c090-0e6b-e66d-899582061220-0db831b0"
             className="button blue"
+            style={{height:"50px"}}
           >
             Change my plan
           </a>
@@ -341,115 +186,54 @@ const Payments = () => {
               <div>01.02.2021</div>
             </div>
           </div>
-          <div className="w-form">
-            <div className="input-x input-x--flex mb-15">
-              <input
-                type="text"
-                className="input-x__input-field w-input"
-                maxLength={256}
-                name="Name-or-Company-Name"
-                data-name="Name Or Company Name"
-                placeholder="Name or Company Name"
-                id="Name-or-Company-Name"
-              />
-              <div className="input-x__change">
-                <div>Change</div>
-                <img
-                  src="/images/edit-black-24-dp.svg"
-                  loading="lazy"
-                  alt="Edit"
-                  className="change__img"
-                />
-              </div>
-            </div>
-            <div className="account-form-1">
-              <div className="input-x input-x--flex">
-                <input
-                  type="tel"
-                  className="input-x__input-field w-input"
-                  maxLength={256}
-                  name="Street-adress-2"
-                  data-name="Street Adress 2"
-                  placeholder="Street adress"
-                  id="Street-adress-2"
-                />
-                <div className="input-x__change">
-                  <div>Change</div>
-                  <img
-                    src="/images/edit-black-24-dp.svg"
-                    loading="lazy"
-                    alt="Edit"
-                    className="change__img"
-                  />
-                </div>
-              </div>
-              <div className="input-x input-x--flex">
-                <input
-                  type="email"
-                  className="input-x__input-field w-input"
-                  maxLength={256}
-                  name="Postal-Code-3"
-                  data-name="Postal Code 3"
-                  placeholder="Postal Code"
-                  id="Postal-Code-3"
-                />
-                <div className="input-x__change">
-                  <div>Change</div>
-                  <img
-                    src="/images/edit-black-24-dp.svg"
-                    loading="lazy"
-                    alt="Edit"
-                    className="change__img"
-                  />
-                </div>
-              </div>
-              <div className="input-x input-x--flex">
-                <input
-                  type="email"
-                  className="input-x__input-field w-input"
-                  maxLength={256}
-                  name="City-3"
-                  data-name="City 3"
-                  placeholder="City"
-                  id="City-3"
-                />
-                <div className="input-x__change">
-                  <div>Change</div>
-                  <img
-                    src="/images/edit-black-24-dp.svg"
-                    loading="lazy"
-                    alt="Edit"
-                    className="change__img"
-                  />
-                </div>
-              </div>
-              <div className="input-x input-x--flex">
-                <input
-                  type="email"
-                  className="input-x__input-field w-input"
-                  maxLength={256}
-                  name="VAT-2"
-                  data-name="VAT 2"
-                  placeholder="VAT"
-                  id="VAT-2"
-                />
-                <div className="input-x__change">
-                  <div>Change</div>
-                  <img
-                    src="/images/edit-black-24-dp.svg"
-                    loading="lazy"
-                    alt="Edit"
-                    className="change__img"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="w-form-done">
-              <div>Thank you! Your submission has been received!</div>
-            </div>
-            <div className="w-form-fail">
-              <div>Oops! Something went wrong while submitting the form.</div>
-            </div>
+        </div>
+        <div className="account-form-1">
+
+          <input
+            onChange={(e) => setCompanyName(e.target.value)}
+            value={companyName}
+            type="text"
+            className="input-x mb-15 w-input"
+            maxLength="256"
+            placeholder="Name or Company Name *"
+            required=""
+          />
+          <div className="account-form-1">
+            <input
+              onChange={(e) => setStreetAddress(e.target.value)}
+              value={streetAddress}
+              type="tel"
+              className="input-x w-input"
+              maxLength="256"
+              placeholder="Street Name *"
+              id="Street-Name" required=""
+            />
+            <input
+              onChange={(e) => setPostalCode(e.target.value)}
+              value={postalCode}
+              type="number"
+              className="input-x w-input"
+              maxLength="256"
+              placeholder="Postal Code *"
+              required=""
+            />
+            <input
+              onChange={(e) => setCity(e.target.value)}
+              value={city}
+              type="text"
+              className="input-x w-input"
+              maxLength="256"
+              placeholder="City *"
+              required="" />
+            <input
+              onChange={(e) => setVAT(e.target.value)}
+              value={VAT}
+              type="number"
+              className="input-x w-input"
+              maxLength="256"
+              placeholder="VAT *"
+              required=""
+            />
           </div>
         </div>
         <div className="settings-spacer" />
@@ -533,100 +317,12 @@ const Payments = () => {
           <a className="button blue">See more</a>
         </div>
         <div className="settings-spacer" />
-        <h4 className="subtitle-1 subtitle-1--blue mb-20">Payment Method</h4>
-        <div className="mb-0 w-form">
-          <div className="payment-form-1">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse varius enim in eros elementum tristique.
-            </p>
-            <div>
-              <div className="input-x input-x--flex mb-15">
-                <input
-                  type="number"
-                  className="input-x__input-field w-input"
-                  maxLength={256}
-                  name="Card-Number-2"
-                  data-name="Card Number 2"
-                  placeholder="Card Number"
-                  id="Card-Number-2"
-                  required
-                />
-                <div className="input-x__change">
-                  <div>Change</div>
-                  <img
-                    src="/images/edit-black-24-dp.svg"
-                    loading="lazy"
-                    alt="Edit"
-                    className="change__img"
-                  />
-                </div>
-              </div>
-              <div className="input-x input-x--flex mb-15">
-                <input
-                  type="text"
-                  className="input-x__input-field w-input"
-                  maxLength={256}
-                  name="Name-on-Card-2"
-                  data-name="Name On Card 2"
-                  placeholder="Name on Card"
-                  id="Name-on-Card-2"
-                  required
-                />
-                <div className="input-x__change">
-                  <div>Change</div>
-                  <img
-                    src="/images/edit-black-24-dp.svg"
-                    loading="lazy"
-                    alt="Edit"
-                    className="change__img"
-                  />
-                </div>
-              </div>
-              <div className="payment-expiration">
-                <div className="subtitle-2">Expiration date</div>
-                <select
-                  name="Expiration-Month-2"
-                  data-name="Expiration Month 2"
-                  id="Expiration-Month-2"
-                  required
-                  className="input-x input-x--select w-select"
-                >
-                  <option value={1}>01</option>
-                  <option value={2}>02</option>
-                  <option value={3}>03</option>
-                  <option value={4}>04</option>
-                  <option value={5}>05</option>
-                  <option value={6}>06</option>
-                  <option value={7}>07</option>
-                  <option value={8}>08</option>
-                  <option value={9}>09</option>
-                  <option value={10}>10</option>
-                  <option value={11}>11</option>
-                  <option value={12}>12</option>
-                </select>
-                <select
-                  name="Expiration-Year-2"
-                  data-name="Expiration Year 2"
-                  id="Expiration-Year-2"
-                  required
-                  className="input-x input-x--select w-select"
-                >
-                  <option value={2021}>2021</option>
-                  <option value={2022}>2022</option>
-                  <option value={2023}>2023</option>
-                  <option value={2024}>2024</option>
-                  <option value={2025}>2025</option>
-                  <option value={2026}>2026</option>
-                  <option value={2027}>2027</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div className="payment-button-wrapper">
-            <a className="button blue mr-10">Save Changes</a>
-            <a className="button blue secondary">Delete Adress</a>
-          </div>
+        {errors && errors.length > 0 && errors.map(error =>
+          <Message text={error} status={-1} />)
+        }
+
+        <div className="payment-button-wrapper">
+          <div onClick={submit} className="button blue mr-10">Save Changes</div>
         </div>
       </div>
     </>

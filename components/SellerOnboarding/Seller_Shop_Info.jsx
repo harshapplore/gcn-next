@@ -7,8 +7,6 @@ import { authAxios } from "@/setups/axios";
 import Message from "@/shared/Message";
 
 
-
-
 const Seller_Shop_Info = ({ nextPage }) => {
   const { seller } = useSelector((state) => state.user);
   const [errors, setErrors] = useState([]);

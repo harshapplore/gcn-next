@@ -172,7 +172,7 @@ const Social_Health_Safety = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Trains and makes employees aware of accident or fire prevention.</div>
+                <div>Provides, trains, and raises awareness regarding the use of personal protective equipment (PPE)</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${useOfPPE === "yes" ? " w--redirected-checked" : ""}`}></div>

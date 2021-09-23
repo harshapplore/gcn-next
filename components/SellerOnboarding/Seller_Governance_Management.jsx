@@ -500,6 +500,6 @@ const Seller_Governance_Management = ({ nextPage }) => {
       </div>
     </div>
   );
+              
 };
-
 export default Seller_Governance_Management;

@@ -34,11 +34,11 @@ a:hover {
   transform: scale(2);
 }
 
-.checkbox-field{
+/* .checkbox-field{ */
   /* display: flex;
   align-items: center;
   gap: 10px; */
-}
+/* } */
 
 .right-icon-nav {
   justify-content: flex-end;
@@ -100,6 +100,23 @@ a:hover {
 
 .footer-inline-link-divider{
   color: var(--text);
+}
+
+.delivery-cost-shipping {
+  display: -ms-grid;
+  display: grid;
+  margin-bottom: 15px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  grid-auto-columns: 1fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  -ms-grid-columns: 3.25fr minmax(150px, 0.25fr) 1.5fr 2fr;
+  grid-template-columns: 3.25fr minmax(150px, 0.25fr) 1.5fr 2fr;
+  -ms-grid-rows: auto auto;
+  grid-template-rows: auto auto;
 }
 
 select {

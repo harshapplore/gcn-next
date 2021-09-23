@@ -1,100 +1,121 @@
+import { useState } from "react";
+
+
 const OrderHistory = () => {
+
+  const [showOrder, setShowOrder] = useState(false)
+  const [editTrackingNo, setEditTrackingNo] = useState(false)
+  const [editCarrier, setEditCarrier] = useState(false)
+
   return (
     <div className="dynamic-content">
       <div className="heading-wrapper mb-40">
         <h2>Order History</h2>
-        <div className="overline-text">30 Products</div>
       </div>
-      <div className="w-form">
-        <form id="email-form-4" name="email-form-4" data-name="Email Form 4">
-          <div className="order-wrapper">
-            <div className="order-item">
-              <div className="date-row">
-                <div>12.12.2012</div>
-              </div>
-              <div className="id-row">
-                <div>#231245213</div>
-              </div>
-              <div className="state-row big">
-                <select
-                  id="field-6"
-                  name="field-6"
-                  className="text-field select state w-select"
-                >
-                  <option value>Select one...</option>
-                  <option value="First">First Choice</option>
-                  <option value="Second">Second Choice</option>
-                  <option value="Third">Third Choice</option>
-                </select>
-              </div>
-              <div className="price-row">
-                <div>€259,99</div>
-              </div>
-              <div className="button-row">
-                <a href="#" className="button w-button">
-                  Details
-                </a>
-              </div>
+      <div className="greybg flex pd25 accordiontrigger open pr15">
+        <div className="flexitem">
+          <div className="light">Order placed</div>
+          <div className="rubik">01.01.2021</div>
+        </div>
+        <div className="flexitem">
+          <div className="light">Total</div>
+          <div className="rubik">€ 120,00</div>
+        </div>
+        <div className="flexitem">
+          <div className="light">Status</div>
+          <div className="rubik">Partially shipped</div>
+        </div>
+        <div className="flexitem">
+          <div className="light">Order #00000000</div>
+          <div className="rubik alignright">Order Details</div>
+        </div>
+        <div className="accordionarrow flex cursor" onClick={ ()=> setShowOrder(!showOrder) }>
+          <img src="../images/expand-more-black-24-dp-copy-6.svg" loading="lazy" alt="expand" className="accarrowimage open" />
+        </div>
+      </div>
+      { showOrder && <div className="settings-block accordion-body">
+        <div className="flex mb-20 pr15">
+          <div>
+            <div className="mb-30">
+              <div className="light">Number of Items</div>
+              <div className="rubik">4 Articles</div>
             </div>
-            <div className="order-item">
-              <div className="date-row">
-                <div>12.03.2021</div>
-              </div>
-              <div className="id-row">
-                <div>#4325141324</div>
-              </div>
-              <div className="state-row big">
-                <select
-                  id="field-6"
-                  name="field-6"
-                  className="text-field select state w-select"
-                >
-                  <option value>Select one...</option>
-                  <option value="First">First Choice</option>
-                  <option value="Second">Second Choice</option>
-                  <option value="Third">Third Choice</option>
-                </select>
-              </div>
-              <div className="price-row">
-                <div>€419,99</div>
-              </div>
-              <div className="button-row">
-                <a href="#" className="button w-button">
-                  Details
-                </a>
-              </div>
+            <div>
+              <div className="light">Delivered to</div>
+              <div className="rubik">Name, Street, City, Postal Code, Country</div>
             </div>
-            <div className="order-item">
-              <div className="date-row">
-                <div>12.08.2012</div>
+            <div className="light mgt50 mb-10">Items</div>
+            <div className="w-layout-grid grid-2">
+                <div id="w-node-_52c1b1cd-06cb-9a62-8d38-43ed2fc21b97-b2bb390a" className="smaller bolder">Article Name</div>
+               
+                <div id="w-node-_52c1b1cd-06cb-9a62-8d38-43ed2fc21b9f-b2bb390a" className="smaller">Size</div>
+                
+                <div id="w-node-_52c1b1cd-06cb-9a62-8d38-43ed2fc21ba7-b2bb390a" className="smaller">Price</div>
+                
+                <img src="https://d3e54v103j8qbb.cloudfront.net/plugins/Basic/assets/placeholder.60f9b1840c.svg" loading="lazy" width="61" height="61" alt=""/>
+                
               </div>
-              <div className="id-row">
-                <div>#23415234</div>
+          </div>
+          <div className="flex60">
+            <div className="flex50 flex">
+              <div className="flex flex100 mb-30">
+                <div className="mgr90">
+                  <div className="light">Order placed</div>
+                  <div className="rubik">01.01.2021</div>
+                </div>
+                <div>
+                  <div className="light">Payment Method</div>
+                  <div className="rubik">Credit Card</div>
+                </div>
               </div>
-              <div className="state-row big">
-                <select
-                  id="field-6"
-                  name="field-6"
-                  className="text-field select state w-select"
-                >
-                  <option value>Select one...</option>
-                  <option value="First">First Choice</option>
-                  <option value="Second">Second Choice</option>
-                  <option value="Third">Third Choice</option>
-                </select>
-              </div>
-              <div className="price-row">
-                <div>€1.259,99</div>
-              </div>
-              <div className="button-row">
-                <a href="#" className="button w-button">
-                  Details
-                </a>
+              <div className="w-form">
+                <form id="email-form" name="email-form" data-name="Email Form" className="flex">
+                  <div className="flex40">
+                    <label htmlFor="name" className="light">Order sent</label>
+                    <select required="" className="input-x input-x--select bold mb30 input-x-regular w-select">
+                      <option value="01.01.2021">01.01.2021</option>
+                      <option value="01.02.2021">01.02.2021</option>
+                    </select>
+                    <label htmlFor="name" className="light">Tracking Number</label>
+                    <div className="input-x input-x--flex flex40 mb-30 input-x-regular">
+                      <input type="text" className="input-x__input-field dark normalweight input-x-regular w-input" maxLength="256" placeholder="000000" disabled={editTrackingNo}/>
+                      <div className="input-x__change" onClick={()=>setEditTrackingNo(!editTrackingNo)}>
+                        <img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="name" className="light">Order sent</label>
+                    <select  required="" className="input-x input-x--select bold mb-30 input-x-regular w-select">
+                      <option value="Shipped">Shipped</option>
+                      <option value="not shipped">Not  shipped</option>
+                    </select>
+                    <label htmlFor="name" className="light">Carrier / Delivery Company</label>
+                    <div className="input-x input-x--flex flex40 mb-30">
+                      <input type="text" className="input-x__input-field dark normalweight input-x-regular w-input" maxLength="256" placeholder="DHL" disabled={editCarrier}/>
+                      <div className="input-x__change" onClick={()=>setEditCarrier(!editCarrier)}>
+                        <img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <div className="w-form-done">
+                  <div>Thank you! Your submission has been received!</div>
+                </div>
+                <div className="w-form-fail">
+                  <div>Oops! Something went wrong while submitting the form.</div>
+                </div>
+                <div className="flex">
+                  <a href="#" className="button blue lowercase flexbutton w-button">Contact Customer</a>
+                  <a href="#" className="secondarywithimage blue secondaryflex w-button">Download Order Details</a>
+                </div>
               </div>
             </div>
           </div>
-        </form>
-      </div>
+        </div>
+        <div className="flex mb-40 pr15"></div>
+        <div className="assessment-spacer"></div>
+      </div>}
     </div>
   );
 };

@@ -1,4 +1,50 @@
+import router from "next/router";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import Loader from "react-loader-spinner";
+import { authAxios } from "@/setups/axios";
+
+
+
 const AssessmentsAndPrefernces = () => {
+  const { seller } = useSelector((state) => state.user);
+
+
+  const [currency, setCurrency] = useState("");
+  const [language, setLanguage] = useState("");
+  const [region, setRegion] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (seller.shop) {
+      setCurrency(seller.shop.currency)
+      setLanguage(seller.shop.language)
+      setRegion(seller.shop.region)
+    }
+  }, [seller]);
+
+  const submit =async (e)=>{
+    e.preventDefault()
+    setLoading(true)
+    const data = {
+      language,
+      currency,
+      region,
+    }
+  
+    const res = await authAxios()({
+      url: `/shops/${seller.shop.id} `,
+      method: "PUT",
+      data: data
+    });
+    setLoading(false)
+  }
+
+  const editAssessment = ()=>{
+    if(seller.id){
+      router.push("/seller-onboarding/vision-strategy")
+    }
+  }
   return (
     <>
       <div className="settings-block">
@@ -11,13 +57,13 @@ const AssessmentsAndPrefernces = () => {
             </div>
             <div>
               <div className="label">Social</div>
-              <div>Pending</div>
+              <div>completed</div>
             </div>
           </div>
           <div>
             <div className="mb-20">
               <div className="label">Integrity</div>
-              <div>Pending</div>
+              <div>completed</div>
             </div>
             <div>
               <div className="label">Environmental</div>
@@ -27,6 +73,7 @@ const AssessmentsAndPrefernces = () => {
           <a
             id="w-node-_200fd36d-f212-984d-feda-cfdbf1cccd27-0db831b0"
             className="button icon blue w-inline-block"
+            style={{height:"50px"}}
           >
             <div className="button-icon w-embed">
               <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24}>
@@ -36,7 +83,7 @@ const AssessmentsAndPrefernces = () => {
                 </g>
               </svg>
             </div>
-            <div>Edit Assessments</div>
+            <div onClick = {editAssessment}>Edit Assessments</div>
           </a>
         </div>
       </div>
@@ -54,9 +101,10 @@ const AssessmentsAndPrefernces = () => {
                 data-name="Language"
                 id="Language"
                 required
+                onChange={(e) => setLanguage(e.target.value)}
                 className="input-x input-x--select w-select"
               >
-                <option value>Select a Language</option>
+                <option value={language}>{ language ? language : "Select a Language"}</option>
                 <option value="de">Deutsch</option>
                 <option value="en">English</option>
               </select>
@@ -64,10 +112,11 @@ const AssessmentsAndPrefernces = () => {
                 name="Currency"
                 data-name="Currency"
                 id="Currency-9"
+                onChange={(e) => setCurrency(e.target.value)}
                 required
                 className="input-x input-x--select w-select"
               >
-                <option value>Select a Currency</option>
+                <option value={currency}>{currency ? currency : "Select a Currency" }</option>
                 <option value="EUR">€ (EUR)</option>
                 <option value="USD">$ (USD)</option>
               </select>
@@ -76,14 +125,19 @@ const AssessmentsAndPrefernces = () => {
                 data-name="Region"
                 id="Region"
                 required
+                onChange={(e) => setRegion(e.target.value)}
                 className="input-x input-x--select w-select"
               >
-                <option value>Select a Region</option>
+                <option value={region}>{region ? region : "Select a Region"}</option>
                 <option value="Europe">Europe</option>
                 <option value="North America">North America</option>
               </select>
             </div>
-            <a className="button blue mr-10">Save Changes</a>
+            <div className= "flex">
+            <a onClick = {submit} className="button blue mr-10">Save Changes </a>
+            {loading && 
+              <Loader type="Oval" color="#1a689e" height={18} width={18} />
+          }</div>
           </form>
         </div>
       </div>
