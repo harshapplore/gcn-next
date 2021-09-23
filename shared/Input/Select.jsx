@@ -14,7 +14,7 @@ export const Select = ({
         value={value}
         onChange={(e) => setValue(e.target.value)}
       >
-        {!value && <option value=""> {placeholder || "Select One"} </option>}
+        {!value && <option value={placeholder}> {placeholder || "Select One"} </option>}
         {choices.map((choice, index) => (
           <option key={choice} value={index}>
             {choice}

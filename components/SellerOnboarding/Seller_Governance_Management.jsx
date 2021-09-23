@@ -49,8 +49,6 @@ const Seller_Governance_Management = ({ nextPage }) => {
 
   useEffect(() => {
     if (!seller.id) dispatch(fetchSeller());
-
-    
   }, []);
 
   const [directorAct, setDirectorAct] = useState("");
@@ -105,8 +103,9 @@ const Seller_Governance_Management = ({ nextPage }) => {
   const [finedForEnvironmentalLaw, setFinedForEnvironmentalLaw] = useState("");
   const [finedForHealthLaw, setFinedForHealthLaw] = useState("");
   const [lawBrief, setLawBrief] = useState("");
-
+  const [sellerName, setSellerName] = useState("")
   const [errors, setErrors] = useState([]);
+  
   useEffect(() => {
     if (seller.governanceAndManagementAnswers) {
       setDirectorAct(seller.governanceAndManagementAnswers.directorAct);
@@ -198,6 +197,8 @@ const Seller_Governance_Management = ({ nextPage }) => {
       );
       setLawBrief(seller.governanceAndManagementAnswers.lawBrief);
     }
+    if(seller.user)
+    setSellerName(seller.user.name)
   }, [seller]);
 
   const validate = () => {
@@ -276,12 +277,25 @@ const Seller_Governance_Management = ({ nextPage }) => {
     if (err.length) return false;
     return true;
   };
+  // const errCheck =()=>{
+  //   if(errors && errors.length>0){
+  //     const firstErr = errors.filter(err=>err.)
+  //   }
+  // }
+  // if (search) {
+  //   filteredProducts = products.filter((product) =>
+  //     product.name.toLowerCase().includes(search) || product.description.toLowerCase().includes(search)
+  //   );
+  // }
 
   const submit = async (e) => {
     e.preventDefault();
 
-    console.log(errors);
-    if (!validate()) return;
+    if (!validate()) {
+      setTopErrors("Please fill all the values")
+      scrollToElement("#governance")
+      return;
+    } 
 
     const data = {
       financialPlan,
@@ -350,7 +364,7 @@ const Seller_Governance_Management = ({ nextPage }) => {
           <br />
           <br />
           {/* <br /> */}
-          <h1 className="headline-2 mb-10"> {data.heading} </h1>
+          <h1 className="headline-2 mb-10">Hello {sellerName} , let's get started!</h1>
           <div className="overline-text mb-40">{data.subheading}</div>
           <div className="single-choice-row headline">
             <div className="subtitle-2"> 3.1 Integrity Program</div>
@@ -364,9 +378,11 @@ const Seller_Governance_Management = ({ nextPage }) => {
           </div>
           <ProgressBar />
 
-          <div className="settings-block">
+          <div className="settings-block" id="governance">
             <h3 className="headline-5 mb-50">Governance and Management</h3>
             <div className="w-form">
+            {topError && <Message text={topError} status={-1} />}
+                {topError && <br />}
               <form>
                 <Governance_Management_Integrity
                   directorAct={directorAct}

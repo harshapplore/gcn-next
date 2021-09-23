@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import ProgressBar from "./Utils/ProgressBar";
+import { scrollToElement } from "@/utils/scroll";
 
 import { authAxios } from "@/setups/axios";
 
@@ -30,13 +31,15 @@ const data = {
 
 const Seller_Vision_Strategy = ({ nextPage }) => {
   const { seller } = useSelector((state) => state.user);
-
   const [SMV, setSMV] = useState("");
   const [strategicPlan, setStrategicPlan] = useState("")
   const [isPeriodicallyRevised, setIsPeriodicallyRevised] = useState("")
   const [objectivesAndGoals, setObjectivesAndGoals] = useState("")
   const [objectivesAndGoalsSustainabilty, setobjectivesAndGoalsSustainabilty] = useState("")
   const [companyBrief, setCompanyBrief] = useState("")
+  const [sellerName, setSellerName] = useState("")
+  const [topError, setTopErrors] = useState("");
+
 
 
   console.log(seller)
@@ -51,6 +54,8 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
       setObjectivesAndGoals(seller.visionAndStrategyAnswers.objectivesAndGoals);
       setobjectivesAndGoalsSustainabilty(seller.visionAndStrategyAnswers.objectivesAndGoalsSustainabilty);
     }
+    if(seller.user)
+    setSellerName(seller.user.name)
   }, [seller]);
 
 
@@ -74,8 +79,11 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
   const submit = async (e) => {
     e.preventDefault();
 
-    console.log(errors)
-    if (!validate()) return;
+    if (!validate()) {
+      setTopErrors("Please fill all the values")
+      scrollToElement("#vision")
+      return;
+    } 
 
 
     const data = {
@@ -107,7 +115,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
           <br />
           <br />
           {/* <br /> */}
-          <h1 className="headline-2 mb-10"> {data.heading} </h1>
+          <h1 className="headline-2 mb-10"> Hello {sellerName} , let's get started! </h1>
           <div className="overline-text mb-40">{data.subheading}</div>
 
           <div className=" mb-40  w-richtext">
@@ -124,9 +132,11 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
           </div>
           <ProgressBar />
 
-          <div className="settings-block">
+          <div className="settings-block" id="vision">
             <h3 className="headline-5 mb-50">Vision and Strategy</h3>
             <div className="w-form">
+            {topError && <Message text={topError} status={-1} />}
+                {topError && <br />}
               <form id="email-form-7" name="email-form-7" data-name="Email Form 7">
                 <div className="single-choice-row headline">
                   <div className="subtitle-2">2. The Company</div>
