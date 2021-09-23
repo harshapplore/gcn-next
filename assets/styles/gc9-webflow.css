@@ -124,6 +124,11 @@
   grid-row-gap: 16px;
   grid-column-gap: 16px;
 }
+.order-card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 body {
   padding-top: 175px;
@@ -357,7 +362,9 @@ label {
   text-decoration: none;
   text-transform: uppercase;
 }
-
+.lowercase {
+    text-transform: capitalize;
+}
 .button:hover {
   background-color: #6c8c3c;
   text-decoration: none;
@@ -1142,6 +1149,9 @@ label {
   max-width: 70%;
   margin-right: 10px;
 }
+.heading-wrapper h2 {
+    font-size: 24px;
+}
 
 .heading-wrapper.mb-50 {
   margin-bottom: 50px;
@@ -1535,11 +1545,16 @@ label {
 
 .shop-content {
   overflow: hidden;
-  padding-top: 40px;
+  padding-top: 0px;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
+  height: 100%;
   -ms-flex: 1;
   flex: 1;
+}
+.shop-content h1 {
+    font-size:34px;
+    margin: 0px;
 }
 
 .shop-content.pt-0 {
@@ -1547,8 +1562,8 @@ label {
 }
 
 .logo-img {
-  width: 200px;
-  height: 200px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.25);
   -o-object-fit: cover;
@@ -1942,7 +1957,7 @@ label {
   -webkit-box-pack: start;
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
-  justify-content: flex-start;
+  justify-content: space-between;
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -1952,7 +1967,10 @@ label {
   align-items: center;
   background-color: hsla(0, 0%, 90.6%, 0.29);
 }
-
+.order-row-item {
+    flex: 1;
+    margin: 0px 10px;
+}
 .date-row {
   -webkit-box-flex: 0;
   -webkit-flex: 0 100px;
@@ -1964,7 +1982,7 @@ label {
   -webkit-box-flex: 0;
   -webkit-flex: 0 120px;
   -ms-flex: 0 120px;
-  flex: 0 120px;
+  /* flex: 0 120px; */
 }
 
 .state-row {
@@ -2346,8 +2364,7 @@ label {
   float: left;
 }
 
-.logo-floater {
-  position: absolute;
+.logo-floater { 
   left: 0%;
   top: -100%;
   right: auto;
@@ -2356,6 +2373,8 @@ label {
 
 .logo-floater.lower {
   top: -55%;
+  display: flex;
+  justify-content: center;
 }
 
 .scroll-x {
@@ -5896,6 +5915,9 @@ label {
   padding-left: 34px;
   background-position: 6px 50%;
 }
+.accordian-container {
+    margin-bottom: 10px;
+}
 
 .accordionarrow {
   position: absolute;
@@ -5903,20 +5925,20 @@ label {
   top: 0%;
   right: 0%;
   bottom: 0%;
-  display: block;
-  width: 30px;
-  height: 100%;
-  -webkit-box-flex: 0;
-  -webkit-flex: 0 0 auto;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  grid-auto-columns: 1fr;
-  -ms-grid-columns: 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
-  -ms-grid-rows: auto auto;
-  grid-template-rows: auto auto;
+  width: 40px;
+  display: flex; 
+  align-items: center;
+  justify-content: center;
 }
-
+.accordionarrow:hover {
+    cursor: pointer;
+}
+.accordionarrow img {
+    height: 30px;
+}
+.close-accordinan {
+    transform: rotateX('180deg');
+}
 .accordionarrow.flex {
   right: 40px;
   display: -webkit-box;
@@ -8874,4 +8896,10 @@ label {
   font-weight: 700;
   font-style: normal;
   font-display: swap;
+}
+
+.flex-container-more-products {
+    display: grid;
+    grid-column-gap: 50px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }

@@ -19,9 +19,9 @@ const DetailsPane = ({ product }) => {
 
         {query.tab === "terms-n-conditions" && (
           <TermsAndConditions
-            generalConditions={product.shop.generalConditions}
-            privacyPolicy={product.shop.privacyPolicy}
-            returnsAndRefunds={product.shop.returnsAndRefunds}
+            generalConditions={product.shop?.generalConditions}
+            privacyPolicy={product.shop?.privacyPolicy}
+            returnsAndRefunds={product.shop?.returnsAndRefunds}
           />
         )}
 
