@@ -135,6 +135,20 @@ export const getAllOrders = async ({ customerId}) => {
   return res.data;
 };
 
+export const cancelOrder = async ({ orderId, shopId, }) => {
+    const res = await authAxios()({
+        url: `/orders/cancleOrder`,
+        method: "POST",
+        data: {
+            orderId,
+            shopId,
+            Status: "Cancelled"
+        }
+    });
+
+    return res.data;
+};
+
 /**
  * Get Order details for a particular order
  * @param {*} id 
