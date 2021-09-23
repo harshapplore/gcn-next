@@ -42,6 +42,7 @@ const Social = () => {
   }, [router.query]);
 
   useEffect(() => {
+
     if (!user || !user.type) return;
 
     localStorage.setItem("data", JSON.stringify(user));

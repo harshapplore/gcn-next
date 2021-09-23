@@ -81,7 +81,7 @@ export const getFavoriteShops = async ({ customerId }) => {
     url: `/favorites?${filter}`,
     method: "GET",
   });
-
+  console.log(res)
   return res.data;
 };
 
