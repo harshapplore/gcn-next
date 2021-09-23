@@ -64,7 +64,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${communicationChannel === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setCommunicationChannel("yes")}
                         value={communicationChannel}
                         checked={communicationChannel === "yes"}
@@ -74,7 +74,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${communicationChannel === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setCommunicationChannel("no")}
                         value={communicationChannel}
                         checked={communicationChannel === "no"}
@@ -84,7 +84,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${communicationChannel === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setCommunicationChannel("considering or planning")}
                         value={communicationChannel}
                         checked={communicationChannel === "considering or planning"}
@@ -94,7 +94,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${communicationChannel === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setCommunicationChannel("not applicable")}
                         value={communicationChannel}
                         checked={communicationChannel === "not applicable"}
@@ -107,7 +107,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${answerReceived === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setAnswerReceived("yes")}
                         value={answerReceived}
                         checked={answerReceived === "yes"}
@@ -117,7 +117,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${answerReceived === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setAnswerReceived("no")}
                         value={answerReceived}
                         checked={answerReceived === "no"}
@@ -127,7 +127,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${answerReceived === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setAnswerReceived("considering or planning")}
                         value={answerReceived}
                         checked={answerReceived === "considering or planning"}
@@ -137,7 +137,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${answerReceived === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setAnswerReceived("not applicable")}
                         value={answerReceived}
                         checked={answerReceived === "not applicable"}
@@ -150,7 +150,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${goalAndDeadline === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setGoalAndDeadline("yes")}
                         value={goalAndDeadline}
                         checked={goalAndDeadline === "yes"}
@@ -162,7 +162,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${goalAndDeadline === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setGoalAndDeadline("no")}
                         value={goalAndDeadline}
                         checked={goalAndDeadline === "no"}
@@ -174,7 +174,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${goalAndDeadline === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setGoalAndDeadline("considering or planning")}
                         value={goalAndDeadline}
                         checked={goalAndDeadline === "considering or planning"}
@@ -186,7 +186,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${goalAndDeadline === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setGoalAndDeadline("not applicable")}
                         value={goalAndDeadline}
                         checked={goalAndDeadline === "not applicable"}
@@ -202,7 +202,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${doubtAnalysis === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDoubtAnalysis("yes")}
                         value={doubtAnalysis}
                         checked={doubtAnalysis === "yes"}
@@ -212,7 +212,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${doubtAnalysis === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDoubtAnalysis("no")}
                         value={doubtAnalysis}
                         checked={doubtAnalysis === "no"}
@@ -222,7 +222,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${doubtAnalysis === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDoubtAnalysis("considering or planning")}
                         value={doubtAnalysis}
                         checked={doubtAnalysis === "considering or planning"}
@@ -232,7 +232,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${doubtAnalysis === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDoubtAnalysis("not applicable")}
                         value={doubtAnalysis}
                         checked={doubtAnalysis === "not applicable"}
@@ -246,7 +246,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${productInfo === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setProductInfo("yes")}
                         value={productInfo}
                         checked={productInfo === "yes"}
@@ -256,7 +256,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${productInfo === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setProductInfo("no")}
                         value={productInfo}
                         checked={productInfo === "no"}
@@ -266,7 +266,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${productInfo === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setProductInfo("considering or planning")}
                         value={productInfo}
                         checked={productInfo === "considering or planning"}
@@ -276,7 +276,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${productInfo === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setProductInfo("not applicable")}
                         value={productInfo}
                         checked={productInfo === "not applicable"}
@@ -290,7 +290,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${satisfactionSurvey === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSatisfactionSurvey("yes")}
                         value={satisfactionSurvey}
                         checked={satisfactionSurvey === "yes"}
@@ -300,7 +300,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${satisfactionSurvey === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSatisfactionSurvey("no")}
                         value={satisfactionSurvey}
                         checked={satisfactionSurvey === "no"}
@@ -310,7 +310,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${satisfactionSurvey === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSatisfactionSurvey("considering or planning")}
                         value={satisfactionSurvey}
                         checked={satisfactionSurvey === "considering or planning"}
@@ -320,7 +320,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${satisfactionSurvey === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSatisfactionSurvey("not applicable")}
                         value={satisfactionSurvey}
                         checked={satisfactionSurvey === "not applicable"}
@@ -334,7 +334,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${supplierDetails === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSupplierDetails("yes")}
                         value={supplierDetails}
                         checked={supplierDetails === "yes"}
@@ -344,7 +344,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${supplierDetails === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSupplierDetails("no")}
                         value={supplierDetails}
                         checked={supplierDetails === "no"}
@@ -354,7 +354,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${supplierDetails === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSupplierDetails("considering or planning")}
                         value={supplierDetails}
                         checked={supplierDetails === "considering or planning"}
@@ -364,7 +364,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${supplierDetails === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSupplierDetails("not applicable")}
                         value={supplierDetails}
                         checked={supplierDetails === "not applicable"}
@@ -378,7 +378,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${criticalSupplySurvey === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setCriticalSupplySurvey("yes")}
                         value={criticalSupplySurvey}
                         checked={criticalSupplySurvey === "yes"}
@@ -388,7 +388,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${criticalSupplySurvey === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setCriticalSupplySurvey("no")}
                         value={criticalSupplySurvey}
                         checked={criticalSupplySurvey === "no"}
@@ -398,7 +398,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${criticalSupplySurvey === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setCriticalSupplySurvey("considering or planning")}
                         value={criticalSupplySurvey}
                         checked={criticalSupplySurvey === "considering or planning"}
@@ -408,7 +408,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${criticalSupplySurvey === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setCriticalSupplySurvey("not applicable")}
                         value={criticalSupplySurvey}
                         checked={criticalSupplySurvey === "not applicable"}
@@ -422,7 +422,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${alternateDeliveryOption === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setAlternateDeliveryOption("yes")}
                         value={alternateDeliveryOption}
                         checked={alternateDeliveryOption === "yes"}
@@ -432,7 +432,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${alternateDeliveryOption === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setAlternateDeliveryOption("no")}
                         value={alternateDeliveryOption}
                         checked={alternateDeliveryOption === "no"}
@@ -442,7 +442,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${alternateDeliveryOption === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setAlternateDeliveryOption("considering or planning")}
                         value={alternateDeliveryOption}
                         checked={alternateDeliveryOption === "considering or planning"}
@@ -452,7 +452,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${alternateDeliveryOption === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setAlternateDeliveryOption("not applicable")}
                         value={alternateDeliveryOption}
                         checked={alternateDeliveryOption === "not applicable"}
@@ -466,7 +466,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${priorityOfLocalSupplier === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setPriorityOfLocalSupplier("yes")}
                         value={priorityOfLocalSupplier}
                         checked={priorityOfLocalSupplier === "yes"}
@@ -476,7 +476,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${priorityOfLocalSupplier === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setPriorityOfLocalSupplier("no")}
                         value={priorityOfLocalSupplier}
                         checked={priorityOfLocalSupplier === "no"}
@@ -486,7 +486,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${priorityOfLocalSupplier === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setPriorityOfLocalSupplier("considering or planning")}
                         value={priorityOfLocalSupplier}
                         checked={priorityOfLocalSupplier === "considering or planning"}
@@ -496,7 +496,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${priorityOfLocalSupplier === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setPriorityOfLocalSupplier("not applicable")}
                         value={priorityOfLocalSupplier}
                         checked={priorityOfLocalSupplier === "not applicable"}
@@ -522,7 +522,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${purchaseCriteria === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setPurchaseCriteria("yes")}
                         value={purchaseCriteria}
                         checked={purchaseCriteria === "yes"}
@@ -532,7 +532,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${purchaseCriteria === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setPurchaseCriteria("no")}
                         value={purchaseCriteria}
                         checked={purchaseCriteria === "no"}
@@ -542,7 +542,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${purchaseCriteria === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setPurchaseCriteria("considering or planning")}
                         value={purchaseCriteria}
                         checked={purchaseCriteria === "considering or planning"}
@@ -552,7 +552,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${purchaseCriteria === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setPurchaseCriteria("not applicable")}
                         value={purchaseCriteria}
                         checked={purchaseCriteria === "not applicable"}
@@ -566,7 +566,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${contractWithSupplier === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setContractWithSupllier("yes")}
                         value={contractWithSupplier}
                         checked={contractWithSupplier === "yes"}
@@ -576,7 +576,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${contractWithSupplier === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setContractWithSupllier("no")}
                         value={contractWithSupplier}
                         checked={contractWithSupplier === "no"}
@@ -586,7 +586,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${contractWithSupplier === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setContractWithSupllier("considering or planning")}
                         value={contractWithSupplier}
                         checked={contractWithSupplier === "considering or planning"}
@@ -596,7 +596,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${contractWithSupplier === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setContractWithSupllier("not applicable")}
                         value={contractWithSupplier}
                         checked={contractWithSupplier === "not applicable"}
@@ -610,7 +610,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${labour === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setLabour("yes")}
                         value={labour}
                         checked={labour === "yes"}
@@ -620,7 +620,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${labour === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setLabour("no")}
                         value={labour}
                         checked={labour === "no"}
@@ -630,7 +630,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${labour === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setLabour("considering or planning")}
                         value={labour}
                         checked={labour === "considering or planning"}
@@ -640,7 +640,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${labour === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setLabour("not applicable")}
                         value={labour}
                         checked={labour === "not applicable"}
@@ -654,7 +654,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${tax === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setTax("yes")}
                         value={tax}
                         checked={tax === "yes"}
@@ -664,7 +664,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${tax === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setTax("no")}
                         value={tax}
                         checked={tax === "no"}
@@ -674,7 +674,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${tax === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setTax("considering or planning")}
                         value={tax}
                         checked={tax === "considering or planning"}
@@ -684,7 +684,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${tax === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setTax("not applicable")}
                         value={tax}
                         checked={tax === "not applicable"}
@@ -698,7 +698,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${sanitary === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSanitary("yes")}
                         value={sanitary}
                         checked={sanitary === "yes"}
@@ -708,7 +708,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${sanitary === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSanitary("no")}
                         value={sanitary}
                         checked={sanitary === "no"}
@@ -718,7 +718,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${sanitary === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSanitary("considering or planning")}
                         value={sanitary}
                         checked={sanitary === "considering or planning"}
@@ -728,7 +728,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${sanitary === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSanitary("not applicable")}
                         value={sanitary}
                         checked={sanitary === "not applicable"}
@@ -742,7 +742,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${environmental === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setEnvironmental("yes")}
                         value={environmental}
                         checked={environmental === "yes"}
@@ -752,7 +752,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${environmental === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setEnvironmental("no")}
                         value={environmental}
                         checked={environmental === "no"}
@@ -762,7 +762,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${environmental === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setEnvironmental("considering or planning")}
                         value={environmental}
                         checked={environmental === "considering or planning"}
@@ -772,7 +772,7 @@ const Governance_Management_Relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${environmental === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setEnvironmental("not applicable")}
                         value={environmental}
                         checked={environmental === "not applicable"}

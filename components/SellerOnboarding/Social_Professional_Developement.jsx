@@ -41,7 +41,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${trainingToEmployee === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setTrainingToEmployee("yes")}
                         value={trainingToEmployee}
                         checked={trainingToEmployee === "yes"}
@@ -51,7 +51,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${trainingToEmployee === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setTrainingToEmployee("no")}
                         value={trainingToEmployee}
                         checked={trainingToEmployee === "no"}
@@ -61,7 +61,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${trainingToEmployee === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setTrainingToEmployee("considering or planning")}
                         value={trainingToEmployee}
                         checked={trainingToEmployee === "considering or planning"}
@@ -71,7 +71,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${trainingToEmployee === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setTrainingToEmployee("not applicable")}
                         value={trainingToEmployee}
                         checked={trainingToEmployee === "not applicable"}
@@ -84,7 +84,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${valuesAndEncourages === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setValuesAndEncourages("yes")}
                         value={valuesAndEncourages}
                         checked={valuesAndEncourages === "yes"}
@@ -94,7 +94,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${valuesAndEncourages === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setValuesAndEncourages("no")}
                         value={valuesAndEncourages}
                         checked={valuesAndEncourages === "no"}
@@ -104,7 +104,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${valuesAndEncourages === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setValuesAndEncourages("considering or planning")}
                         value={valuesAndEncourages}
                         checked={valuesAndEncourages === "considering or planning"}
@@ -114,7 +114,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${valuesAndEncourages === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setValuesAndEncourages("not applicable")}
                         value={valuesAndEncourages}
                         checked={valuesAndEncourages === "not applicable"}
@@ -128,7 +128,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${subsidizeCourse === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSubsidizeCourse("yes")}
                         value={subsidizeCourse}
                         checked={subsidizeCourse === "yes"}
@@ -138,7 +138,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${subsidizeCourse === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSubsidizeCourse("no")}
                         value={subsidizeCourse}
                         checked={subsidizeCourse === "no"}
@@ -148,7 +148,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${subsidizeCourse === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSubsidizeCourse("considering or planning")}
                         value={subsidizeCourse}
                         checked={subsidizeCourse === "considering or planning"}
@@ -158,7 +158,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${subsidizeCourse === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setSubsidizeCourse("not applicable")}
                         value={subsidizeCourse}
                         checked={subsidizeCourse === "not applicable"}
@@ -172,7 +172,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${incentiveRelated === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setIncentiveRelated("yes")}
                         value={incentiveRelated}
                         checked={incentiveRelated === "yes"}
@@ -182,7 +182,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${incentiveRelated === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setIncentiveRelated("no")}
                         value={incentiveRelated}
                         checked={incentiveRelated === "no"}
@@ -192,7 +192,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${incentiveRelated === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setIncentiveRelated("considering or planning")}
                         value={incentiveRelated}
                         checked={incentiveRelated === "considering or planning"}
@@ -202,7 +202,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${incentiveRelated === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setIncentiveRelated("not applicable")}
                         value={incentiveRelated}
                         checked={incentiveRelated === "not applicable"}
@@ -216,7 +216,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${degreeOfSatisfaction === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDegreeOfSatisfaction("yes")}
                         value={degreeOfSatisfaction}
                         checked={degreeOfSatisfaction === "yes"}
@@ -226,7 +226,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${degreeOfSatisfaction === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDegreeOfSatisfaction("no")}
                         value={degreeOfSatisfaction}
                         checked={degreeOfSatisfaction === "no"}
@@ -236,7 +236,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${degreeOfSatisfaction === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDegreeOfSatisfaction("considering or planning")}
                         value={degreeOfSatisfaction}
                         checked={degreeOfSatisfaction === "considering or planning"}
@@ -246,7 +246,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${degreeOfSatisfaction === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDegreeOfSatisfaction("not applicable")}
                         value={degreeOfSatisfaction}
                         checked={degreeOfSatisfaction === "not applicable"}
@@ -260,7 +260,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${adminsSoftSkills === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setAdminsSoftSkills("yes")}
                         value={adminsSoftSkills}
                         checked={adminsSoftSkills === "yes"}
@@ -270,7 +270,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${adminsSoftSkills === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setAdminsSoftSkills("no")}
                         value={adminsSoftSkills}
                         checked={adminsSoftSkills === "no"}
@@ -280,7 +280,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${adminsSoftSkills === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setAdminsSoftSkills("considering or planning")}
                         value={adminsSoftSkills}
                         checked={adminsSoftSkills === "considering or planning"}
@@ -290,7 +290,7 @@ const Social_Professional_Developement = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${adminsSoftSkills === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setAdminsSoftSkills("not applicable")}
                         value={adminsSoftSkills}
                         checked={adminsSoftSkills === "not applicable"}
@@ -302,7 +302,7 @@ const Social_Professional_Developement = ({
                 value={professionalBrief}
                 onChange={(e) => setProfessionalBrief(e.target.value)}
                 placeholder="(If any) Use this space to briefly tell us what strategies the company adopts to promote the professional development of its staff."
-                maxlength="5000" className="input-x input-x--text-area vision-notes w-input" />
+                maxLength="5000" className="input-x input-x--text-area vision-notes w-input" />
 
         </>
     )

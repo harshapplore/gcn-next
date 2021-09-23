@@ -8,6 +8,7 @@ import TextInput from "@/shared/Input/Text";
 import Message from "@/shared/Message";
 
 import { registerUser } from "@/_controllers/auth";
+import SelectForRegister from "../Input/SelectForRegister";
 
 const Register = ({ close }) => {
   const router = useRouter();
@@ -118,7 +119,7 @@ const Register = ({ close }) => {
                     error={errors.password}
                   />
 
-                  <Select
+                  <SelectForRegister
                     choices={["Europe"]}
                     placeholder="Europe"
                     value={data.region}

@@ -152,7 +152,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${strategicPlan === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setStrategicPlan("yes")}
                       value={strategicPlan}
                       checked={strategicPlan === "yes"}
@@ -164,7 +164,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${strategicPlan === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setStrategicPlan("no")}
                       value={strategicPlan}
                       checked={strategicPlan === "no"}
@@ -176,7 +176,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${strategicPlan === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setStrategicPlan("considering or planning")}
                       value={strategicPlan}
                       checked={strategicPlan === "considering or planning"}
@@ -188,7 +188,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${strategicPlan === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setStrategicPlan("not applicable")}
                       value={strategicPlan}
                       checked={strategicPlan === "not applicable"}
@@ -204,7 +204,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${SMV === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setSMV("yes")}
                       value={SMV}
                       checked={SMV === "yes"}
@@ -216,7 +216,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${SMV === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setSMV("no")}
                       value={SMV}
                       checked={SMV === "no"}
@@ -228,7 +228,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${SMV === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setSMV("considering or planning")}
                       value={SMV}
                       checked={SMV === "considering or planning"}
@@ -240,7 +240,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${SMV === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setSMV("not applicable")}
                       value={SMV}
                       checked={SMV === "not applicable"}
@@ -250,13 +250,13 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                     <span htmlFor="Yes-5" className="hidden w-form-label">not applicable</span>
                   </label>
                 </div>}
-                {strategicPlan === "yes" && <div className="single-choice-row">
+                {SMV === "yes" && <div className="single-choice-row">
                   <div>If so, is it periodically revised?</div>
 
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${isPeriodicallyRevised === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setIsPeriodicallyRevised("yes")}
                       value={isPeriodicallyRevised}
                       checked={isPeriodicallyRevised === "yes"}
@@ -268,7 +268,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${isPeriodicallyRevised === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setIsPeriodicallyRevised("no")}
                       value={isPeriodicallyRevised}
                       checked={isPeriodicallyRevised === "no"}
@@ -280,7 +280,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${isPeriodicallyRevised === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setIsPeriodicallyRevised("considering or planning")}
                       value={isPeriodicallyRevised}
                       checked={isPeriodicallyRevised === "considering or planning"}
@@ -292,7 +292,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${isPeriodicallyRevised === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setIsPeriodicallyRevised("not applicable")}
                       value={isPeriodicallyRevised}
                       checked={isPeriodicallyRevised === "not applicable"}
@@ -308,7 +308,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${objectivesAndGoals === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setObjectivesAndGoals("yes")}
                       value={objectivesAndGoals}
                       checked={objectivesAndGoals === "yes"}
@@ -320,7 +320,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${objectivesAndGoals === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setObjectivesAndGoals("no")}
                       value={objectivesAndGoals}
                       checked={objectivesAndGoals === "no"}
@@ -332,7 +332,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${objectivesAndGoals === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setObjectivesAndGoals("considering or planning")}
                       value={objectivesAndGoals}
                       checked={objectivesAndGoals === "considering or planning"}
@@ -344,7 +344,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${objectivesAndGoals === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setObjectivesAndGoals("not applicable")}
                       value={objectivesAndGoals}
                       checked={objectivesAndGoals === "not applicable"}
@@ -360,7 +360,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${objectivesAndGoalsSustainabilty === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setobjectivesAndGoalsSustainabilty("yes")}
                       value={objectivesAndGoalsSustainabilty}
                       checked={objectivesAndGoalsSustainabilty === "yes"}
@@ -372,7 +372,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${objectivesAndGoalsSustainabilty === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setobjectivesAndGoalsSustainabilty("no")}
                       value={objectivesAndGoalsSustainabilty}
                       checked={objectivesAndGoalsSustainabilty === "no"}
@@ -384,7 +384,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${objectivesAndGoalsSustainabilty === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setobjectivesAndGoalsSustainabilty("considering or planning")}
                       value={objectivesAndGoalsSustainabilty}
                       checked={objectivesAndGoalsSustainabilty === "considering or planning"}
@@ -396,7 +396,7 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${objectivesAndGoalsSustainabilty === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setobjectivesAndGoalsSustainabilty("not applicable")}
                       value={objectivesAndGoalsSustainabilty}
                       checked={objectivesAndGoalsSustainabilty === "not applicable"}

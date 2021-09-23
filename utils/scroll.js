@@ -6,3 +6,8 @@ export const scrollToElement = (id) => {
     behavior: "smooth",
   });
 };
+export const divReload = (id) => {
+  // const element = document.querySelector(id);
+
+  document.querySelector(id).onload(window.location.href + id );
+};

@@ -314,7 +314,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setHasEnvironmentalPolicy("yes")}
                       value={hasEnvironmentalPolicy}
                       checked={hasEnvironmentalPolicy === "yes"}
@@ -336,7 +336,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setHasEnvironmentalPolicy("no")}
                       value={hasEnvironmentalPolicy}
                       checked={hasEnvironmentalPolicy === "no"}
@@ -358,7 +358,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setHasEnvironmentalPolicy("considering or planning")
                       }
@@ -384,7 +384,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setHasEnvironmentalPolicy("not applicable")
                       }
@@ -416,7 +416,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setUnderstandTheImpacts("yes")}
                       value={understandTheImpacts}
                       checked={understandTheImpacts === "yes"}
@@ -438,7 +438,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setUnderstandTheImpacts("no")}
                       value={understandTheImpacts}
                       checked={understandTheImpacts === "no"}
@@ -460,7 +460,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setUnderstandTheImpacts("considering or planning")
                       }
@@ -486,7 +486,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setUnderstandTheImpacts("not applicable")}
                       value={understandTheImpacts}
                       checked={understandTheImpacts === "not applicable"}
@@ -512,7 +512,7 @@ const Seller_Environmental = ({ nextPage }) => {
                         }`}
                       ></div>
                       <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setIsImpactMeasured("yes")}
                         value={isImpactMeasured}
                         checked={isImpactMeasured === "yes"}
@@ -534,7 +534,7 @@ const Seller_Environmental = ({ nextPage }) => {
                         }`}
                       ></div>
                       <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setIsImpactMeasured("no")}
                         value={isImpactMeasured}
                         checked={isImpactMeasured === "no"}
@@ -556,7 +556,7 @@ const Seller_Environmental = ({ nextPage }) => {
                         }`}
                       ></div>
                       <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() =>
                           setIsImpactMeasured("considering or planning")
                         }
@@ -580,7 +580,7 @@ const Seller_Environmental = ({ nextPage }) => {
                         }`}
                       ></div>
                       <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setIsImpactMeasured("not applicable")}
                         value={isImpactMeasured}
                         checked={isImpactMeasured === "not applicable"}
@@ -609,7 +609,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setMaterialCauseLessDamage("yes")}
                       value={materialCauseLessDamage}
                       checked={materialCauseLessDamage === "yes"}
@@ -631,7 +631,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setMaterialCauseLessDamage("no")}
                       value={materialCauseLessDamage}
                       checked={materialCauseLessDamage === "no"}
@@ -653,7 +653,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setMaterialCauseLessDamage("considering or planning")
                       }
@@ -679,7 +679,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setMaterialCauseLessDamage("not applicable")
                       }
@@ -709,7 +709,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setUseLocalMaterial("yes")}
                       value={useLocalMaterial}
                       checked={useLocalMaterial === "yes"}
@@ -731,7 +731,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setUseLocalMaterial("no")}
                       value={useLocalMaterial}
                       checked={useLocalMaterial === "no"}
@@ -753,7 +753,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setUseLocalMaterial("considering or planning")
                       }
@@ -777,7 +777,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setUseLocalMaterial("not applicable")}
                       value={useLocalMaterial}
                       checked={useLocalMaterial === "not applicable"}
@@ -826,7 +826,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setQuantifyTheImpact("yes")}
                       value={quantifyTheImpact}
                       checked={quantifyTheImpact === "yes"}
@@ -848,7 +848,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setQuantifyTheImpact("no")}
                       value={quantifyTheImpact}
                       checked={quantifyTheImpact === "no"}
@@ -870,7 +870,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setQuantifyTheImpact("considering or planning")
                       }
@@ -894,7 +894,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setQuantifyTheImpact("not applicable")}
                       value={quantifyTheImpact}
                       checked={quantifyTheImpact === "not applicable"}
@@ -1073,7 +1073,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setRecycleScrapMaterials("yes")}
                       value={recycleScrapMaterials}
                       checked={recycleScrapMaterials === "yes"}
@@ -1095,7 +1095,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setRecycleScrapMaterials("no")}
                       value={recycleScrapMaterials}
                       checked={recycleScrapMaterials === "no"}
@@ -1117,7 +1117,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setRecycleScrapMaterials("considering or planning")
                       }
@@ -1143,7 +1143,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setRecycleScrapMaterials("not applicable")
                       }
@@ -1196,7 +1196,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setRecycleAfterUsePhase("yes")}
                       value={recycleAfterUsePhase}
                       checked={recycleAfterUsePhase === "yes"}
@@ -1218,7 +1218,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setRecycleAfterUsePhase("no")}
                       value={recycleAfterUsePhase}
                       checked={recycleAfterUsePhase === "no"}
@@ -1240,7 +1240,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setRecycleAfterUsePhase("considering or planning")
                       }
@@ -1266,7 +1266,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setRecycleAfterUsePhase("not applicable")}
                       value={recycleAfterUsePhase}
                       checked={recycleAfterUsePhase === "not applicable"}
@@ -1295,7 +1295,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setAimToReturnFaulty("yes")}
                       value={aimToReturnFaulty}
                       checked={aimToReturnFaulty === "yes"}
@@ -1317,7 +1317,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setAimToReturnFaulty("no")}
                       value={aimToReturnFaulty}
                       checked={aimToReturnFaulty === "no"}
@@ -1339,7 +1339,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setAimToReturnFaulty("considering or planning")
                       }
@@ -1363,7 +1363,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setAimToReturnFaulty("not applicable")}
                       value={aimToReturnFaulty}
                       checked={aimToReturnFaulty === "not applicable"}
@@ -1392,7 +1392,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setPromotesCustomersUnderstanding("yes")}
                       value={promotesCustomersUnderstanding}
                       checked={promotesCustomersUnderstanding === "yes"}
@@ -1414,7 +1414,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setPromotesCustomersUnderstanding("no")}
                       value={promotesCustomersUnderstanding}
                       checked={promotesCustomersUnderstanding === "no"}
@@ -1437,7 +1437,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setPromotesCustomersUnderstanding(
                           "considering or planning"
@@ -1466,7 +1466,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setPromotesCustomersUnderstanding("not applicable")
                       }
@@ -1499,7 +1499,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setDataAboutEnvironmentalPractices("yes")}
                       value={dataAboutEnvironmentalPractices}
                       checked={dataAboutEnvironmentalPractices === "yes"}
@@ -1521,7 +1521,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setDataAboutEnvironmentalPractices("no")}
                       value={dataAboutEnvironmentalPractices}
                       checked={dataAboutEnvironmentalPractices === "no"}
@@ -1544,7 +1544,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setDataAboutEnvironmentalPractices(
                           "considering or planning"
@@ -1573,7 +1573,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setDataAboutEnvironmentalPractices("not applicable")
                       }
@@ -1605,7 +1605,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setCustomersDemandOnEnvironmentalPerfomance("yes")
                       }
@@ -1631,7 +1631,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setCustomersDemandOnEnvironmentalPerfomance("no")
                       }
@@ -1658,7 +1658,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setCustomersDemandOnEnvironmentalPerfomance(
                           "considering or planning"
@@ -1688,7 +1688,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setCustomersDemandOnEnvironmentalPerfomance(
                           "not applicable"
@@ -1724,7 +1724,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setAlternativeForPlastic("yes")}
                       value={alternativeForPlastic}
                       checked={alternativeForPlastic === "yes"}
@@ -1746,7 +1746,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setAlternativeForPlastic("no")}
                       value={alternativeForPlastic}
                       checked={alternativeForPlastic === "no"}
@@ -1768,7 +1768,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setAlternativeForPlastic("considering or planning")
                       }
@@ -1794,7 +1794,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setAlternativeForPlastic("not applicable")
                       }
@@ -1825,7 +1825,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setSustainableDeliveryProcess("yes")}
                       value={sustainableDeliveryProcess}
                       checked={sustainableDeliveryProcess === "yes"}
@@ -1847,7 +1847,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setSustainableDeliveryProcess("no")}
                       value={sustainableDeliveryProcess}
                       checked={sustainableDeliveryProcess === "no"}
@@ -1869,7 +1869,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setSustainableDeliveryProcess("considering or planning")
                       }
@@ -1895,7 +1895,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setSustainableDeliveryProcess("not applicable")
                       }
@@ -1926,7 +1926,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setFinalDestinationForWaste("yes")}
                       value={finalDestinationForWaste}
                       checked={finalDestinationForWaste === "yes"}
@@ -1948,7 +1948,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setFinalDestinationForWaste("no")}
                       value={finalDestinationForWaste}
                       checked={finalDestinationForWaste === "no"}
@@ -1970,7 +1970,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setFinalDestinationForWaste("considering or planning")
                       }
@@ -1996,7 +1996,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setFinalDestinationForWaste("not applicable")
                       }
@@ -2029,7 +2029,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setSelectiveWasteCollection("yes")}
                       value={selectiveWasteCollection}
                       checked={selectiveWasteCollection === "yes"}
@@ -2051,7 +2051,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setSelectiveWasteCollection("no")}
                       value={selectiveWasteCollection}
                       checked={selectiveWasteCollection === "no"}
@@ -2073,7 +2073,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setSelectiveWasteCollection("considering or planning")
                       }
@@ -2099,7 +2099,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setSelectiveWasteCollection("not applicable")
                       }
@@ -2149,7 +2149,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setSavingPaperConsumption("yes")}
                       value={savingPaperConsumption}
                       checked={savingPaperConsumption === "yes"}
@@ -2171,7 +2171,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setSavingPaperConsumption("no")}
                       value={savingPaperConsumption}
                       checked={savingPaperConsumption === "no"}
@@ -2193,7 +2193,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setSavingPaperConsumption("considering or planning")
                       }
@@ -2219,7 +2219,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setSavingPaperConsumption("not applicable")
                       }
@@ -2270,7 +2270,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setReductionOfEnergyConsumption("yes")}
                       value={reductionOfEnergyConsumption}
                       checked={reductionOfEnergyConsumption === "yes"}
@@ -2292,7 +2292,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setReductionOfEnergyConsumption("no")}
                       value={reductionOfEnergyConsumption}
                       checked={reductionOfEnergyConsumption === "no"}
@@ -2315,7 +2315,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setReductionOfEnergyConsumption(
                           "considering or planning"
@@ -2344,7 +2344,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setReductionOfEnergyConsumption("not applicable")
                       }
@@ -2395,7 +2395,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setUseOfRenewableEnergy("yes")}
                       value={useOfRenewableEnergy}
                       checked={useOfRenewableEnergy === "yes"}
@@ -2417,7 +2417,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setUseOfRenewableEnergy("no")}
                       value={useOfRenewableEnergy}
                       checked={useOfRenewableEnergy === "no"}
@@ -2439,7 +2439,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setUseOfRenewableEnergy("considering or planning")
                       }
@@ -2465,7 +2465,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setUseOfRenewableEnergy("not applicable")}
                       value={useOfRenewableEnergy}
                       checked={useOfRenewableEnergy === "not applicable"}
@@ -2514,7 +2514,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setReductionOfWaterConsumption("yes")}
                       value={reductionOfWaterConsumption}
                       checked={reductionOfWaterConsumption === "yes"}
@@ -2536,7 +2536,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() => setReductionOfWaterConsumption("no")}
                       value={reductionOfWaterConsumption}
                       checked={reductionOfWaterConsumption === "no"}
@@ -2559,7 +2559,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setReductionOfWaterConsumption(
                           "considering or planning"
@@ -2588,7 +2588,7 @@ const Seller_Environmental = ({ nextPage }) => {
                       }`}
                     ></div>
                     <input
-                      type="radio"
+                      type="checkbox"
                       onChange={() =>
                         setReductionOfWaterConsumption("not applicable")
                       }

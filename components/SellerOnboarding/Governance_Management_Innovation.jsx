@@ -43,7 +43,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${efficiency === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setEfficiency("yes")}
                         value={efficiency}
                         checked={efficiency === "yes"}
@@ -53,7 +53,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${efficiency === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setEfficiency("no")}
                         value={efficiency}
                         checked={efficiency === "no"}
@@ -63,7 +63,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${efficiency === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setEfficiency("considering or planning")}
                         value={efficiency}
                         checked={efficiency === "considering or planning"}
@@ -73,7 +73,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${efficiency === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setEfficiency("not applicable")}
                         value={efficiency}
                         checked={efficiency === "not applicable"}
@@ -86,7 +86,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${qualityOfProduct === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setQualityOfProduct("yes")}
                         value={qualityOfProduct}
                         checked={qualityOfProduct === "yes"}
@@ -96,7 +96,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${qualityOfProduct === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setQualityOfProduct("no")}
                         value={qualityOfProduct}
                         checked={qualityOfProduct === "no"}
@@ -106,7 +106,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${qualityOfProduct === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setQualityOfProduct("considering or planning")}
                         value={qualityOfProduct}
                         checked={qualityOfProduct === "considering or planning"}
@@ -116,7 +116,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${qualityOfProduct === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setQualityOfProduct("not applicable")}
                         value={qualityOfProduct}
                         checked={qualityOfProduct === "not applicable"}
@@ -129,7 +129,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${improvedProtfolio === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setImprovedProtfolio("yes")}
                         value={improvedProtfolio}
                         checked={improvedProtfolio === "yes"}
@@ -141,7 +141,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${improvedProtfolio === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setImprovedProtfolio("no")}
                         value={improvedProtfolio}
                         checked={improvedProtfolio === "no"}
@@ -153,7 +153,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${improvedProtfolio === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setImprovedProtfolio("considering or planning")}
                         value={improvedProtfolio}
                         checked={improvedProtfolio === "considering or planning"}
@@ -165,7 +165,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${improvedProtfolio === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setImprovedProtfolio("not applicable")}
                         value={improvedProtfolio}
                         checked={improvedProtfolio === "not applicable"}
@@ -181,7 +181,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${benefitInItsDimensions === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setBenefitInItsDimensions("yes")}
                         value={benefitInItsDimensions}
                         checked={benefitInItsDimensions === "Mr."}
@@ -191,7 +191,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${benefitInItsDimensions === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setBenefitInItsDimensions("no")}
                         value={benefitInItsDimensions}
                         checked={benefitInItsDimensions === "no"}
@@ -201,7 +201,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${benefitInItsDimensions === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setBenefitInItsDimensions("considering or planning")}
                         value={benefitInItsDimensions}
                         checked={benefitInItsDimensions === "considering or planning"}
@@ -211,7 +211,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${benefitInItsDimensions === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setBenefitInItsDimensions("not applicable")}
                         value={benefitInItsDimensions}
                         checked={benefitInItsDimensions === "not applicable"}
@@ -225,7 +225,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${RND === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setRND("yes")}
                         value={RND}
                         checked={RND === "Mr."}
@@ -235,7 +235,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${RND === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setRND("no")}
                         value={RND}
                         checked={RND === "no"}
@@ -245,7 +245,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${RND === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setRND("considering or planning")}
                         value={RND}
                         checked={RND === "considering or planning"}
@@ -255,7 +255,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${RND === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setRND("not applicable")}
                         value={RND}
                         checked={RND === "not applicable"}
@@ -269,7 +269,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${involvingCustomers === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setInvolvingCustomers("yes")}
                         value={involvingCustomers}
                         checked={involvingCustomers === "Mr."}
@@ -279,7 +279,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${involvingCustomers === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setInvolvingCustomers("no")}
                         value={involvingCustomers}
                         checked={involvingCustomers === "no"}
@@ -289,7 +289,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${involvingCustomers === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setInvolvingCustomers("considering or planning")}
                         value={involvingCustomers}
                         checked={involvingCustomers === "considering or planning"}
@@ -299,7 +299,7 @@ const Governance_Management_Innovation = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${involvingCustomers === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setInvolvingCustomers("not applicable")}
                         value={involvingCustomers}
                         checked={involvingCustomers === "not applicable"}

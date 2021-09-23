@@ -38,7 +38,7 @@ const Governance_Management_Financial = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${financialPlan === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinancialPlan("yes")}
                         value={financialPlan}
                         checked={financialPlan === "yes"}
@@ -48,7 +48,7 @@ const Governance_Management_Financial = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${financialPlan === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinancialPlan("no")}
                         value={financialPlan}
                         checked={financialPlan === "no"}
@@ -58,7 +58,7 @@ const Governance_Management_Financial = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${financialPlan === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinancialPlan("considering or planning")}
                         value={financialPlan}
                         checked={financialPlan === "considering or planning"}
@@ -68,7 +68,7 @@ const Governance_Management_Financial = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${financialPlan === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinancialPlan("not applicable")}
                         value={financialPlan}
                         checked={financialPlan === "not applicable"}
@@ -81,7 +81,7 @@ const Governance_Management_Financial = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${financialPerformance === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinancialPerformance("yes")}
                         value={financialPerformance}
                         checked={financialPerformance === "yes"}
@@ -91,7 +91,7 @@ const Governance_Management_Financial = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${financialPerformance === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinancialPerformance("no")}
                         value={financialPerformance}
                         checked={financialPerformance === "no"}
@@ -101,7 +101,7 @@ const Governance_Management_Financial = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${financialPerformance === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinancialPerformance("considering or planning")}
                         value={financialPerformance}
                         checked={financialPerformance === "considering or planning"}
@@ -111,7 +111,7 @@ const Governance_Management_Financial = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${financialPerformance === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setFinancialPerformance("not applicable")}
                         value={financialPerformance}
                         checked={financialPerformance === "not applicable"}
@@ -124,7 +124,7 @@ const Governance_Management_Financial = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${monitoringManagement === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setMonitoringManagement("yes")}
                         value={monitoringManagement}
                         checked={monitoringManagement === "yes"}
@@ -136,7 +136,7 @@ const Governance_Management_Financial = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${monitoringManagement === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setMonitoringManagement("no")}
                         value={monitoringManagement}
                         checked={monitoringManagement === "no"}
@@ -148,7 +148,7 @@ const Governance_Management_Financial = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${monitoringManagement === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setMonitoringManagement("considering or planning")}
                         value={monitoringManagement}
                         checked={monitoringManagement === "considering or planning"}
@@ -160,7 +160,7 @@ const Governance_Management_Financial = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${monitoringManagement === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setMonitoringManagement("not applicable")}
                         value={monitoringManagement}
                         checked={monitoringManagement === "not applicable"}
@@ -176,7 +176,7 @@ const Governance_Management_Financial = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${discloseInfo === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDiscloseInfo("yes")}
                         value={discloseInfo}
                         checked={discloseInfo === "Mr."}
@@ -186,7 +186,7 @@ const Governance_Management_Financial = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${discloseInfo === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDiscloseInfo("no")}
                         value={discloseInfo}
                         checked={discloseInfo === "no"}
@@ -196,7 +196,7 @@ const Governance_Management_Financial = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${discloseInfo === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDiscloseInfo("considering or planning")}
                         value={discloseInfo}
                         checked={discloseInfo === "considering or planning"}
@@ -206,7 +206,7 @@ const Governance_Management_Financial = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${discloseInfo === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDiscloseInfo("not applicable")}
                         value={discloseInfo}
                         checked={discloseInfo === "not applicable"}

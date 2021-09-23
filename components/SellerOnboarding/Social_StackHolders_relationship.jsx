@@ -42,7 +42,7 @@ const Social_StackHolders_relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${dialogChannel === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDialogChannel("yes")}
                         value={dialogChannel}
                         checked={dialogChannel === "yes"}
@@ -52,7 +52,7 @@ const Social_StackHolders_relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${dialogChannel === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDialogChannel("no")}
                         value={dialogChannel}
                         checked={dialogChannel === "no"}
@@ -62,7 +62,7 @@ const Social_StackHolders_relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${dialogChannel === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDialogChannel("considering or planning")}
                         value={dialogChannel}
                         checked={dialogChannel === "considering or planning"}
@@ -72,7 +72,7 @@ const Social_StackHolders_relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${dialogChannel === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setDialogChannel("not applicable")}
                         value={dialogChannel}
                         checked={dialogChannel === "not applicable"}
@@ -85,7 +85,7 @@ const Social_StackHolders_relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${encouragingValunteer === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setEncouragingValunteer("yes")}
                         value={encouragingValunteer}
                         checked={encouragingValunteer === "yes"}
@@ -95,7 +95,7 @@ const Social_StackHolders_relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${encouragingValunteer === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setEncouragingValunteer("no")}
                         value={encouragingValunteer}
                         checked={encouragingValunteer === "no"}
@@ -105,7 +105,7 @@ const Social_StackHolders_relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${encouragingValunteer === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setEncouragingValunteer("considering or planning")}
                         value={encouragingValunteer}
                         checked={encouragingValunteer === "considering or planning"}
@@ -115,7 +115,7 @@ const Social_StackHolders_relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${encouragingValunteer === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setEncouragingValunteer("not applicable")}
                         value={encouragingValunteer}
                         checked={encouragingValunteer === "not applicable"}
@@ -129,7 +129,7 @@ const Social_StackHolders_relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${investInSocialProject === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setInvestInSocialProject("yes")}
                         value={investInSocialProject}
                         checked={investInSocialProject === "yes"}
@@ -139,7 +139,7 @@ const Social_StackHolders_relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${investInSocialProject === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setInvestInSocialProject("no")}
                         value={investInSocialProject}
                         checked={investInSocialProject === "no"}
@@ -149,7 +149,7 @@ const Social_StackHolders_relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${investInSocialProject === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setInvestInSocialProject("considering or planning")}
                         value={investInSocialProject}
                         checked={investInSocialProject === "considering or planning"}
@@ -159,7 +159,7 @@ const Social_StackHolders_relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${investInSocialProject === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setInvestInSocialProject("not applicable")}
                         value={investInSocialProject}
                         checked={investInSocialProject === "not applicable"}
@@ -185,7 +185,7 @@ const Social_StackHolders_relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${obtainedBenifits === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setObtainedBenifits("yes")}
                         value={obtainedBenifits}
                         checked={obtainedBenifits === "yes"}
@@ -195,7 +195,7 @@ const Social_StackHolders_relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${obtainedBenifits === "no" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setObtainedBenifits("no")}
                         value={obtainedBenifits}
                         checked={obtainedBenifits === "no"}
@@ -205,7 +205,7 @@ const Social_StackHolders_relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${obtainedBenifits === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setObtainedBenifits("considering or planning")}
                         value={obtainedBenifits}
                         checked={obtainedBenifits === "considering or planning"}
@@ -215,7 +215,7 @@ const Social_StackHolders_relationship = ({
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${obtainedBenifits === "not applicable" ? " w--redirected-checked" : ""}`}></div>
                     <input
-                        type="radio"
+                        type="checkbox"
                         onChange={() => setObtainedBenifits("not applicable")}
                         value={obtainedBenifits}
                         checked={obtainedBenifits === "not applicable"}
@@ -227,7 +227,7 @@ const Social_StackHolders_relationship = ({
                 value={stackHoldersBrief}
                 onChange={(e) => setStackHoldersBrief(e.target.value)}
                 placeholder="(If any) Use this space to briefly tell us what actions the company practices and/or encourages with the community. What strategies the company adopts for communication and relationship with its stakeholders."
-                maxlength="5000" className="input-x input-x--text-area vision-notes w-input" />
+                maxLength="5000" className="input-x input-x--text-area vision-notes w-input" />
 
         </>
     )

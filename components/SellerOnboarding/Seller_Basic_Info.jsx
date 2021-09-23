@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { scrollToElement } from "@/utils/scroll";
+import { scrollToElement,divReload } from "@/utils/scroll";
 
 import ProgressBar from "./Utils/ProgressBar";
 import { uploadFiles } from "_controllers/product";
@@ -196,7 +196,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                               }`}
                           ></div>
                           <input
-                            type="radio"
+                            type="checkbox"
                             onChange={() => setInitials("Mr.")}
                             className=""
                             value={initials}
@@ -220,7 +220,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                               }`}
                           ></div>
                           <input
-                            type="radio"
+                            type="checkbox"
                             onChange={() => setInitials("Mrs.")}
                             value={initials}
                             checked={initials === "Mrs."}
@@ -241,7 +241,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                               }`}
                           ></div>
                           <input
-                            type="radio"
+                            type="checkbox"
                             onChange={() => setInitials("Ms.")}
                             value={initials}
                             checked={initials === "Ms."}
@@ -264,7 +264,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                               }`}
                           ></div>
                           <input
-                            type="radio"
+                            type="checkbox"
                             onChange={() => setInitials("Miss")}
                             value={initials}
                             checked={initials === "Miss"}
@@ -355,7 +355,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                             }`}
                         ></div>
                         <input
-                          type="radio"
+                          type="checkbox"
                           value={productInfo}
                           checked={productInfo === "Producer of raw materials"}
                           onChange={() =>
@@ -392,7 +392,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                             }`}
                         ></div>
                         <input
-                          type="radio"
+                          type="checkbox"
                           value={productInfo}
                           checked={
                             productInfo ===
@@ -436,7 +436,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                             }`}
                         ></div>
                         <input
-                          type="radio"
+                          type="checkbox"
                           value={productInfo}
                           checked={productInfo === "Producer of finished goods"}
                           onChange={() =>
@@ -475,7 +475,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                             }`}
                         ></div>
                         <input
-                          type="radio"
+                          type="checkbox"
                           value={productInfo}
                           checked={productInfo === "Distributor"}
                           onChange={() => setProductInfo("Distributor")}
@@ -515,7 +515,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                             }`}
                         ></div>
                         <input
-                          type="radio"
+                          type="checkbox"
                           value={productInfo}
                           checked={productInfo === "Retailer"}
                           onChange={() => setProductInfo("Retailer")}
@@ -555,7 +555,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                             }`}
                         ></div>
                         <input
-                          type="radio"
+                          type="checkbox"
                           value={productInfo}
                           checked={productInfo === "Service provider"}
                           onChange={() => setProductInfo("Service provider")}
@@ -595,7 +595,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                             }`}
                         ></div>
                         <input
-                          type="radio"
+                          type="checkbox"
                           value={productInfo}
                           checked={productInfo === "More than one business"}
                           onChange={() =>
@@ -644,7 +644,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                               }`}
                           ></div>
                           <input
-                            type="radio"
+                            type="checkbox"
                             value={companySize}
                             checked={companySize === "Less than 10"}
                             onChange={() => setCompanySize("Less than 10")}
@@ -674,7 +674,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                               }`}
                           ></div>
                           <input
-                            type="radio"
+                            type="checkbox"
                             value={companySize}
                             checked={companySize === "10-49 employees"}
                             onChange={() => setCompanySize("10-49 employees")}
@@ -704,7 +704,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                               }`}
                           ></div>
                           <input
-                            type="radio"
+                            type="checkbox"
                             value={companySize}
                             checked={companySize === "50-249 employees"}
                             onChange={() => setCompanySize("50-249 employees")}
@@ -734,7 +734,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                               }`}
                           ></div>
                           <input
-                            type="radio"
+                            type="checkbox"
                             value={companySize}
                             checked={companySize === "More than 250 employees"}
                             onChange={() =>
@@ -781,7 +781,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                             value={certificate}
                             checked={certificate === "yes"}
                             onChange={() => setCertificate("yes")}
-                            type="radio"
+                            type="checkbox"
                             data-name="Label/Certification"
                             id="Yes-4"
                             name="Label-Certification"
@@ -810,7 +810,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                             value={certificate}
                             checked={certificate === "no"}
                             onChange={() => setCertificate("no")}
-                            type="radio"
+                            type="checkbox"
                             data-name="Label/Certification"
                             id="No-4"
                             name="Label-Certification"
@@ -842,6 +842,9 @@ const Seller_Basic_Info = ({ nextPage }) => {
                               <a className="shop-delete w-inline-block cursor" onClick={() => {
                                 setCertificateOneName("")
                                 setCertificateOne("")
+                                location.reload()
+                                // document.getElementById("cert-image").onload(window.location.href + "cert-image" );
+                                // divReload("#cert-image")                                
                               }}>
                                 <img className="" src="/images/clear-black-24-dp.svg" loading="lazy" alt="Close" />
                               </a>
@@ -860,7 +863,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                             } */}
                           </div>
 
-                          <div className="account-form-1">
+                          <div className="account-form-1" id="cert-image">
                             <input
                               type="text"
                               className="input-x w-input"
@@ -901,14 +904,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                                 Upload Certificate (png., jpg., pdf.)
                               </div>
                             </label>
-                            <span>
-                              <a className="shop-delete w-inline-block cursor" onClick={() => {
-                                setCertificateOneName("")
-                                setCertificateOne("")
-                              }}>
-                                <img src="/images/clear-black-24-dp.svg" loading="lazy" alt="Close" />
-                              </a>
-                            </span>
+                            
                           </div>
                           <input
                             type="file"
