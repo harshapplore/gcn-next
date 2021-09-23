@@ -64,7 +64,7 @@ const CustomerBackend = () => {
         </div> */}
         <div className="page-section wf-section">
           <div className="container">
-            <div className="flex mb-40">
+            <div className="flex mb-5">
               <div className="shop-filter">
                 <div className="logo-floater lower">
                   <img

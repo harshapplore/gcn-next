@@ -1149,6 +1149,9 @@ label {
   max-width: 70%;
   margin-right: 10px;
 }
+.heading-wrapper h2 {
+    font-size: 24px;
+}
 
 .heading-wrapper.mb-50 {
   margin-bottom: 50px;
@@ -1542,11 +1545,16 @@ label {
 
 .shop-content {
   overflow: hidden;
-  padding-top: 40px;
+  padding-top: 0px;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
+  height: 100%;
   -ms-flex: 1;
   flex: 1;
+}
+.shop-content h1 {
+    font-size:34px;
+    margin: 0px;
 }
 
 .shop-content.pt-0 {
@@ -1554,8 +1562,8 @@ label {
 }
 
 .logo-img {
-  width: 200px;
-  height: 200px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.25);
   -o-object-fit: cover;
@@ -2365,6 +2373,8 @@ label {
 
 .logo-floater.lower {
   top: -55%;
+  display: flex;
+  justify-content: center;
 }
 
 .scroll-x {

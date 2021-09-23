@@ -35,7 +35,7 @@ const MoreShops = (props) => {
     }, [customer.id]); 
 
     const toggleFavorites = async (shopId) => {
-        let isFav = favoriteShops.filter(val => val.shopId === shopId);
+        let isFav = favoriteShops?.filter(val => val.shopId === shopId);
         if (!isFav.length > 0) {
             await addToFavorites({
                 customerId: customer.id,
@@ -55,7 +55,7 @@ const MoreShops = (props) => {
 
             {!shops && <AppLoader />}
             {shops && shops.length > 0 && shops.map((shop, index) => {
-                let isFav = favoriteShops.filter(val => val.shopId === shop._id).length > 0;
+                let isFav = favoriteShops?.filter(val => val.shopId === shop._id).length > 0;
                 const image = shop.images.length > 0 ? shop.images[0].url : "";
                 if (count < 4 && shop._id != props.shopId)  {
                     count++;

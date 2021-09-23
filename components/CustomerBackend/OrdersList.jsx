@@ -6,6 +6,7 @@ import { getAllOrders } from "@/_controllers/customer";
 
 import { ORDER_LIST } from "./routes";
 import Order from './Order.jsx'
+import AppLoader from "@/utils/AppLoader/AppLoader";
 
 const List = ({ order }) => {
     const [_date, _setDate] = useState();
@@ -55,14 +56,17 @@ const OrdersList = () => {
     const { user } = useSelector((state) => state.user);
 
     useEffect(async () => {
+       
+        getOrders();
+    }, [customer]);
+
+    const getOrders = async () => {
+        // _setOrders(false);
         const orders = await getAllOrders({ customerId: user._id });
         console.log(user)
         console.log(orders)
         _setOrders(orders);
-
-    }, [customer]);
-
-
+    }
 
     //   const getOrders = () => {
     //     console.log(user)
@@ -74,9 +78,10 @@ const OrdersList = () => {
                 <h2>Order History</h2>
             </div>
             <div className="order-wrapper">
+                {!_orders && <AppLoader />}
                 {_orders &&
                     _orders.length > 0 &&
-                    _orders.map((order) => <Order order={order} />)}
+                    _orders.map((order) => <Order order={order} getOrders={getOrders}/>)}
             </div>
         </div>
     );
