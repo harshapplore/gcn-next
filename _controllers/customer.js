@@ -135,14 +135,14 @@ export const getAllOrders = async ({ customerId}) => {
   return res.data;
 };
 
-export const cancelOrder = async ({ orderId, shopId, }) => {
+export const cancelOrder = async ({ orderId, shopId,Status }) => {
     const res = await authAxios()({
         url: `/orders/cancleOrder`,
         method: "POST",
         data: {
             orderId,
             shopId,
-            Status: "Cancelled"
+            Status
         }
     });
 

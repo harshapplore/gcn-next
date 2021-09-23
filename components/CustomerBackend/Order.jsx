@@ -191,7 +191,8 @@ const Order = (props) => {
                                                             setLoading(snaps?.shop._id);
                                                             cancelOrder({
                                                                 orderId: order?._id,
-                                                                shopId: snaps?.shop._id
+                                                                shopId: snaps?.shop._id,
+                                                                Status:"Cancelled"
                                                             }) 
                                                             setTimeout(() => {
                                                                 props.getOrders();
