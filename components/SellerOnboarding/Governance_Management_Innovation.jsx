@@ -311,7 +311,7 @@ const Governance_Management_Innovation = ({
                 value={innovationBrief}
                 onChange={(e) => setInnovationBrief(e.target.value)}
                 placeholder="(If any) Use this space to briefly tell us which innovations (related to the sustainability) your business model brings. What makes your product different and what requirements does your product/service have so that we can consider it sustainable?"
-                maxlength="5000"
+                maxLength="5000"
                 className="input-x input-x--text-area vision-notes w-input" />
         </>
     )

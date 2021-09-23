@@ -312,7 +312,7 @@ const Governance_Management_Law = ({
                 value={lawBrief}
                 onChange={(e) => setLawBrief(e.target.value)}
                 placeholder="(If any) Use this space to briefly tell us if your company needs license/permits to work, what is the period for renewal of the main licenses/permits and how this process takes place. Clarify the reasons why (by law) your company could be exempt from licenses/permits."
-                maxlength="5000"
+                maxLength="5000"
                 className="input-x input-x--text-area vision-notes w-input" />
         </>
     )

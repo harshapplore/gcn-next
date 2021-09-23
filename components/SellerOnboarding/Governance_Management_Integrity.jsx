@@ -209,7 +209,7 @@ const Governance_Management_Integrity = ({
                 value={integrityBrief}
                 onChange={(e) => setIntegrityBrief(e.target.value)}
                 placeholder="(If any) Use this space to briefly tell us what mechanisms the company uses to ensure a culture of integrity."
-                maxlength="5000"
+                maxLength="5000"
                 className="input-x input-x--text-area vision-notes w-input" />
         </>
     )

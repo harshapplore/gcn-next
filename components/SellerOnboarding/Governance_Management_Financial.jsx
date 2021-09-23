@@ -218,7 +218,7 @@ const Governance_Management_Financial = ({
                 value={financialBrief}
                 onChange={(e) => setFinancialBrief(e.target.value)}
                 placeholder="(If any) Use this space to briefly tell us what strategy the company adopts for its financial management and to ensure transparency in communication with stakeholders."
-                maxlength="5000"
+                maxLength="5000"
                 className="input-x input-x--text-area vision-notes w-input" />
 
         </>

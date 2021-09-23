@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const data = {
@@ -39,6 +40,11 @@ const data = {
 
 const Seller_Intro = ({ nextPage }) => {
     const { seller } = useSelector((state) => state.user);
+    const [sellerName, setSellerName] = useState()
+    useEffect(() => {
+       if(seller.user)
+       setSellerName(seller.user.name)
+    }, [seller])
     const submit = async (e) => {
         e.preventDefault();
 
@@ -53,7 +59,7 @@ const Seller_Intro = ({ nextPage }) => {
                     <br/>
                     <br/>
                     {/* <br/> */}
-                    <h1 className="headline-2 mb-10"> {data.heading} </h1>
+                    <h1 className="headline-2 mb-10"> Hello {sellerName} , let's get started!  </h1>
                     <div className="overline-text mb-40">{data.subheading}</div>
                     <div className="w-richtext">
                         <p>{data.p1}</p>

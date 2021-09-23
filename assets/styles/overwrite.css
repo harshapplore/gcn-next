@@ -131,7 +131,11 @@ select {
 a{
   font-weight: initial;
 }
-
+.certificate-delete{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
 .tab-link-shop,
 .nav-link-shop {
   cursor: pointer;
