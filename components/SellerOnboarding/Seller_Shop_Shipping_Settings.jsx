@@ -105,7 +105,7 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
     const res = await authAxios()({
       url: `/shops/${seller.shop.id} `,
       method: "PUT",
-      data: data
+      data: {shipping : [...prevData,data]}
     });
 
     nextPage();
