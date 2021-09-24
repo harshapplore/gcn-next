@@ -442,9 +442,9 @@ const Shipping_Settings = ({ nextPage }) => {
                     {interNationalShippingMessage && <h5>{interNationalShippingMessage}</h5>}
                     <div className="delivery-cost-button-wrapper">
                       <div onClick={interNationalShipping} className="button blue mr-10">Save Changes</div>
-                      <div href="#" className="button blue secondary">Delete Country</div>
+                      <div href="#" className="button blue secondary">Delete</div>
                     </div>
-                  </div>}
+                  </div>} 
                 </div>
               </div>
             </div>
