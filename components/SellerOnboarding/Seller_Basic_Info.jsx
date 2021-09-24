@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { scrollToElement,divReload } from "@/utils/scroll";
+import { scrollToElement, divReload } from "@/utils/scroll";
 
 import ProgressBar from "./Utils/ProgressBar";
 import { uploadFiles } from "_controllers/product";
@@ -8,9 +8,18 @@ import { uploadFiles } from "_controllers/product";
 import { authAxios } from "@/setups/axios";
 
 import Message from "@/shared/Message";
+import { useImageInput, useMultiImageInput } from "@/_hooks";
+
+import { triggerInput } from "libs/upload";
+
+
 
 import { isEmail, isPhone } from "@/utils/validators";
-
+import {
+  getProduct,
+  addProduct,
+  putProduct,
+} from "@/_controllers/product";
 const data = {
   heading: "Hello Thomas, let's get started!",
   subheading: "Seller Questionnaire",
@@ -19,6 +28,194 @@ const data = {
   p2: `Primarily, we will use this questionnaire as a preliminary evaluation of your company’s performance on business sustainability and ESG. By completing the questionnaire, we will be able to grasp how well your company is managing sustainability in the overall value chain - a key factor htmlFor the inclusion of your business in the Green Cloud Nine platform. Also, if applicable, it may serve as the ground htmlFor further improvements.`,
   initials: ["Mr.", "Mrs.", "Ms.", "Miss"],
 };
+
+// const ProductImage2 = ({ url, isMain, setMain, removeImage }) => {
+//   return (
+//     <div>
+//       <div className="shop-img-link">
+//         <a className="shop-delete w-inline-block cursor" onClick={removeImage}>
+//           <img src="/images/clear-black-24-dp.svg" loading="lazy" alt="Close" />
+//         </a>
+//         <img
+//           src={url}
+//           loading="lazy"
+//           sizes="(max-width: 479px) 46vw, 150px"
+//           alt="Handcrafted stuff"
+//           className="back-img"
+//         />
+//         <CheckBox
+//           type="secondary"
+//           text="Main"
+//           value={isMain}
+//           setValue={setMain}
+//         />
+//       </div>
+//     </div>
+//   );
+// };
+
+// const AddImageBlock = ({
+//   product,
+//   setProduct,
+//   filesData,
+//   setFilesData,
+//   main,
+//   setMain,
+// }) => {
+//   const { ref: inputRef, ...imageData } = useImageInput();
+//   const [imageDataTracker, setImageDataTracker] = useState(imageData);
+
+//   const {
+//     ref: multiInputRef,
+//     data: imagesData,
+//     dataRef,
+//   } = useMultiImageInput();
+
+//   const [error, setError] = useState("");
+
+//   console.log(imageData);
+
+//   useEffect(() => {
+//     if (!imageData.url) return;
+
+//     if (!(imageData.width >= 512 && imageData.height >= 512)) {
+//       setError(
+//         "Product Image should be greater than 512 pixels on both sides."
+//       );
+
+//       setTimeout(() => setError(""), 5000);
+//       return;
+//     }
+
+//     if (imageData.size > 5240000) {
+//       setError("Product Image cannot be larger than 5 mb.");
+//       setTimeout(() => setError(""), 5000);
+//       return;
+//     }
+
+//     setImageDataTracker(imageData);
+//     setFilesData([...(filesData || []), imageData]);
+//   }, [JSON.stringify(imageData)]);
+
+//   useEffect(() => {
+//     if (!imagesData.length) return;
+
+//     const imagesDataFiltered = imagesData.filter(
+//       (image) => image.height > 512 && image.width > 512 && image.size < 5240000
+//     );
+
+//     setFilesData([...filesData, ...imagesData]);
+//   }, [JSON.stringify(imagesData)]);
+
+//   return (
+//     <div className="product-add-block">
+
+//       <div className="flex left mb-40">
+//         {product.images &&
+//           product.images.length > 0 &&
+//           product.images.map((data, index) => (
+//             <ProductImage2
+//               key={"image-" + index}
+//               url={data.url}
+//               removeImage={() =>
+//                 setProduct({
+//                   ...product,
+//                   images: [
+//                     ...product.images.slice(0, index),
+//                     ...product.images.slice(index + 1),
+//                   ],
+//                 })
+//               }
+//               isMain={main.type === "image" && main.index === index}
+//               setMain={() =>
+//                 setMain({
+//                   type: "image",
+//                   index,
+//                 })
+//               }
+//             />
+//           ))}
+
+//         {filesData &&
+//           filesData.length > 0 &&
+//           filesData.map((data, index) => (
+//             <ProductImage2
+//               key={"image-" + index}
+//               url={data.url}
+//               removeImage={() =>
+//                 setFilesData([
+//                   ...filesData.slice(0, index),
+//                   ...filesData.slice(index + 1),
+//                 ])
+//               }
+//               isMain={main.type === "file" && main.index === index}
+//               setMain={() => setMain({ type: "file", index })}
+//             />
+//           ))}
+
+//         <a
+//           className="shop-img-link w-inline-block"
+//           onClick={() => triggerInput(inputRef)}
+//         >
+//           <input
+//             ref={inputRef}
+//             type="file"
+//             className="hidden-input"
+//           // onChange={(e) => setFiles([...files, e.target.files[0]])}
+//           />
+//           <div className="new-img-wrapper cursor">
+//             <img
+//               src="/images/expand-more-black-24-dp.svg"
+//               loading="lazy"
+//               alt="icon"
+//               className="mb-10"
+//             />
+//             <div>Add image</div>
+//           </div>
+//         </a>
+//       </div>
+
+//       {error && (
+//         <div className="mb-10">
+//           {" "}
+//           <ErrorInput message={error} />{" "}
+//         </div>
+//       )}
+
+//       <a
+//         className="button icon blue w-inline-block mb-10"
+//         onClick={() => triggerInput(multiInputRef)}
+//       >
+//         <div className="button-icon w-embed">
+//           <svg
+//             xmlns="http://www.w3.org/2000/svg"
+//             enableBackground="new 0 0 24 24"
+//             height="24px"
+//             viewBox="0 0 24 24"
+//             width="24px"
+//             fill="currentColor"
+//           >
+//             <g>
+//               <rect fill="none" height={24} width={24} />
+//             </g>
+//             <g>
+//               <path d="M18,15v3H6v-3H4v3c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2v-3H18z M7,9l1.41,1.41L11,7.83V16h2V7.83l2.59,2.58L17,9l-5-5L7,9z" />
+//             </g>
+//           </svg>
+//         </div>
+//         <input
+//           ref={multiInputRef}
+//           type="file"
+//           multiple
+//           className="hidden-input"
+//         />
+//         <div className="text-block">Bulk Upload</div>
+//       </a>
+//     </div>
+//   );
+// };
+
+
 
 const Seller_Basic_Info = ({ nextPage }) => {
   const { seller, user } = useSelector((state) => state.user);
@@ -45,6 +242,10 @@ const Seller_Basic_Info = ({ nextPage }) => {
   const [retailer, setRetailer] = useState("");
   const [serviceProvider, setServiceProvider] = useState("");
   const [moreThanOneBussiness, setMoreThanOneBussiness] = useState("");
+//   const [product, setProduct] = useState({ images: []});
+
+// const [filesData, setFilesData] = useState();
+
 
   const imgStyle = { display: "flex", justifyContent: "space-between" }
 
@@ -52,7 +253,11 @@ const Seller_Basic_Info = ({ nextPage }) => {
   const [topError, setTopErrors] = useState("");
 
   const [certificates, setCertificates] = useState([]);
-
+  // useEffect(async () => {
+  //   if (seller.basicInformationAnswers) {
+  //     setProduct(seller.basicInformationAnswers.certificates);
+  //   }
+  // }, []);
   useEffect(() => {
     if (seller.basicInformationAnswers) {
       setInitials(seller.basicInformationAnswers.initials);
@@ -124,6 +329,12 @@ const Seller_Basic_Info = ({ nextPage }) => {
       return;
     }
     const certs = arr.length > 0 ? await uploadFiles(arr) : [];
+    // const fData = filesData && filesData.map((file) => file.file);
+
+    // const uploadedFiles =
+    //   fData && fData.length
+    //     && (await uploadFiles(fData))
+
 
     const sellerData = {
       initials,
@@ -830,13 +1041,22 @@ const Seller_Basic_Info = ({ nextPage }) => {
                         </label>
                       </div>
 
+                      {/* <AddImageBlock
+                        product={product}
+                        setProduct={setProduct}
+                        filesData={filesData}
+                        setFilesData={setFilesData}
+                        main={main}
+                        setMain={setMain}
+                      /> */}
+
                       {certificate === "yes" && (
                         <>
                           <div className="mb-20">
                             <strong>If yes, please upload it here:</strong>
                           </div>
                           <div style={imgStyle} >
-                            {certificateOne && <div style={{position:"relative"}}>
+                            {certificateOne && <div style={{ position: "relative" }}>
                               <img className="mb-20" loading="lazy" width="100%" height="240" src={URL.createObjectURL(certificateOne)} alt="id-front" style={{ borderRadius: "10px" }} />
 
                               <a className="shop-delete w-inline-block cursor" onClick={() => {
@@ -904,7 +1124,7 @@ const Seller_Basic_Info = ({ nextPage }) => {
                                 Upload Certificate (png., jpg., pdf.)
                               </div>
                             </label>
-                            
+
                           </div>
                           <input
                             type="file"
