@@ -24,7 +24,7 @@ const Shipping_Settings = ({ nextPage }) => {
   const [freeShippingFrom, setFreeShippingFrom] = useState(false);
   const [allowShippingToPackingStation, setAllowShippingToPackingStation] = useState(false);
   const [CO2Neutral, setCO2Neutral] = useState(false);
-  const [freeShippingStart, setFreeShippingStart] = useState("");
+  const [freeShippingStart, setFreeShippingStart] = useState(0);
   const [freeShippingCurrency, setFreeShippingCurrency] = useState("");
 
   const [cost0to1KgInt, setCost0to1KgInt] = useState("");
@@ -39,8 +39,9 @@ const Shipping_Settings = ({ nextPage }) => {
   const [currencyInt, setCurrencyInt] = useState("");
   const [interNationalShippingMessage, setInterNationalShippingMessage] = useState("");
   const [nationalShippingMessage, setNationalShippingMessage] = useState("");
-  const [freeDeliveryAmount, setFreeDeliveryAmount] = useState(0);
-  const [freeDeliveryCurrency, setFreeDeliveryCurrency] = useState(0);
+  const [otherMessages, setOtherMessages] = useState("");
+  // const [freeDeliveryAmount, setFreeDeliveryAmount] = useState(0);
+  // const [freeDeliveryCurrency, setFreeDeliveryCurrency] = useState(0);
 
   // const [shippingService, setShippingService] = useState("");
   // const [deliveryTime, setDeliveryTime] = useState("");
@@ -50,28 +51,46 @@ const Shipping_Settings = ({ nextPage }) => {
 
   const checkBoxStyle = { opacity: 0, position: "absolute", zIndex: -1 }
 
+  useEffect(() => {
+    if (seller.shop) {
 
+      setFreeShippingFrom(seller.shop.freeDelivery)
+      setAllowShippingToPackingStation(seller.shop.pickUp)
+      setCO2Neutral(seller.shop.co2NeutralDelivery)
+      setFreeShippingStart(seller.shop.freeDeliveryAmount)
+      setFreeShippingCurrency(seller.shop.freeDeliveryCurrency)
+
+      if (seller.shop.shipping[0]) {
+        
+        setCost0to1Kg(seller.shop.shipping[0].weights ? seller.shop.shipping[0].weights[0].cost : "")
+        setCost1to5Kg(seller.shop.shipping[0].weights ? seller.shop.shipping[0].weights[1].cost :"")
+        setCost5to10Kg(seller.shop.shipping[0].weights ? seller.shop.shipping[0].weights[2].cost :"")
+        setcostMoreThan10Kg(seller.shop.shipping[0].weights ? seller.shop.shipping[0].weights[3].cost :"")
+        setCost0to1KgInt(seller.shop.internationalShipping[0] ? seller.shop.internationalShipping[0].weights[0].cost : "")
+        setCost1to5KgInt(seller.shop.internationalShipping[0] ? seller.shop.internationalShipping[0].weights[1].cost : "")
+        setCost5to10KgInt(seller.shop.internationalShipping[0] ? seller.shop.internationalShipping[0].weights[2].cost : "")
+        setcostMoreThan10KgInt(seller.shop.internationalShipping[0] ? seller.shop.internationalShipping[0].weights[3].cost : "")
+      }
+    }
+
+  }, [seller]);
 
   const validate = () => {
     const err = [];
 
-    // !country ? err.push(`Please select country`) : "";
     // !cost0to1Kg ? err.push(`Please enter 0 and 1 kg category`) : "";
     // !cost1to5Kg ? err.push(`Please enter 1 and 5 kg category`) : "";
     // !cost5to10Kg ? err.push(`Please enter 6 and 10 kg category`) : "";
     // !costMoreThan10Kg ? err.push(`Please enter more than 10Kg category`) : "";
-    // !cost0to1KgInt ? err.push(`Please enter 0 and 1 kg category`) : "";
-    // !cost1to5KgInt ? err.push(`Please enter 1 and 5 kg category`) : "";
-    // !cost5to10KgInt ? err.push(`Please enter 6 and 10 kg category`) : "";
-    // !costMoreThan10KgInt ? err.push(`Please enter more than 10Kg category`) : "";
+    // !cost0to1KgInt ? err.push(`Please enter 0 and 1 kg category for international`) : "";
+    // !cost1to5KgInt ? err.push(`Please enter 1 and 5 kg category for international`) : "";
+    // !cost5to10KgInt ? err.push(`Please enter 6 and 10 kg category for international`) : "";
+    // !costMoreThan10KgInt ? err.push(`Please enter more than 10Kg category for international`) : "";
     // !freeShippingFrom ? err.push(`Please select free shipping from option`) : "";
     // freeShippingFrom && !freeShippingStart ? err.push(`Please select free shipping from option`) : "";
     // freeShippingFrom && !freeShippingCurrency ? err.push(`Please select free shipping from option`) : "";
     // !currency ? err.push(`Please select the currency`) : "";
     // !currencyInt ? err.push(`Please select the currency`) : "";
-    // !shippingService ? err.push(`Please select shipping service`) : "";
-    // !deliveryTime ? err.push(`Please select delivery time`) : "";
-
     setErrors(err);
 
     if (err.length) return false;
@@ -81,6 +100,7 @@ const Shipping_Settings = ({ nextPage }) => {
 
   const nationalShipping = async (e) => {
     e.preventDefault();
+    if (!validate()) return;
 
     const data = {
       country: "National",
@@ -115,8 +135,86 @@ const Shipping_Settings = ({ nextPage }) => {
       setNationalShippingMessage("National shipping details updated successfully")
 
   }
+
+  const nationalShippingDelete =async (e) =>{
+    e.preventDefault();
+    setCost0to1Kg("")
+    setCost1to5Kg("")
+    setCost5to10Kg("")
+    setcostMoreThan10Kg("")
+    const data = {
+      country: "interNational",
+      weights:
+        [{
+          category: "0 to 1Kg",
+          cost: 0,
+          currency,
+        },
+        {
+          category: "1 to 5Kg",
+          cost: 0,
+          currency,
+        }, {
+          category: "5 to 10Kg",
+          cost: 0,
+          currency,
+        }, {
+          category: "More than 10Kg",
+          cost: 0,
+          currency,
+        }
+        ]
+    }
+    const res = await authAxios()({
+      url: `/shops/${seller.shop.id} `,
+      method: "PUT",
+      data: { shipping: [data] }
+    });
+    console.log(res.data)
+    if (res.data)
+      setNationalShippingMessage("National shipping details deleted successfully")
+  }
+  const interNationalShippingDelete =async (e) =>{
+    e.preventDefault();
+    setCost0to1KgInt("")
+    setCost1to5KgInt("")
+    setCost5to10KgInt("")
+    setcostMoreThan10KgInt("")
+    const data = {
+      country: "interNational",
+      weights:
+        [{
+          category: "0 to 1Kg",
+          cost: 0,
+          currency,
+        },
+        {
+          category: "1 to 5Kg",
+          cost: 0,
+          currency,
+        }, {
+          category: "5 to 10Kg",
+          cost: 0,
+          currency,
+        }, {
+          category: "More than 10Kg",
+          cost: 0,
+          currency,
+        }
+        ]
+    }
+    const res = await authAxios()({
+      url: `/shops/${seller.shop.id} `,
+      method: "PUT",
+      data: { internationalShipping: [data] }
+    });
+    console.log(res.data)
+    if (res.data)
+      setInterNationalShippingMessage("International shipping details deleted successfully")
+  }
   const interNationalShipping = async (e) => {
     e.preventDefault();
+    if (!validate()) return;
 
     const data = {
       country: "interNational",
@@ -171,6 +269,8 @@ const Shipping_Settings = ({ nextPage }) => {
       data: data
     });
     console.log(res.data)
+    if(res.data)
+    setOtherMessages("Details updated successfully")
   };
   // console.log(seller);
 
@@ -316,7 +416,7 @@ const Shipping_Settings = ({ nextPage }) => {
 
                     <div className="delivery-cost-button-wrapper">
                       <div onClick={nationalShipping} className="button blue mr-10">Save Changes</div>
-                      <div className="button blue secondary">Delete</div>
+                      <div onClick={nationalShippingDelete} className="button blue secondary">Delete</div>
                     </div>
                   </div>}
                   <div className="delivery-country">
@@ -442,9 +542,9 @@ const Shipping_Settings = ({ nextPage }) => {
                     {interNationalShippingMessage && <h5>{interNationalShippingMessage}</h5>}
                     <div className="delivery-cost-button-wrapper">
                       <div onClick={interNationalShipping} className="button blue mr-10">Save Changes</div>
-                      <div href="#" className="button blue secondary">Delete</div>
+                      <div onClick={interNationalShippingDelete} className="button blue secondary">Delete</div>
                     </div>
-                  </div>} 
+                  </div>}
                 </div>
               </div>
             </div>
@@ -486,6 +586,8 @@ const Shipping_Settings = ({ nextPage }) => {
               </div>
             </div>
           </div>
+          {otherMessages && <h5>{otherMessages}</h5>}
+
           {errors && errors.length > 0 && errors.map(error =>
             <Message text={error} status={-1} />)
           }
