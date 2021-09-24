@@ -9,6 +9,15 @@ html {
   margin-left: auto;
   background-color: #f8931f;
 }
+.align-items-center {
+    align-items: center;
+}
+.justify-content-center {
+    justify-content: center;
+}
+.justify-content-space-between {
+    justify-content: space-between;
+}
 /* Container padden in dem Bereich wo er zu groß sein würde (zw. Desktop u. Tablet, max-w +20px) */
 @media only screen and (min-width: 991px) and (max-width: 1220px) {
   .container {
