@@ -57,6 +57,7 @@ const Cart = () => {
     const [total, setTotal] = useState(0);
 
     const [checkoutLoading, setCheckOutLoading] = useState(false)
+    const [chairtyProject,setCharityProject] = useState(false)
 
     const value = {
         shops,
@@ -169,7 +170,7 @@ const Cart = () => {
             images: product.images.length
                 ? product.images.map((image) => image.url)
                 : ["https://google.com/non"],
-        }));
+        })); 
 
         const url = await getCheckoutUrl({
             customerId: customer.id,
@@ -184,7 +185,7 @@ const Cart = () => {
             pickUpOrder,
             billing,
             shipping,
-            total,
+            total: total,
             snapshot: {
                 shops,
                 subTotals,
@@ -193,7 +194,7 @@ const Cart = () => {
                 shopsMeta
             },
         });
-        localStorage.removeItem("cart")
+        // localStorage.removeItem("cart")
         setCheckOutLoading(false);
 
         location.assign(url);
@@ -209,9 +210,12 @@ const Cart = () => {
 
             <CartContext.Provider value={value}>
                 <div className="page-section">
-                    <CartShopView goToShipping={() => setShowShipping(true)} />
+                    <CartShopView goToShipping={() => {
+                        setShowShipping(true) 
+                    }} />
 
-                    {showShipping && <Shipping checkout={checkout} loading={checkoutLoading} />}
+                    {showShipping && <Shipping 
+                        checkout={checkout} loading={checkoutLoading} />}
                 </div>
                 <Footer />
             </CartContext.Provider>
