@@ -267,6 +267,18 @@ const CartShopView = ({ goToShipping }) => {
     setTotal(totalPrice + totalDelivery + co2Compensation);
   }, [totalPrice, totalDelivery, co2Compensation]);
 
+  const [charityCode, setCharityCode] = useState(false);
+  const [charityError,setCharityError] = useState(false);
+
+  const validator = () => {
+      setCharityError(false)
+      if (toggles.co2Compensation && !charityCode) {
+        setCharityError("Please select one charity project")
+        router.push("/cart#charity-project")
+      } else {
+          goToShipping(charityCode);
+      }
+  }
   return (
     <div>
       {/* Cart Shop View */}
@@ -278,12 +290,12 @@ const CartShopView = ({ goToShipping }) => {
             {shops.reduce((a, c) => a + c.products.length, 0)} items in your
             cart.
           </h1>
-          <Dropdown
+          {/* <Dropdown
             placeholder="Ship To"
             choices={__countries}
             value={shipping.country}
             setValue={(country) => setShipping({ ...shipping, country })}
-          />
+          /> */}
         </div>
 
         {shops &&
@@ -377,13 +389,20 @@ const CartShopView = ({ goToShipping }) => {
           </div>
         </div>
         
-        {toggles.co2Compensation && <CompensationChoices />}
+        {toggles.co2Compensation && 
+        <CompensationChoices 
+            total={total}
+                  co2CompensationPrice={co2Compensation}
+            charityCode={charityCode}
+            setCharityCode={setCharityCode}
+                  charityError={charityError}
+        />}
 
         {shops.length > 0 && (
           <div className={styles["cart-cta-buttons-ctr"]}>
             <Button
               name={customer.id ? "Proceed to Shipping" : "Continue as Guest"}
-              action={goToShipping}
+              action={validator}
             />
             {!customer.id && (
               <OutlinedButton
