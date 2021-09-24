@@ -10,6 +10,8 @@ import Message from "@/shared/Message";
 import { registerUser } from "@/_controllers/auth";
 import SelectForRegister from "../Input/SelectForRegister";
 
+import countries from '../../_data/countries.json'
+
 const Register = ({ close }) => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -120,7 +122,7 @@ const Register = ({ close }) => {
                   />
 
                   <SelectForRegister
-                    choices={["Europe"]}
+                    choices={countries}
                     placeholder="Europe"
                     value={data.region}
                     setValue={(value) => setData({ ...data, region: value })}
