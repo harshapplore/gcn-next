@@ -114,7 +114,7 @@ a:hover {
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   -ms-grid-columns: 3.25fr minmax(150px, 0.25fr) 1.5fr 2fr;
-  grid-template-columns: 3.25fr minmax(150px, 0.25fr) 1.5fr 2fr;
+  grid-template-columns: 3.25fr minmax(200px, 0.25fr) 1.5fr;
   -ms-grid-rows: auto auto;
   grid-template-rows: auto auto;
 }

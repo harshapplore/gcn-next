@@ -102,11 +102,11 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
             CO2Neutral
         }
 
-        const res = await authAxios()({
-            url: `/shops/${seller.shop.id} `,
-            method: "PUT",
-            data: data
-        });
+    const res = await authAxios()({
+      url: `/shops/${seller.shop.id} `,
+      method: "PUT",
+      data: {shipping : [...prevData,data]}
+    });
 
         setLoading(false);
         nextPage();

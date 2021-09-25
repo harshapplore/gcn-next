@@ -10,6 +10,7 @@ import Rating from "@/shared/Rating";
 import { authAxios } from "@/setups/axios";
 
 import __filters from "@/_data/filters.json";
+import { uploadFiles } from "_controllers/product";
 
 
 import { BASE_ROUTE, PRODUCTS, ADD_ACTION, EDIT_ACTION } from "../routes";
@@ -296,6 +297,8 @@ const Products = ({ filters, setFilters }) => {
   const [sorting, setSorting] = useState("");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
+  const [CSV, setCSV] = useState("");
+  const [message, setMessage] = useState("");
 
 
   var filteredProducts = products.slice()
@@ -347,7 +350,32 @@ const Products = ({ filters, setFilters }) => {
     });
     setLoading(false)
   }
- 
+  const uploadCSV = async () => {
+    const arr = [];
+    CSV && arr.push(CSV);
+    const csvProduct = arr.length > 0 ? await uploadFiles(arr) : [];
+
+    // const response = await authAxios()({
+    //   url: `/upload`,
+    //   method: "POST",
+    //   data: CSV
+    // });
+    const data = {
+      fileUrl: csvProduct[0].url,
+      seller: seller.id,
+      shop: seller.shop.id
+    }
+    const response = await authAxios()({
+      url: `/products/bulkProductUpload`,
+      method: "POST",
+      data
+    });
+    if(response)
+    setMessage("Uploaded successfully")
+
+    location.reload()
+  }
+
   return (
     <div className="dynamic-content">
       <div className="shop-filter-bar">
@@ -511,27 +539,38 @@ const Products = ({ filters, setFilters }) => {
             ))}
         </div>
       )}
-
-      <a className="button icon blue w-inline-block">
-        <div className="button-icon w-embed">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            enableBackground="new 0 0 24 24"
-            height="24px"
-            viewBox="0 0 24 24"
-            width="24px"
-            fill="currentColor"
-          >
-            <g>
-              <rect fill="none" height={24} width={24} />
-            </g>
-            <g>
-              <path d="M18,15v3H6v-3H4v3c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2v-3H18z M7,9l1.41,1.41L11,7.83V16h2V7.83l2.59,2.58L17,9l-5-5L7,9z" />
-            </g>
-          </svg>
-        </div>
-        <div className="text-block">Upload CSV</div>
-      </a>
+      {message && <h5 className="mb-20">{message}</h5>}
+      <div>
+        <a className="button icon blue w-inline-block">
+          <div className="button-icon w-embed">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              enableBackground="new 0 0 24 24"
+              height="24px"
+              viewBox="0 0 24 24"
+              width="24px"
+              fill="currentColor"
+            >
+              <g>
+                <rect fill="none" height={24} width={24} />
+              </g>
+              <g>
+                <path d="M18,15v3H6v-3H4v3c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2v-3H18z M7,9l1.41,1.41L11,7.83V16h2V7.83l2.59,2.58L17,9l-5-5L7,9z" />
+              </g>
+            </svg>
+          </div>
+          <input
+            type="file"
+            style={{ display: "none" }}
+            onChange={(e) =>
+              setCSV(e.target.files[0])
+            }
+            id="uploadcsv"
+          />
+          <label htmlFor="uploadcsv" className="text-block"  >Upload CSV</label>
+        </a>
+        {CSV && <div onClick={uploadCSV} className="button blue" style={{ marginLeft: "40px" }}  >Add</div>}
+      </div>
     </div>
   );
 };
