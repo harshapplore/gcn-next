@@ -289,13 +289,7 @@ const CartShopView = ({ goToShipping }) => {
           <h1>
             {shops.reduce((a, c) => a + c.products.length, 0)} items in your
             cart.
-          </h1>
-          {/* <Dropdown
-            placeholder="Ship To"
-            choices={__countries}
-            value={shipping.country}
-            setValue={(country) => setShipping({ ...shipping, country })}
-          /> */}
+          </h1>  
         </div>
 
         {shops &&

@@ -3,10 +3,12 @@ import { useSelector } from "react-redux";
 import { authAxios } from "@/setups/axios";
 import Message from "@/shared/Message";
 import ShopProgressBar from "./Utils/ShopProgressBar";
+import router from "next/router";
 
 
 const Seller_Shop_Terms = ({ nextPage }) => {
     const { seller } = useSelector((state) => state.user);
+    const sellerInfo  = useSelector((state) => state.seller);
     const [errors, setErrors] = useState([]);
 
     const [returnAndRefund, setReturnAndRefund] = useState("");
@@ -20,6 +22,11 @@ const Seller_Shop_Terms = ({ nextPage }) => {
             setPrivacyPolicy(seller.shop.privacyPolicy)
         }
     }, []);
+    useEffect(() => {
+        if (sellerInfo && sellerInfo.seller && sellerInfo.seller.qaStatus && sellerInfo.seller.qaStatus != "approved") {
+            router.push("/")
+        }
+    }, [sellerInfo])
 
     const validate = () => {
         const err = [];

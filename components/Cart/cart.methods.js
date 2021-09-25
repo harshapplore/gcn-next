@@ -54,8 +54,38 @@ export const getSubTotalPrice = (products) => {
   );
 };
 
-export const getSubTotalDelivery = () => {
-  return 0;
+export const getSubTotalDelivery = (products) => {
+    let shop = products.length ? (products[0].shop ? products[0].shop : false)  : false
+    console.log(products)
+    if(shop.shipping) {
+        
+        let totalWeight = 0;
+        products.forEach(val => {
+            totalWeight += val.weight * val.quantity
+        })
+
+        console.log(totalWeight)
+        let shippingPrice = 0;
+        shop.shipping.forEach(val => {
+            if (val.country == "National") {
+                val.weights.forEach(weight => {
+                    if (totalWeight < 1 && weight.category == "0 to 1Kg") {
+                        shippingPrice = weight.cost;
+                    } else if ((totalWeight >= 1 && totalWeight < 5) && weight.category == "1 to 5Kg") {
+                        shippingPrice = weight.cost;
+                    } else if ((totalWeight >= 5 && totalWeight < 10) && weight.category == "5 to 10Kg") {
+                        shippingPrice = weight.cost;
+                    } else if (totalWeight >= 10 && weight.category == "More than 10Kg") {
+                        shippingPrice = weight.cost;
+                    }
+                })
+            }
+        })
+
+        return shippingPrice;
+    } else {
+        return 0;
+    } 
 };
 
 export const calculateVat = ({

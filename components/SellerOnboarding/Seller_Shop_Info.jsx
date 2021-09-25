@@ -6,10 +6,13 @@ import ShopProgressBar from "./Utils/ShopProgressBar";
 import { authAxios } from "@/setups/axios";
 import Message from "@/shared/Message";
 
-import { fetchSeller } from "@/slices/user";
+import user, { fetchSeller } from "@/slices/user";
+import router from "next/router";
 
 const Seller_Shop_Info = ({ nextPage }) => {
     const { seller } = useSelector((state) => state.user);
+    const sellerInfo = useSelector((state) => state.seller);
+
     const [errors, setErrors] = useState([]);
 
     const [initials, setInitials] = useState("");
@@ -38,7 +41,13 @@ const Seller_Shop_Info = ({ nextPage }) => {
     const [region, setRegion] = useState("");
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-
+    useEffect(() => {
+        console.log("SELLER INFO")
+        console.log(sellerInfo.seller.qaStatus)
+        if (sellerInfo && sellerInfo.seller && sellerInfo.seller.qaStatus && sellerInfo.seller.qaStatus != "approved") {
+            router.push("/")
+        }
+    }, [sellerInfo])
     useEffect(() => {
         if (seller.shop) {
             setOrganizationName(seller.shop.companyName)
@@ -148,6 +157,8 @@ const Seller_Shop_Info = ({ nextPage }) => {
         }
     };
 
+    console.log("SELLLER NAME")
+    console.log(seller)
     return (
         <div className="page-section wf-section">
             <div className="container">
@@ -189,10 +200,10 @@ const Seller_Shop_Info = ({ nextPage }) => {
                                         </div>
                                         <div className="account-form-1 mb-0">
                                             <div className="input-x input-x--flex ">
-                                                {!editName ? <div className={`${!editName ? "" : " hidden"}`}>{name ? name : "Thomas Martin"}</div> :
+                                                {!editName ? <div className={`${!editName ? "" : " hidden"}`}>{name ? name : seller.user.name}</div> :
                                                     <input
                                                         onChange={(e) => setName(e.target.value)}
-                                                        value={name}
+                                                        value={seller.user.name}
                                                         type="text"
                                                         className="input-x-edit w-input"
                                                         maxLength="256"
@@ -237,10 +248,10 @@ const Seller_Shop_Info = ({ nextPage }) => {
                                                 </div>
                                             </div>
                                             <div className="input-x input-x--flex">
-                                                {!editEmail ? <div className={`${!editEmail ? "" : " hidden"}`}>{email ? email : "thomas.martin@gmail.com"}</div> :
+                                                {!editEmail ? <div className={`${!editEmail ? "" : " hidden"}`}>{email ? email : seller.user.email}</div> :
                                                     <input
                                                         onChange={(e) => setEmail(e.target.value)}
-                                                        value={email}
+                                                        value={seller.user.email}
                                                         type="text"
                                                         className="input-x-edit w-input"
                                                         maxLength="256"

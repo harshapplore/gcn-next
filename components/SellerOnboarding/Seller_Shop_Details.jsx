@@ -5,14 +5,17 @@ import ShopProgressBar from "./Utils/ShopProgressBar";
 import { authAxios } from "@/setups/axios";
 import { uploadFiles } from "_controllers/product"
 import Message from "@/shared/Message";
-import { fetchSeller } from "@/slices/user";
 import Button from "@/shared/Button";
+import router from "next/router";
 
 
 
 
 const Seller_Shop_Details = ({ nextPage }) => {
     const { seller } = useSelector((state) => state.user);
+
+    const  sellerInfo  = useSelector((state) => state.seller);
+
     const [errors, setErrors] = useState([]);
     const [profilePic, setProfilePic] = useState("");
     const [headerImage, setHeaderImage] = useState("");
@@ -21,8 +24,11 @@ const Seller_Shop_Details = ({ nextPage }) => {
     const [shopDesc, setShopDesc] = useState("");
     const [loading,setLoading] = useState(false);
 
-    const dispatch = useDispatch();
-
+    useEffect(() => {
+        if (sellerInfo && sellerInfo.seller && sellerInfo.seller.qaStatus && sellerInfo.seller.qaStatus != "approved") {
+            router.push("/")
+        }
+    }, [sellerInfo])
     // console.log(seller)
     // useEffect(() => {
     //   if (seller.questionaire) setInitials(seller.questionaire);
@@ -69,7 +75,7 @@ const Seller_Shop_Details = ({ nextPage }) => {
         e.preventDefault();
 
         if (!validate()) return;
-
+        setLoading(true)
         const logo = profilepicture ? await uploadFiles(profilepicture) : []
         const head = cover ? await uploadFiles(cover) : []
         const image = shopimage ? await uploadFiles(shopimage) : []
@@ -84,20 +90,12 @@ const Seller_Shop_Details = ({ nextPage }) => {
         }
         setLoading(true)
         const res = await authAxios()({
-            url: `/shops`,
-            method: "POST",
-            data: data
-        });
-
-        const rs = await authAxios()({
-            url: `/sellers/${seller.id}`,
+            url: `/shops/${seller.shop.id}`,
             method: "PUT",
-            data: {
-                shop: res.data._id
-            }
-        })
+            data: data
+        }); 
         setLoading(false)
-        console.log(rs.data)
+        router.push("/seller/products")
     };
     return (
         <div className="page-section wf-section">
