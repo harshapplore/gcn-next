@@ -40,6 +40,7 @@ const ProductDetail = () => {
     const { favoriteItems } = useSelector(
         (state) => state.favorites
     );
+    const [isCustomer,setIsCutomer] = useState(false);
 
     useEffect(async () => {
         const { id } = router.query;
@@ -53,6 +54,12 @@ const ProductDetail = () => {
     useEffect(() => {
         dispatch(fetchFavoriteItems(customer.id));
     }, [customer])
+
+    useEffect(() => {
+        if (user.type == "customer") {
+            setIsCutomer(true)
+        }
+    },[user])
 
     const validated = () => {
         let error = "";
@@ -128,7 +135,7 @@ const ProductDetail = () => {
                         <div className="mb-20">
                             <div className="flex align-items-center" style={{position: "relative"}}>
                                 <h1 className="item-heading no-select">{product.name}</h1>
-                                <a
+                                {isCustomer && <a
                                     className="potw-like active w-inline-block cursor"
                                     onClick={toggleFavorites}
                                 >
@@ -147,7 +154,7 @@ const ProductDetail = () => {
                                     alt="Like"
                                     className="heart"
                                 />
-                                </a>
+                                </a>}
                             </div>
                             <div
                                 className="overline-text cursor"
@@ -179,7 +186,7 @@ const ProductDetail = () => {
 
                         <div className="spacer-20" />
 
-                        <div className="mb-40 w-form">
+                        {isCustomer && <div className="mb-40 w-form">
                             <div className="flex-2 flex-wrap flex-gap-20">
                                 {product && product.sizes && (
                                     <Dropdown
@@ -217,7 +224,7 @@ const ProductDetail = () => {
                                 action={addToCartHandler}
                                 loading={loading}
                             />
-                        </div>
+                        </div>}
                         <div className="mb-10">
                             <img
                                 src="/images/done-black-24-dp.svg"

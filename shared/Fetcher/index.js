@@ -22,6 +22,7 @@ const Fetcher = () => {
 
     if (!customer.id && !seller.id) {
       const data = localStorage.getItem("data");
+        console.log(JSON.parse(data))
       const { type } = JSON.parse(data);
 
       if (type === "customer") dispatch(fetchCustomer());
