@@ -12,7 +12,7 @@ const Seller_Shop_Terms = ({ nextPage }) => {
     const [returnAndRefund, setReturnAndRefund] = useState("");
     const [generalCondition, setGeneralCondition] = useState("");
     const [privacyPolicy, setPrivacyPolicy] = useState("");
-    console.log(seller)
+    const [loading,setLoading] = useState(false);
     useEffect(() => {
         if (seller.shop) {
             setReturnAndRefund(seller.shop.returnsAndRefunds)
@@ -39,7 +39,7 @@ const Seller_Shop_Terms = ({ nextPage }) => {
         e.preventDefault();
 
         if (!validate()) return;
-
+        setLoading(true)
         const data = {
             returnsAndRefunds: returnAndRefund,
             generalConditions: generalCondition,
@@ -50,8 +50,7 @@ const Seller_Shop_Terms = ({ nextPage }) => {
             method: "PUT",
             data: data
         });
-        console.log(res)
-
+        setLoading(false)
         if (res) {
             nextPage();
         }
@@ -98,7 +97,12 @@ const Seller_Shop_Terms = ({ nextPage }) => {
                                 {errors && errors.length > 0 && errors.map(error =>
                                     <Message text={error} status={-1} />)
                                 }
-                                <div className="button blue" style={{ marginTop: "20px" }} onClick={submit}>Save and Continue</div>
+
+                                {loading
+                                    ?
+                                    <button className="button blue mr-10">Loading....</button>
+                                    :
+                                    <div onClick={submit} className="button blue mr-10">Save and Continue</div>}
                             </form>
 
                         </div>

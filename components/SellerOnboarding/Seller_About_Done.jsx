@@ -41,7 +41,7 @@ const Seller_About_Done = ({ nextPage }) => {
             answers and data will be reviewed by us. You’ll get an e-mail in the
             next 72 hours from us.
           </p>
-          <div className="button" onClick={() => router.push("/")}>
+         <div className="button" onClick={() => router.push("/")}>
             Explore Store
           </div>
         </div>

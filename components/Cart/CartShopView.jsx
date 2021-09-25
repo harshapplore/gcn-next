@@ -276,7 +276,7 @@ const CartShopView = ({ goToShipping }) => {
         setCharityError("Please select one charity project")
         router.push("/cart#charity-project")
       } else {
-          goToShipping(charityCode);
+        goToShipping(charityCode);
       }
   }
   return (
@@ -371,13 +371,13 @@ const CartShopView = ({ goToShipping }) => {
           <div>
             <h3 className="orange infoheader">Make your order CO2 neutral</h3>
           </div>
-          <div className="infobox">
+          {/* <div className="infobox">
             <div className="small">
               THIS&nbsp;INFOBOX&nbsp;SHOULD&nbsp;ONLY&nbsp;
               <br />
               APPEAR ON&nbsp;HOVER&nbsp;OVER&nbsp;THE&nbsp;"i"...
             </div>
-          </div>
+          </div> */}
           <div className="checkout-switch-wrapper mt20">
           <Toggle2
               name="CO2 Compensation"

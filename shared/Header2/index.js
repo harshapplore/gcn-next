@@ -68,16 +68,18 @@ const Header = ({ nav }) => {
           <>
             {user.id && (
               <>
+                {user.type == "customer" &&
                 <a
                   className="icon-nav w-inline-block"
                   onClick={() => router.push("/customer/favorites")}
                 >
+                    
                   <img
                     src="/images/favorite-border-black-24-dp.svg"
                     loading="lazy"
                     alt="icon"
                   />
-                </a>
+                </a>}
                 <UserPopup />
               </>
             )}

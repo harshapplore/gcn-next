@@ -174,7 +174,7 @@ const Shipping = ({ checkout,loading }) => {
             <div className="heading-wrapper mb-40">
                 <h2>Shipping</h2>
             </div>
-            <div className="flex mb-40">
+            <div className="flex mb-40 align-items-start">
                 <div className="flex-child-45">
                     <h3>Billing Address</h3>
                     <Input

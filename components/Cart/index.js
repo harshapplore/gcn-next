@@ -194,7 +194,7 @@ const Cart = () => {
                 shopsMeta
             },
         });
-        // localStorage.removeItem("cart")
+        localStorage.removeItem("cart")
         setCheckOutLoading(false);
 
         location.assign(url);
