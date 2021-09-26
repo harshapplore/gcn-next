@@ -55,7 +55,7 @@ const Cart = () => {
     const [totalDelivery, setTotalDelivery] = useState(0);
     const [co2Compensation, setCo2Compensation] = useState(0);
     const [total, setTotal] = useState(0);
-
+    const [vat,setVat] = useState(0)
     const [checkoutLoading, setCheckOutLoading] = useState(false)
     const [chairtyProject,setCharityProject] = useState(false)
 
@@ -163,7 +163,7 @@ const Cart = () => {
         console.log("NFJDFDJsddjfhdj")
         setCheckOutLoading(true)
         let products = shops.map((shop) => shop.products).flat();
-        console.log("NFJDFDJ")
+        console.log(total)
         
         products = products.map((product) => ({
             ...product,
