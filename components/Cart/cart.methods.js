@@ -2,6 +2,7 @@ import EUVATCalculator from "eu-vat-calc";
 import countriesList from "@/_data/countriesList";
 
 import shop from "@/slices/shop";
+import countries from '../../_data/countriesList.JSON'
 
 export const getShopView = (products) => {
   const shopsList = [];
@@ -56,15 +57,13 @@ export const getSubTotalPrice = (products) => {
 
 export const getSubTotalDelivery = (products) => {
     let shop = products.length ? (products[0].shop ? products[0].shop : false)  : false
-    console.log(products)
     if(shop.shipping) {
         
         let totalWeight = 0;
         products.forEach(val => {
             totalWeight += val.weight * val.quantity
         })
-
-        console.log(totalWeight)
+ 
         let shippingPrice = 0;
         shop.shipping.forEach(val => {
             if (val.country == "National") {
@@ -92,28 +91,16 @@ export const calculateVat = ({
   domesticCountry,
   destinationCountry,
   amount,
-}) => {
-  console.log("-> ", domesticCountry, destinationCountry);
+}) => { 
 
-//   if (!domesticCountry || !destinationCountry) return 0;
-    return 0;
-  console.log(" ---> ");
-
-//   const domesticCountryCode = countriesList.filter(
-//     (country) => country.name === domesticCountry
-//   )[0].code;
-//   const destinationCountryCode = countriesList.filter(
-//     (country) => country.name === destinationCountry
-//   )[0].code;
-
-//   console.log("Country Codes", destinationCountryCode, domesticCountryCode);
-
-  const calculator = new EUVATCalculator({
-    domesticCountry: domesticCountryCode,
-  });
-  const { standard_rate } = calculator.getVat(destinationCountryCode, false);
-
-  return (parseFloat(amount) * standard_rate) / 100;
+    let vat = countries.filter(val => val.name == domesticCountry)
+    if(vat.length > 0) {
+        let vatValue = vat[0].vat;
+        let finalAmount = ((vatValue / 100) * amount);
+        return finalAmount;
+    } else {
+        return 0;
+    } 
 };
 
 /* Shop Meta Data Generator */

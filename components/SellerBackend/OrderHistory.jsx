@@ -114,11 +114,12 @@ const OrderHistory = () => {
                                                                 <option value="Processing">"Processing"</option>
                                                                 <option value="Shipped">Shipped</option>
                                                                 <option value="Out for delivery">Out for delivery</option>
+                                                                <option value="Delivered">Delivered</option>
                                                                 <option value="Cancelled">Cancelled</option>
                                                             </select>
                                                             {loading
                                                                     ?
-                                                                <button className="secondarywithimage blue secondaryflex w-button cursor">Loading</button>
+                                                                <button className="secondarywithimage blue secondaryflex w-button cursor">Loading...</button>
                                                                     :
                                                                 <button className="secondarywithimage blue secondaryflex w-button cursor"
                                                                     onClick={() => {
