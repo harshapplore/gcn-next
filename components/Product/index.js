@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { getProduct } from "@/_controllers/product";
 import DetailsPane from "./DetailsPane";
+import { fetchFavoriteItems } from "@/slices/favorites";
+import { addToFavorites, deleteFavorite } from "@/_controllers/customer";
 
 import Header from "@/shared/Header2";
 import Nav from "@/shared/Nav2";
@@ -22,7 +24,10 @@ import MoreProducts from "./MoreProducts";
 
 const ProductDetail = () => {
     const router = useRouter();
+    const dispatch = useDispatch();
+
     const { customer } = useSelector((state) => state.customer);
+    const { user } = useSelector((state) => state.user);
 
     const [showAuth, setShowAuth] = useState(false);
 
@@ -32,7 +37,10 @@ const ProductDetail = () => {
 
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-
+    const { favoriteItems } = useSelector(
+        (state) => state.favorites
+    );
+    const [isCustomer,setIsCutomer] = useState(false);
 
     useEffect(async () => {
         const { id } = router.query;
@@ -42,6 +50,16 @@ const ProductDetail = () => {
             setProduct(product);
         }
     }, [router]);
+
+    useEffect(() => {
+        dispatch(fetchFavoriteItems(customer.id));
+    }, [customer])
+
+    useEffect(() => {
+        if (user.type == "customer") {
+            setIsCutomer(true)
+        }
+    },[user])
 
     const validated = () => {
         let error = "";
@@ -79,8 +97,28 @@ const ProductDetail = () => {
             router.push("/cart");
         }, 1000);
     };
+    
 
-    console.log(loading)
+    const _isFavorite = favoriteItems?.filter(fav => product?._id == fav.productId).length > 0;
+
+    const toggleFavorites = async (e) => {
+        e.stopPropagation();
+
+        if (!_isFavorite) {
+            const updated = await addToFavorites({
+                customerId: customer.id,
+                userId: user.id,
+                product: product.id,
+                type: "Product",
+            });
+        } else {
+            const index = favoriteItems?.filter(fav => product?._id == fav.productId);
+
+            await deleteFavorite(index[0].favId);
+        }
+
+        dispatch(fetchFavoriteItems(customer.id));
+    };
     return (
         <>
             {showAuth && <AuthForm close={() => setShowAuth(false)} />}
@@ -95,7 +133,29 @@ const ProductDetail = () => {
 
                     <div className="product-info-wrapper">
                         <div className="mb-20">
-                            <h1 className="item-heading no-select">{product.name}</h1>
+                            <div className="flex align-items-center" style={{position: "relative"}}>
+                                <h1 className="item-heading no-select">{product.name}</h1>
+                                {isCustomer && <a
+                                    className="potw-like active w-inline-block cursor"
+                                    onClick={toggleFavorites}
+                                >
+                                {_isFavorite && (
+                                    <img
+                                        src="/images/favorite-border-black-24-dp-2.svg"
+                                        loading="lazy"
+                                        width={25}
+                                        alt="Like"
+                                        className="orange-heart"
+                                    />
+                                )}
+                                <img
+                                    src="/images/favorite-border-black-24-dp_1.svg"
+                                    loading="lazy"
+                                    alt="Like"
+                                    className="heart"
+                                />
+                                </a>}
+                            </div>
                             <div
                                 className="overline-text cursor"
                                 onClick={() => {
@@ -106,7 +166,7 @@ const ProductDetail = () => {
                             </div>
                         </div>
                         <div className="item-product-price mb-40 no-select">
-                            € {product.price}
+                            € {product.price } <span className="exclusiveVat">(exclusive vat)</span>
                         </div>
 
                         <div>
@@ -126,7 +186,7 @@ const ProductDetail = () => {
 
                         <div className="spacer-20" />
 
-                        <div className="mb-40 w-form">
+                        {isCustomer && <div className="mb-40 w-form">
                             <div className="flex-2 flex-wrap flex-gap-20">
                                 {product && product.sizes && (
                                     <Dropdown
@@ -164,7 +224,7 @@ const ProductDetail = () => {
                                 action={addToCartHandler}
                                 loading={loading}
                             />
-                        </div>
+                        </div>}
                         <div className="mb-10">
                             <img
                                 src="/images/done-black-24-dp.svg"

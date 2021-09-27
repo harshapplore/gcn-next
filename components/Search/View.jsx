@@ -144,7 +144,7 @@ const ShopItem = ({ product, favorites }) => {
         >
           By {product.shop && product.shop.name}
         </div>
-        <div className="shop-product-price">€ {product.price}</div>
+        <div className="shop-product-price">€ {product.price} <span className="exclusiveVat">(exclusive vat)</span> </div>
         <div>
           <Rating rating={product.rating || 0} />
         </div>
