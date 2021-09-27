@@ -161,12 +161,12 @@ const Order = (props) => {
                                         <div className="flex50">
                                             <div className="light">Status</div>
                                             <div className="rubik mb-10">{snaps.Status}</div>
-                                            <div className="light">Estimated time of arrival</div>
+                                            {/* <div className="light">Estimated time of arrival</div>
                                             <div className="rubik mb-10">01.02.2021</div>
                                             <div className="light">Tracking number</div>
                                             <div className="rubik mb-10">#00000000</div>
                                             <div className="light">Carrier / Delivery Company</div>
-                                            <div className="rubik">DHL</div>
+                                            <div className="rubik">DHL</div> */}
                                         </div>
                                         <div className="flex50">
                                             <a href="#" className="button lowercase mb-10 block w-button color-white"
