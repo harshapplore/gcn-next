@@ -1,0 +1,79 @@
+@media screen and (max-width: 991px){
+    .settings-nav {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+      }
+      .settings-link {
+        font-size: 1rem;
+        line-height: 2em;
+      }
+      .heading-wrapper {
+        max-width: 100%;
+        margin-right: 10px;
+    }
+    .questionnaire-progress {
+        margin-bottom: 40px;
+        flex-direction: column;
+        align-items: start;
+        padding-left: 36px;
+    } 
+    .questionnaire-step {
+        margin-bottom: 2rem;
+        padding: 10px;
+        font-size: small;
+    }
+    .assessment-radios {
+        flex-direction: column;
+    }
+    .checkbox-field.mb-0 {
+        margin-bottom: 0.6rem;
+    }
+    .progress-bar {
+        height: 50px;
+        margin-top: 20px;
+        background-color: #003c6e;
+        color: #fff;
+    }
+    .pricing-plan-wrapper {
+        flex-direction: column;
+        margin-bottom: 30px;
+        justify-content: flex-start;
+    }
+    .pricing-item {
+        padding: 40px 40px 40px;
+        margin: 30px auto;
+        width: 80%;
+    }
+}
+@media screen and (max-width: 767px) {
+    .account-form-1 {
+        display: flex;
+        flex-direction: column;
+    }
+    .input-x {
+        margin-bottom: 0.75rem;
+    }
+    .headline-2 {
+        margin-top: 50px;
+    }
+    .order-card-content {
+        display: flex;
+        flex-direction: column;
+        margin: 20px 0;
+        align-items: center;
+    }
+}
+@media screen and (max-width: 479px) {
+    .headline-2 {
+        margin-top: 50px;
+    }
+    .account-form-1 {
+        display: flex;
+        flex-direction: column;
+    }
+    /* .input-x {
+        height: 1rem;
+    } */
+}
