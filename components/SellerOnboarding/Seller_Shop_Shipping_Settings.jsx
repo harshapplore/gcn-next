@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { authAxios } from "@/setups/axios";
 
 import ShopProgressBar from "./Utils/ShopProgressBar";
-import countries from "../../_data/countries.json"
+import countries from "_data/countries.json"
 import Select from "@/shared/Select";
 import Message from "@/shared/Message";
 import router from "next/router";
