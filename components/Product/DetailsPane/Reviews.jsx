@@ -22,9 +22,9 @@ const Reviews = () => {
           <div className="text-block-6 border-right-grey cursor no-select">
             Product Reviews
           </div>
-          <div className="text-block-7 text-block-6 bold cursor no-select">
+          {/* <div className="text-block-7 text-block-6 bold cursor no-select">
             Shop Reviews
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="reviewcontainer flex flexleft">

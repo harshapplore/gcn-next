@@ -16,7 +16,7 @@ const Register = ({ close }) => {
     const router = useRouter();
     const dispatch = useDispatch();
 
-    const [data, setData] = useState({ type: "seller" });
+    const [data, setData] = useState({ type: "seller",region:"Europe" });
 
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
@@ -127,6 +127,18 @@ const Register = ({ close }) => {
                                         error={errors.password}
                                     />
 
+                                    {/* <select onChange={(e) => setData({ ...data, region: e.target.value })} className="text-field w-input">
+                                        <option value="Europe">Europe</option>
+                                        {countries && countries.map((country) =>
+                                            <option key={country} value={country}>{country}</option>
+                                        )}
+                                    </select>
+                                    {errors.region && (
+                                        <div className="input-error">
+                                            Error:
+                                            <span className="input-error__message"> {errors.region} </span>
+                                        </div>
+                                    )} */}
                                     <SelectForRegister
                                         choices={countries}
                                         placeholder="Europe"
@@ -177,8 +189,8 @@ const Register = ({ close }) => {
 
                                 {data.type === "customer" && (
                                     <div className="center">
-                                        <div className="mb-20">or</div>
-                                        <div
+                                        {/* <div className="mb-20">or</div> */}
+                                        {/* <div
                                             className="mb-20"
                                             onClick={() =>
                                                 router.push(
@@ -206,7 +218,7 @@ const Register = ({ close }) => {
                                             <a className="button secondary w-button">
                                                 Continue with Apple
                                             </a>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 )}
 

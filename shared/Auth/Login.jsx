@@ -144,7 +144,7 @@ const SignIn = ({ close, showRegister }) => {
             {success && <Message text={success} status={1} />}
           </div>
           <div className="center">
-            <div className="mb-20">or</div>
+            {/* <div className="mb-20">or</div>
             <a
               href={process.env.NEXT_PUBLIC_SERVER_ENDPOINT + "/connect/google"}
             >
@@ -165,7 +165,7 @@ const SignIn = ({ close, showRegister }) => {
               <div className="button secondary w-button">
                 Continue with apple
               </div>
-            </div>
+            </div> */}
             <div className="mb-10">Don't have an account?</div>
             <div>
               <div className="button w-button" onClick={showRegister}>
