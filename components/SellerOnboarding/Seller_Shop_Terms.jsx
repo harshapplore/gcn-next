@@ -3,16 +3,18 @@ import { useSelector } from "react-redux";
 import { authAxios } from "@/setups/axios";
 import Message from "@/shared/Message";
 import ShopProgressBar from "./Utils/ShopProgressBar";
+import router from "next/router";
 
 
 const Seller_Shop_Terms = ({ nextPage }) => {
     const { seller } = useSelector((state) => state.user);
+    const sellerInfo  = useSelector((state) => state.seller);
     const [errors, setErrors] = useState([]);
 
     const [returnAndRefund, setReturnAndRefund] = useState("");
     const [generalCondition, setGeneralCondition] = useState("");
     const [privacyPolicy, setPrivacyPolicy] = useState("");
-    console.log(seller)
+    const [loading,setLoading] = useState(false);
     useEffect(() => {
         if (seller.shop) {
             setReturnAndRefund(seller.shop.returnsAndRefunds)
@@ -20,6 +22,11 @@ const Seller_Shop_Terms = ({ nextPage }) => {
             setPrivacyPolicy(seller.shop.privacyPolicy)
         }
     }, []);
+    useEffect(() => {
+        if (sellerInfo && sellerInfo.seller && sellerInfo.seller.qaStatus && sellerInfo.seller.qaStatus != "approved") {
+            router.push("/")
+        }
+    }, [sellerInfo])
 
     const validate = () => {
         const err = [];
@@ -39,7 +46,7 @@ const Seller_Shop_Terms = ({ nextPage }) => {
         e.preventDefault();
 
         if (!validate()) return;
-
+        setLoading(true)
         const data = {
             returnsAndRefunds: returnAndRefund,
             generalConditions: generalCondition,
@@ -50,8 +57,7 @@ const Seller_Shop_Terms = ({ nextPage }) => {
             method: "PUT",
             data: data
         });
-        console.log(res)
-
+        setLoading(false)
         if (res) {
             nextPage();
         }
@@ -98,7 +104,12 @@ const Seller_Shop_Terms = ({ nextPage }) => {
                                 {errors && errors.length > 0 && errors.map(error =>
                                     <Message text={error} status={-1} />)
                                 }
-                                <div className="button blue" style={{ marginTop: "20px" }} onClick={submit}>Save and Continue</div>
+
+                                {loading
+                                    ?
+                                    <button className="button blue mr-10">Loading....</button>
+                                    :
+                                    <div onClick={submit} className="button blue mr-10">Save and Continue</div>}
                             </form>
 
                         </div>

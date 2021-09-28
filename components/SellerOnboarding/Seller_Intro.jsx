@@ -1,3 +1,4 @@
+import router from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -45,11 +46,11 @@ const Seller_Intro = ({ nextPage }) => {
        if(seller.user)
        setSellerName(seller.user.name)
     }, [seller])
+
+   
     const submit = async (e) => {
         e.preventDefault();
-
-        nextPage();
-        
+        nextPage(); 
     };
     
     return (

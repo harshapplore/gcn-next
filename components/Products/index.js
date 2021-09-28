@@ -10,6 +10,7 @@ const ProductsView = () => {
     <>
       <Header nav={<Nav />} />
       <Fetcher />
+      <br />
       <View />
       <Footer />
     </>

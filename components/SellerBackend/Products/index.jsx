@@ -65,7 +65,7 @@ const ProductCard = ({ id, product }) => {
     >
       <a className="shop-product-img w-inline-block">
         <img
-          src={product.main && product.main.url}
+          src={product.images && product.images.length > 0 && product.images[0].url}
           loading="lazy"
           sizes="(max-width: 479px) 83vw, (max-width: 767px) 45vw, (max-width: 991px) 30vw, (max-width: 1279px) 17vw, 218.40000915527344px"
           alt={product.name}

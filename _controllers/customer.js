@@ -1,4 +1,4 @@
-import { authAxios } from "@/setups/axios";
+import { authAxios, axios } from "@/setups/axios";
 import QS from "query-string";
 
 /* Cart Methods */
@@ -135,14 +135,34 @@ export const getAllOrders = async ({ customerId}) => {
   return res.data;
 };
 
-export const cancelOrder = async ({ orderId, shopId, }) => {
+
+export const cancelOrder = async ({ orderId, shopId,Status }) => {
     const res = await authAxios()({
         url: `/orders/cancleOrder`,
         method: "POST",
         data: {
             orderId,
             shopId,
-            Status: "Cancelled"
+            Status
+        }
+    });
+
+    return res.data;
+};
+
+
+export const reviewOrder = async (data) => {
+    const res = await authAxios()({
+        url: `/reviews`,
+        method: "POST",
+        data
+    });
+    const rese = await authAxios()({
+        url: `/orders/cancleOrder`,
+        method: "POST",
+        data: {
+            ...data,
+            Status: "Product Reviewed"
         }
     });
 

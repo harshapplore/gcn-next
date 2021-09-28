@@ -24,9 +24,10 @@ const TermsAndConditions = () => {
       _setShop({});
       return;
     }
-
+    console.log("SELLER")
+    console.log(seller)
     _setShop(seller.shop);
-  }, [seller.shop]);
+  }, [seller]);
 
   const updateShopHandler = async (shopId) => {
     setLoading(true);

@@ -34,7 +34,7 @@ const DropdownContainer = styled.div`
   }
 `;
 
-const Dropdown = ({ choices, value, setValue, defaultValue, width }) => {
+const Dropdown = ({ choices, value, setValue, defaultValue, width,error }) => {
   const [isOpen, setOpen] = useState(false);
 
   const update = (index) => {
@@ -42,6 +42,9 @@ const Dropdown = ({ choices, value, setValue, defaultValue, width }) => {
     setOpen(false);
   };
 
+  alert("ONE")
+  console.log("ERROR MESSAGE")
+  console.log(error)
   return (
     <DropdownContainer width={width}>
       <div className="d-choice" onClick={() => setOpen(!isOpen)}>
@@ -65,6 +68,7 @@ const Dropdown = ({ choices, value, setValue, defaultValue, width }) => {
           ))}
         </div>
       )}
+      {error && <span>Error</span>}
     </DropdownContainer>
   );
 };

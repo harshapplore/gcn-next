@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import styles from './style.module.css'
 
 import { getOrder } from "@/_controllers/customer";
 import { getShop } from "@/_controllers/shop";
 import { dateFormatter } from "@/_hooks/dateFormatter";
 import { usePriceFormatter } from "@/_hooks/usePriceFormatter";
-import { cancelOrder } from "@/_controllers/customer";
+import { cancelOrder, reviewOrder } from "@/_controllers/customer";
 
+import RatingInput from "@/shared/Input/Rating";
+import TextArea from "@/shared/Input/TextArea";
+import Button from "@/shared/Button";
+import Modal from 'react-modal';
 
 const Product = ({ product, shopName }) => {
     return (
@@ -75,6 +80,7 @@ const Order = (props) => {
     const [_order, _setOrder] = useState({});
     const [_snap, _setSnap] = useState({});
     const [loading, setLoading] = useState(false);
+    const [addReview,setAddReview] = useState(false);
 
     React.useEffect(() => {
         setLoading(false);
@@ -174,7 +180,12 @@ const Order = (props) => {
                                                     router.push(`/shop/${snaps?.shop?._id}?tab=about-us`)
                                                 }}
                                             >Contact Seller</a>
-                                            {snaps.Status != "Cancelled" &&
+                                            {snaps.Status == "Delivered" &&
+                                                <a href="#" className="button lowercase mb-10 block w-button color-white"
+                                                    onClick={() => setAddReview(true)}
+                                                >Add Review</a>}
+
+                                            {(snaps.Status != "Cancelled" && snaps.Status != "Delivered" && snaps.Status != "Product Reviewed") &&
                                                 <React.Fragment>
                                                     {loading == snaps?.shop._id
                                                         ? 
@@ -191,7 +202,8 @@ const Order = (props) => {
                                                             setLoading(snaps?.shop._id);
                                                             cancelOrder({
                                                                 orderId: order?._id,
-                                                                shopId: snaps?.shop._id
+                                                                shopId: snaps?.shop._id,
+                                                                Status:"Cancelled"
                                                             }) 
                                                             setTimeout(() => {
                                                                 props.getOrders();
@@ -202,6 +214,15 @@ const Order = (props) => {
                                         </div>
                                     </div>
                                 </div>
+                                {addReview && <AddReview 
+                                    product={snaps?.products[0]}
+                                    orderId={order?._id}
+                                    shopId={snaps?.shop._id}
+                                    onClose={() => {
+                                        setAddReview(false)
+                                        props.getOrders();
+                                    }}
+                                />}
                                 <div className="assessment-spacer" />
                             </React.Fragment>
                         )
@@ -212,3 +233,93 @@ const Order = (props) => {
 };
 
 export default Order;
+
+// if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#review');
+
+Modal.setAppElement("#__next");
+
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto', 
+        transform: 'translate(-50%, -50%)',
+    },
+}
+const AddReview = (props) => {
+
+    const { customer } = useSelector((state) => state.customer);
+    const { user } = useSelector((state) => state.user);
+
+    const [loading,setLoading] = useState(false);
+    const [review,setReview] = useState("")
+    const [rating,setRating] = useState("")
+    const [error,setError] = useState({
+        review: false,
+        rating: false
+    })
+
+    const validate = () => {
+        let value = true;
+        let err = { review: false, rating: false };
+        setError({ ...err });
+        if (review == "") {
+            value = false;
+            err.review = "Field cannot be empty"
+        }
+        if (rating == "") {
+            value = false;
+            err.rating = "Field cannot be empty"
+        }
+        setError({ ...err });
+        return value;
+    };
+    const onSubmit = async () => {
+        if (validate()) {
+            setLoading(true);
+
+            await reviewOrder({
+                ...props,
+                text: review,
+                rating,
+                user: user.id,
+                customer: customer.id,
+            })
+            // setLoading(false)
+            setTimeout(() => {
+                props.onClose()
+            },500)
+        }
+    }
+
+    return ( 
+        <div className={styles.container}>
+            <div className={styles.content}> 
+                <div className="reviewcontainers">
+                    <div className="starcontainer">
+                        <h3> Review this product </h3>
+                    </div>
+                    <div className="spacer-40">
+                        <RatingInput
+                            rating={rating}
+                            setRating={(rating) => setRating(rating)}
+                        />
+                        <br />
+                        {error.rating && <span style={{ color: "#b00020",fontSize: 12,marginLeft: 20}}>Error:Field cannot be empty</span>}
+                    </div>
+                    <div>
+                        <TextArea
+                            placeholder="Write your review here"
+                            value={review}
+                            setValue={(review) => setReview(review)}
+                            error={error.review}
+                        />
+                    </div>
+                </div>
+                <div className="spacer-20" />
+                <Button name="Add Review" type="secondary" loading={loading} action={onSubmit} />
+            </div>
+        </div> 
+    )
+}
