@@ -382,3 +382,16 @@ cursor: pointer;
   border: 0;
   cursor: pointer;
 }
+
+.align-items-center {
+    align-items: center;
+}
+.align-items-start {
+    align-items: flex-start  !important;
+}
+.justify-content-center {
+    justify-content: center;
+}
+.justify-content-space-between {
+    justify-content: space-between;
+}

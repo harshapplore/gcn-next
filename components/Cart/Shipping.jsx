@@ -15,7 +15,7 @@ import cartContext, { CartContext } from "./cart.context";
 import { loadAddress, saveAddress } from "@/_methods/cart";
 import countries from '@/_data/countries.json'
 
-const Input = ({ data, setData, errors }) => {
+const Input = ({ data, setData, errors,shipping }) => {
     return (
         <>
             <div className="w-form">
@@ -60,11 +60,12 @@ const Input = ({ data, setData, errors }) => {
                     error={errors.city}
                 />
 
-                <Select
-                    choices={countries}
-                    placeholder="Country"
-                    value={data.country}
-                    setValue={(value) => setData({ ...data, country: value })}
+                <TextInput
+                    // choices={countries}
+                    placeholder={shipping?.country}
+                    value={shipping?.country}
+                    disabled
+                    setValue={(value) => {}}
                 />
 
                 <TextInput
@@ -96,14 +97,21 @@ const Shipping = ({ checkout,loading }) => {
         shipping: {},
     });
 
+    console.log(shipping)
     useEffect(() => {
         const billing = loadAddress("billing");
-        let shipping = loadAddress("shipping");
+        let newShipping = loadAddress("shipping");
 
         if (!Object.keys(shipping).length) shipping = { sameAsBilling: true };
 
-        setBilling(billing);
-        setShipping(shipping);
+        setBilling({
+            ...billing,
+            country: shipping.country
+        });
+        setShipping({
+            ...newShipping,
+            country: shipping.country
+        });
     }, []);
 
     const validate = (data, key) => {
@@ -116,7 +124,7 @@ const Shipping = ({ checkout,loading }) => {
             err.streetAddress = "Street Address cannot be empty";
         if (!data.postalCode) err.postalCode = "Postal Code cannot be empty";
         if (!data.city) err.city = "City cannot be empty";
-        if (!data.country) err.country = "Country cannot be empty";
+        // if (!data.country) err.country = "Country cannot be empty";
 
         if (data.email && !isEmail(data.email))
             err.email = "Please input a valid email.";
@@ -174,13 +182,14 @@ const Shipping = ({ checkout,loading }) => {
             <div className="heading-wrapper mb-40">
                 <h2>Shipping</h2>
             </div>
-            <div className="flex mb-40">
+            <div className="flex mb-40 align-items-start">
                 <div className="flex-child-45">
                     <h3>Billing Address</h3>
                     <Input
                         name="Billing Address"
                         data={billing}
                         setData={setBilling}
+                        shipping={shipping}
                         errors={errors.billing || []}
                     />
                 </div>

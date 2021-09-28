@@ -1,35 +1,172 @@
 [
-  { "name": "Albania", "code": "AL" },
-  { "name": "Austria", "code": "AT" },
-  { "name": "Belgium", "code": "BE" },
-  { "name": "Bulgaria", "code": "BG" },
-  { "name": "Croatia", "code": "HR" },
-  { "name": "Czech Republic", "code": "CZ" },
-  { "name": "Denmark", "code": "DK" },
-  { "name": "Estonia", "code": "EE" },
-  { "name": "Finland", "code": "FI" },
-  { "name": "France", "code": "FR" },
-  { "name": "Germany", "code": "DE" },
-  { "name": "Greece", "code": "EL" },
-  { "name": "Hungary", "code": "HU" },
-  { "name": "Iceland", "code": "IS" },
-  { "name": "Italy", "code": "IT" },
-  { "name": "Ireland", "code": "IE" },
-  { "name": "Lativa", "code": "LV" },
-  { "name": "Lithuania", "code": "LT" },
-  { "name": "Luxembourg", "code": "LU" },
-  { "name": "Malta", "code": "MT" },
-  { "name": "Moldova", "code": "MD" },
-  { "name": "Montenegro", "code": "ME" },
-  { "name": "Netherlands", "code": "NL" },
-  { "name": "North Macedonia", "code": "MK" },
-  { "name": "Norway", "code": "NO" },
-  { "name": "Poland", "code": "PL" },
-  { "name": "Portugal", "code": "PT" },
-  { "name": "Romania", "code": "RO" },
-  { "name": "Serbia", "code": "RS" },
-  { "name": "Slovakia", "code": "SK" },
-  { "name": "Slovenia", "code": "SI" },
-  { "name": "Spain", "code": "ES" },
-  { "name": "Sweden", "code": "SE" },
-  { "name": "Switzerland", "code": "CH" }]
+    {
+        "name": "Albania",
+        "code": "AL",
+        "vat": 0
+    },
+    {
+        "name": "Austria",
+        "code": "AT",
+        "vat": 20
+    },
+    {
+        "name": "Belgium",
+        "code": "BE",
+        "vat": 21
+    },
+    {
+        "name": "Bulgaria",
+        "code": "BG",
+        "vat": 20
+    },
+    {
+        "name": "Croatia",
+        "code": "HR",
+        "vat": 25
+    }, 
+    {
+        "name": "Czech Republic",
+        "code": "CZ",
+        "vat": 21
+    },
+    {
+        "name": "Denmark",
+        "code": "DK",
+        "vat": 25
+    },
+    {
+        "name": "Estonia",
+        "code": "EE",
+        "vat":20
+    },
+    {
+        "name": "Finland",
+        "code": "FI",
+        "vat": 24
+    },
+    {
+        "name": "France",
+        "code": "FR",
+        "vat":20
+    },
+    {
+        "name": "Germany",
+        "code": "DE",
+        "vat": 19
+    },
+    {
+        "name": "Greece",
+        "code": "EL",
+        "vat": 24
+    },
+    {
+        "name": "Hungary",
+        "code": "HU",
+        "vat": 27
+    },
+    {
+        "name": "Iceland",
+        "code": "IS",
+        "vat": 23
+    },
+    {
+        "name": "Italy",
+        "code": "IT",
+        "vat":22
+    },
+    {
+        "name": "Ireland",
+        "code": "IE",
+        "vat": 23
+    },
+    {
+        "name": "Lativa",
+        "code": "LV",
+        "vat": 21
+    },
+    {
+        "name": "Lithuania",
+        "code": "LT",
+        "vat": 21
+    },
+    {
+        "name": "Luxembourg",
+        "code": "LU",
+        "vat": 17
+    },
+    {
+        "name": "Malta",
+        "code": "MT",
+        "vat": 18
+    },
+    {
+        "name": "Moldova",
+        "code": "MD",
+        "vat": 10
+    },
+    {
+        "name": "Montenegro",
+        "code": "ME",
+        "vat": 10
+    },
+    {
+        "name": "Netherlands",
+        "code": "NL",
+        "vat": 21
+    },
+    {
+        "name": "North Macedonia",
+        "code": "MK",
+        "vat": 20
+    },
+    {
+        "name": "Norway",
+        "code": "NO",
+        "vat": 20
+    },
+    {
+        "name": "Poland",
+        "code": "PL",
+        "vat": 23
+    },
+    {
+        "name": "Portugal",
+        "code": "PT",
+        "vat": 23
+    },
+    {
+        "name": "Romania",
+        "code": "RO",
+        "vat": 19
+    },
+    {
+        "name": "Serbia",
+        "code": "RS",
+        "vat": 0
+    },
+    {
+        "name": "Slovakia",
+        "code": "SK",
+        "vat": 20
+    },
+    {
+        "name": "Slovenia",
+        "code": "SI",
+        "vat": 22
+    },
+    {
+        "name": "Spain",
+        "code": "ES",
+        "vat": 21
+    },
+    {
+        "name": "Sweden",
+        "code": "SE",
+        "vat": 25
+    },
+    {
+        "name": "Switzerland",
+        "code": "CH",
+        "vat": 20
+    }
+]
