@@ -163,6 +163,7 @@ a{
   z-index: 1000;
 }
 
+
 /* Product Styles  (components/Products/Slider) */
 
 .slider-container {
@@ -381,4 +382,7 @@ cursor: pointer;
   align-items: center;
   border: 0;
   cursor: pointer;
+}
+.exclusiveVat{
+  font-size: small;
 }
