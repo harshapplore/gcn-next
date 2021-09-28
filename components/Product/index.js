@@ -166,7 +166,7 @@ const ProductDetail = () => {
                             </div>
                         </div>
                         <div className="item-product-price mb-40 no-select">
-                            € {product.price}
+                            € {product.price } <span className="exclusiveVat">(exclusive vat)</span>
                         </div>
 
                         <div>
