@@ -200,10 +200,10 @@ const Seller_Shop_Info = ({ nextPage }) => {
                                         </div>
                                         <div className="account-form-1 mb-0">
                                             <div className="input-x input-x--flex ">
-                                                {!editName ? <div className={`${!editName ? "" : " hidden"}`}>{name ? name : seller.user.name}</div> :
+                                                {!editName ? <div className={`${!editName ? "" : " hidden"}`}>{name ? name : "Name"}</div> :
                                                     <input
                                                         onChange={(e) => setName(e.target.value)}
-                                                        value={seller.user.name}
+                                                        value={name}
                                                         type="text"
                                                         className="input-x-edit w-input"
                                                         maxLength="256"
@@ -248,10 +248,10 @@ const Seller_Shop_Info = ({ nextPage }) => {
                                                 </div>
                                             </div>
                                             <div className="input-x input-x--flex">
-                                                {!editEmail ? <div className={`${!editEmail ? "" : " hidden"}`}>{email ? email : seller.user.email}</div> :
+                                                {!editEmail ? <div className={`${!editEmail ? "" : " hidden"}`}>{email ? email : "example@example.com"}</div> :
                                                     <input
                                                         onChange={(e) => setEmail(e.target.value)}
-                                                        value={seller.user.email}
+                                                        value={email}
                                                         type="text"
                                                         className="input-x-edit w-input"
                                                         maxLength="256"
