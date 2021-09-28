@@ -2,7 +2,7 @@ import EUVATCalculator from "eu-vat-calc";
 import countriesList from "@/_data/countriesList";
 
 import shop from "@/slices/shop";
-import countries from '../../_data/countriesList.JSON'
+import countries from '@/_data/countriesList.json';
 
 export const getShopView = (products) => {
   const shopsList = [];

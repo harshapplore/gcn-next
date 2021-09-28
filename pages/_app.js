@@ -17,6 +17,7 @@ import "@/assets/styles/overwrite-991.css";
 import "@/assets/styles/new.css";
 import "@/assets/styles/responsive.css";
 import "@/assets/styles/order.css";
+import "@/assets/styles/responsive.css";
 
 import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";

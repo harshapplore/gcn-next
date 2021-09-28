@@ -479,6 +479,12 @@ const Seller_Basic_Info = ({ nextPage }) => {
                             onChange={() => setInitials("Miss")}
                             value={initials}
                             checked={initials === "Miss"}
+                            required=""
+                            style={{
+                              opacity: 0,
+                              position: "absolute",
+                              zIndex: -1,
+                            }}
                           />
                           <span className="checkbox-label w-form-label">
                             Miss

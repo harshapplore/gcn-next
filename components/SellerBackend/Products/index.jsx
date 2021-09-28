@@ -540,6 +540,7 @@ const Products = ({ filters, setFilters }) => {
         </div>
       )}
       {message && <h5 className="mb-20">{message}</h5>}
+      {CSV && <h5 className="mb-20">{CSV.name}</h5>}
       <div>
         <a className="button icon blue w-inline-block">
           <div className="button-icon w-embed">
