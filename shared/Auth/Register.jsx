@@ -10,13 +10,13 @@ import Message from "@/shared/Message";
 import { registerUser } from "@/_controllers/auth";
 import SelectForRegister from "../Input/SelectForRegister";
 
-import countries from '@/_data/countries.json'
+import countries from '../../_data/countries.json'
 
 const Register = ({ close }) => {
     const router = useRouter();
     const dispatch = useDispatch();
 
-    const [data, setData] = useState({ type: "seller",region:"Europe" });
+    const [data, setData] = useState({ type: "seller", region: "Europe" });
 
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
@@ -25,7 +25,19 @@ const Register = ({ close }) => {
         const err = {};
 
         if (!data.email) err.email = "Email cannot be empty.";
+
+        var uppercase = /[A-Z]/;
+        var lowercase = /[a-z]/;
+        var number = /[0-9]/;
+        var special = /[\W]{1,}/;
+
+        if(!uppercase.test(data.password))  err.password = "Password should contain atleast one Uppercase"
+        if(!lowercase.test(data.password))  err.password = "Password should contain atleast one lowercase"
+        if(!number.test(data.password))  err.password = "Password should contain atleast one number"
+        if(!special.test(data.password))  err.password = "Password should contain atleast one special character"
         if (!data.password) err.password = "Password cannot be empty.";
+        if (data.password && data.password.length < 6) err.password = "Password length must be atleast 6 characters";
+        
         if (!data.name) err.name = "Name cannot be empty.";
 
         if (!data.region) err.region = "Please Select a region";
