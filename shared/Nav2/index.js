@@ -19,6 +19,7 @@ const Nav2 = () => {
   const { categories } = useSelector((state) => state.categories);
 
   const [activeIndex, setActiveIndex] = useState();
+  const [mobile, setMobile] = useState();
 
   useEffect(() => {
     if (!categories.length) dispatch(fetchCategories());
@@ -70,13 +71,13 @@ const Nav2 = () => {
           <div className="text-block cursor no-select">About Us</div>
         </a>
       </div>
-      <div className="mobile-menu-bar">
+      {/* <div className="mobile-menu-bar">
         <a className="footer-inline-link dark">Austria</a>
         <div className="footer-inline-link-divider">|</div>
         <a className="footer-inline-link dark">English</a>
         <div className="footer-inline-link-divider">|</div>
         <a className="footer-inline-link dark">€ (EUR)</a>
-      </div>
+      </div> */}
     </nav>
   );
 };

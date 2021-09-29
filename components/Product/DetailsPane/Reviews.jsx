@@ -5,17 +5,36 @@ import Rating from "@/shared/Shop2/Product/Rating";
 import RatingInput from "@/shared/Input/Rating";
 import TextArea from "@/shared/Input/TextArea";
 import Button from "@/shared/Button";
+import { axios } from "@/setups/axios";
+import { stringify } from "query-string";
 
-const Reviews = () => {
+const Reviews = ({ product }) => {
   const [review, setReview] = useState({});
+  const [productReview, setProductReview] = useState([]);
 
+  console.log(product.reviews)
+
+  const getReviews = async (filters) => {
+    const res = await axios()({
+      url: `/reviews?product=${product.id}`,
+      method: "GET",
+    });
+    console.log(res.data)
+    setProductReview(res.data)
+    // return res.data;
+  };
+  useEffect(() => {
+    getReviews()
+  }, [])
+  console.log(productReview)
+  
   return (
     <div className="container narrow-container">
       <div className="flex mt30 mb-70">
         <div className="flex flex50 flexleft">
-          <h3 className="mt0 mb0">600 Reviews</h3>
+          <h3 className="mt0 mb0">{productReview ? productReview.length : 0} Reviews</h3>
           <div className="starcontainer flex">
-            <Rating rating={2} />
+            <Rating rating={0} />
           </div>
         </div>
         <div className="div-block-11 flex">
@@ -27,38 +46,43 @@ const Reviews = () => {
           </div> */}
         </div>
       </div>
-      <div className="reviewcontainer flex flexleft">
-        <div className="aligntop">
-          <img
-            src="https://d3e54v103j8qbb.cloudfront.net/plugins/Basic/assets/placeholder.60f9b1840c.svg"
-            loading="lazy"
-            width={32}
-            height={32}
-            alt=""
-            className="image-3"
-          />
-        </div>
-        <div className="flexitem flexwide ml15">
-          <div className="flex flexleft">
-            <div className="text-block-8">Megan Brooks</div>
-            <div className="starcontainer flex">
-              <Rating rating={2} />
+      {productReview && productReview.map(review =>
+        <div key={review.id} className="reviewcontainer flex flexleft">
+          <div className="aligntop">
+            <img
+              src="https://d3e54v103j8qbb.cloudfront.net/plugins/Basic/assets/placeholder.60f9b1840c.svg"
+              loading="lazy"
+              width={32}
+              height={32}
+              alt=""
+              className="image-3"
+            />
+          </div>
+          <div className="flexitem flexwide ml15">
+            <div className="flex flexleft">
+              <div className="text-block-8">{review.user.name}</div>
+              <div className="starcontainer flex">
+                <Rating rating={review.rating ? review.rating : 0} />
+              </div>
+              <div className="text-block-8 align-right greyfont normal">
+
+                {/* {review.createdAt && review.createdAt} */}
+                {new Date(review.createdAt) &&
+                        new Date(review.createdAt).getDate() +
+                        "." +
+                        (new Date(review.createdAt).getMonth() < 10 ? "0" : "") +
+                        new Date(review.createdAt).getMonth() +
+                        "." +
+                        new Date(review.createdAt).getFullYear()}
+              </div>
             </div>
-            <div className="text-block-8 align-right greyfont normal">
-              01.01.2021
+            <div className="product-description mt20 w-richtext">
+              <p>
+                {review.text ? review.text : "No reviews"}
+              </p>
             </div>
           </div>
-          <div className="product-description mt20 w-richtext">
-            <p>
-              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-              nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-              erat, sed diam voluptua. At vero eos et accusam et justo duo
-              dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-              sanctus est Lorem ipsum dolor sit amet.
-            </p>
-          </div>
-        </div>
-      </div>
+        </div>)}
 
       <div className="reviewcontainers">
         <div className="starcontainer">
@@ -79,7 +103,7 @@ const Reviews = () => {
         </div>
       </div>
       <div className="spacer-20" />
-      <Button name="Add Review" type="secondary" action={() => {}} />
+      <Button name="Add Review" type="secondary" action={() => { }} />
     </div>
   );
 };

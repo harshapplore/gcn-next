@@ -165,6 +165,7 @@ a{
   z-index: 1000;
 }
 
+
 /* Product Styles  (components/Products/Slider) */
 
 .slider-container {
@@ -384,7 +385,9 @@ cursor: pointer;
   border: 0;
   cursor: pointer;
 }
-
+.exclusiveVat{
+  font-size: small;
+}
 .align-items-center {
     align-items: center;
 }
@@ -396,4 +399,7 @@ cursor: pointer;
 }
 .justify-content-space-between {
     justify-content: space-between;
+}
+.mobileList{
+  list-style: none;
 }
