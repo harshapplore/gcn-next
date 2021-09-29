@@ -398,3 +398,6 @@ cursor: pointer;
 .justify-content-space-between {
     justify-content: space-between;
 }
+.mobileList{
+  list-style: none;
+}

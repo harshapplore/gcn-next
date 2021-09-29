@@ -17,15 +17,15 @@ import UserPopup from "./UserPopup";
 import ErrorPopup from "@/shared/Message/ErrorPopup";
 import MobileNav from "../Nav2/MobileNav";
 
-export function NavBarMobile() {
-  return (
-      <Menu menuButton={<MenuButton>Open menu</MenuButton>} transition>
-          <MenuItem>New File</MenuItem>
-          <MenuItem>Save</MenuItem>
-          <MenuItem>Close Window</MenuItem>
-      </Menu>
-  );
-}
+// export function NavBarMobile() {
+//   return (
+//       <Menu menuButton={<MenuButton>Open menu</MenuButton>} transition>
+//           <MenuItem>New File</MenuItem>
+//           <MenuItem>Save</MenuItem>
+//           <MenuItem>Close Window</MenuItem>
+//       </Menu>
+//   );
+// }
 
 const Header = ({ nav }) => {
   const router = useRouter();
@@ -130,9 +130,10 @@ const mobileMenu=(e)=>{
           </div>
         </a>
       </div>
-      {nav}
-      {/* {mobile ?<NavBarMobile/>  : {nav}} */}
-    </div>
+      {/* <NavBarMobile/> */}
+      {/* {nav} */}
+      {mobile ?  <MobileNav/> : <>{nav}</>}
+    </div> 
   );
 };
 
