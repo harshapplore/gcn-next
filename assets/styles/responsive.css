@@ -192,6 +192,92 @@
     .shop-content {
         margin-top: 120px;
     }
+    .brand-wrapper {
+        /* flex-basis: 145px; */
+        /* width: 100%; */
+        /* display: flex; */
+        /* text-align: center; */
+        align-items: center;
+        justify-content: center;
+        margin: 10px auto;
+    }
+    .right-icon-nav {
+        justify-content: space-between;
+    }
+    .page-section.banner > img {
+        height: 400px;
+        -webkit-object-fit: cover;
+        object-fit: fill;
+    }
+    .page-section.banner {
+        height: 400px;
+    }
+    .container {
+        /* padding-right: 20px; */
+        padding-left: 10px;
+    }
+    .container.narrow-container {
+        width: 100%;
+        margin-left: 0px;
+        padding-left: 20px;
+    }
+    .flex-container-more-products {
+        display: grid;
+        grid-row-gap: 50px;
+        grid-template-columns: 1fr;
+        margin-right: 15px;
+        /* height: 400px; */
+    }
+    .page-section {
+        border-bottom: 0;
+    }
+    /* .flex-child-32 { */
+        /* flex-basis: 100%; */
+        /* margin: 62px 0; */
+    /* } */
+    .scroll-x {
+        display: flex;
+        overflow: auto;
+        flex-direction: column;
+        white-space: nowrap;
+    }
+    .flex {
+        display: flex;
+        /* flex-direction: column; */
+        justify-content: center;
+        /* flex-wrap: wrap;
+        align-items: baseline; */
+    }
+    .checkout-shop-item-img > img{
+     height: 100px;
+    }
+    .checkout-additional {
+        align-self: self-start;
+    }
+    .about-content-wrapper {
+        -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+    }
+    .our-promise-wrapper {
+        flex-direction: column;
+        justify-content: center;
+    }
+    .page-section.about {
+        padding-top: 50px;
+        height: fit-content;
+    }
+    .impact-swiper-nav{
+        display: none;
+    }
+    .impact-swiper-mask {
+        width: 100%;
+        /* flex-direction: column; */
+        justify-content: center;
+        align-items: center;
+    }
+    .impact-swiper-slide._2 {
+        flex-direction: column;
+    }
     /* .fHGJGT .left-container .edit-logo-button {
         display: block;
         position: absolute;
@@ -202,4 +288,4 @@
     /* .input-x {
         height: 1rem;
     } */
-}
+} 
