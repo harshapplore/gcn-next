@@ -101,7 +101,9 @@ a:hover {
 .footer-inline-link-divider{
   color: var(--text);
 }
-
+.exclusiveVat{
+  font-size: small;
+}
 .delivery-cost-shipping {
   display: -ms-grid;
   display: grid;
