@@ -15,6 +15,7 @@ import "@/assets/styles/custom-momentum.css";
 import "@/assets/styles/overwrite.css";
 import "@/assets/styles/overwrite-991.css";
 import "@/assets/styles/new.css";
+import "@/assets/styles/responsive.css";
 import "@/assets/styles/order.css";
 import "@/assets/styles/responsive.css";
 

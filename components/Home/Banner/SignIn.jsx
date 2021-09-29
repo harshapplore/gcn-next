@@ -123,7 +123,7 @@ const SignIn = ({ close, showRegister }) => {
           </div>
           <div className="center">
             <div className="mb-20">or</div>
-            <div className="mb-10">
+            {/* <div className="mb-10">
               <div className="button secondary w-button">
                 Continue with google
               </div>
@@ -137,14 +137,14 @@ const SignIn = ({ close, showRegister }) => {
               <div className="button secondary w-button">
                 Continue with apple
               </div>
-            </div>
+            </div> */}
             <div className="mb-10">Don't have an account?</div>
             <div>
               <div className="button w-button" onClick={showRegister}>
                 Register
               </div>
             </div>
-          </div>
+          </div> 
         </div>
       </div>
     </div>

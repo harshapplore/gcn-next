@@ -10,7 +10,7 @@ import Message from "@/shared/Message";
 import { registerUser } from "@/_controllers/auth";
 import SelectForRegister from "../Input/SelectForRegister";
 
-import countries from '@/_data/countries.json'
+import countries from '../../_data/countries.json'
 
 const Register = ({ close }) => {
     const router = useRouter();
@@ -151,7 +151,6 @@ const Register = ({ close }) => {
                                             <span className="input-error__message"> {errors.region} </span>
                                         </div>
                                     )} */}
-
                                     <SelectForRegister
                                         choices={countries}
                                         placeholder="Europe"
