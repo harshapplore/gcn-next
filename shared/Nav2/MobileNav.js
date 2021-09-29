@@ -13,7 +13,7 @@ const LinkBlock = ({ to, name, active }) => {
   );
 };
 
-const Nav2 = () => {
+const MobileNav = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categories);
@@ -46,7 +46,7 @@ const Nav2 = () => {
   }, [router.query]);
 
   return (
-    <nav className="nav-menu">
+    <nav className="nav-menu-mobile">
       <div className="navlink-wrapper">
         {categories &&
           categories.map((category, index) => (
@@ -82,4 +82,4 @@ const Nav2 = () => {
   );
 };
 
-export default Nav2;
+export default MobileNav;

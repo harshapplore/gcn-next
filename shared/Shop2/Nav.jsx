@@ -39,6 +39,12 @@ const ShopNavContainer = styled.div`
       box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.35);
 
       transform: translateY(-30%);
+      @media screen and (max-width: 479px) {
+        right: -60px;
+        display: block;
+        position: relative;
+        top: 100px;
+    }
     }
 
     .edit-logo-button {
@@ -48,6 +54,13 @@ const ShopNavContainer = styled.div`
       display: flex;
       align-items: center;
       gap: 5px;
+      @media screen and (max-width: 479px) {
+
+      display: block;
+        position: absolute;
+        top: 220px;
+        left: -50px;
+      }
     }
   }
 
@@ -57,7 +70,13 @@ const ShopNavContainer = styled.div`
     .shop-name-container {
       padding-inline: 24px;
       padding-top: 24px;
-
+      @media screen and (max-width: 479px) {
+        padding-inline: 24px;
+        padding-top: 24px;
+        position: absolute;
+        top: 310px;
+        left: 75px;
+    }
       .name {
         display: flex;
         align-items: center;

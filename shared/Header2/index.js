@@ -5,8 +5,27 @@ import AuthForm from "@/shared/Auth/AuthForm";
 import { useSelector } from "react-redux";
 import Button from "@/shared/Button";
 
+import {
+  Menu,
+  MenuItem,
+  MenuButton
+} from '@szhsin/react-menu';
+import '@szhsin/react-menu/dist/index.css';
+import '@szhsin/react-menu/dist/transitions/slide.css';
+
 import UserPopup from "./UserPopup";
 import ErrorPopup from "@/shared/Message/ErrorPopup";
+import MobileNav from "../Nav2/MobileNav";
+
+export function NavBarMobile() {
+  return (
+      <Menu menuButton={<MenuButton>Open menu</MenuButton>} transition>
+          <MenuItem>New File</MenuItem>
+          <MenuItem>Save</MenuItem>
+          <MenuItem>Close Window</MenuItem>
+      </Menu>
+  );
+}
 
 const Header = ({ nav }) => {
   const router = useRouter();
@@ -15,12 +34,17 @@ const Header = ({ nav }) => {
 
   const [showForm, setShowForm] = useState(false);
   const [search, setSearch] = useState("");
+  const [mobile, setMobile] = useState(false);
 
   useEffect(() => {
     const {search} = router.query;
     if(search) setSearch(search);
   }, [router.query]);
 
+const mobileMenu=(e)=>{
+  e.preventDefault()
+  setMobile(!mobile)
+}
   return (
     <div className="navbar">
       {showForm && <AuthForm close={() => setShowForm(false)} />}
@@ -98,7 +122,7 @@ const Header = ({ nav }) => {
             )}
           </>
         </div>
-        <a className="menu-button w-inline-block">
+        <a onClick={mobileMenu} className="menu-button w-inline-block">
           <div className="burger">
             <div className="line top" />
             <div className="line mid" />
@@ -107,6 +131,7 @@ const Header = ({ nav }) => {
         </a>
       </div>
       {nav}
+      {/* {mobile ?<NavBarMobile/>  : {nav}} */}
     </div>
   );
 };
