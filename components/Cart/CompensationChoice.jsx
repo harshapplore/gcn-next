@@ -41,8 +41,8 @@ const CompensationChoices = ({ total, charityCode, setCharityCode, charityError,
                     {!state && <AppLoader />}
                     {state && state.map(project => {
                         return (
-                            <div className="flex mt30">
-                                <div className="flex50 flex flexleft">
+                            <div className="flex-mobile mt30">
+                                <div className="flex50 flex-mobile flexleft">
                                     <img
                                         src={project.images[0]?.url}
                                         loading="lazy"
@@ -72,13 +72,14 @@ const CompensationChoices = ({ total, charityCode, setCharityCode, charityError,
                         <div className="text-block-5 fontnow bigger mb-10">
                             Final amount incl. VAT
                         </div>
-                        <div className="text-block-5 fontnow bigger mb-10">
-                            CO2 compensation
-                        </div>
-                    </div>
-                    <div>
                         <div className="text-block-5 fontnow bigger mb-10 mt20">
                             {usePriceFormatter(total)}
+                        </div>
+                       
+                    </div>
+                    <div>
+                    <div className="text-block-5 fontnow bigger mb-10">
+                            CO2 compensation
                         </div>
                         <div className="text-block-5 fontnow bigger mb-10 mt20">{usePriceFormatter(compPrice)}</div>
                     </div>

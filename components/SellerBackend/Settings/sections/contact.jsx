@@ -17,9 +17,15 @@ const Contact = () => {
   const { seller } = useSelector((state) => state.seller);
 
   const [_joinDate, _setJoinDate] = useState();
-  const [_data, _setData] = useState({});
+  const [_data, _setData] = useState({
+    name: user.name,
+    phone:seller.phone,
+    contactEmail:seller.shop ? seller.shop.contactEmail : ""  ,
+    orderManagementEmail:seller.shop ? seller.shop.orderManagementEmail : "",
+    returnsEmail:seller.shop ? seller.shop.returnsEmail : "",
+    customerServiceEmail:seller.shop ? seller.shop.customerServiceEmail : ""
+  });
   const [errors, setErrors] = useState({});
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -27,6 +33,13 @@ const Contact = () => {
 
     _setJoinDate(new Date(user.createdAt));
   }, []);
+  useEffect(() => {
+    if (user && seller) ;
+    
+  }, [seller,user]);
+  console.log(seller)
+  console.log(user)
+
 
   const validate = () => {
     const {

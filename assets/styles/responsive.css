@@ -1,3 +1,56 @@
+.shop-content-mobile {
+    overflow: hidden;
+    padding-top: 0px;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    height: 100%;
+    -ms-flex: 1;
+    flex: 1;
+  }
+  .flex-mobile{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: baseline;
+    -webkit-align-items: baseline;
+    -ms-flex-align: baseline;
+    align-items: baseline;
+  }
+  .flex-order{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: baseline;
+    -webkit-align-items: baseline;
+    -ms-flex-align: baseline;
+    align-items: baseline;
+  }
 @media screen and (max-width: 991px){
     /* .settings-nav {
         display: flex;
@@ -278,6 +331,43 @@
     .impact-swiper-slide._2 {
         flex-direction: column;
     }
+    .flex-mobile{
+        flex-direction: column;
+    }
+    .flex-order {
+        display: block;
+        /* flex-direction: column; */
+        /* flex: 5; */
+    }
+    .greyborder.pd40 {
+        width: 100%;
+        margin-right: 0;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        padding-left: 10px;
+    }
+    .dynamic-content {
+        margin-top: 120px;
+    }
+    .heading-wrapper h2 {
+        padding-left: 10px;
+    }
+    .secondarywithimage.blue.secondaryflex {
+        width: 100%;
+    }
+    .button.blue.lowercase.flexbutton {
+        width: 100%;
+    }
+    .no-select {
+        margin: 10px;
+        height: 300px;
+    }
+    .shop-filter-bar {
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+    padding: 10px;
+    }
+    
     /* .fHGJGT .left-container .edit-logo-button {
         display: block;
         position: absolute;
