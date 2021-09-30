@@ -11,6 +11,7 @@
   "dependencies": {
     "@mui/material": "^5.0.2",
     "@reduxjs/toolkit": "^1.6.0",
+    "@szhsin/react-menu": "^2.1.0",
     "axios": "^0.21.1",
     "eu-vat-calc": "^2.4.0",
     "fastest-validator": "^1.11.1",

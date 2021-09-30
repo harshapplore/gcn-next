@@ -26,7 +26,7 @@ const DetailsPane = ({ product }) => {
         )}
 
         {
-          query.tab === "reviews" && <Reviews />
+          query.tab === "reviews" && <Reviews product={product} />
         }
       </div>
     </>

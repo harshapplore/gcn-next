@@ -181,6 +181,7 @@ const Cart = () => {
             currency: "eur",
             ...gift,
             products,
+            vat,
             co2Compensation,
             pickUpOrder,
             billing,

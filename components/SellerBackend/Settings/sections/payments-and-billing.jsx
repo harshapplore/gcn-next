@@ -121,11 +121,11 @@ const Payments = () => {
 
           <p className="mb-20"> Identity Documents</p>
 
-          <div style={imgStyle} >
+          <div className="order-card-content" >
             {idFront && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(idFront)} alt="id-front" style={{ borderRadius: "10px" }} />}
             {idBack && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(idBack)} alt="id-back" style={{ borderRadius: "10px" }} />}
           </div>
-          <div className="" style={{ display: "flex", justifyContent: "space-between" }} >
+          <div className="order-card-content" >
 
             <label className="button" htmlFor="id-frontview" >Upload Front View</label  >
 
@@ -134,12 +134,12 @@ const Payments = () => {
 
           <div className="spacer-40" />
           <p className="mb-20"> Proof Of Address Documents</p>
-          <div style={imgStyle} >
+          <div  className="order-card-content" >
             {addressFront && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(addressFront)} style={{ borderRadius: "10px" }} alt="address - front" />}
             {addressBack && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(addressBack)} style={{ borderRadius: "10px" }} alt="address-back" />}
           </div>
 
-          <div className="" style={{ display: "flex", justifyContent: "space-between" }}>
+          <div className="order-card-content">
             <label className="button" htmlFor="address-frontview" >Upload Front View</label  >
             <label className="button" htmlFor="address-backview" >Upload Back View</label  >
           </div>

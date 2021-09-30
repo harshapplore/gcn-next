@@ -11,7 +11,10 @@
     flex: 1;
     padding-inline: 36px;
     display: flex;
+    @media screen and (max-width: 479px) {
+      padding-inline: 0;
   }
+}
 }
 
 .delivery-ctr {

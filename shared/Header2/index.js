@@ -5,27 +5,51 @@ import AuthForm from "@/shared/Auth/AuthForm";
 import { useSelector } from "react-redux";
 import Button from "@/shared/Button";
 
+import {
+  Menu,
+  MenuItem,
+  MenuButton
+} from '@szhsin/react-menu';
+import '@szhsin/react-menu/dist/index.css';
+import '@szhsin/react-menu/dist/transitions/slide.css';
+
 import UserPopup from "./UserPopup";
 import ErrorPopup from "@/shared/Message/ErrorPopup";
+import MobileNav from "../Nav2/MobileNav";
+
+// export function NavBarMobile() {
+//   return (
+//       <Menu menuButton={<MenuButton>Open menu</MenuButton>} transition>
+//           <MenuItem>New File</MenuItem>
+//           <MenuItem>Save</MenuItem>
+//           <MenuItem>Close Window</MenuItem>
+//       </Menu>
+//   );
+// }
 
 const Header = ({ nav }) => {
   const router = useRouter();
   const { user } = useSelector((state) => state.user);
-  const {errors} = useSelector(state => state.errors);
+  const { errors } = useSelector(state => state.errors);
 
   const [showForm, setShowForm] = useState(false);
   const [search, setSearch] = useState("");
+  const [mobile, setMobile] = useState(false);
 
   useEffect(() => {
-    const {search} = router.query;
-    if(search) setSearch(search);
+    const { search } = router.query;
+    if (search) setSearch(search);
   }, [router.query]);
 
+  const mobileMenu = (e) => {
+    e.preventDefault()
+    setMobile(!mobile)
+  }
   return (
     <div className="navbar">
       {showForm && <AuthForm close={() => setShowForm(false)} />}
-      
-      <ErrorPopup messages={errors} /> 
+
+      <ErrorPopup messages={errors} />
 
       <div className="navbar-top">
         <div className="brand-wrapper" onClick={() => router.push("/")}>
@@ -46,15 +70,15 @@ const Header = ({ nav }) => {
               placeholder="I'm searching for"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              onKeyUp={(e) => e.keyCode === 13? router.push(`/products?filters=${JSON.stringify({search})}`): ""}
+              onKeyUp={(e) => e.keyCode === 13 ? router.push(`/products?filters=${JSON.stringify({ search })}`) : ""}
             />
             <img
               src="/images/search-black-24-dp.svg"
               alt="search"
               className="search-icon cursor"
-              onClick={() => router.push(`/products?filters=${JSON.stringify({search})}`)}
+              onClick={() => router.push(`/products?filters=${JSON.stringify({ search })}`)}
             />
-        </div>
+          </div>
         </div>
         <div className="clearfix" />
         <div className="right-icon-nav">
@@ -69,17 +93,17 @@ const Header = ({ nav }) => {
             {user.id && (
               <>
                 {user.type == "customer" &&
-                <a
-                  className="icon-nav w-inline-block"
-                  onClick={() => router.push("/customer/favorites")}
-                >
-                    
-                  <img
-                    src="/images/favorite-border-black-24-dp.svg"
-                    loading="lazy"
-                    alt="icon"
-                  />
-                </a>}
+                  <a
+                    className="icon-nav w-inline-block"
+                    onClick={() => router.push("/customer/favorites")}
+                  >
+
+                    <img
+                      src="/images/favorite-border-black-24-dp.svg"
+                      loading="lazy"
+                      alt="icon"
+                    />
+                  </a>}
                 <UserPopup />
               </>
             )}
@@ -98,7 +122,7 @@ const Header = ({ nav }) => {
             )}
           </>
         </div>
-        <a className="menu-button w-inline-block">
+        <a onClick={mobileMenu} className="menu-button w-inline-block">
           <div className="burger">
             <div className="line top" />
             <div className="line mid" />
@@ -106,7 +130,9 @@ const Header = ({ nav }) => {
           </div>
         </a>
       </div>
-      {nav}
+      {/* <NavBarMobile/> */}
+      {/* {nav} */}
+      {mobile ? <MobileNav /> : <>{nav}</>}
     </div>
   );
 };
