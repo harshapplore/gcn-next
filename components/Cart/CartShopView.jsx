@@ -226,7 +226,7 @@ const CartShopView = ({ goToShipping }) => {
 
                 return { ...data, ...st };
             });
- 
+
 
             setShopsMeta(meta);
 
@@ -254,16 +254,15 @@ const CartShopView = ({ goToShipping }) => {
         setVat(total.vat);
     }, [shopsMeta]);
 
+
     useEffect(() => {
         if (!toggles.co2Compensation) {
             setCo2Compensation(0);
             return;
         }
-
-        const compensation = Math.round(totalPrice + totalDelivery) / 100;
-
+        const compensation = (totalPrice + totalDelivery) / 100;
         setCo2Compensation(compensation);
-    }, [toggles.co2Compensation]);
+    }, [toggles.co2Compensation, JSON.stringify(total)]);
 
     useEffect(() => {
         setTotal(totalPrice + totalDelivery + co2Compensation);
@@ -271,16 +270,16 @@ const CartShopView = ({ goToShipping }) => {
 
     const [charityCode, setCharityCode] = useState(false);
     const [charityError, setCharityError] = useState(false);
-    const [shippingError,setShippingError] = useState(false);
+    const [shippingError, setShippingError] = useState(false);
 
     const validator = () => {
         setCharityError(false)
         setShippingError(false)
         console.log(shipping)
-        if (!Object.keys(shipping).includes("country")  || shipping.country == "") {
+        if (!Object.keys(shipping).includes("country") || shipping.country == "") {
             setShippingError("Please select a country")
             router.push("/cart#select-country")
-        } else  if (toggles.co2Compensation && !charityCode) {
+        } else if (toggles.co2Compensation && !charityCode) {
             setCharityError("Please select one charity project")
             router.push("/cart#charity-project")
         } else {
@@ -301,15 +300,15 @@ const CartShopView = ({ goToShipping }) => {
                     <div>
                         <Dropdown
                             placeholder="Ship To"
-                            choices={__countries} 
+                            choices={__countries}
                             value={shipping.country}
                             setValue={(country) => setShipping({ ...shipping, country })}
                         />
-                        {shippingError && <span style={{color: "red",marginTop: 5,fontSize: 12}}>Select Country to proceed</span>}
+                        {shippingError && <span style={{ color: "red", marginTop: 5, fontSize: 12 }}>Select Country to proceed</span>}
                     </div>
                 </div>
 
-                
+
 
                 {shops &&
                     shops.map((shop, index) => {
@@ -384,7 +383,7 @@ const CartShopView = ({ goToShipping }) => {
                     <div>
                         <h3 className="orange infoheader">Make your order CO2 neutral</h3>
                     </div>
- 
+
                     <div className="checkout-switch-wrapper mt20">
                         <Toggle2
                             name="CO2 Compensation"

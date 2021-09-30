@@ -9,6 +9,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@mui/material": "^5.0.2",
     "@reduxjs/toolkit": "^1.6.0",
     "axios": "^0.21.1",
     "eu-vat-calc": "^2.4.0",

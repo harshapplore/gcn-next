@@ -80,11 +80,11 @@ const Order = (props) => {
     const [_order, _setOrder] = useState({});
     const [_snap, _setSnap] = useState({});
     const [loading, setLoading] = useState(false);
-    const [addReview,setAddReview] = useState(false);
+    const [addReview, setAddReview] = useState(false);
 
     React.useEffect(() => {
         setLoading(false);
-    },[props.order])
+    }, [props.order])
     const order = props.order;
     const billingAddress = props.order.billingAddress;
     const snapshot = props.order.snapshot;
@@ -98,6 +98,10 @@ const Order = (props) => {
                 <div className="flexitem">
                     <div className="light">Total</div>
                     <div className="rubik">{usePriceFormatter(order?.total)}</div>
+                </div>
+                <div className="flexitem">
+                    <div className="light">CO2 Compensation</div>
+                    <div className="rubik">{usePriceFormatter(order?.co2Compensation)}</div>
                 </div>
                 <div className="flexitem">
                     <div className="light">Status</div>
@@ -188,33 +192,33 @@ const Order = (props) => {
                                             {(snaps.Status != "Cancelled" && snaps.Status != "Delivered" && snaps.Status != "Product Reviewed") &&
                                                 <React.Fragment>
                                                     {loading == snaps?.shop._id
-                                                        ? 
-                                                    <button
-                                                        href="#"
-                                                        className="button red lowercase block w-button">
-                                                        Loading...
-                                                    </button>
+                                                        ?
+                                                        <button
+                                                            href="#"
+                                                            className="button red lowercase block w-button">
+                                                            Loading...
+                                                        </button>
                                                         :
-                                                    <button
-                                                        href="#"
-                                                        className="button red lowercase block w-button"
-                                                        onClick={() => {
-                                                            setLoading(snaps?.shop._id);
-                                                            cancelOrder({
-                                                                orderId: order?._id,
-                                                                shopId: snaps?.shop._id,
-                                                                Status:"Cancelled"
-                                                            }) 
-                                                            setTimeout(() => {
-                                                                props.getOrders();
-                                                            }, 1000);
-                                                        }}
-                                                    >Cancel Order</button>}
+                                                        <button
+                                                            href="#"
+                                                            className="button red lowercase block w-button"
+                                                            onClick={() => {
+                                                                setLoading(snaps?.shop._id);
+                                                                cancelOrder({
+                                                                    orderId: order?._id,
+                                                                    shopId: snaps?.shop._id,
+                                                                    Status: "Cancelled"
+                                                                })
+                                                                setTimeout(() => {
+                                                                    props.getOrders();
+                                                                }, 1000);
+                                                            }}
+                                                        >Cancel Order</button>}
                                                 </React.Fragment>}
                                         </div>
                                     </div>
                                 </div>
-                                {addReview && <AddReview 
+                                {addReview && <AddReview
                                     product={snaps?.products[0]}
                                     orderId={order?._id}
                                     shopId={snaps?.shop._id}
@@ -243,7 +247,7 @@ const customStyles = {
         top: '50%',
         left: '50%',
         right: 'auto',
-        bottom: 'auto', 
+        bottom: 'auto',
         transform: 'translate(-50%, -50%)',
     },
 }
@@ -252,10 +256,10 @@ const AddReview = (props) => {
     const { customer } = useSelector((state) => state.customer);
     const { user } = useSelector((state) => state.user);
 
-    const [loading,setLoading] = useState(false);
-    const [review,setReview] = useState("")
-    const [rating,setRating] = useState("")
-    const [error,setError] = useState({
+    const [loading, setLoading] = useState(false);
+    const [review, setReview] = useState("")
+    const [rating, setRating] = useState("")
+    const [error, setError] = useState({
         review: false,
         rating: false
     })
@@ -289,13 +293,13 @@ const AddReview = (props) => {
             // setLoading(false)
             setTimeout(() => {
                 props.onClose()
-            },500)
+            }, 500)
         }
     }
 
-    return ( 
+    return (
         <div className={styles.container}>
-            <div className={styles.content}> 
+            <div className={styles.content}>
                 <div className="reviewcontainers">
                     <div className="starcontainer">
                         <h3> Review this product </h3>
@@ -306,7 +310,7 @@ const AddReview = (props) => {
                             setRating={(rating) => setRating(rating)}
                         />
                         <br />
-                        {error.rating && <span style={{ color: "#b00020",fontSize: 12,marginLeft: 20}}>Error:Field cannot be empty</span>}
+                        {error.rating && <span style={{ color: "#b00020", fontSize: 12, marginLeft: 20 }}>Error:Field cannot be empty</span>}
                     </div>
                     <div>
                         <TextArea
@@ -320,6 +324,6 @@ const AddReview = (props) => {
                 <div className="spacer-20" />
                 <Button name="Add Review" type="secondary" loading={loading} action={onSubmit} />
             </div>
-        </div> 
+        </div>
     )
 }

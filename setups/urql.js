@@ -9,6 +9,6 @@ export default new createClient({
 export const urqlClient = createClient({
   url: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
   requestPolicy: 'cache-and-network'
-  
+
 })
 
