@@ -63,9 +63,9 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
   const validate = () => {
     const err = [];
 
-    !SMV ? err.push(`Please select strategy, mission & vision`) : "";
     !strategicPlan  ? err.push(`Please select the strategic plan`) : "";
-    strategicPlan === "yes" && !isPeriodicallyRevised ? err.push(`Please select 'periodically revised'`) : "";
+    strategicPlan=== "yes" &&  !SMV ? err.push(`Please select strategy, mission & vision`) : "";
+    SMV === "yes" && !isPeriodicallyRevised ? err.push(`Please select 'periodically revised'`) : "";
     isPeriodicallyRevised === "yes" && !objectivesAndGoals ? err.push(`Please select objectives and goals`) : "";
     objectivesAndGoals === "yes" && !objectivesAndGoalsSustainabilty ? err.push(`Please select the aspects of sustainability`) : "";
 
