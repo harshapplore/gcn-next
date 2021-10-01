@@ -10,17 +10,18 @@ import Message from "@/shared/Message";
 const Payments = () => {
   const { seller } = useSelector((state) => state.user);
   console.log(seller)
-  const [IBAN, setIBAN] = useState("");
-  const [idFront, setIdFront] = useState("");
-  const [idBack, setIdBack] = useState("");
-  const [addressFront, setAddressFront] = useState("");
-  const [addressBack, setAddressBack] = useState("");
+  const [IBAN, setIBAN] = useState(seller ? seller.iban :"");
+  const [idFront, setIdFront] = useState(seller ? seller.identityFrontView && seller.identityFrontView.formats.small.url : "");
+  const [idBack, setIdBack] = useState(seller ? seller.identityBackView && seller.identityBackView.formats.small.url : "");
+  const [addressFront, setAddressFront] = useState(seller ? seller.proofOfAddressFrontView && seller.proofOfAddressFrontView.formats.small.url : "");
+  const [addressBack, setAddressBack] = useState(seller ? seller.proofOfAddressBackView && seller.proofOfAddressBackView.formats.small.url : "");
   const [companyName, setCompanyName] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
   const [VAT, setVAT] = useState("");
   const [errors, setErrors] = useState([]);
+  const [updateMessage, setUpdateMessage] = useState([]);
 
   useEffect(() => {
     if (seller) 
@@ -50,6 +51,7 @@ const Payments = () => {
     !postalCode ? err.push(`please enter the postal code`) : ""
     !city ? err.push(`please enter the city`) : ""
     !VAT ? err.push(`please enter VAT`) : ""
+    !IBAN.length === 22 ? err.push(`please enter valid IBAN No.`) : ""
     setErrors(err);
 
     if (err.length) return false;
@@ -75,10 +77,10 @@ const Payments = () => {
 
     if (!validate()) return;
 
-    const idf = identityFrontView ? await uploadFiles(identityFrontView) : []
-    const idb = identityBackView ? await uploadFiles(identityBackView) : []
-    const af = proofOfAddressFrontView ? await uploadFiles(proofOfAddressFrontView) : []
-    const ab = proofOfAddressBackView ? await uploadFiles(proofOfAddressBackView) : []
+    const idf = typeof(idFront) !== "string"  && identityFrontView ? await uploadFiles(identityFrontView) : []
+    const idb = typeof(idBack) !== "string"  && identityBackView ? await uploadFiles(identityBackView) : []
+    const af = typeof(addressFront) !== "string"  && proofOfAddressFrontView ? await uploadFiles(proofOfAddressFrontView) : []
+    const ab = typeof(addressBack) !== "string"  && proofOfAddressBackView ? await uploadFiles(proofOfAddressBackView) : []
 
     const ibankData = {
       iban: IBAN,
@@ -93,6 +95,7 @@ const Payments = () => {
       data: ibankData,
     });
     console.log("updated")
+    setUpdateMessage("updated successfully")
   }
 
   return (
@@ -122,8 +125,8 @@ const Payments = () => {
           <p className="mb-20"> Identity Documents</p>
 
           <div className="order-card-content" >
-            {idFront && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(idFront)} alt="id-front" style={{ borderRadius: "10px" }} />}
-            {idBack && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(idBack)} alt="id-back" style={{ borderRadius: "10px" }} />}
+            {idFront && <img className="mb-20" loading="lazy" width="220" height="240" src={typeof(idFront) === "string" ? idFront : URL.createObjectURL(idFront)} alt="id-front" style={{ borderRadius: "10px" }} />}
+            {idBack && <img className="mb-20" loading="lazy" width="220" height="240" src={typeof(idBack) === "string" ? idBack : URL.createObjectURL(idBack)} alt="id-back" style={{ borderRadius: "10px" }} />}
           </div>
           <div className="order-card-content" >
 
@@ -135,8 +138,8 @@ const Payments = () => {
           <div className="spacer-40" />
           <p className="mb-20"> Proof Of Address Documents</p>
           <div  className="order-card-content" >
-            {addressFront && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(addressFront)} style={{ borderRadius: "10px" }} alt="address - front" />}
-            {addressBack && <img className="mb-20" loading="lazy" width="220" height="240" src={URL.createObjectURL(addressBack)} style={{ borderRadius: "10px" }} alt="address-back" />}
+            {addressFront && <img className="mb-20" loading="lazy" width="220" height="240" src={typeof(addressFront) === "string" ? addressFront : URL.createObjectURL(addressFront)} style={{ borderRadius: "10px" }} alt="address - front" />}
+            {addressBack && <img className="mb-20" loading="lazy" width="220" height="240" src={typeof(addressBack) === "string" ? addressBack : URL.createObjectURL(addressBack)} style={{ borderRadius: "10px" }} alt="address-back" />}
           </div>
 
           <div className="order-card-content">

@@ -1,3 +1,56 @@
+.shop-content-mobile {
+    overflow: hidden;
+    padding-top: 0px;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    height: 100%;
+    -ms-flex: 1;
+    flex: 1;
+  }
+  .flex-mobile{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: baseline;
+    -webkit-align-items: baseline;
+    -ms-flex-align: baseline;
+    align-items: baseline;
+  }
+  .flex-order{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: baseline;
+    -webkit-align-items: baseline;
+    -ms-flex-align: baseline;
+    align-items: baseline;
+  }
 @media screen and (max-width: 991px){
     /* .settings-nav {
         display: flex;
@@ -192,6 +245,129 @@
     .shop-content {
         margin-top: 120px;
     }
+    .brand-wrapper {
+        /* flex-basis: 145px; */
+        /* width: 100%; */
+        /* display: flex; */
+        /* text-align: center; */
+        align-items: center;
+        justify-content: center;
+        margin: 10px auto;
+    }
+    .right-icon-nav {
+        justify-content: space-between;
+    }
+    .page-section.banner > img {
+        height: 400px;
+        -webkit-object-fit: cover;
+        object-fit: fill;
+    }
+    .page-section.banner {
+        height: 400px;
+    }
+    .container {
+        /* padding-right: 20px; */
+        padding-left: 10px;
+    }
+    .container.narrow-container {
+        width: 100%;
+        margin-left: 0px;
+        padding-left: 20px;
+    }
+    .flex-container-more-products {
+        display: grid;
+        grid-row-gap: 50px;
+        grid-template-columns: 1fr;
+        margin-right: 15px;
+        /* height: 400px; */
+    }
+    .page-section {
+        border-bottom: 0;
+    }
+    /* .flex-child-32 { */
+        /* flex-basis: 100%; */
+        /* margin: 62px 0; */
+    /* } */
+    .scroll-x {
+        display: flex;
+        overflow: auto;
+        flex-direction: column;
+        white-space: nowrap;
+    }
+    .flex {
+        display: flex;
+        /* flex-direction: column; */
+        justify-content: center;
+        /* flex-wrap: wrap;
+        align-items: baseline; */
+    }
+    .checkout-shop-item-img > img{
+     height: 100px;
+    }
+    .checkout-additional {
+        align-self: self-start;
+    }
+    .about-content-wrapper {
+        -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+    }
+    .our-promise-wrapper {
+        flex-direction: column;
+        justify-content: center;
+    }
+    .page-section.about {
+        padding-top: 50px;
+        height: fit-content;
+    }
+    .impact-swiper-nav{
+        display: none;
+    }
+    .impact-swiper-mask {
+        width: 100%;
+        /* flex-direction: column; */
+        justify-content: center;
+        align-items: center;
+    }
+    .impact-swiper-slide._2 {
+        flex-direction: column;
+    }
+    .flex-mobile{
+        flex-direction: column;
+    }
+    .flex-order {
+        display: block;
+        /* flex-direction: column; */
+        /* flex: 5; */
+    }
+    .greyborder.pd40 {
+        width: 100%;
+        margin-right: 0;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        padding-left: 10px;
+    }
+    .dynamic-content {
+        margin-top: 120px;
+    }
+    .heading-wrapper h2 {
+        padding-left: 10px;
+    }
+    .secondarywithimage.blue.secondaryflex {
+        width: 100%;
+    }
+    .button.blue.lowercase.flexbutton {
+        width: 100%;
+    }
+    .no-select {
+        margin: 10px;
+        height: 300px;
+    }
+    .shop-filter-bar {
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+    padding: 10px;
+    }
+    
     /* .fHGJGT .left-container .edit-logo-button {
         display: block;
         position: absolute;
@@ -202,4 +378,4 @@
     /* .input-x {
         height: 1rem;
     } */
-}
+} 

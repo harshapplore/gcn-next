@@ -236,7 +236,7 @@ const View = () => {
               </div>
             </div>
           </div>
-          <div className="shop-content">
+          <div className="shop-content-mobilet">
             <div className="mobile-only mb-20">
               <div className="center mb-10">
                 <a className="button icon orange block w-inline-block">
