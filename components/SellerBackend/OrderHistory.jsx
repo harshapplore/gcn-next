@@ -14,8 +14,8 @@ const OrderHistory = () => {
     const [open, setOpen] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
     const [status, setStatus] = React.useState(false);
-    const [carrier, setCarrier] = React.useState("DHL");
-    const [trackingNumber, setTrackingNumber] = React.useState("0000000000");
+    const [carrier, setCarrier] = React.useState("");
+    const [trackingNumber, setTrackingNumber] = React.useState("");
     const [estimatedDate, setEstimatedDate] = React.useState("");
 
     useEffect(async () => {
@@ -141,11 +141,11 @@ const OrderHistory = () => {
                                                                         setStatus(e.target.value)
                                                                     }}
                                                                 >
-                                                                    <option value="Processing">Processing</option>
-                                                                    <option value="Dispatched">Dispatched</option>
-                                                                    <option value="Out_For_Delivery">Out for delivery</option>
-                                                                    <option value="Delivered">Delivered</option>
-                                                                    <option value="Cancelled">Cancelled</option>
+                                                                    <option value={order.status === "Processing"? order.status :"Processing"}>Processing</option>
+                                                                    <option value={order.status === "Dispatched"? order.status :"Dispatched"}>Dispatched</option>
+                                                                    <option value={order.status === "Out_For_Delivery"? order.status :"Out_For_Delivery"}>Out for delivery</option>
+                                                                    <option value={order.status === "Delivered"? order.status :"Delivered"}>Delivered</option>
+                                                                    <option disabled={order.status === "Delivered"} value={order.status === "Cancelled"? order.status :"Cancelled"}>Cancelled</option>
                                                                 </select>
 
                                                             </div>
@@ -156,7 +156,7 @@ const OrderHistory = () => {
                                                                     <input type="date"
                                                                         className="input-x__input-field dark mb-10 normalweight input-x-regular w-input"
                                                                         value={estimatedDate || order.estimatedDate}
-                                                                        onChange={(e) => setEstimatedDate(e.target.value)}
+                                                                        onChange={(e) => order.estimatedDate ? setEstimatedDate(order.estimatedDate) : setEstimatedDate(e.target.value) }
                                                                     />
                                                                 </div>
                                                                 <label htmlFor="name" className="light">Carrier / Delivery Company</label>
@@ -166,7 +166,7 @@ const OrderHistory = () => {
                                                                         className="input-x__input-field dark normalweight input-x-regular w-input"
                                                                         placeholder="DHL"
                                                                         value={carrier || order.carrier}
-                                                                        onChange={(e) => setCarrier(e.target.value)}
+                                                                        onChange={(e) => order.carrier ? setCarrier(order.carrier) : setCarrier(e.target.value) }
                                                                     />
                                                                     {/* <div className="input-x__change" >
                                                                         <img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
@@ -178,7 +178,7 @@ const OrderHistory = () => {
                                                                         type="text"
                                                                         className="input-x__input-field dark normalweight input-x-regular w-input"
                                                                         value={trackingNumber || order.trackingNumber}
-                                                                        onChange={(e) => setTrackingNumber(e.target.value)}
+                                                                        onChange={(e) => order.trackingNumber ? setTrackingNumber(order.trackingNumber) : setTrackingNumber(e.target.value) }
                                                                         placeholder="00000000" />
                                                                     {/* <div className="input-x__change" >
                                                                         <img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />

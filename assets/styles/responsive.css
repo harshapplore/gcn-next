@@ -110,12 +110,6 @@
         margin: 30px auto;
         width: 80%;
     }
-    .backend_shop-main-ctr__3uS8m .backend_side-ctr__1zxAs {
-        /* width: 324px;
-        padding-left: 36px; */
-        display: none;
-    }
-    
       .nav-menu-mobile {
         position: fixed;
         left: 0%;
@@ -254,8 +248,12 @@
         justify-content: center;
         margin: 10px auto;
     }
-    .right-icon-nav {
+    /* .right-icon-nav {
         justify-content: space-between;
+    } */
+    .right-icon-nav {
+        justify-content: flex-end;
+        align-items: baseline;
     }
     .page-section.banner > img {
         height: 400px;
