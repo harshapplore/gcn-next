@@ -213,9 +213,9 @@ const ProductListItem = ({ product }) => {
             (!product.stockCount ? " low" : "")
           }
         >
-          {product.stockCount || 0}
+           {/* { product.stockCount || 0} */}
         </span>{" "}
-        in Stock
+        {product.stock ? "in Stock" : "Out of stock"}
       </div>
       <a
         className="shop-product-list-status w-inline-block"

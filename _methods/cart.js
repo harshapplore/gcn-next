@@ -93,6 +93,7 @@ export const saveAddress = (type, address) => {
     throw new Error("Address cannot be empty");
 
   localStorage.setItem(type, JSON.stringify(address));
+  
   return JSON.parse(localStorage.getItem(type));
 };
 

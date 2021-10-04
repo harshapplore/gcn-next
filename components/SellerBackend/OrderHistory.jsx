@@ -4,12 +4,12 @@ import { getAllOrders } from "@/_controllers/seller";
 import AppLoader from "@/utils/AppLoader/AppLoader";
 import { dateFormatter } from "@/_hooks/dateFormatter";
 import { usePriceFormatter } from "@/_hooks/usePriceFormatter";
-import { cancelOrder } from "@/_controllers/customer";
+import { cancelOrder, sendEmail } from "@/_controllers/customer";
 import { authAxios } from "@/setups/axios";
 
 
 const OrderHistory = () => {
-    const [orders, setOrders] = useState(false);
+    const [orders, setOrders] = useState("");
     const { seller } = useSelector((state) => state.seller);
     const [open, setOpen] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
@@ -46,6 +46,40 @@ const OrderHistory = () => {
                 data
             });
             console.log(response)
+            const sellerEmail = orders.map(item => item.user.email)
+            console.log(sellerEmail)
+            // sendEmail("testerapplore301@yopmail.com","User Registered Successfully", "User registerd")
+            sellerEmail.map(item =>{
+                sendEmail(item,"Order received", "order received ")
+
+            })
+
+            // sendEmail(customer.user.email,"Order Placed Successfully", "order placed successfully")
+
+            if(response.data.status === "Dispatched") {
+                sellerEmail.map(item =>{
+                    sendEmail(item,"Order Dipatched", "Order Dipatched ")
+                })
+                // sendEmail(response.user.email,"Order Dispatched Successfully", "Dispatched")
+            }
+            if(response.data.status === "Cancelled") {
+                // sendEmail(response.user.email,"Order Cancelled ", "Cancelled")
+                sellerEmail.map(item =>{
+                    sendEmail(item,"Order Cancelled", "Order Cancelled ")
+                })
+            }
+            if(response.data.status === "Out_For_Delivery") {
+                sellerEmail.map(item =>{
+                    sendEmail(item,"Order Out_For_Delivery", "Order Out_For_Delivery ")
+                })
+                // sendEmail(response.user.email,"out for delivery", "out for delivery")
+            }
+            if(response.data.status === "Delivered") {
+                sellerEmail.map(item =>{
+                    sendEmail(item,"Order Delivered", "Order Delivered")
+                })
+                // sendEmail(response.user.email,"Order delivered", "delivered successsfully")
+            }
             setLoading(false)
 
             // setTimeout(() => {
@@ -54,7 +88,15 @@ const OrderHistory = () => {
             // }, 1000);
         }
     }
-
+    
+    // const sellerEmail =[]
+   
+    // orders.map(item=>{
+    //   let data = 
+    //   sellerEmail.push(data)
+      
+    // })
+console.log(orders)
     return (
         <div className="dynamic-content">
             <div className="heading-wrapper mb-40">
