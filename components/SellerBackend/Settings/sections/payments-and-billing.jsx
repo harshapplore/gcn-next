@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { uploadFiles } from "_controllers/product"
 import Message from "@/shared/Message";
+import router from "next/router";
+
 
 
 
@@ -10,7 +12,7 @@ import Message from "@/shared/Message";
 const Payments = () => {
   const { seller } = useSelector((state) => state.user);
   console.log(seller)
-  const [IBAN, setIBAN] = useState(seller ? seller.iban :"");
+  const [IBAN, setIBAN] = useState(seller ? seller.iban : "");
   const [idFront, setIdFront] = useState(seller ? seller.identityFrontView && seller.identityFrontView.formats.small.url : "");
   const [idBack, setIdBack] = useState(seller ? seller.identityBackView && seller.identityBackView.formats.small.url : "");
   const [addressFront, setAddressFront] = useState(seller ? seller.proofOfAddressFrontView && seller.proofOfAddressFrontView.formats.small.url : "");
@@ -22,15 +24,15 @@ const Payments = () => {
   const [VAT, setVAT] = useState("");
   const [errors, setErrors] = useState([]);
   const [updateMessage, setUpdateMessage] = useState([]);
+  const [planType, setPlanType] = useState([]);
 
   useEffect(() => {
-    if (seller) 
-    {
+    if (seller) {
       // setIBAN(seller.iban)
       // setIdFront(seller.identityFrontView.)
       // setIdBack(seller.identityBackView)
       // setAddressFront(seller.proofOfAddressFrontView)
-      // setAddressBack(seller.proofOfAddressBackView)
+      setPlanType(seller.planType)
 
       if (seller.shop) {
         setCompanyName(seller.shop.companyName)
@@ -42,6 +44,7 @@ const Payments = () => {
     }
 
   }, [seller]);
+  console.log(planType)
 
   const validate = () => {
     const err = [];
@@ -77,10 +80,10 @@ const Payments = () => {
 
     if (!validate()) return;
 
-    const idf = typeof(idFront) !== "string"  && identityFrontView ? await uploadFiles(identityFrontView) : []
-    const idb = typeof(idBack) !== "string"  && identityBackView ? await uploadFiles(identityBackView) : []
-    const af = typeof(addressFront) !== "string"  && proofOfAddressFrontView ? await uploadFiles(proofOfAddressFrontView) : []
-    const ab = typeof(addressBack) !== "string"  && proofOfAddressBackView ? await uploadFiles(proofOfAddressBackView) : []
+    const idf = typeof (idFront) !== "string" && identityFrontView ? await uploadFiles(identityFrontView) : []
+    const idb = typeof (idBack) !== "string" && identityBackView ? await uploadFiles(identityBackView) : []
+    const af = typeof (addressFront) !== "string" && proofOfAddressFrontView ? await uploadFiles(proofOfAddressFrontView) : []
+    const ab = typeof (addressBack) !== "string" && proofOfAddressBackView ? await uploadFiles(proofOfAddressBackView) : []
 
     const ibankData = {
       iban: IBAN,
@@ -102,7 +105,7 @@ const Payments = () => {
     <>
       <div className="settings-block">
         <h3 className="headline-5 mb-20">How you will get paid</h3>
-        <div className="subtitle-2">How you will get paid</div>
+        {/* <div className="subtitle-2">How you will get paid</div> */}
         <div className="product-add-block">
           <p className="mb-20"> IBAN </p>
           <div className="mb-40 flex left-2">
@@ -125,8 +128,8 @@ const Payments = () => {
           <p className="mb-20"> Identity Documents</p>
 
           <div className="order-card-content" >
-            {idFront && <img className="mb-20" loading="lazy" width="220" height="240" src={typeof(idFront) === "string" ? idFront : URL.createObjectURL(idFront)} alt="id-front" style={{ borderRadius: "10px" }} />}
-            {idBack && <img className="mb-20" loading="lazy" width="220" height="240" src={typeof(idBack) === "string" ? idBack : URL.createObjectURL(idBack)} alt="id-back" style={{ borderRadius: "10px" }} />}
+            {idFront && <img className="mb-20" loading="lazy" width="220" height="240" src={typeof (idFront) === "string" ? idFront : URL.createObjectURL(idFront)} alt="id-front" style={{ borderRadius: "10px" }} />}
+            {idBack && <img className="mb-20" loading="lazy" width="220" height="240" src={typeof (idBack) === "string" ? idBack : URL.createObjectURL(idBack)} alt="id-back" style={{ borderRadius: "10px" }} />}
           </div>
           <div className="order-card-content" >
 
@@ -137,9 +140,9 @@ const Payments = () => {
 
           <div className="spacer-40" />
           <p className="mb-20"> Proof Of Address Documents</p>
-          <div  className="order-card-content" >
-            {addressFront && <img className="mb-20" loading="lazy" width="220" height="240" src={typeof(addressFront) === "string" ? addressFront : URL.createObjectURL(addressFront)} style={{ borderRadius: "10px" }} alt="address - front" />}
-            {addressBack && <img className="mb-20" loading="lazy" width="220" height="240" src={typeof(addressBack) === "string" ? addressBack : URL.createObjectURL(addressBack)} style={{ borderRadius: "10px" }} alt="address-back" />}
+          <div className="order-card-content" >
+            {addressFront && <img className="mb-20" loading="lazy" width="220" height="240" src={typeof (addressFront) === "string" ? addressFront : URL.createObjectURL(addressFront)} style={{ borderRadius: "10px" }} alt="address - front" />}
+            {addressBack && <img className="mb-20" loading="lazy" width="220" height="240" src={typeof (addressBack) === "string" ? addressBack : URL.createObjectURL(addressBack)} style={{ borderRadius: "10px" }} alt="address-back" />}
           </div>
 
           <div className="order-card-content">
@@ -153,25 +156,38 @@ const Payments = () => {
         <div className="business-plan">
           <div>
             <h4 className="subtitle-1 subtitle-1--blue mb-20">Business Plan</h4>
-            <div>
+            {planType === "bonsai" ? <div>
               <div className="label">Current Business Plan</div>
               <div>Bonsai</div>
             </div>
+            :
+            <div>
+              <div className="label">Current Business Plan</div>
+              <div>Oak</div>
+            </div>}
           </div>
           <div className="plan-details w-richtext">
             <p>
               <strong>Details</strong>
             </p>
-            <ul role="list">
+            {planType === "bonsai" ? <ul role="list">
               <li>12% commission fee on all transactions</li>
               <li>€ 0,20 listing fee per item</li>
               <li>max. 15 items</li>
             </ul>
+            :
+            <ul role="list">
+              <li>12% commission fee on all transactions</li>
+              <li>€ 29 per month</li>
+              <li>Unlimited listings</li>
+            </ul>
+            }
           </div>
           <a
             id="w-node-f58e9903-c090-0e6b-e66d-899582061220-0db831b0"
             className="button blue"
-            style={{height:"50px"}}
+            style={{ height: "50px" }}
+            onClick={() => router.push("/seller-onboarding/pricing-plan") }
           >
             Change my plan
           </a>
@@ -282,7 +298,7 @@ const Payments = () => {
             <div>70 EUR</div>
             <a
               id="w-node-f58e9903-c090-0e6b-e66d-89958206127c-0db831b0"
-              className="invoice-download w-inline-block"
+              className="invoice-download w-inline-block" download
             >
               <div className="icon-24 w-embed">
                 <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24}>

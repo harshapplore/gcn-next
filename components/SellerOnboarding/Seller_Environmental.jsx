@@ -9,6 +9,9 @@ import { scrollToElement } from "@/utils/scroll";
 
 import Message from "@/shared/Message";
 
+import environment from "../../_data/envirnment.json"
+
+
 const data = {
   heading: "Hello Thomas, let's get started!",
   subheading: "Seller Questionnaire",
@@ -62,6 +65,42 @@ const Seller_Environmental = ({ nextPage }) => {
   const [reductionOfWaterConsumption, setReductionOfWaterConsumption] = useState("")
   const [reductionOfWaterConsumptionPercent, setReductionOfWaterConsumptionPercent] = useState("")
   const [environmentalBrief, setEnvironmentalBrief] = useState("")
+
+  environment[0].answer = hasEnvironmentalPolicy
+  environment[1].answer = understandTheImpacts
+  environment[2].answer = isImpactMeasured
+  environment[3].answer = materialCauseLessDamage
+  environment[4].answer = useLocalMaterial
+  environment[5].answer = useLocalMaterialPercentage
+  environment[6].answer = quantifyTheImpact
+  environment[7].answer = percentageOfPlasticReduce
+  environment[8].answer = percentageOfRawMaterialReduce
+  environment[9].answer = percentageOfWaterReduce
+  environment[10].answer = percentageOfEnergyReduce
+  environment[11].answer = percentageOfRenewableEnergyEmployed
+  environment[12].answer = percentageOfGHGEmission
+  environment[13].answer = recycleScrapMaterials
+  environment[14].answer = recyclePercentage
+  environment[15].answer = recycleAfterUsePhase
+  environment[16].answer = aimToReturnFaulty
+  environment[17].answer = promotesCustomersUnderstanding
+  environment[18].answer = dataAboutEnvironmentalPractices
+  environment[19].answer = customersDemandOnEnvironmentalPerfomance
+  environment[20].answer = alternativeForPlastic
+  environment[21].answer = sustainableDeliveryProcess
+  environment[22].answer = finalDestinationForWaste
+  environment[23].answer = selectiveWasteCollection
+  environment[24].answer = selectiveWasteCollectionPercent
+  environment[25].answer = savingPaperConsumption
+  environment[26].answer = savingPaperConsumptionPercent
+  environment[27].answer = reductionOfEnergyConsumption
+  environment[28].answer = reductionOfEnergyConsumptionPercent
+  environment[29].answer = useOfRenewableEnergy
+  environment[30].answer = useOfRenewableEnergyPercent
+  environment[31].answer = reductionOfWaterConsumption
+  environment[32].answer = reductionOfWaterConsumptionPercent
+  environment[33].answer = environmentalBrief
+
   const [sellerName, setSellerName] = useState("")
   const [topError, setTopErrors] = useState("");
 
@@ -212,52 +251,52 @@ const Seller_Environmental = ({ nextPage }) => {
       return;
     }    
 
-    const data = {
-      hasEnvironmentalPolicy,
-      understandTheImpacts,
-      isImpactMeasured,
-      materialCauseLessDamage,
-      useLocalMaterial,
-      useLocalMaterialPercentage,
-      quantifyTheImpact,
-      percentageOfPlasticReduce,
-      percentageOfRawMaterialReduce,
-      percentageOfWaterReduce,
-      percentageOfEnergyReduce,
-      percentageOfRenewableEnergyEmployed,
-      percentageOfGHGEmission,
-      recycleScrapMaterials,
-      recyclePercentage,
-      recycleAfterUsePhase,
-      aimToReturnFaulty,
-      promotesCustomersUnderstanding,
-      dataAboutEnvironmentalPractices,
-      customersDemandOnEnvironmentalPerfomance,
-      alternativeForPlastic,
-      sustainableDeliveryProcess,
-      finalDestinationForWaste,
-      selectiveWasteCollection,
-      selectiveWasteCollectionPercent,
-      savingPaperConsumption,
-      savingPaperConsumptionPercent,
-      reductionOfEnergyConsumption,
-      reductionOfEnergyConsumptionPercent,
-      useOfRenewableEnergy,
-      useOfRenewableEnergyPercent,
-      reductionOfWaterConsumption,
-      reductionOfWaterConsumptionPercent,
-      environmentalBrief,
-    };
+    // const data = {
+      // hasEnvironmentalPolicy,
+      // understandTheImpacts,
+      // isImpactMeasured,
+      // materialCauseLessDamage,
+      // useLocalMaterial,
+      // useLocalMaterialPercentage,
+      // quantifyTheImpact,
+      // percentageOfPlasticReduce,
+      // percentageOfRawMaterialReduce,
+      // percentageOfWaterReduce,
+      // percentageOfEnergyReduce,
+      // percentageOfRenewableEnergyEmployed,
+      // percentageOfGHGEmission,
+      // recycleScrapMaterials,
+      // recyclePercentage,
+      // recycleAfterUsePhase,
+      // aimToReturnFaulty,
+      // promotesCustomersUnderstanding,
+      // dataAboutEnvironmentalPractices,
+      // customersDemandOnEnvironmentalPerfomance,
+      // alternativeForPlastic,
+      // sustainableDeliveryProcess,
+      // finalDestinationForWaste,
+      // selectiveWasteCollection,
+      // selectiveWasteCollectionPercent,
+      // savingPaperConsumption,
+      // savingPaperConsumptionPercent,
+      // reductionOfEnergyConsumption,
+      // reductionOfEnergyConsumptionPercent,
+      // useOfRenewableEnergy,
+      // useOfRenewableEnergyPercent,
+      // reductionOfWaterConsumption,
+      // reductionOfWaterConsumptionPercent,
+      // environmentalBrief,
+    // };
 
     const response = await authAxios()({
       url: `sellers/${seller.id}`,
       method: "PUT",
       data: {
-        onboardStatus: 1,
-        environmentalAnswers: data,
+        environmentalAnswers: environment,
         qaStatus: "pending"
       },
     });
+    console.log(response.data)
     if (response.data.environmentalAnswers) {
       nextPage();
     }

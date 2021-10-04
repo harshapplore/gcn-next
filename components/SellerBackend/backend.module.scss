@@ -1,10 +1,17 @@
 .shop-main-ctr {
   display: flex;
   align-items: top;
+  @media screen and (max-width: 479px) {
+    flex-direction: column;
+    margin-top: 150px;
+}
 
   .side-ctr {
     width: 324px;
     padding-left: 36px;
+    @media screen and (max-width: 479px) {
+      padding-left: 10px;
+  }
   }
 
   .right-ctr {

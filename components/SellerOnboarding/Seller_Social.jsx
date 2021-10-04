@@ -9,11 +9,15 @@ import { authAxios } from "@/setups/axios";
 // import Select from "@/shared/Select";
 // import CheckBox from "@/shared/Checkbox";
 import Message from "@/shared/Message";
-import Social_Valuing_Diversity from "./Social_Valuing_Diversity";
 import Social_Professional_Developement from "./Social_Professional_Developement";
 import Social_Health_Safety from "./Social_Health_Safety";
 import Social_StackHolders_relationship from "./Social_StackHolders_relationship";
 // import Button from "@/shared/Button";
+import Social_Valuing_Diversity from "./Social_Valuing_Diversity";
+import socialValuingDiversity from "../../_data/socialValuingDiversity.json"
+import socialProfessionalDevelopement from "../../_data/socialProfessionalDevelopement.json"
+import socialEmployeeHealthAndSafty from "../../_data/socialEmployeeHealthAndSafty.json"
+import socialCommunityAndStackholders from "../../_data/socialCommunityAndStackholders.json"
 
 
 const data = {
@@ -42,6 +46,13 @@ const Seller_Social = ({ nextPage }) => {
     const [grievanceChannels, setGrievanceChannels] = useState("")
     const [diversityBrief, setDiversityBrief] = useState("")
 
+    socialValuingDiversity[0].answer = diversityCriteria
+    socialValuingDiversity[1].answer = salaryRangeAndEligibily
+    socialValuingDiversity[2].answer = grievanceChannels
+    socialValuingDiversity[3].answer = diversityBrief
+
+
+
     const [trainingToEmployee, setTrainingToEmployee] = useState("");
     const [valuesAndEncourages, setValuesAndEncourages] = useState("")
     const [subsidizeCourse, setSubsidizeCourse] = useState("")
@@ -49,6 +60,14 @@ const Seller_Social = ({ nextPage }) => {
     const [degreeOfSatisfaction, setDegreeOfSatisfaction] = useState("")
     const [adminsSoftSkills, setAdminsSoftSkills] = useState("")
     const [professionalBrief, setProfessionalBrief] = useState("")
+
+    socialProfessionalDevelopement[0].answer = trainingToEmployee
+    socialProfessionalDevelopement[1].answer = valuesAndEncourages
+    socialProfessionalDevelopement[2].answer = subsidizeCourse
+    socialProfessionalDevelopement[3].answer = incentiveRelated
+    socialProfessionalDevelopement[4].answer = degreeOfSatisfaction
+    socialProfessionalDevelopement[5].answer = adminsSoftSkills
+    socialProfessionalDevelopement[6].answer = professionalBrief
 
     const [pleasantEnvironment, setPleasantEnvironment] = useState("")
     const [uptodateDocs, setUptodateDocs] = useState("")
@@ -60,12 +79,30 @@ const Seller_Social = ({ nextPage }) => {
     const [friendlyWorkEnvironment, setFriendlyWorkEnvironment] = useState("")
     const [safetyBrief, setSafetyBrief] = useState("")
 
+    socialEmployeeHealthAndSafty[0].answer = pleasantEnvironment
+    socialEmployeeHealthAndSafty[1].answer = uptodateDocs
+    socialEmployeeHealthAndSafty[2].answer = accidentPreventions
+    socialEmployeeHealthAndSafty[3].answer = useOfPPE
+    socialEmployeeHealthAndSafty[4].answer = moralHarrasmentPrevention
+    socialEmployeeHealthAndSafty[5].answer = sexualHarrasmentPrevention
+    socialEmployeeHealthAndSafty[6].answer = teamForEmployeeWellness
+    socialEmployeeHealthAndSafty[7].answer = friendlyWorkEnvironment
+    socialEmployeeHealthAndSafty[8].answer = safetyBrief
+
     const [dialogChannel, setDialogChannel] = useState("")
     const [encouragingValunteer, setEncouragingValunteer] = useState("")
     const [investInSocialProject, setInvestInSocialProject] = useState("")
     const [investPercentage, setInvestPercentage] = useState("")
     const [obtainedBenifits, setObtainedBenifits] = useState("")
     const [stackHoldersBrief, setStackHoldersBrief] = useState("")
+
+    socialCommunityAndStackholders[0].answer = dialogChannel
+    socialCommunityAndStackholders[1].answer = encouragingValunteer
+    socialCommunityAndStackholders[2].answer = investInSocialProject
+    socialCommunityAndStackholders[3].answer = investPercentage
+    socialCommunityAndStackholders[4].answer = obtainedBenifits
+    socialCommunityAndStackholders[5].answer = stackHoldersBrief
+
     const [sellerName, setSellerName] = useState("")
     const [topError, setTopErrors] = useState("");
 
@@ -150,36 +187,13 @@ const Seller_Social = ({ nextPage }) => {
             setTopErrors("Please fill all the values")
             scrollToElement("#environment")
             return;
-          } 
+        }
 
         const data = {
-            diversityCriteria,
-            salaryRangeAndEligibily,
-            grievanceChannels,
-            checkBoxStyle,
-            diversityBrief,
-            pleasantEnvironment,
-            uptodateDocs,
-            accidentPreventions,
-            useOfPPE,
-            moralHarrasmentPrevention,
-            sexualHarrasmentPrevention,
-            teamForEmployeeWellness,
-            friendlyWorkEnvironment,
-            safetyBrief,
-            trainingToEmployee,
-            valuesAndEncourages,
-            subsidizeCourse,
-            incentiveRelated,
-            degreeOfSatisfaction,
-            adminsSoftSkills,
-            professionalBrief,
-            dialogChannel,
-            encouragingValunteer,
-            investInSocialProject,
-            investPercentage,
-            obtainedBenifits,
-            stackHoldersBrief,
+            socialValuingDiversity,
+            socialProfessionalDevelopement,
+            socialEmployeeHealthAndSafty,
+            socialCommunityAndStackholders,
         }
         const response = await authAxios()({
             url: `sellers/${seller.id}`,

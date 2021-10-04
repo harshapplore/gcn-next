@@ -5,6 +5,12 @@ import ProgressBar from "./Utils/ProgressBar";
 
 import { authAxios } from "@/setups/axios";
 import { scrollToElement } from "@/utils/scroll";
+import governanceAndManagementIntegrity from "../../_data/governanceAndManagementIntegrity.json"
+import governanceAndManagementFinancial from "../../_data/governanceAndManagementFinancial.json"
+import governanceAndManagementInnovation from "../../_data/governanceAndManagementInnovation.json"
+import governanceAndManagementRelationship from "../../_data/governanceAndManagementRelationship.json"
+import governanceAndManagementComplianceWithLaws from "../../_data/governanceAndManagementComplianceWithLaws.json"
+
 
 
 import { fetchSeller } from "@/slices/user";
@@ -61,12 +67,25 @@ const Seller_Governance_Management = ({ nextPage }) => {
   const [channelForEmployee, setChannelForEmployee] = useState("");
   const [integrityBrief, setIntegrityBrief] = useState("");
 
+
+  governanceAndManagementIntegrity[0].answer = directorAct
+  governanceAndManagementIntegrity[1].answer = responsibleForIrregularities
+  governanceAndManagementIntegrity[2].answer = principleOfBusinessConduct
+  governanceAndManagementIntegrity[3].answer = channelForEmployee
+  governanceAndManagementIntegrity[4].answer = integrityBrief
+
   const [financialPlan, setFinancialPlan] = useState("");
   const [financialPerformance, setFinancialPerformance] = useState("");
   const [monitoringManagement, setMonitoringManagement] = useState("");
   const [discloseInfo, setDiscloseInfo] = useState("");
   const [financialBrief, setFinancialBrief] = useState("");
   const checkBoxStyle = { opacity: 0, position: "absolute", zIndex: -1 };
+
+  governanceAndManagementFinancial[0].answer = financialPlan
+  governanceAndManagementFinancial[1].answer = financialPerformance
+  governanceAndManagementFinancial[2].answer = monitoringManagement
+  governanceAndManagementFinancial[3].answer = discloseInfo
+  governanceAndManagementFinancial[4].answer = financialBrief
 
   const [efficiency, setEfficiency] = useState("");
   const [qualityOfProduct, setQualityOfProduct] = useState("");
@@ -75,6 +94,14 @@ const Seller_Governance_Management = ({ nextPage }) => {
   const [RND, setRND] = useState("");
   const [involvingCustomers, setInvolvingCustomers] = useState("");
   const [innovationBrief, setInnovationBrief] = useState("");
+
+  governanceAndManagementInnovation[0].answer = efficiency
+  governanceAndManagementInnovation[1].answer = qualityOfProduct
+  governanceAndManagementInnovation[2].answer = improvedProtfolio
+  governanceAndManagementInnovation[3].answer = benefitInItsDimensions
+  governanceAndManagementInnovation[4].answer = RND
+  governanceAndManagementInnovation[5].answer = involvingCustomers
+  governanceAndManagementInnovation[6].answer = innovationBrief
 
   const [communicationChannel, setCommunicationChannel] = useState("");
   const [answerReceived, setAnswerReceived] = useState("");
@@ -98,6 +125,28 @@ const Seller_Governance_Management = ({ nextPage }) => {
   const [environmental, setEnvironmental] = useState("");
   const [relationshipBrief, setRelationshipBrief] = useState("");
 
+  governanceAndManagementRelationship[0].answer = communicationChannel
+  governanceAndManagementRelationship[1].answer = answerReceived
+  governanceAndManagementRelationship[2].answer = goalAndDeadline
+  governanceAndManagementRelationship[3].answer = doubtAnalysis
+  governanceAndManagementRelationship[4].answer = productInfo
+  governanceAndManagementRelationship[5].answer = satisfactionSurvey
+  governanceAndManagementRelationship[6].answer = supplierDetails
+  governanceAndManagementRelationship[7].answer = criticalSupplySurvey
+  governanceAndManagementRelationship[8].answer = alternateDeliveryOption
+  governanceAndManagementRelationship[9].answer = priorityOfLocalSupplier
+  governanceAndManagementRelationship[10].answer = priorityOfLocalSupplierPercentage
+  governanceAndManagementRelationship[11].answer = purchaseCriteria
+  governanceAndManagementRelationship[12].answer = contractWithSupplier
+  governanceAndManagementRelationship[12].answer = labour
+  governanceAndManagementRelationship[13].answer = tax
+  governanceAndManagementRelationship[14].answer = sanitary
+  governanceAndManagementRelationship[15].answer = environmental
+  governanceAndManagementRelationship[16].answer = relationshipBrief
+
+
+
+
   const [licenseAndPermit, setLicenseAndPermit] = useState("");
   const [instructedToKnowLaw, setInstructedToKnowLaw] = useState("");
   const [finedForLaw, setFinedForLaw] = useState("");
@@ -105,11 +154,20 @@ const Seller_Governance_Management = ({ nextPage }) => {
   const [finedForEnvironmentalLaw, setFinedForEnvironmentalLaw] = useState("");
   const [finedForHealthLaw, setFinedForHealthLaw] = useState("");
   const [lawBrief, setLawBrief] = useState("");
+
+  governanceAndManagementComplianceWithLaws[0].answer = licenseAndPermit
+  governanceAndManagementComplianceWithLaws[1].answer = instructedToKnowLaw
+  governanceAndManagementComplianceWithLaws[2].answer = finedForLaw
+  governanceAndManagementComplianceWithLaws[3].answer = finedForLabourLaw
+  governanceAndManagementComplianceWithLaws[4].answer = finedForEnvironmentalLaw
+  governanceAndManagementComplianceWithLaws[5].answer = finedForHealthLaw
+  governanceAndManagementComplianceWithLaws[6].answer = lawBrief
+
   const [sellerName, setSellerName] = useState("")
   const [topError, setTopErrors] = useState("");
 
   const [errors, setErrors] = useState([]);
-  
+
   useEffect(() => {
     if (seller.governanceAndManagementAnswers) {
       setDirectorAct(seller.governanceAndManagementAnswers.directorAct);
@@ -201,8 +259,8 @@ const Seller_Governance_Management = ({ nextPage }) => {
       );
       setLawBrief(seller.governanceAndManagementAnswers.lawBrief);
     }
-    if(seller.user)
-    setSellerName(seller.user.name)
+    if (seller.user)
+      setSellerName(seller.user.name)
   }, [seller]);
 
   const validate = () => {
@@ -299,51 +357,14 @@ const Seller_Governance_Management = ({ nextPage }) => {
       setTopErrors("Please fill all the values")
       scrollToElement("#governance")
       return;
-    } 
+    }
 
     const data = {
-      financialPlan,
-      financialPerformance,
-      monitoringManagement,
-      discloseInfo,
-      financialBrief,
-      efficiency,
-      qualityOfProduct,
-      improvedProtfolio,
-      benefitInItsDimensions,
-      RND,
-      involvingCustomers,
-      innovationBrief,
-      directorAct,
-      responsibleForIrregularities,
-      principleOfBusinessConduct,
-      channelForEmployee,
-      integrityBrief,
-      licenseAndPermit,
-      instructedToKnowLaw,
-      finedForLaw,
-      finedForLabourLaw,
-      finedForEnvironmentalLaw,
-      finedForHealthLaw,
-      lawBrief,
-      communicationChannel,
-      answerReceived,
-      goalAndDeadline,
-      doubtAnalysis,
-      productInfo,
-      satisfactionSurvey,
-      supplierDetails,
-      criticalSupplySurvey,
-      alternateDeliveryOption,
-      priorityOfLocalSupplier,
-      priorityOfLocalSupplierPercentage,
-      purchaseCriteria,
-      contractWithSupplier,
-      labour,
-      tax,
-      sanitary,
-      environmental,
-      relationshipBrief,
+      governanceAndManagementIntegrity,
+      governanceAndManagementFinancial,
+      governanceAndManagementInnovation,
+      governanceAndManagementRelationship,
+      governanceAndManagementComplianceWithLaws,
     };
 
     const response = await authAxios()({
@@ -385,8 +406,8 @@ const Seller_Governance_Management = ({ nextPage }) => {
           <div className="settings-block" id="governance">
             <h3 className="headline-5 mb-50">Governance and Management</h3>
             <div className="w-form">
-            {topError && <Message text={topError} status={-1} />}
-                {topError && <br />}
+              {topError && <Message text={topError} status={-1} />}
+              {topError && <br />}
               <form>
                 <Governance_Management_Integrity
                   directorAct={directorAct}
@@ -520,6 +541,6 @@ const Seller_Governance_Management = ({ nextPage }) => {
       </div>
     </div>
   );
-              
+
 };
 export default Seller_Governance_Management;
