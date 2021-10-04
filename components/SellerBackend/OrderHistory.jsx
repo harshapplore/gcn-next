@@ -4,26 +4,99 @@ import { getAllOrders } from "@/_controllers/seller";
 import AppLoader from "@/utils/AppLoader/AppLoader";
 import { dateFormatter } from "@/_hooks/dateFormatter";
 import { usePriceFormatter } from "@/_hooks/usePriceFormatter";
-import { cancelOrder } from "@/_controllers/customer";
+import { cancelOrder, sendEmail } from "@/_controllers/customer";
+import { authAxios } from "@/setups/axios";
+
 
 const OrderHistory = () => {
-    const [orders, setOrders] = useState(false);
+    const [orders, setOrders] = useState("");
     const { seller } = useSelector((state) => state.seller);
+    const [open, setOpen] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
+    const [status, setStatus] = React.useState(false);
+    const [carrier, setCarrier] = React.useState("");
+    const [trackingNumber, setTrackingNumber] = React.useState("");
+    const [estimatedDate, setEstimatedDate] = React.useState("");
 
     useEffect(async () => {
         getOrders()
     }, [seller])
-
     const getOrders = async () => {
         let data = await getAllOrders(seller?.shop?.id)
         setOrders(data)
         setLoading(false)
-        console.log(data)
+        console.log(orders)
     }
-    const [open, setOpen] = React.useState(false);
-    const [loading, setLoading] = React.useState(false);
-    const [status, setStatus] = React.useState(false);
+    const updateStatus = async (id) => {
+        setLoading(true)
 
+        if (status) {
+            console.log(status)
+            const data = {
+                carrier,
+                status,
+                trackingNumber,
+                estimatedDate
+            }
+
+            console.log(data)
+            const response = await authAxios()({
+                url: `/orders/${id}`,
+                method: "PUT",
+                data
+            });
+            console.log(response)
+            const sellerEmail = orders.map(item => item.user.email)
+            console.log(sellerEmail)
+            // sendEmail("testerapplore301@yopmail.com","User Registered Successfully", "User registerd")
+            sellerEmail.map(item =>{
+                sendEmail(item,"Order received", "order received ")
+
+            })
+
+            // sendEmail(customer.user.email,"Order Placed Successfully", "order placed successfully")
+
+            if(response.data.status === "Dispatched") {
+                sellerEmail.map(item =>{
+                    sendEmail(item,"Order Dipatched", "Order Dipatched ")
+                })
+                // sendEmail(response.user.email,"Order Dispatched Successfully", "Dispatched")
+            }
+            if(response.data.status === "Cancelled") {
+                // sendEmail(response.user.email,"Order Cancelled ", "Cancelled")
+                sellerEmail.map(item =>{
+                    sendEmail(item,"Order Cancelled", "Order Cancelled ")
+                })
+            }
+            if(response.data.status === "Out_For_Delivery") {
+                sellerEmail.map(item =>{
+                    sendEmail(item,"Order Out_For_Delivery", "Order Out_For_Delivery ")
+                })
+                // sendEmail(response.user.email,"out for delivery", "out for delivery")
+            }
+            if(response.data.status === "Delivered") {
+                sellerEmail.map(item =>{
+                    sendEmail(item,"Order Delivered", "Order Delivered")
+                })
+                // sendEmail(response.user.email,"Order delivered", "delivered successsfully")
+            }
+            setLoading(false)
+
+            // setTimeout(() => {
+            //     getOrders();
+            //     setStatus(false)
+            // }, 1000);
+        }
+    }
+    
+    // const sellerEmail =[]
+   
+    // orders.map(item=>{
+    //   let data = 
+    //   sellerEmail.push(data)
+      
+    // })
+console.log(orders)
     return (
         <div className="dynamic-content">
             <div className="heading-wrapper mb-40">
@@ -31,7 +104,6 @@ const OrderHistory = () => {
             </div>
             {!orders && <AppLoader />}
             {orders && orders.map(order => {
-
                 const billingAddress = order.billingAddress;
                 const snapshot = order.snapshot;
                 return (
@@ -62,112 +134,123 @@ const OrderHistory = () => {
                             {snapshot?.shops?.map(snaps => {
                                 if (snaps.shopId == seller?.shop?.id) {
                                     return (
-                                    <div className="flex mb-20 pr15">
-                                        <div>
-                                            <div className="mb-30">
-                                                <div className="light">Number of Items</div>
-                                                <div className="rubik">{order?.products.length} Articles</div>
-                                            </div>
+                                        <div className="flex mb-20 pr15">
                                             <div>
-                                                <div className="light">Delivered to</div>
-                                                <div className="rubik">{billingAddress?.name}, {billingAddress?.streetAddress}, {billingAddress?.city}, {billingAddress?.postalCode}, {billingAddress?.country}</div>
-                                            </div>
-                                            <div className="light mgt50 mb-10">Items</div>
-                                            {snaps?.products?.map(product => {
-                                                let image = product.images[0]?.url;
-                                                return (
-                                                    <div className="w-layout-grid grid-2">
-                                                        <div id="w-node-_52c1b1cd-06cb-9a62-8d38-43ed2fc21b97-b2bb390a" className="smaller bolder">{product?.name}</div>
-
-                                                        <div id="w-node-_52c1b1cd-06cb-9a62-8d38-43ed2fc21b9f-b2bb390a" className="smaller">{product?.color}</div>
-
-                                                        <div id="w-node-_52c1b1cd-06cb-9a62-8d38-43ed2fc21ba7-b2bb390a" className="smaller">{usePriceFormatter(product?.price)}</div>
-
-                                                        <img src={image} loading="lazy" width="61" height="61" alt="" />
-
-                                                    </div>
-                                                )
-                                            })}
-                                        </div>
-                                        <div className="flex60">
-                                            <div className="flex50 flex">
-                                                <div className="flex flex100 mb-30">
-                                                    <div className="mgr90">
-                                                        <div className="light">Order placed</div>
-                                                        <div className="rubik">{new Date(order?.createdAt).toString().substr(0, 15)}</div>
-                                                    </div>
-                                                    <div>
-                                                        <div className="light">Payment Method</div>
-                                                        <div className="rubik">Credit Card</div>
-                                                    </div>
+                                                <div className="mb-30">
+                                                    <div className="light">Number of Items</div>
+                                                    <div className="rubik">{order?.products.length} Articles</div>
                                                 </div>
-                                                <div className="w-form" style={{ width: "100%" }}>
-                                                    <div id="email-form" name="email-form" data-name="Email Form" className="flex" >
-                                                        <div className="flex40">
-                                                            <label htmlFor="name" className="light">Order Status</label>
-                                                            <select required="" className="input-x input-x--select bold mb30 input-x-regular w-select"
-                                                                value={status || snaps.Status}
-                                                                onChange={e => {
-                                                                    setStatus(e.target.value)
-                                                                }}
-                                                            >
-                                                                <option value="Processing">"Processing"</option>
-                                                                <option value="Shipped">Shipped</option>
-                                                                <option value="Out for delivery">Out for delivery</option>
-                                                                <option value="Delivered">Delivered</option>
-                                                                <option value="Cancelled">Cancelled</option>
-                                                            </select>
-                                                            {loading
-                                                                    ?
-                                                                <button className="secondarywithimage blue secondaryflex w-button cursor">Loading...</button>
-                                                                    :
-                                                                <button className="secondarywithimage blue secondaryflex w-button cursor"
-                                                                    onClick={() => {
-                                                                        if(status) {
-                                                                            setLoading(true)
-                                                                            cancelOrder({
-                                                                                orderId: order?._id,
-                                                                                shopId: seller?.shop?.id,
-                                                                                Status: status
-                                                                            })
-                                                                            setTimeout(() => {
-                                                                                getOrders();
-                                                                                setStatus(false)
-                                                                            }, 1000);
-                                                                        }
-                                                                    }}
-                                                                >Update Status</button>}
+                                                <div>
+                                                    <div className="light">Delivered to</div>
+                                                    <div className="rubik">{billingAddress?.name}, {billingAddress?.streetAddress}, {billingAddress?.city}, {billingAddress?.postalCode}, {billingAddress?.country}</div>
+                                                </div>
+                                                <div className="light mgt50 mb-10">Items</div>
+                                                {snaps?.products?.map(product => {
+                                                    let image = product.images[0]?.url;
+                                                    return (
+                                                        <div className="w-layout-grid grid-2">
+                                                            <div id="w-node-_52c1b1cd-06cb-9a62-8d38-43ed2fc21b97-b2bb390a" className="smaller bolder">{product?.name}</div>
+
+                                                            <div id="w-node-_52c1b1cd-06cb-9a62-8d38-43ed2fc21b9f-b2bb390a" className="smaller">{product?.color}</div>
+
+                                                            <div id="w-node-_52c1b1cd-06cb-9a62-8d38-43ed2fc21ba7-b2bb390a" className="smaller">{usePriceFormatter(product?.price)}</div>
+
+                                                            <img src={image} loading="lazy" width="61" height="61" alt="" />
+
+                                                        </div>
+                                                    )
+                                                })}
+                                            </div>
+                                            <div className="flex60">
+                                                <div className="flex50 flex">
+                                                    <div className="flex flex100 mb-30">
+                                                        <div className="mgr90">
+                                                            <div className="light">Order placed</div>
+                                                            <div className="rubik">{new Date(order?.createdAt).toString().substr(0, 15)}</div>
                                                         </div>
                                                         <div>
-                                                            {/* <label htmlFor="name" className="light">Order sent</label>
-                                                    <select required="" className="input-x input-x--select bold mb-30 input-x-regular w-select">
-                                                        <option value="Shipped">Shipped</option>
-                                                        <option value="not shipped">Not  shipped</option>
-                                                    </select>
-                                                    <label htmlFor="name" className="light">Carrier / Delivery Company</label>
-                                                    <div className="input-x input-x--flex flex40 mb-30">
-                                                        <input type="text" className="input-x__input-field dark normalweight input-x-regular w-input" maxLength="256" placeholder="DHL" disabled={editCarrier} />
-                                                        <div className="input-x__change" onClick={() => setEditCarrier(!editCarrier)}>
-                                                            <img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
-                                                        </div>
-                                                    </div> */}
+                                                            <div className="light">Payment Method</div>
+                                                            <div className="rubik">Credit Card</div>
                                                         </div>
                                                     </div>
-                                                    {/* <div className="w-form-done">
-                                                <div>Thank you! Your submission has been received!</div>
-                                            </div>
-                                            <div className="w-form-fail">
-                                                <div>Oops! Something went wrong while submitting the form.</div>
-                                            </div>
-                                            <div className="flex">
-                                                <a href="#" className="button blue lowercase flexbutton w-button">Contact Customer</a>
-                                                <a href="#" className="secondarywithimage blue secondaryflex w-button">Download Order Details</a>
-                                            </div> */}
+                                                    <div className="w-form" style={{ width: "100%" }}>
+                                                        <div id="email-form" name="email-form" data-name="Email Form" className="flex-order" >
+                                                            <div className="flex40">
+                                                                <label htmlFor="name" className="light">Order Status</label>
+                                                                <select required="" className="input-x input-x--select bold mb30 input-x-regular w-select"
+                                                                    value={status || order.status}
+                                                                    onChange={e => {
+                                                                        setStatus(e.target.value)
+                                                                    }}
+                                                                >
+                                                                    <option value={order.status === "Processing"? order.status :"Processing"}>Processing</option>
+                                                                    <option value={order.status === "Dispatched"? order.status :"Dispatched"}>Dispatched</option>
+                                                                    <option value={order.status === "Out_For_Delivery"? order.status :"Out_For_Delivery"}>Out for delivery</option>
+                                                                    <option value={order.status === "Delivered"? order.status :"Delivered"}>Delivered</option>
+                                                                    <option disabled={order.status === "Delivered"} value={order.status === "Cancelled"? order.status :"Cancelled"}>Cancelled</option>
+                                                                </select>
+
+                                                            </div>
+                                                            {status !== "Processing" && status !== "Cancelled" && <div>
+                                                                <label htmlFor="name" className="light">Estimated Date</label>
+                                                                <div className="input-x input-x--flex flex40 mb-30">
+
+                                                                    <input type="date"
+                                                                        className="input-x__input-field dark mb-10 normalweight input-x-regular w-input"
+                                                                        value={estimatedDate || order.estimatedDate}
+                                                                        onChange={(e) => order.estimatedDate ? setEstimatedDate(order.estimatedDate) : setEstimatedDate(e.target.value) }
+                                                                    />
+                                                                </div>
+                                                                <label htmlFor="name" className="light">Carrier / Delivery Company</label>
+                                                                <div className="input-x input-x--flex flex40 mb-30">
+                                                                    <input
+                                                                        type="text"
+                                                                        className="input-x__input-field dark normalweight input-x-regular w-input"
+                                                                        placeholder="DHL"
+                                                                        value={carrier || order.carrier}
+                                                                        onChange={(e) => order.carrier ? setCarrier(order.carrier) : setCarrier(e.target.value) }
+                                                                    />
+                                                                    {/* <div className="input-x__change" >
+                                                                        <img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
+                                                                    </div> */}
+                                                                </div>
+                                                                <label htmlFor="name" className="light">Tracking No.</label>
+                                                                <div className="input-x input-x--flex flex40 mb-30">
+                                                                    <input
+                                                                        type="text"
+                                                                        className="input-x__input-field dark normalweight input-x-regular w-input"
+                                                                        value={trackingNumber || order.trackingNumber}
+                                                                        onChange={(e) => order.trackingNumber ? setTrackingNumber(order.trackingNumber) : setTrackingNumber(e.target.value) }
+                                                                        placeholder="00000000" />
+                                                                    {/* <div className="input-x__change" >
+                                                                        <img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
+                                                                    </div> */}
+                                                                </div>
+                                                            </div>}
+                                                        </div>
+                                                        <div className="w-form-done">
+                                                            <div>Thank you! Your submission has been received!</div>
+                                                        </div>
+                                                        <div className="w-form-fail">
+                                                            <div>Oops! Something went wrong while submitting the form.</div>
+                                                        </div>
+                                                        {loading
+                                                            ?
+                                                            <button className=" secondarywithimage mb-20 blue secondaryflex w-button cursor">Loading...</button>
+                                                            :
+                                                            <button className="  secondarywithimage mb-20 blue secondaryflex w-button cursor"
+                                                                onClick={() => updateStatus(order.id)}
+                                                            >Update Status</button>}
+                                                        <div className="flex">
+                                                            <a href="#" className="button blue lowercase flexbutton w-button">Contact Customer</a>
+                                                            <a href="#" className="secondarywithimage blue secondaryflex w-button">Download Order Details</a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>)
-                                }})}
+                                        </div>)
+                                }
+                            })}
                             <div className="flex mb-40 pr15"></div>
                             <div className="assessment-spacer"></div>
                         </div>}

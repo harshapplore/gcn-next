@@ -12,8 +12,12 @@ import { isEmail, isPhone, isPostalCode } from "@/utils/validators";
 
 import cartContext, { CartContext } from "./cart.context";
 
-import { loadAddress, saveAddress } from "@/_methods/cart";
+import { getCart, loadAddress, saveAddress } from "@/_methods/cart";
 import countries from '@/_data/countries.json'
+import { sendEmail } from "@/_controllers/customer";
+import authAxios from "@/setups/axios";
+import { useSelector } from "react-redux";
+
 
 const Input = ({ data, setData, errors,shipping }) => {
     return (
@@ -89,6 +93,8 @@ const Input = ({ data, setData, errors,shipping }) => {
 };
 
 const Shipping = ({ checkout,loading }) => {
+    const { customer } = useSelector((state) => state.customer);
+
     const { shipping, billing, setShipping, setBilling } =
         useContext(cartContext);
 
@@ -114,6 +120,26 @@ const Shipping = ({ checkout,loading }) => {
         });
     }, []);
 
+    const cartItems = getCart();
+    console.log(cartItems)
+
+    const uid = cartItems.map(item => item.seller.user)
+    console.log(uid)
+const getSeller =async()=>{
+    const response = await authAxios()({
+        url: `/users/${uid}`,
+        method: "GET",
+    });
+console.log(response.data.email)
+    return response.data.email
+}
+const sellerEmail =[]
+ uid.map(async item=>{
+  let data = await getSeller(item)
+  sellerEmail.push(data)
+  
+})
+console.log(sellerEmail)
     const validate = (data, key) => {
         const err = {};
 
@@ -175,6 +201,14 @@ const Shipping = ({ checkout,loading }) => {
         setShipping({ ...billing, ...shipping });
 
         checkout();
+        
+        if(checkout){
+            sellerEmail.map(async item =>{
+                sendEmail(item,"Order received", "order received ")
+
+            })
+            sendEmail(customer.user.email,"Order Placed Successfully", "order placed successfully")
+        }
     };
 
     return (

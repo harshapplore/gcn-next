@@ -11,6 +11,7 @@ import { registerUser } from "@/_controllers/auth";
 import SelectForRegister from "../Input/SelectForRegister";
 
 import countries from '../../_data/countries.json'
+import { sendEmail } from "@/_controllers/customer";
 
 const Register = ({ close }) => {
     const router = useRouter();
@@ -58,21 +59,24 @@ const Register = ({ close }) => {
         }
 
         const res = await registerUser(data, data.type, dispatch);
-
+        console.log(res)
         if (res) {
             setSuccess(true);
             if (data.type === "seller") {
                 setTimeout(() => {
                     router.push("/seller-onboarding")
                 }, 1500);
+                sendEmail(res.email,"Seller Registered Successfully", "seller registered")
             }
             if (data.type === "customer") {
                 setTimeout(() => router.push("/"), 1500);
                 location.reload();
+                sendEmail(res.email,"User Registered Successfully", "User registerd")
+
             }
         }
     };
-
+    // testerapplore301@yopmail.com
     const updateType = (type) => {
         setData({ ...data, type });
     };

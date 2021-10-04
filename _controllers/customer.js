@@ -211,3 +211,17 @@ export const changePassword = async (currentPassword, password) => {
 
   return res.data;
 };
+
+export const sendEmail = async (sendTo,subject, text) => {
+  const res = await authAxios()({
+    url: "/users/sendEmail",
+    method: "POST",
+    data: {
+      sendTo,
+      subject,
+      text
+    },
+  });
+console.log(res)
+  return res.data;
+};

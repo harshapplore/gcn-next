@@ -141,6 +141,34 @@ const Order = (props) => {
                             </div>
                         </div>
                     </div>
+                    <div className="flex mb-20 pr15">
+                        <div className="flex50 flex">
+                            <div>
+                                <div className="light">Tracking Number</div>
+                                <div className="rubik">{order?.trackingNumber}</div>
+                            </div>
+                        </div>
+                        <div className="flex50 flex">
+                            <div>
+                                <div className="light">Carrier</div>
+                                <div className="rubik">{order?.carrier}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex mb-20 pr15">
+                        <div className="flex50 flex">
+                            <div>
+                                <div className="light">Estimated Date</div>
+                                <div className="rubik">{order?.estimatedDate}</div>
+                            </div>
+                        </div>
+                        <div className="flex50 flex">
+                            <div>
+                                <div className="light">Payment Status</div>
+                                <div className="rubik">{order?.payment}</div>
+                            </div>
+                        </div>
+                    </div>
                     <div className="assessment-spacer" />
                     {snapshot?.shops?.map(snaps => {
                         return (
@@ -170,7 +198,8 @@ const Order = (props) => {
                                     <div className="flex50 flex">
                                         <div className="flex50">
                                             <div className="light">Status</div>
-                                            <div className="rubik mb-10">{snaps.Status}</div>
+                                            <div className="rubik mb-10">{order?.status}</div>
+
                                             {/* <div className="light">Estimated time of arrival</div>
                                             <div className="rubik mb-10">01.02.2021</div>
                                             <div className="light">Tracking number</div>

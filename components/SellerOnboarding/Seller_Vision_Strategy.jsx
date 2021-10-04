@@ -5,6 +5,7 @@ import ProgressBar from "./Utils/ProgressBar";
 import { scrollToElement } from "@/utils/scroll";
 
 import { authAxios } from "@/setups/axios";
+import visionAndStrategy from "../../_data/visionAndStrategy.json"
 
 import Message from "@/shared/Message";
 
@@ -59,13 +60,13 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
   }, [seller]);
 
 
-
+console.log(visionAndStrategy)
   const validate = () => {
     const err = [];
 
-    !SMV ? err.push(`Please select strategy, mission & vision`) : "";
     !strategicPlan  ? err.push(`Please select the strategic plan`) : "";
-    strategicPlan === "yes" && !isPeriodicallyRevised ? err.push(`Please select 'periodically revised'`) : "";
+    strategicPlan=== "yes" &&  !SMV ? err.push(`Please select strategy, mission & vision`) : "";
+    SMV === "yes" && !isPeriodicallyRevised ? err.push(`Please select 'periodically revised'`) : "";
     isPeriodicallyRevised === "yes" && !objectivesAndGoals ? err.push(`Please select objectives and goals`) : "";
     objectivesAndGoals === "yes" && !objectivesAndGoalsSustainabilty ? err.push(`Please select the aspects of sustainability`) : "";
 
@@ -76,33 +77,35 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
     return true;
   };
 
+  
+  console.log(visionAndStrategy)
   const submit = async (e) => {
     e.preventDefault();
-
+    
     if (!validate()) {
       setTopErrors("Please fill all the values")
       scrollToElement("#vision")
       return;
     } 
-
-
-    const data = {
-      SMV,
-      strategicPlan,
-      isPeriodicallyRevised,
-      objectivesAndGoals,
-      objectivesAndGoalsSustainabilty,
-      companyBrief
-    }
+    
+    visionAndStrategy[0].answer = strategicPlan
+    visionAndStrategy[1].answer = SMV
+    visionAndStrategy[2].answer = isPeriodicallyRevised
+    visionAndStrategy[3].answer = objectivesAndGoals
+    visionAndStrategy[4].answer = objectivesAndGoalsSustainabilty
+    visionAndStrategy[5].answer = companyBrief
+    // const data = {
+    //   visionAndStrategy
+    // }
     const response = await authAxios()({
       url: `sellers/${seller.id}`,
       method: "PUT",
       data: {
         // onboardStatus: 1,
-        visionAndStrategyAnswers: data,
+        visionAndStrategyAnswers: visionAndStrategy,
       },
     });
-
+console.log(response)
     if (response.data.visionAndStrategyAnswers) {
       nextPage();
     }
