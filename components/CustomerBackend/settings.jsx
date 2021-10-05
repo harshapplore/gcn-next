@@ -8,6 +8,7 @@ import ErrorInput from "@/shared/Input/Error";
 
 
 import { saveAddress } from '@/_methods/cart';
+import { fetchCustomer } from '@/slices/customer';
 
 
 
@@ -52,6 +53,7 @@ const Settings = () => {
 
 
     useEffect(() => {
+        dispatch(fetchCustomer())
         if (customer.user) {
 
             setfName(customer.user.addressAccount && customer.user.addressAccount[0].fName)
