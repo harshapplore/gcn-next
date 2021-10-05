@@ -158,7 +158,6 @@ const Cart = () => {
 
         saveShopsMeta(shopsMeta);
     }, [shopsMeta]);
-
     const checkout = async () => {
         console.log("NFJDFDJsddjfhdj")
         setCheckOutLoading(true)
