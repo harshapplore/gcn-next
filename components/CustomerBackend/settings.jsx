@@ -4,6 +4,8 @@ import { fetchUser } from "@/slices/user";
 import { changeEmail, changeName, changePassword } from '@/_controllers/customer';
 import authAxios from '@/setups/axios';
 import router from "next/router";
+import ErrorInput from "@/shared/Input/Error";
+
 
 import { saveAddress } from '@/_methods/cart';
 
@@ -20,7 +22,9 @@ const Settings = () => {
 
     const [email, setEmail] = React.useState('');
     const [confirmEmail, setConfirmEmail] = React.useState('');
-    const [message, setMessage] = React.useState('');
+    const [nameMessage, setNameMessage] = React.useState('');
+    const [emailMessage, setEmailMessage] = React.useState('');
+    const [passwordMessage, setPasswordMessage] = React.useState('');
 
     const [currPassword, setCurrPassword] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -41,91 +45,99 @@ const Settings = () => {
     const [language, setLanguage] = React.useState("");
     const [region, setRegion] = React.useState("");
     const [currency, setCurrency] = React.useState("");
+    const [errors, setErrors] = React.useState("");
+    // const [passwordShow, setPassworShow] = React.useState(false);
+    // const [cPasswordShow, setCPassworShow] = React.useState(false);
 
 
 
     useEffect(() => {
         if (customer.user) {
-            setfName(customer.user.addressAccount[0].fName)
-            setlName(customer.user.addressAccount[0].lName)
-            setCompany(customer.user.addressAccount[0].company)
-            setStreetAddress(customer.user.addressAccount[0].streetAddress)
-            setCity(customer.user.addressAccount[0].city)
-            setPostalCode(customer.user.addressAccount[0].postalCode)
-            setvat(customer.user.addressAccount[0].vat)
-            setStreetAddressDel(customer.user.addressAccount[1].streetAddressDel)
-            setCityDel(customer.user.addressAccount[1].cityDel)
-            setPostalCodeDel(customer.user.addressAccount[1].postalCodeDel)
-            setvatDel(customer.user.addressAccount[1].vatDel)
-            setLanguage(customer.user.language)
-            setRegion(customer.user.region)
-            setCurrency(customer.user.currency)
+
+            setfName(customer.user.addressAccount && customer.user.addressAccount[0].fName)
+            setlName(customer.user.addressAccount && customer.user.addressAccount[0].lName)
+            setCompany(customer.user.addressAccount && customer.user.addressAccount[0].company)
+            setStreetAddress(customer.user.addressAccount && customer.user.addressAccount[0].streetAddress)
+            setCity(customer.user.addressAccount && customer.user.addressAccount[0].city)
+            setPostalCode(customer.user.addressAccount && customer.user.addressAccount[0].postalCode)
+            setvat(customer.user.addressAccount && customer.user.addressAccount[0].vat)
+            setStreetAddressDel(customer.user.addressAccount && customer.user.addressAccount[1].streetAddressDel)
+            setCityDel(customer.user.addressAccount && customer.user.addressAccount[1].cityDel)
+            setPostalCodeDel(customer.user.addressAccount && customer.user.addressAccount[1].postalCodeDel)
+            setvatDel(customer.user.addressAccount && customer.user.addressAccount[1].vatDel)
+            setLanguage(customer.user.language && customer.user.language)
+            setRegion(customer.user.region && customer.user.region)
+            setCurrency(customer.user.currency && customer.user.currency)
         }
     }, [])
-    // useEffect(() => {
-    //     const getAddress=async()=>{
-    //         const respo = await authAxios()({
-    //             url: `/addresses`,
-    //             method: "GET",       
-    //           }); 
-    //           console.log(respo)
-    //           setAd(respo.data)
-    //     }
-    //     getAddress()
-    // }, [])
-    // const adress = ad.length !== 0  && ad.filter(addres=> addres.user !== null)
-    // const adr = adress.length !==0  && adress.filter(addres=> addres.user !== undefined)
-    // const getad = adr.length !==0  && adr.filter(addres=> addres.user.id === customer.user.id)
-    // console.log(getad)
-    // console.log(adress)
 
-    // useEffect(() => {
-    //    if(!user.id)
-    //    dispatch(fetchUser())
-    // }, [user])
+    const nameValidate = () => {
+        const errors = {};
+        if (!name)
+            errors.name = "Please provide name";
+        if (!confirmName)
+            errors.confirmName = "Please provide name to confirm";
+        if (name !== confirmName)
+            errors.nameMatch = "Name is not matching";
+        setErrors(errors);
+        return true;
+    };
+    const emailValidate = () => {
+        const errors = {};
+        if (!email)
+            errors.email = "Please provide email";
+        if (!confirmEmail)
+            errors.confirmEmail = "Please provide email to confirm";
+        if (email !== confirmEmail)
+            errors.emailMatch = "email is not matching";
+        setErrors(errors);
+        return true;
+    };
 
     const attemptNameChange = async (e) => {
+
         e.preventDefault();
-        if (name === confirmName) {
-            // changeName(user.id, {
-            //     name: name
-            // }).then(res => {
-            //     console.log(res);
-            //     dispatch(fetchUser())
-            // })
-            const data = {
-                name
-            }
-            const res = await authAxios()({
-                url: `/users/${user.id}`,
-                method: "PUT",
-                data
-            });
-            dispatch(fetchUser())
-            console.log(res)
+        if (!nameValidate()) {
+            return
         }
-        setMessage("Name updated successfully")
+        else {
+            if (name === confirmName) {
+                const data = {
+                    name
+                }
+                const res = await authAxios()({
+                    url: `/users/${customer.user.id}`,
+                    method: "PUT",
+                    data
+                });
+                dispatch(fetchUser())
+                console.log(res)
+                setNameMessage("Name updated successfully")
+                location.reload()
+            }
+        }
     }
-    const attemptEmailChange = async () => {
-        if (email === confirmEmail) {
-            const data = {
-                email
-            }
-            const res = await authAxios()({
-                url: `/users/${user.id}`,
-                method: "PUT",
-                data
-            });
-            dispatch(fetchUser())
-            console.log(res)
+    const attemptEmailChange = async (e) => {
+        e.preventDefault();
+        if (!emailValidate()) {
+            return
         }
-        setMessage("Name updated successfully")
-        // changeEmail(user.id, {
-        //     email: email
-        // }).then(res => {
-        //     console.log(res);
-        //     dispatch(fetchUser())
-        // })
+        else {
+            if (email === confirmEmail) {
+                const data = {
+                    email
+                }
+                const res = await authAxios()({
+                    url: `/users/${customer.user.id}`,
+                    method: "PUT",
+                    data
+                });
+                dispatch(fetchUser())
+                console.log(res)
+                setEmailMessage("Email updated successfully")
+                location.reload()
+            }
+        }
 
     }
 
@@ -270,9 +282,13 @@ const Settings = () => {
                             <div className="input-x input-x--flex mb-30"><input type="text" className="input-x__input-field w-input" maxLength="256" name="Confirm-New-Name" data-name="Confirm New Name" placeholder="Confirm New Name *" id="Confirm-New-Name" required="" value={confirmName} onChange={(e) => setConfirmName(e.target.value)} />
 
                             </div>
-                            {message && <div>{message}</div>}
-                            <div onClick={attemptNameChange} className="button blue mr-10 orange">Save Changes</div>
+                            <div onClick={(e) => attemptNameChange(e)} className="button blue mr-10 orange">Save Changes</div>
                         </form>
+                        {nameMessage && <div>{nameMessage}</div>}
+
+                        {errors.name && <div style={{ marginTop: "20px" }} ><ErrorInput message={errors.name} /></div>}
+                        {errors.confirmName && <div style={{ marginTop: "20px" }} ><ErrorInput message={errors.confirmName} /></div>}
+                        {errors.nameMatch && <div style={{ marginTop: "20px" }} ><ErrorInput message={errors.nameMatch} /></div>}
                         <div className="w-form-done"></div>
                         <div className="w-form-fail"></div>
                     </div>
@@ -288,11 +304,13 @@ const Settings = () => {
                     <div className="w-form">
                         <form id="wf-form-Change-Password" name="wf-form-Change-Password" data-name="Change Password">
                             <h4 className="subtitle-2 mb-10">Change Password</h4><input type="password" className="input-x mb-15 w-input" maxLength={256} name="Current-Password" data-name="Current Password" placeholder="Current Password *" id="Current-Password" required value={currPassword} onChange={(e) => setCurrPassword(e.target.value)} />
-                            <div className="input-x input-x--flex mb-15"><input type="password" className="input-x__input-field w-input" maxLength={256} name="New-Password" data-name="New Password" placeholder="New Password *" id="New-Password" required value={password} onChange={(e) => setPassword(e.target.value)} />
-                                <a href="#" className="input-ext__show">Show</a>
+                            <div className="input-x input-x--flex mb-15">
+                                <input type="password" className="input-x__input-field w-input" maxLength={256} name="New-Password" data-name="New Password" placeholder="New Password *" id="New-Password" required value={password} onChange={(e) => setPassword(e.target.value)} />
+                                {/* <div onClick={setPassworShow(!passwordShow)}  className="input-ext__show">Show</div> */}
                             </div>
-                            <div className="input-x input-x--flex mb-30"><input type="password" className="input-x__input-field w-input" maxLength={256} name="Confirm-New-Password" data-name="Confirm New Password" placeholder="Confirm New Password *" id="Confirm-New-Password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-                                <a href="#" className="input-ext__show">Show</a>
+                            <div className="input-x input-x--flex mb-30">
+                                <input type="password" className="input-x__input-field w-input" maxLength={256} name="Confirm-New-Password" data-name="Confirm New Password" placeholder="Confirm New Password *" id="Confirm-New-Password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                            {/* <div onClick={setCPassworShow(!cPasswordShow)}  className="input-ext__show">Show</div> */}
                             </div>
                             <div onClick={() => attemptPasswordChange()} className="button blue mr-10 orange">Save Changes</div>
                         </form>
@@ -327,8 +345,13 @@ const Settings = () => {
                             </div>
                             <div className="input-x input-x--flex mb-30"><input type="text" className="input-x__input-field w-input" maxLength={256} name="Confirm-New-mail" data-name="Confirm New mail" placeholder="Confirm New E-Mail *" id="Confirm-New-mail" required value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} />
                             </div>
-                            <div onClick={attemptEmailChange} className="button blue mr-10 orange">Save Changes</div>
+                            <div onClick={(e)=>attemptEmailChange(e)} className="button blue mr-10 orange">Save Changes</div>
                         </form>
+                        {emailMessage && <div>{emailMessage}</div>}
+
+                        {errors.email && <div style={{ marginTop: "20px" }} ><ErrorInput message={errors.email} /></div>}
+                        {errors.confirmEmail && <div style={{ marginTop: "20px" }} ><ErrorInput message={errors.confirmEmail} /></div>}
+                        {errors.emailMatch && <div style={{ marginTop: "20px" }} ><ErrorInput message={errors.emailMatch} /></div>}
                         <div className="w-form-done" />
                         <div className="w-form-fail" />
                     </div>
@@ -377,7 +400,7 @@ const Settings = () => {
                                     className="input-x__input-field dark w-input"
                                     maxLength={256}
                                     name="Company-2"
-                                    value={ company}
+                                    value={company}
                                     onChange={e => setCompany(e.target.value)}
                                     data-name="Company 2"
                                     placeholder="Company"
@@ -389,7 +412,7 @@ const Settings = () => {
                                     type="text"
                                     className="input-x__input-field dark w-input"
                                     maxLength={256}
-                                    value={ streetAddress}
+                                    value={streetAddress}
                                     onChange={e => setStreetAddress(e.target.value)}
                                     name="Street-adress-4"
                                     data-name="Street Adress 4"
@@ -402,7 +425,7 @@ const Settings = () => {
                                     type="text"
                                     className="input-x__input-field dark w-input"
                                     maxLength={256}
-                                    value={ city}
+                                    value={city}
                                     onChange={e => setCity(e.target.value)}
                                     name="City-4"
                                     data-name="City 4"
@@ -478,7 +501,7 @@ const Settings = () => {
                                     type="text"
                                     className="input-x__input-field dark w-input"
                                     maxLength={256}
-                                    value={ cityDel}
+                                    value={cityDel}
                                     onChange={e => setCityDel(e.target.value)}
                                     name="City-4"
                                     data-name="City 4"
