@@ -49,34 +49,34 @@ const OrderHistory = () => {
             const sellerEmail = orders.map(item => item.user.email)
             console.log(sellerEmail)
             // sendEmail("testerapplore301@yopmail.com","User Registered Successfully", "User registerd")
-            sellerEmail.map(item =>{
-                sendEmail(item,"Order received", "order received ")
+            sellerEmail.map(item => {
+                sendEmail(item, "Order received", "order received ")
 
             })
 
             // sendEmail(customer.user.email,"Order Placed Successfully", "order placed successfully")
 
-            if(response.data.status === "Dispatched") {
-                sellerEmail.map(item =>{
-                    sendEmail(item,"Order Dipatched", "Order Dipatched ")
+            if (response.data.status === "Dispatched") {
+                sellerEmail.map(item => {
+                    sendEmail(item, "Order Dipatched", "Order Dipatched ")
                 })
                 // sendEmail(response.user.email,"Order Dispatched Successfully", "Dispatched")
             }
-            if(response.data.status === "Cancelled") {
+            if (response.data.status === "Cancelled") {
                 // sendEmail(response.user.email,"Order Cancelled ", "Cancelled")
-                sellerEmail.map(item =>{
-                    sendEmail(item,"Order Cancelled", "Order Cancelled ")
+                sellerEmail.map(item => {
+                    sendEmail(item, "Order Cancelled", "Order Cancelled ")
                 })
             }
-            if(response.data.status === "Out_For_Delivery") {
-                sellerEmail.map(item =>{
-                    sendEmail(item,"Order Out_For_Delivery", "Order Out_For_Delivery ")
+            if (response.data.status === "Out_For_Delivery") {
+                sellerEmail.map(item => {
+                    sendEmail(item, "Order Out_For_Delivery", "Order Out_For_Delivery ")
                 })
                 // sendEmail(response.user.email,"out for delivery", "out for delivery")
             }
-            if(response.data.status === "Delivered") {
-                sellerEmail.map(item =>{
-                    sendEmail(item,"Order Delivered", "Order Delivered")
+            if (response.data.status === "Delivered") {
+                sellerEmail.map(item => {
+                    sendEmail(item, "Order Delivered", "Order Delivered")
                 })
                 // sendEmail(response.user.email,"Order delivered", "delivered successsfully")
             }
@@ -88,15 +88,15 @@ const OrderHistory = () => {
             // }, 1000);
         }
     }
-    
+
     // const sellerEmail =[]
-   
+
     // orders.map(item=>{
     //   let data = 
     //   sellerEmail.push(data)
-      
+
     // })
-console.log(orders)
+    console.log(orders)
     return (
         <div className="dynamic-content">
             <div className="heading-wrapper mb-40">
@@ -173,6 +173,10 @@ console.log(orders)
                                                             <div className="rubik">Credit Card</div>
                                                         </div>
                                                     </div>
+                                                    <div style={{marginBottom:"20px"}}>
+                                                        <div className="light">Pick Up</div>
+                                                        <div className="rubik">{order.pickUpOrder ? "Pickup Enabled" : "Not Applicable"}</div>
+                                                    </div>
                                                     <div className="w-form" style={{ width: "100%" }}>
                                                         <div id="email-form" name="email-form" data-name="Email Form" className="flex-order" >
                                                             <div className="flex40">
@@ -183,11 +187,11 @@ console.log(orders)
                                                                         setStatus(e.target.value)
                                                                     }}
                                                                 >
-                                                                    <option value={order.status === "Processing"? order.status :"Processing"}>Processing</option>
-                                                                    <option value={order.status === "Dispatched"? order.status :"Dispatched"}>Dispatched</option>
-                                                                    <option value={order.status === "Out_For_Delivery"? order.status :"Out_For_Delivery"}>Out for delivery</option>
-                                                                    <option value={order.status === "Delivered"? order.status :"Delivered"}>Delivered</option>
-                                                                    <option disabled={order.status === "Delivered"} value={order.status === "Cancelled"? order.status :"Cancelled"}>Cancelled</option>
+                                                                    <option value={order.status === "Processing" ? order.status : "Processing"}>Processing</option>
+                                                                    <option value={order.status === "Dispatched" ? order.status : "Dispatched"}>Dispatched</option>
+                                                                    <option value={order.status === "Out_For_Delivery" ? order.status : "Out_For_Delivery"}>Out for delivery</option>
+                                                                    <option value={order.status === "Delivered" ? order.status : "Delivered"}>Delivered</option>
+                                                                    <option disabled={order.status === "Delivered"} value={order.status === "Cancelled" ? order.status : "Cancelled"}>Cancelled</option>
                                                                 </select>
 
                                                             </div>
@@ -198,7 +202,7 @@ console.log(orders)
                                                                     <input type="date"
                                                                         className="input-x__input-field dark mb-10 normalweight input-x-regular w-input"
                                                                         value={estimatedDate || order.estimatedDate}
-                                                                        onChange={(e) => order.estimatedDate ? setEstimatedDate(order.estimatedDate) : setEstimatedDate(e.target.value) }
+                                                                        onChange={(e) => order.estimatedDate ? setEstimatedDate(order.estimatedDate) : setEstimatedDate(e.target.value)}
                                                                     />
                                                                 </div>
                                                                 <label htmlFor="name" className="light">Carrier / Delivery Company</label>
@@ -208,7 +212,7 @@ console.log(orders)
                                                                         className="input-x__input-field dark normalweight input-x-regular w-input"
                                                                         placeholder="DHL"
                                                                         value={carrier || order.carrier}
-                                                                        onChange={(e) => order.carrier ? setCarrier(order.carrier) : setCarrier(e.target.value) }
+                                                                        onChange={(e) => order.carrier ? setCarrier(order.carrier) : setCarrier(e.target.value)}
                                                                     />
                                                                     {/* <div className="input-x__change" >
                                                                         <img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
@@ -220,7 +224,7 @@ console.log(orders)
                                                                         type="text"
                                                                         className="input-x__input-field dark normalweight input-x-regular w-input"
                                                                         value={trackingNumber || order.trackingNumber}
-                                                                        onChange={(e) => order.trackingNumber ? setTrackingNumber(order.trackingNumber) : setTrackingNumber(e.target.value) }
+                                                                        onChange={(e) => order.trackingNumber ? setTrackingNumber(order.trackingNumber) : setTrackingNumber(e.target.value)}
                                                                         placeholder="00000000" />
                                                                     {/* <div className="input-x__change" >
                                                                         <img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />

@@ -5,11 +5,20 @@ import Rating from "@/shared/Shop2/Product/Rating";
 import RatingInput from "@/shared/Input/Rating";
 import TextArea from "@/shared/Input/TextArea";
 import Button from "@/shared/Button";
-import { axios } from "@/setups/axios";
+import authAxios, { axios } from "@/setups/axios";
 import { stringify } from "query-string";
+import { useSelector } from "react-redux";
 
 const Reviews = ({ product }) => {
-  const [review, setReview] = useState({});
+  const { customer } = useSelector((state) => state.customer);
+
+  const [review, setReview] = useState({
+    "product": "",
+    "text": "",
+    "rating": 0,
+    "user": "",
+    "customer": "",
+  });
   const [productReview, setProductReview] = useState([]);
 
   console.log(product.reviews)
@@ -23,11 +32,31 @@ const Reviews = ({ product }) => {
     setProductReview(res.data)
     // return res.data;
   };
+
   useEffect(() => {
     getReviews()
   }, [])
   console.log(productReview)
-  
+console.log(product)
+  const addReview=async ()=>{
+    review.product = product.id
+    review.user = product.seller.user
+    review.customer = customer._id
+    // console.log(review)
+    const res = await authAxios()({
+      url: `/reviews`,
+      method: "POST",
+      data:review
+  });
+  setReview({
+    "product": "",
+    "text": "",
+    "rating": 0,
+    "user": "",
+    "customer": "",
+  })
+  }
+
   return (
     <div className="container narrow-container">
       <div className="flex mt30 mb-70">
@@ -68,12 +97,12 @@ const Reviews = ({ product }) => {
 
                 {/* {review.createdAt && review.createdAt} */}
                 {new Date(review.createdAt) &&
-                        new Date(review.createdAt).getDate() +
-                        "." +
-                        (new Date(review.createdAt).getMonth() < 10 ? "0" : "") +
-                        new Date(review.createdAt).getMonth() +
-                        "." +
-                        new Date(review.createdAt).getFullYear()}
+                  new Date(review.createdAt).getDate() +
+                  "." +
+                  (new Date(review.createdAt).getMonth() < 10 ? "0" : "") +
+                  new Date(review.createdAt).getMonth() +
+                  "." +
+                  new Date(review.createdAt).getFullYear()}
               </div>
             </div>
             <div className="product-description mt20 w-richtext">
@@ -97,13 +126,13 @@ const Reviews = ({ product }) => {
         <div>
           <TextArea
             placeholder="Write your review here"
-            value={review.review}
-            setValue={(review) => setReview({ ...review, review })}
+            value={review.text}
+            setValue={(text) => setReview({ ...review, text })}
           />
         </div>
       </div>
       <div className="spacer-20" />
-      <Button name="Add Review" type="secondary" action={() => { }} />
+      <Button name="Add Review" type="secondary" action={() => addReview()} />
     </div>
   );
 };
