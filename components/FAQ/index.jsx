@@ -1,10 +1,10 @@
 import Header from "@/shared/Header2";
 import Nav from "@/shared/Nav2";
 import Footer from "@/shared/Footer";
-
+import Faq from "@/_data/faq.json"
 import Head from "next/head";
 
-const Help = () => {
+const faq = () => {
   return (
     <>
       <Header nav={<Nav />} />
@@ -24,63 +24,22 @@ const Help = () => {
           </div>
         </div>
       </div>
+
       <div className="page-section wf-section">
         <div className="container slim">
           <h2 className="headline-4">Frequently asked Questions</h2>
           <div className="faq-wrapper">
-            <div className="faq">
-              <p>Your Shop's Appearance</p>
-              <p className="faq-heading">
-                How to Manage Your Shop During COVID-19
-              </p>
-            </div>
-            <div className="faq">
-              <p>Offering Free Delivery</p>
-              <p className="faq-heading">
-                How to Offer a Free Delivery Guarantee
-              </p>
-            </div>
-            <div className="faq">
-              <p>Getting Paid</p>
-              <p className="faq-heading">How to Manage Your Payment Account</p>
-            </div>
-            <div className="faq">
-              <p>Your Shop's Appearance</p>
-              <p className="faq-heading">
-                How to Manage Your Shop During COVID-19
-              </p>
-            </div>
-            <div className="faq">
-              <p>Your Shop's Appearance</p>
-              <p className="faq-heading">
-                How to Manage Your Shop During COVID-19
-              </p>
-            </div>
-            <div className="faq">
-              <p>Your Shop's Appearance</p>
-              <p className="faq-heading">
-                How to Manage Your Shop During COVID-19
-              </p>
-            </div>
-            <div className="faq">
-              <p>Your Shop's Appearance</p>
-              <p className="faq-heading">
-                How to Manage Your Shop During COVID-19
-              </p>
-            </div>
-            <div className="faq">
-              <p>Your Shop's Appearance</p>
-              <p className="faq-heading">
-                How to Manage Your Shop During COVID-19
-              </p>
-            </div>
-            <div className="faq">
-              <p>Your Shop's Appearance</p>
-              <p className="faq-heading">
-                How to Manage Your Shop During COVID-19
-              </p>
-            </div>
+            {Faq.map(data => {
+              return (
+                <div className="faq" >
+                  <p className="faq-heading" >
+                    {data.question}
+                  </p>
+                </div>
+              )
+            })}
           </div>
+
         </div>
         <div className="manage">
           <div className="container slim">
@@ -282,4 +241,4 @@ const Help = () => {
   );
 };
 
-export default Help;
+export default faq;

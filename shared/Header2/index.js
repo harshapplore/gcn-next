@@ -30,26 +30,26 @@ import MobileNav from "../Nav2/MobileNav";
 const Header = ({ nav }) => {
   const router = useRouter();
   const { user } = useSelector((state) => state.user);
-  const {errors} = useSelector(state => state.errors);
+  const { errors } = useSelector(state => state.errors);
 
   const [showForm, setShowForm] = useState(false);
   const [search, setSearch] = useState("");
   const [mobile, setMobile] = useState(false);
 
   useEffect(() => {
-    const {search} = router.query;
-    if(search) setSearch(search);
+    const { search } = router.query;
+    if (search) setSearch(search);
   }, [router.query]);
 
-const mobileMenu=(e)=>{
-  e.preventDefault()
-  setMobile(!mobile)
-}
+  const mobileMenu = (e) => {
+    e.preventDefault()
+    setMobile(!mobile)
+  }
   return (
     <div className="navbar">
       {showForm && <AuthForm close={() => setShowForm(false)} />}
-      
-      <ErrorPopup messages={errors} /> 
+
+      <ErrorPopup messages={errors} />
 
       <div className="navbar-top">
         <div className="brand-wrapper" onClick={() => router.push("/")}>
@@ -70,15 +70,15 @@ const mobileMenu=(e)=>{
               placeholder="I'm searching for"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              onKeyUp={(e) => e.keyCode === 13? router.push(`/products?filters=${JSON.stringify({search})}`): ""}
+              onKeyUp={(e) => e.keyCode === 13 ? router.push(`/products?filters=${JSON.stringify({ search })}`) : ""}
             />
             <img
               src="/images/search-black-24-dp.svg"
               alt="search"
               className="search-icon cursor"
-              onClick={() => router.push(`/products?filters=${JSON.stringify({search})}`)}
+              onClick={() => router.push(`/products?filters=${JSON.stringify({ search })}`)}
             />
-        </div>
+          </div>
         </div>
         <div className="clearfix" />
         <div className="right-icon-nav">
@@ -93,17 +93,17 @@ const mobileMenu=(e)=>{
             {user.id && (
               <>
                 {user.type == "customer" &&
-                <a
-                  className="icon-nav w-inline-block"
-                  onClick={() => router.push("/customer/favorites")}
-                >
-                    
-                  <img
-                    src="/images/favorite-border-black-24-dp.svg"
-                    loading="lazy"
-                    alt="icon"
-                  />
-                </a>}
+                  <a
+                    className="icon-nav w-inline-block"
+                    onClick={() => router.push("/customer/favorites")}
+                  >
+
+                    <img
+                      src="/images/favorite-border-black-24-dp.svg"
+                      loading="lazy"
+                      alt="icon"
+                    />
+                  </a>}
                 <UserPopup />
               </>
             )}
@@ -132,8 +132,8 @@ const mobileMenu=(e)=>{
       </div>
       {/* <NavBarMobile/> */}
       {/* {nav} */}
-      {mobile ?  <MobileNav/> : <>{nav}</>}
-    </div> 
+      {mobile ? <MobileNav /> : <>{nav}</>}
+    </div>
   );
 };
 

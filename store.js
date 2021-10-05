@@ -13,15 +13,17 @@ import orderReducer from "@/slices/order";
 import errorReducer from "@/slices/error";
 
 export default configureStore({
-  reducer: {
-    user: userReducer,
-    categories: categoriesReducer,
-    shop: shopReducer,
-    customer: customerReducer,
-    seller: sellerReducer,
-    favorites: favoritesReducer,
-    errors: errorReducer,
-    cart: cartReducer,
-    order:orderReducer
-  },
+	reducer: {
+		user: userReducer,
+		categories: categoriesReducer,
+		shop: shopReducer,
+		customer: customerReducer,
+		seller: sellerReducer,
+		favorites: favoritesReducer,
+		errors: errorReducer,
+		cart: cartReducer,
+		order: orderReducer,
+	},
 });
+
+//
