@@ -1,39 +1,171 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUser } from "@/slices/user";
 import { changeEmail, changeName, changePassword } from '@/_controllers/customer';
+import authAxios from '@/setups/axios';
+import router from "next/router";
+
+import { saveAddress } from '@/_methods/cart';
+
+
+
 const Settings = () => {
-    const { customer: { user } } = useSelector((state) => state.customer);
+    const { customer } = useSelector((state) => state.customer);
+    console.log(customer)
+    // const { user } = useSelector((state) => state.user);
+    // const { customer: { user } } = useSelector((state) => state.customer);
     const dispatch = useDispatch()
     const [name, setName] = React.useState('');
     const [confirmName, setConfirmName] = React.useState('');
 
     const [email, setEmail] = React.useState('');
     const [confirmEmail, setConfirmEmail] = React.useState('');
+    const [message, setMessage] = React.useState('');
 
     const [currPassword, setCurrPassword] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [confirmPassword, setConfirmPassword] = React.useState('');
+    const [fName, setfName] = React.useState('');
+    const [lName, setlName] = React.useState('');
+    const [company, setCompany] = React.useState('');
+    const [streetAddress, setStreetAddress] = React.useState('');
+    const [city, setCity] = React.useState('');
+    const [postalCode, setPostalCode] = React.useState('');
+    const [vat, setvat] = React.useState(0);
+    const [streetAddressDel, setStreetAddressDel] = React.useState('');
+    const [cityDel, setCityDel] = React.useState('');
+    const [postalCodeDel, setPostalCodeDel] = React.useState('');
+    const [vatDel, setvatDel] = React.useState(0);
+    // const [ad,setAd]=React.useState([])
+    const [deleteUser, setDeleteUser] = React.useState("");
+    const [language, setLanguage] = React.useState("");
+    const [region, setRegion] = React.useState("");
+    const [currency, setCurrency] = React.useState("");
 
-    const attemptNameChange = () => {
+
+
+    useEffect(() => {
+        if (customer.user) {
+            setfName(customer.user.addressAccount[0].fName)
+            setlName(customer.user.addressAccount[0].lName)
+            setCompany(customer.user.addressAccount[0].company)
+            setStreetAddress(customer.user.addressAccount[0].streetAddress)
+            setCity(customer.user.addressAccount[0].city)
+            setPostalCode(customer.user.addressAccount[0].postalCode)
+            setvat(customer.user.addressAccount[0].vat)
+            setStreetAddressDel(customer.user.addressAccount[1].streetAddressDel)
+            setCityDel(customer.user.addressAccount[1].cityDel)
+            setPostalCodeDel(customer.user.addressAccount[1].postalCodeDel)
+            setvatDel(customer.user.addressAccount[1].vatDel)
+            setLanguage(customer.user.language)
+            setRegion(customer.user.region)
+            setCurrency(customer.user.currency)
+        }
+    }, [])
+    // useEffect(() => {
+    //     const getAddress=async()=>{
+    //         const respo = await authAxios()({
+    //             url: `/addresses`,
+    //             method: "GET",       
+    //           }); 
+    //           console.log(respo)
+    //           setAd(respo.data)
+    //     }
+    //     getAddress()
+    // }, [])
+    // const adress = ad.length !== 0  && ad.filter(addres=> addres.user !== null)
+    // const adr = adress.length !==0  && adress.filter(addres=> addres.user !== undefined)
+    // const getad = adr.length !==0  && adr.filter(addres=> addres.user.id === customer.user.id)
+    // console.log(getad)
+    // console.log(adress)
+
+    // useEffect(() => {
+    //    if(!user.id)
+    //    dispatch(fetchUser())
+    // }, [user])
+
+    const attemptNameChange = async (e) => {
+        e.preventDefault();
         if (name === confirmName) {
-            changeName(user.id, {
-                name: name
-            }).then(res => {
-                console.log(res);
-                dispatch(fetchUser())
-            })
+            // changeName(user.id, {
+            //     name: name
+            // }).then(res => {
+            //     console.log(res);
+            //     dispatch(fetchUser())
+            // })
+            const data = {
+                name
+            }
+            const res = await authAxios()({
+                url: `/users/${user.id}`,
+                method: "PUT",
+                data
+            });
+            dispatch(fetchUser())
+            console.log(res)
         }
+        setMessage("Name updated successfully")
     }
-    const attemptEmailChange = () => {
+    const attemptEmailChange = async () => {
         if (email === confirmEmail) {
-            changeEmail(user.id, {
-                email: email
-            }).then(res => {
-                console.log(res);
-                dispatch(fetchUser())
-            })
+            const data = {
+                email
+            }
+            const res = await authAxios()({
+                url: `/users/${user.id}`,
+                method: "PUT",
+                data
+            });
+            dispatch(fetchUser())
+            console.log(res)
         }
+        setMessage("Name updated successfully")
+        // changeEmail(user.id, {
+        //     email: email
+        // }).then(res => {
+        //     console.log(res);
+        //     dispatch(fetchUser())
+        // })
+
+    }
+
+    const saveRegion = async (e) => {
+        e.preventDefault();
+        const data = {
+            language,
+            currency,
+            region
+        }
+        const response = await authAxios()({
+            url: `/users/${customer.user.id}`,
+            method: "PUT",
+            data
+        });
+        console.log(response);
+    }
+    const deleteAccount = (e) => {
+        e.preventDefault()
+
+        setTimeout(async () => {
+            const deleteResponse = await authAxios()({
+                url: `users/${customer.user.id}`,
+                method: "DELETE",
+            });
+            //   const deleteShop = await authAxios()({
+            //     url: `shops/${seller.shop.id}`,
+            //     method: "DELETE",
+            //   });
+            console.log(deleteResponse)
+            if (deleteResponse) {
+                localStorage.removeItem("token")
+                localStorage.removeItem("data")
+            }
+        }, 2592000)
+
+        setDeleteUser("processing, your account will be deactivated within 4 weeks")
+        setTimeout(() => {
+            router.push("/")
+        }, 2000)
     }
     const attemptPasswordChange = () => {
         if (password === confirmPassword) {
@@ -44,13 +176,65 @@ const Settings = () => {
                 })
         }
     }
+    const saveBilingAddress = async (e) => {
+        e.preventDefault()
+        const billData = {
+            fName,
+            lName,
+            email: customer.user.email,
+            company,
+            streetAddress,
+            city,
+            postalCode,
+            vat,
+            type: "Billing",
+            user: customer.user.id
+        }
+        const deliveryData = {
+            email: customer.user.email,
+            streetAddressDel,
+            cityDel,
+            postalCodeDel,
+            vatDel,
+            type: "Delivery",
+            user: customer.user.id
+        }
+        const response = await authAxios()({
+            url: `/users/${customer.user.id}`,
+            method: "PUT",
+            data: {
+                addressAccount: [billData, deliveryData]
+            }
+
+        });
+        console.log(response);
+    }
+
+    // const saveDeliveryAddress = async(e) => {
+    //     e.preventDefault()
+    //     const data = {
+    //         email:customer.user.email,
+    //         streetAddress,
+    //         city,
+    //         postalCode,
+    //         vat,
+    //         type:"Delivery",
+    //         user:customer.user.id
+    //     }
+    //     const response = await authAxios()({
+    //         url: `/addresses`,
+    //         method: "POST",
+    //         data
+    //       }); 
+    //       console.log(response);
+    // }
 
     return (
         <>
             <div className="flex">
                 <h2 className="headline-4 mb-30">My Account Settings</h2>
                 <div className="settings-nav">
-                    <a href="#" className="settings-link current orange"> Password &amp; E-Mail</a>
+                    <a href="#" className="settings-link current orange"> Password &amp; E-Mail</a>
                     <a href="#" className="settings-link">Billing &amp; Delivery Adress</a>
                     <a href="#" className="settings-link">Payment &amp; Preferences</a>
                     <a href="#" className="settings-link">Delete Account</a>
@@ -62,20 +246,32 @@ const Settings = () => {
                 <div className="account-form-2">
                     <div>
                         <div className="label">Current Name</div>
-                        <div>{user?.name}</div>
+                        <div>{customer.user?.name}</div>
                         <div className="label mgt-20">Membership since</div>
                         <div>01.01.2021</div>
                     </div>
                     <div className="w-form">
                         <form id="wf-form-Change-Password" name="wf-form-Change-Password" data-name="Change Password">
-                            <h4 className="subtitle-2 mb-10">Change my name</h4><input type="text" className="input-x mb-15 w-input" maxLength="256" name="Current-Name-2" data-name="Current Name 2" placeholder="Current Name *" id="Current-Name" required="" />
-                            <div className="input-x input-x--flex mb-15"><input type="text" className="input-x__input-field w-input" maxLength="256" name="New-Name" data-name="New Name" placeholder="New Name *" id="New-Name" required="" value={name} onChange={(e) => setName(e.target.value)} />
+                            <h4 className="subtitle-2 mb-10">Change my name</h4>
+                            <input
+                                type="text"
+                                className="input-x mb-15 w-input"
+                                maxLength="256"
+                                name="Current-Name-2"
+                                data-name="Current Name 2"
+                                placeholder="Current Name *"
+                                id="Current-Name"
+                                value={customer.user?.name || name}
+                                required="" />
+                            <div className="input-x input-x--flex mb-15">
+                                <input type="text" className="input-x__input-field w-input" maxLength="256" name="New-Name" data-name="New Name" placeholder="New Name *" id="New-Name" required="" value={name} onChange={(e) => setName(e.target.value)} />
 
                             </div>
                             <div className="input-x input-x--flex mb-30"><input type="text" className="input-x__input-field w-input" maxLength="256" name="Confirm-New-Name" data-name="Confirm New Name" placeholder="Confirm New Name *" id="Confirm-New-Name" required="" value={confirmName} onChange={(e) => setConfirmName(e.target.value)} />
 
                             </div>
-                            <div onClick={() => attemptNameChange()} className="button blue mr-10 orange">Save Changes</div>
+                            {message && <div>{message}</div>}
+                            <div onClick={attemptNameChange} className="button blue mr-10 orange">Save Changes</div>
                         </form>
                         <div className="w-form-done"></div>
                         <div className="w-form-fail"></div>
@@ -110,18 +306,28 @@ const Settings = () => {
                 <div className="account-form-2">
                     <div>
                         <div className="label">Current E-Mail Adress</div>
-                        <div>{user?.email}</div>
+                        <div>{customer.user?.email}</div>
                         <div className="label mgt-20">Status</div>
-                        <div>{user?.confirmed ? "Confirmed" : "Unconfirmed"}</div>
+                        <div>{customer.user?.confirmed ? "Confirmed" : "Unconfirmed"}</div>
                     </div>
                     <div className="w-form">
                         <form id="wf-form-Change-Password" name="wf-form-Change-Password" data-name="Change Password">
-                            <h4 className="subtitle-2 mb-10">Change E-Mail Adress</h4><input type="text" className="input-x mb-15 w-input" maxLength={256} name="Current-E-Mail-Adress" data-name="Current E-Mail Adress" placeholder="Current E-Mail *" id="Current-E-Mail-Adress" required />
+                            <h4 className="subtitle-2 mb-10">Change E-Mail Adress</h4>
+                            <input
+                                type="text"
+                                className="input-x mb-15 w-input"
+                                maxLength={256}
+                                name="Current-E-Mail-Adress"
+                                data-name="Current E-Mail Adress"
+                                placeholder="Current E-Mail *"
+                                id="Current-E-Mail-Adress"
+                                value={customer.user?.email || email}
+                                required />
                             <div className="input-x input-x--flex mb-15"><input type="text" className="input-x__input-field w-input" maxLength={256} name="New-Mail-2" data-name="New Mail 2" placeholder="New E-Mail *" id="New-Mail" required value={email} onChange={(e) => setEmail(e.target.value)} />
                             </div>
-                            <div className="input-x input-x--flex mb-30"><input type="text" className="input-x__input-field w-input" maxLength={256} name="Confirm-New-mail" data-name="Confirm New mail" placeholder="Confirm New E-Mail *" id="Confirm-New-mail" required value={confirmEmail} onChange={() => setConfirmEmail(e.target.value)} />
+                            <div className="input-x input-x--flex mb-30"><input type="text" className="input-x__input-field w-input" maxLength={256} name="Confirm-New-mail" data-name="Confirm New mail" placeholder="Confirm New E-Mail *" id="Confirm-New-mail" required value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} />
                             </div>
-                            <div onClick={() => attemptEmailChange} className="button blue mr-10 orange">Save Changes</div>
+                            <div onClick={attemptEmailChange} className="button blue mr-10 orange">Save Changes</div>
                         </form>
                         <div className="w-form-done" />
                         <div className="w-form-fail" />
@@ -130,62 +336,186 @@ const Settings = () => {
             </div>
 
             <div className="settings-block">
-                <h3 className="headline-5 mb-30">Delivery &nbsp;Adress</h3>
                 <div className="account-current-data">
                     <div>
-                        <div className="uppercase">BILLING&nbsp;ADRESS #1</div>
+                        <div className="uppercase">BILLING&nbsp;ADDRESS</div>
                     </div>
-                    <div className="small bolder arrowup">Show Details</div>
+                    {/* <div className="small bolder arrowup">Show Details</div> */}
                 </div>
                 <div className="w-form">
                     <form id="wf-form-Change-Shop-Information" name="wf-form-Change-Shop-Information" data-name="Change Shop Information">
                         <div className="account-form-1">
-                            <div className="input-x input-x--flex"><input type="text" className="input-x__input-field dark w-input" maxLength={256} name="First-Name-2" data-name="First Name 2" placeholder="First Name" id="First-Name-2" />
-                                <div className="input-x__change">
-                                    <div>Change</div><img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
-                                </div>
+                            <div className="input-x input-x--flex">
+                                <input
+                                    type="text"
+                                    className="input-x__input-field dark w-input"
+                                    maxLength={256}
+                                    name="First-Name-2"
+                                    value={fName}
+                                    onChange={e => setfName(e.target.value)}
+                                    data-name="First Name 2"
+                                    placeholder="First Name"
+                                    id="First-Name-2" />
                             </div>
-                            <div id="w-node-_67795e38-907f-2326-d21b-0f5a7a3c1b34-6fa6f585" className="input-x input-x--flex"><input type="text" className="input-x__input-field dark w-input" maxLength={256} name="Last-Name-2" data-name="Last Name 2" placeholder="Last Name" id="Last-Name-2" />
-                                <div className="input-x__change">
-                                    <div>Change</div><img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
-                                </div>
-                                <div className="input-x__error">Error: <span className="input-error__message">Shop Name is already taken</span></div>
+                            <div id="w-node-_67795e38-907f-2326-d21b-0f5a7a3c1b34-6fa6f585" className="input-x input-x--flex">
+                                <input
+                                    type="text"
+                                    className="input-x__input-field dark w-input"
+                                    maxLength={256}
+                                    name="Last-Name-2"
+                                    value={lName}
+                                    onChange={e => setlName(e.target.value)}
+                                    data-name="Last Name 2"
+                                    placeholder="Last Name"
+                                    id="Last-Name-2" />
+
+                                {/* <div className="input-x__error">Error: <span className="input-error__message">Shop Name is already taken</span></div> */}
                             </div>
-                            <div className="input-x input-x--flex"><input type="text" className="input-x__input-field dark w-input" maxLength={256} name="Company-2" data-name="Company 2" placeholder="Company" id="Company-2" />
-                                <div className="input-x__change">
-                                    <div>Change</div><img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
-                                </div>
+                            <div className="input-x input-x--flex">
+                                <input
+                                    type="text"
+                                    className="input-x__input-field dark w-input"
+                                    maxLength={256}
+                                    name="Company-2"
+                                    value={ company}
+                                    onChange={e => setCompany(e.target.value)}
+                                    data-name="Company 2"
+                                    placeholder="Company"
+                                    id="Company-2" />
+
                             </div>
-                            <div className="input-x input-x--flex"><input type="email" className="input-x__input-field dark w-input" maxLength={256} name="Street-adress-4" data-name="Street Adress 4" placeholder="Street adress" id="Street-adress-4" />
-                                <div className="input-x__change">
-                                    <div>Change</div><img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
-                                </div>
+                            <div className="input-x input-x--flex">
+                                <input
+                                    type="text"
+                                    className="input-x__input-field dark w-input"
+                                    maxLength={256}
+                                    value={ streetAddress}
+                                    onChange={e => setStreetAddress(e.target.value)}
+                                    name="Street-adress-4"
+                                    data-name="Street Adress 4"
+                                    placeholder="Street adress"
+                                    id="Street-adress-4" />
+
                             </div>
-                            <div className="input-x input-x--flex"><input type="email" className="input-x__input-field dark w-input" maxLength={256} name="City-4" data-name="City 4" placeholder="City" id="City-4" />
-                                <div className="input-x__change">
-                                    <div>Change</div><img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
-                                </div>
+                            <div className="input-x input-x--flex">
+                                <input
+                                    type="text"
+                                    className="input-x__input-field dark w-input"
+                                    maxLength={256}
+                                    value={ city}
+                                    onChange={e => setCity(e.target.value)}
+                                    name="City-4"
+                                    data-name="City 4"
+                                    placeholder="City"
+                                    id="City-4" />
+
                             </div>
-                            <div className="input-x input-x--flex"><input type="email" className="input-x__input-field dark w-input" maxLength={256} name="Postal-2" data-name="Postal 2" placeholder="Postal Code" id="Postal-2" />
-                                <div className="input-x__change">
-                                    <div>Change</div><img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
-                                </div>
+                            <div className="input-x input-x--flex">
+                                <input
+                                    type="text"
+                                    className="input-x__input-field dark w-input"
+                                    maxLength={256}
+                                    value={postalCode}
+                                    onChange={e => setPostalCode(e.target.value)}
+                                    name="Postal-2"
+                                    data-name="Postal 2"
+                                    placeholder="Postal Code"
+                                    id="Postal-2" />
+
                             </div>
-                            <div id="w-node-_67795e38-907f-2326-d21b-0f5a7a3c1b56-6fa6f585" className="input-x input-x--flex align-top"><input type="email" className="input-x__input-field dark w-input" maxLength={256} name="VAT-3" data-name="VAT 3" placeholder="VAT" id="VAT-3" />
-                                <div className="input-x__change">
-                                    <div>Change</div><img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
-                                </div>
+                            <div id="w-node-_67795e38-907f-2326-d21b-0f5a7a3c1b56-6fa6f585" className="input-x input-x--flex align-top">
+                                <input
+                                    type="number"
+                                    className="input-x__input-field dark w-input"
+                                    maxLength={256}
+                                    value={vat}
+                                    onChange={e => setvat(e.target.value)}
+                                    name="VAT-3"
+                                    data-name="VAT 3"
+                                    placeholder="VAT"
+                                    id="VAT-3" />
+
                             </div>
-                            <div className="checkboxwrapper"><label className="w-checkbox checkbox-field mb-0">
-                                <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox w--redirected-checked" /><input type="checkbox" id="First Cjoice" name="First-Cjoice" data-name="First Cjoice" defaultChecked style={{ opacity: 0, position: 'absolute', zIndex: -1 }} /><span htmlFor="First Cjoice-2" className="checkbox-label small bold w-form-label">First Choice</span>
-                            </label><label className="w-checkbox checkbox-field mb-0">
-                                    <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox w--redirected-checked" /><input type="checkbox" id="First Cjoice" name="First-Cjoice" data-name="First Cjoice" defaultChecked style={{ opacity: 0, position: 'absolute', zIndex: -1 }} /><span htmlFor="First Cjoice-2" className="checkbox-label small w-form-label">First Choice</span>
-                                </label><label className="w-checkbox checkbox-field mb-0">
-                                    <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox w--redirected-checked" /><input type="checkbox" id="First Cjoice" name="First-Cjoice" data-name="First Cjoice" defaultChecked style={{ opacity: 0, position: 'absolute', zIndex: -1 }} /><span htmlFor="First Cjoice-2" className="checkbox-label small w-form-label">First Choice</span>
-                                </label>
+                            {/* <div className="checkboxwrapper">
+                                <div className="flex mgt-30 buttonwrapper"> */}
+                            {/* <div onClick={saveBilingAddress} className="button blue mr-10 orange">Save Changes</div> */}
+                            {/* <a href="#" className="button blue mr-10 secondary orange nobg">Dele Adress</a> */}
+                            {/* </div> */}
+                            {/* </div>  */}
+                        </div>
+                    </form>
+                    <div className="w-form-done" />
+                    <div className="w-form-fail" />
+                </div>
+                <div className="settings-spacer" />
+            </div>
+            <div className="settings-block">
+                <div className="account-current-data">
+                    <div>
+                        <div className="uppercase"> DELIVERY ADDRESS</div>
+                    </div>
+                    {/* <div className="small bolder arrowup">Show Details</div> */}
+                </div>
+                <div className="w-form">
+                    <form id="wf-form-Change-Shop-Information" name="wf-form-Change-Shop-Information" data-name="Change Shop Information">
+                        <div className="account-form-1">
+
+                            <div className="input-x input-x--flex">
+                                <input
+                                    type="text"
+                                    className="input-x__input-field dark w-input"
+                                    maxLength={256}
+                                    value={streetAddressDel}
+                                    onChange={e => setStreetAddressDel(e.target.value)}
+                                    name="Street-adress-4"
+                                    data-name="Street Adress 4"
+                                    placeholder="Street adress"
+                                    id="Street-adress-4" />
+
+                            </div>
+                            <div className="input-x input-x--flex">
+                                <input
+                                    type="text"
+                                    className="input-x__input-field dark w-input"
+                                    maxLength={256}
+                                    value={ cityDel}
+                                    onChange={e => setCityDel(e.target.value)}
+                                    name="City-4"
+                                    data-name="City 4"
+                                    placeholder="City"
+                                    id="City-4" />
+
+                            </div>
+                            <div className="input-x input-x--flex">
+                                <input
+                                    type="text"
+                                    className="input-x__input-field dark w-input"
+                                    maxLength={256}
+                                    value={postalCodeDel}
+                                    onChange={e => setPostalCodeDel(e.target.value)}
+                                    name="Postal-2"
+                                    data-name="Postal 2"
+                                    placeholder="Postal Code"
+                                    id="Postal-2" />
+
+                            </div>
+                            <div id="w-node-_67795e38-907f-2326-d21b-0f5a7a3c1b56-6fa6f585" className="input-x input-x--flex align-top">
+                                <input
+                                    type="number"
+                                    className="input-x__input-field dark w-input"
+                                    maxLength={256}
+                                    value={vatDel}
+                                    onChange={e => setvatDel(e.target.value)}
+                                    name="VAT-3"
+                                    data-name="VAT 3"
+                                    placeholder="VAT"
+                                    id="VAT-3" />
+
+                            </div>
+                            <div className="checkboxwrapper">
                                 <div className="flex mgt-30 buttonwrapper">
-                                    <a href="#" className="button blue mr-10 orange">Save Changes</a>
-                                    <a href="#" className="button blue mr-10 secondary orange nobg">Dele Adress</a>
+                                    <div onClick={saveBilingAddress} className="button blue mr-10 orange">Save Changes</div>
+                                    {/* <a href="#" className="button blue mr-10 secondary orange nobg">Dele Adress</a> */}
                                 </div>
                             </div>
                         </div>
@@ -194,102 +524,29 @@ const Settings = () => {
                     <div className="w-form-fail" />
                 </div>
                 <div className="settings-spacer" />
-                <div className="account-current-data">
-                    <div>
-                        <div className="uppercase">BILLING&nbsp;ADRESS #2</div>
-                    </div>
-                    <div className="small bolder">Show Details</div>
-                </div>
-                <div className="settings-spacer" />
-                <div className="greybg flex">
-                    <div className="text-block-4 bigtext mgr20">+</div>
-                    <div className="bigger">Add Billing Adress</div>
-                </div>
             </div>
-            <div className="settings-block">
-                <h3 className="headline-5 mb-30">Payment Preference</h3>
-                <div className="flex flexleft mb-20"><img src="https://d3e54v103j8qbb.cloudfront.net/plugins/Basic/assets/placeholder.60f9b1840c.svg" loading="lazy" width={60} height={30} alt="" className="image" />
-                    <div className="uppercase ml15">Payment Method</div>
-                    <div className="small bolder arrowup">Show Details</div>
-                </div>
-                <div className="flex">
-                    <div className="flex40">
-                        <div className="text-block-3">Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero posuere vulputate. Etiam elit </div>
-                        <div className="paymentdefault_checkbox w-form">
-                            <form id="email-form-6" name="email-form-6" data-name="Email Form 6"><label className="w-checkbox checkbox-field mb-0 mt20">
-                                <div className="w-checkbox-input w-checkbox-input--inputType-custom checkbox w--redirected-checked" /><input type="checkbox" id="Free shipping" name="Free-shipping" data-name="Free shipping" defaultChecked style={{ opacity: 0, position: 'absolute', zIndex: -1 }} /><span htmlFor="Free shipping" className="checkbox-label medium w-form-label">Set as default payment method</span>
-                            </label></form>
-                            <div className="w-form-done">
-                                <div>Thank you! Your submission has been received!</div>
-                            </div>
-                            <div className="w-form-fail">
-                                <div>Oops! Something went wrong while submitting the form.</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex50">
-                        <div className="w-form">
-                            <form id="email-form-5" name="email-form-5" data-name="Email Form 5">
-                                <div className="input-x-2 input-x--flex mb-10 flex60"><input type="text" className="input-x__input-field-2 dark w-input" maxLength={256} name="Card-Number-3" data-name="Card Number 3" placeholder="Card Number" id="Card-Number-3" />
-                                    <div className="input-x__change">
-                                        <div>Change</div><img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
-                                    </div>
-                                </div>
-                                <div className="input-x-2 input-x--flex mb-10 flex60"><input type="text" className="input-x__input-field-2 dark w-input" maxLength={256} name="Name-on-Card-3" data-name="Name On Card 3" placeholder="Name on Card" id="Name-on-Card-3" />
-                                    <div className="input-x__change">
-                                        <div>Change</div><img src="../images/edit-black-24-dp.svg" loading="lazy" alt="Edit" className="change__img" />
-                                    </div>
-                                </div>
-                                <div className="input_datewrapper flex"><label htmlFor="day" className="datewrapper_item datewrapper_label">Expitation date</label><select name="Currency-10" data-name="Currency 10" id="Currency-10" required className="input-x input-x--select datewrapper-day bold w-select">
-                                    <option value={1}>01</option>
-                                    <option value={2}>02</option>
-                                </select><select name="Currency-10" data-name="Currency 10" id="Currency-10" required className="input-x input-x--select bold w-select">
-                                        <option value={2022}>2021</option>
-                                        <option value="USD">USD</option>
-                                    </select></div>
-                            </form>
-                            <div className="button_datewrapper fle">
-                                <a href="#" className="button blue mr-10 ml-auto lowercase flex50 orange">Save Changes</a>
-                                <a href="#" className="button blue mr-10 ml-auto lowercase secondary flex50 nobgimage orange">Delete Adress</a>
-                            </div>
-                            <div className="w-form-done">
-                                <div>Thank you! Your submission has been received!</div>
-                            </div>
-                            <div className="w-form-fail">
-                                <div>Oops! Something went wrong while submitting the form.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="assessment-spacer" />
-                <div className="flex flexleft mb-20"><img src="https://d3e54v103j8qbb.cloudfront.net/plugins/Basic/assets/placeholder.60f9b1840c.svg" loading="lazy" width={60} height={30} alt="" className="image" />
-                    <div className="uppercase ml15">Payment Method</div>
-                    <div className="small bolder">Show Details</div>
-                </div>
-                <div className="assessment-spacer" />
-                <div className="greybg flex">
-                    <div className="text-block-4 bigtext mgr20">+</div>
-                    <div className="bigger">Add Payment Method</div>
-                </div>
-            </div>
+
             <div className="settings-block">
                 <h3 className="headline-5 mb-30">Preferences</h3>
                 <div className="w-form">
                     <form id="wf-form-Change-Contact-Information" name="wf-form-Change-Contact-Information" data-name="Change Contact Information">
-                        <div className="account-form-1 pref_form"><select name="Language" data-name="Language" id="Language" required className="input-x input-x--select w-select">
-                            <option value>Select a Language</option>
-                            <option value="de">Deutsch</option>
-                            <option value="en">English</option>
-                        </select><select name="Currency" data-name="Currency" id="Currency-9" required className="input-x input-x--select w-select">
-                                <option value>Select a Currency</option>
+                        <div className="account-form-1 pref_form">
+                            <select name="Language" onChange={e => setLanguage(e.target.value)} data-name="Language" id="Language" required className="input-x input-x--select w-select">
+                                <option value={language && language}>{language || "Select a Language"}</option>
+                                <option value="de">Deutsch</option>
+                                <option value="en">English</option>
+                            </select>
+                            <select name="Currency" onChange={e => setCurrency(e.target.value)} data-name="Currency" id="Currency-9" required className="input-x input-x--select w-select">
+                                <option value={currency && currency}>{currency || "Select a Currency"}</option>
                                 <option value="EUR">€ (EUR)</option>
                                 <option value="USD">$ (USD)</option>
-                            </select><select name="Region" data-name="Region" id="Region" required className="input-x input-x--select w-select">
-                                <option value>Select a Region</option>
+                            </select>
+                            <select name="Region" onChange={e => setRegion(e.target.value)} data-name="Region" id="Region" required className="input-x input-x--select w-select">
+                                <option value={region && region}>{region || "Select a Region"}</option>
                                 <option value="Europe">Europe</option>
                                 <option value="North America">North America</option>
                             </select></div>
-                        <a href="#" className="button blue mr-10 orange">Save Changes</a>
+                        <div onClick={saveRegion} className="button blue mr-10 orange">Save Changes</div>
                     </form>
                     <div className="w-form-done">
                         <div>Thank you! Your submission has been received!</div>
@@ -304,7 +561,8 @@ const Settings = () => {
                 <div className="delete-question">What happens to my Account if I delete it?</div>
                 <div className="delete-account">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
-                    <a id="w-node-c0542385-d9c9-0675-543c-203b23cb8fd4-6fa6f585" href="#" className="button blue secondary orange nobg bold uppercase">Delete my Account</a>
+                    {deleteUser && <div>{deleteUser}</div>}
+                    <div onClick={deleteAccount} id="w-node-c0542385-d9c9-0675-543c-203b23cb8fd4-6fa6f585" href="#" className="button blue secondary orange nobg bold uppercase">Delete my Account</div>
                 </div>
             </div>
         </>
