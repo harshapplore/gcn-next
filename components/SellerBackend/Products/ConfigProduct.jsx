@@ -302,6 +302,8 @@ const ConfigProduct = () => {
     const errors = {};
 
     if (!product.name) errors.name = "Please provide a product name.";
+    // if (!product.images.length) errors.images = "Please provide a product Images.";
+    // console.log(product.images)
     if (!product.description)
       errors.description = "Please provide product description";
     if (!product.category)
@@ -334,10 +336,10 @@ const ConfigProduct = () => {
     if (product.salePrice && product.salePrice > product.price)
       errors.salePrice = "Sale price cannot be more than regular price.";
 
-    if (action === "add" && filesData.length === 0)
+    if (action === "add" && !filesData)
       errors.images = "You must provide at least one product image.";
-
-    setErrors(errors);
+    setErrors(errors); 
+    console.log(errors)
 
     if (Object.keys(errors).length) return false;
 
