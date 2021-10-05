@@ -14,7 +14,7 @@ import router from "next/router";
 const Seller_Shop_Details = ({ nextPage }) => {
     const { seller } = useSelector((state) => state.user);
 
-    const  sellerInfo  = useSelector((state) => state.seller);
+    const sellerInfo = useSelector((state) => state.seller);
 
     const [errors, setErrors] = useState([]);
     const [profilePic, setProfilePic] = useState("");
@@ -22,7 +22,7 @@ const Seller_Shop_Details = ({ nextPage }) => {
     const [shopImages, setShopImages] = useState([]);
     const [shopName, setShopName] = useState("");
     const [shopDesc, setShopDesc] = useState("");
-    const [loading,setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (sellerInfo && sellerInfo.seller && sellerInfo.seller.qaStatus && sellerInfo.seller.qaStatus != "approved") {
@@ -39,7 +39,7 @@ const Seller_Shop_Details = ({ nextPage }) => {
 
         !profilePic ? err.push(`Please Enter  profile picture`) : "";
         !headerImage ? err.push(`Please Enter Header image`) : "";
-        !shopImages ? err.push(`Please Enter shop images`) : "";
+        !shopImages.length ? err.push(`Please Enter shop images`) : "";
         !shopName ? err.push(`Please Enter shop name`) : "";
         !shopDesc ? err.push(`Please Enter shop description`) : "";
         setErrors(err);
@@ -75,6 +75,7 @@ const Seller_Shop_Details = ({ nextPage }) => {
         e.preventDefault();
 
         if (!validate()) return;
+
         setLoading(true)
         const logo = profilepicture ? await uploadFiles(profilepicture) : []
         const head = cover ? await uploadFiles(cover) : []
@@ -93,7 +94,7 @@ const Seller_Shop_Details = ({ nextPage }) => {
             url: `/shops/${seller.shop.id}`,
             method: "PUT",
             data: data
-        }); 
+        });
         setLoading(false)
         router.push("/seller/products")
     };
@@ -118,9 +119,9 @@ const Seller_Shop_Details = ({ nextPage }) => {
                                                 <a onClick={checkAvailable} className="button blue">Check</a>
                                             </div>
                                         </div>
-                                        {errors && errors.length > 0 && errors.map(error =>
+                                        {/* {errors && errors.length > 0 && errors.map(error =>
                                             <Message text={error} status={-1} />)
-                                        }
+                                        } */}
                                     </li>
                                     <li>
                                         <div className="subtitle-2">Shop description</div>
@@ -207,11 +208,15 @@ const Seller_Shop_Details = ({ nextPage }) => {
                                         </div>
                                     </li>
                                 </ol>
-                                {loading 
-                                        ?
-                                <button className="button blue mr-10">Loading....</button>
+
+                                {errors && errors.length > 0 && errors.map(error =>
+                                    <Message text={error} status={-1} />)
+                                }                                
+                                {loading
+                                    ?
+                                    <button style={{marginTop:"20px"}} className="button blue mr-10">Loading....</button>
                                     :
-                                <div onClick={submit} className="button blue mr-10">Save and Continue</div>}
+                                    <div onClick={submit} style={{marginTop:"20px"}} className="button blue mr-10">Save and Continue</div>}
                             </form>
                             <div className="w-form-done">
                                 <div>Thank you! Your submission has been received!</div>
