@@ -41,6 +41,7 @@ const ProductDetail = () => {
         (state) => state.favorites
     );
     const [isCustomer,setIsCutomer] = useState(false);
+    const [isSeller,setIsSeller] = useState(false);
 
     useEffect(async () => {
         const { id } = router.query;
@@ -54,11 +55,15 @@ const ProductDetail = () => {
     useEffect(() => {
         dispatch(fetchFavoriteItems(customer.id));
     }, [customer])
-
+console.log(user)
     useEffect(() => {
         if (user.type == "customer") {
             setIsCutomer(true)
         }
+        if (user.type == "seller") {
+            setIsSeller(true)
+        }
+
     },[user])
 
     const validated = () => {
@@ -186,7 +191,7 @@ const ProductDetail = () => {
 
                         <div className="spacer-20" />
 
-                        {isCustomer && <div className="mb-40 w-form">
+                        {!isSeller && <div className="mb-40 w-form">
                             <div className="flex-2 flex-wrap flex-gap-20">
                                 {product && product.sizes && (
                                     <Dropdown

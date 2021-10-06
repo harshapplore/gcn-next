@@ -14,7 +14,7 @@ import OrdersList from "./OrdersList";
 import Favorites from "./Favorites";
 
 import { FAVORITES, ORDER_LIST, ACCOUNT_SETTINGS } from "./routes";
-import Settings from "./SettingsOld";
+import Settings from "./Settings";
 
 const CustomerBackend = () => {
   const router = useRouter();

@@ -15,7 +15,7 @@ import cartContext, { CartContext } from "./cart.context";
 import { getCart, loadAddress, saveAddress } from "@/_methods/cart";
 import countries from '@/_data/countries.json'
 import { sendEmail } from "@/_controllers/customer";
-import authAxios from "@/setups/axios";
+import authAxios, { axios } from "@/setups/axios";
 import { useSelector } from "react-redux";
 
 
@@ -126,7 +126,7 @@ const Shipping = ({ checkout,loading }) => {
     const uid = cartItems.map(item => item.seller.user)
     console.log(uid)
 const getSeller =async()=>{
-    const response = await authAxios()({
+    const response = await axios()({
         url: `/users/${uid}`,
         method: "GET",
     });
