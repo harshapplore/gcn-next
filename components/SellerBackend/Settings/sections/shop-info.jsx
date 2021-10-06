@@ -86,7 +86,7 @@ const ShopInfo = () => {
             setValue={(value) => _setData({ ..._data, vat: value })}
           />
           <TextInput
-            placeholder={_shop.region || "Region"}
+            placeholder={_shop.region || seller.user.region || "Region"}
             value={_data.region || ""}
             setValue={(value) => _setData({ ..._data, region: value })}
           />

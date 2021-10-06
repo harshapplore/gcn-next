@@ -12,7 +12,7 @@ import { fetchCustomer } from '@/slices/customer';
 
 //settings
 
-const NewSettings = () => {
+const Settings = () => {
     const { customer } = useSelector((state) => state.customer);
     console.log(customer)
     // const { user } = useSelector((state) => state.user);
@@ -607,4 +607,4 @@ const NewSettings = () => {
     );
 }
 
-export default NewSettings;
+export default Settings;
