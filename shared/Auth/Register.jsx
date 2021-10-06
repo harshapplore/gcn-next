@@ -70,7 +70,7 @@ const Register = ({ close }) => {
             }
             if (data.type === "customer") {
                 sendEmailReg(res.email,"User Registered Successfully", "User registerd")
-                setTimeout(() => router.push("/"), 1500);
+                // setTimeout(() => router.push("/"), 1500);
                 location.reload();
             }
         }
