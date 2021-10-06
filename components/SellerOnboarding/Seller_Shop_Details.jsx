@@ -13,6 +13,7 @@ import router from "next/router";
 
 const Seller_Shop_Details = ({ nextPage }) => {
     const { seller } = useSelector((state) => state.user);
+    console.log(seller)
 
     const sellerInfo = useSelector((state) => state.seller);
 
@@ -23,12 +24,25 @@ const Seller_Shop_Details = ({ nextPage }) => {
     const [shopName, setShopName] = useState("");
     const [shopDesc, setShopDesc] = useState("");
     const [loading, setLoading] = useState(false);
+    const [checkName, setCheckName] = useState(false);
 
     useEffect(() => {
         if (sellerInfo && sellerInfo.seller && sellerInfo.seller.qaStatus && sellerInfo.seller.qaStatus != "approved") {
             router.push("/")
         }
     }, [sellerInfo])
+    useEffect(() => {
+        if (seller) {
+          if (seller.shop) {
+            setShopName(seller.shop.name)
+            setShopDesc(seller.shop.description)
+            // setPostalCode(seller.shop.postalCode)
+            // setCity(seller.shop.city)
+            // setVAT(seller.shop.vat)
+          }
+        }
+    
+      }, [seller]);
     // console.log(seller)
     // useEffect(() => {
     //   if (seller.questionaire) setInitials(seller.questionaire);
@@ -42,6 +56,8 @@ const Seller_Shop_Details = ({ nextPage }) => {
         !shopImages.length ? err.push(`Please Enter shop images`) : "";
         !shopName ? err.push(`Please Enter shop name`) : "";
         !shopDesc ? err.push(`Please Enter shop description`) : "";
+        checkName === "Shop name is not available" ? err.push(`Please Enter correct shop name`) : "";
+        !checkName ? err.push(`Please check the shop name`) : "";
         setErrors(err);
 
         if (err.length) return false;
@@ -49,12 +65,18 @@ const Seller_Shop_Details = ({ nextPage }) => {
         return true;
     };
     const checkAvailable = async (e) => {
-        setErrors(err)
+        e.preventDefault()
         const totalShops = await authAxios()({
-            url: `/shops/`,
+            url: `/shops?name=${shopName}`,
             method: "GET",
         });
-        const err = []
+        if(totalShops.data.length){
+            setCheckName("Shop name is not available")
+        }else{
+            setCheckName("Shop name is available")
+        }
+        console.log(totalShops)
+        // setCheckName
         // const checkAvailablity = totalShops.filter( shop => {
         //   shop.name
         // } )
@@ -118,12 +140,10 @@ const Seller_Shop_Details = ({ nextPage }) => {
                                             <div className="assessment-spacer"></div>
                                             <div className="account-form-1">
                                                 <input type="text" onChange={(e) => setShopName(e.target.value)} className="input-x w-input" maxLength="256" value={shopName} placeholder="Shop Name *" id="Shop-Name" />
-                                                <a onClick={checkAvailable} className="button blue">Check</a>
+                                                <div onClick={checkAvailable} className="button blue">Check</div>
+                                        {checkName && <div> {checkName} </div> }
                                             </div>
                                         </div>
-                                        {/* {errors && errors.length > 0 && errors.map(error =>
-                                            <Message text={error} status={-1} />)
-                                        } */}
                                     </li>
                                     <li>
                                         <div className="subtitle-2">Shop description</div>

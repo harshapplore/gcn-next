@@ -37,7 +37,7 @@ const Social_StackHolders_relationship = ({
             </div>
             <div className="assessment-spacer"></div>
             <div className="single-choice-row">
-                <div>Has a dialogue channel with the community, such as a suggestion box, telephone number or email.</div>
+                <div>4.4.1 - Has a dialogue channel with the community, such as a suggestion box, telephone number or email.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${dialogChannel === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -81,7 +81,7 @@ const Social_StackHolders_relationship = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Encourages volunteer work by its employees.</div>
+                <div>4.4.2 - Encourages volunteer work by its employees.</div>
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${encouragingValunteer === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
@@ -124,7 +124,7 @@ const Social_StackHolders_relationship = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Invests part of its profit in social projects</div>
+                <div>4.4.3 - Invests part of its profit in social projects</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${investInSocialProject === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -169,7 +169,7 @@ const Social_StackHolders_relationship = ({
             </div>
             {investInSocialProject === "yes" &&
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
-                    <div>If so, to what extent (%)</div>
+                    <div>4.4.3.1 - If so, to what extent (%)</div>
                     <input type="text"
                         onChange={(e => setInvestPercentage(e.target.value))}
                         value={investPercentage}
@@ -180,7 +180,7 @@ const Social_StackHolders_relationship = ({
                 </div>}
 
             <div className="single-choice-row">
-                <div>As a result of its activity in the community, the company believes that it has obtained benefits for the business, such as increased sales, improved relations with suppliers, the acquisition of new contacts or customers or lower staff turnover, among others.</div>
+                <div>4.4.4 - As a result of its activity in the community, the company believes that it has obtained benefits for the business, such as increased sales, improved relations with suppliers, the acquisition of new contacts or customers or lower staff turnover, among others.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${obtainedBenifits === "yes" ? " w--redirected-checked" : ""}`}></div>

@@ -39,7 +39,7 @@ const Governance_Management_Law = ({
 
 
             <div className="single-choice-row">
-                <div>Has the necessary licenses and permits for its operation.</div>
+                <div>3.5.1 - Has the necessary licenses and permits for its operation.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${licenseAndPermit === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -83,7 +83,7 @@ const Governance_Management_Law = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Instructs its employees to know the laws they must comply with.</div>
+                <div>3.5.2 - Instructs its employees to know the laws they must comply with.</div>
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${instructedToKnowLaw === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
@@ -126,7 +126,7 @@ const Governance_Management_Law = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Was fined for some type of non-compliance with tax laws or regulations.</div>
+                <div>3.5.3 - Was fined for some type of non-compliance with tax laws or regulations.</div>
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForLaw === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
@@ -177,7 +177,7 @@ const Governance_Management_Law = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Was fined for some type of non-compliance with labor laws or regulations.</div>
+                <div>3.5.4 - Was fined for some type of non-compliance with labor laws or regulations.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForLabourLaw === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -221,7 +221,7 @@ const Governance_Management_Law = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Was fined for some type of non-compliance with environmental laws or regulations.</div>
+                <div>3.5.5 - Was fined for some type of non-compliance with environmental laws or regulations.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForEnvironmentalLaw === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -265,7 +265,7 @@ const Governance_Management_Law = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Was fined for some type of non-compliance with health laws or regulations.</div>
+                <div>3.5.6 - Was fined for some type of non-compliance with health laws or regulations.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${finedForHealthLaw === "yes" ? " w--redirected-checked" : ""}`}></div>

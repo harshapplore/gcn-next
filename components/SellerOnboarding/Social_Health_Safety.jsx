@@ -41,7 +41,7 @@ const Social_Health_Safety = ({
             </div>
             <div className="assessment-spacer"></div>
             <div className="single-choice-row">
-                <div>Offers to its employees a pleasant and safe physical environment, encouraging hygiene and health care.</div>
+                <div>4.3.1 - Offers to its employees a pleasant and safe physical environment, encouraging hygiene and health care.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${pleasantEnvironment === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -85,7 +85,7 @@ const Social_Health_Safety = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Keeps all legal documents related to occupational health and safety up-to-date and complete, such as environmental risk analysis and incident and accident reports, among others.</div>
+                <div>4.3.2 - Keeps all legal documents related to occupational health and safety up-to-date and complete, such as environmental risk analysis and incident and accident reports, among others.</div>
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${uptodateDocs === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
@@ -128,7 +128,7 @@ const Social_Health_Safety = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Trains and makes employees aware of accident or fire prevention.</div>
+                <div>4.3.3 - Trains and makes employees aware of accident or fire prevention.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${accidentPreventions === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -172,7 +172,7 @@ const Social_Health_Safety = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Provides, trains, and raises awareness regarding the use of personal protective equipment (PPE)</div>
+                <div>4.3.4 - Provides, trains, and raises awareness regarding the use of personal protective equipment (PPE)</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${useOfPPE === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -216,7 +216,7 @@ const Social_Health_Safety = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Has mechanisms to prevent and combat moral harassment.</div>
+                <div>4.3.5 - Has mechanisms to prevent and combat moral harassment.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${moralHarrasmentPrevention === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -260,7 +260,7 @@ const Social_Health_Safety = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Has mechanisms to prevent and combat sexual harassment.</div>
+                <div>4.3.6 - Has mechanisms to prevent and combat sexual harassment.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${sexualHarrasmentPrevention === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -304,7 +304,7 @@ const Social_Health_Safety = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Has dedicated personnel or team(s) to oversee employee’s wellness</div>
+                <div>4.3.7 - Has dedicated personnel or team(s) to oversee employee’s wellness</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${teamForEmployeeWellness === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -348,7 +348,7 @@ const Social_Health_Safety = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Develops program(s) or provide resource(s) to create family-friendly work environment</div>
+                <div>4.3.8 - Develops program(s) or provide resource(s) to create family-friendly work environment</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${friendlyWorkEnvironment === "yes" ? " w--redirected-checked" : ""}`}></div>

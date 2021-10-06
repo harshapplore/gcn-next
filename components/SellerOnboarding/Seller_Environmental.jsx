@@ -339,7 +339,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 </div>
                 <div className="assessment-spacer"></div>
                 <div className="single-choice-row">
-                  <div>Has an environmental policy</div>
+                  <div>5.1 - Has an environmental policy</div>
 
                   <label
                     className="vision-checkbox-field w-clearfix w-radio"
@@ -438,7 +438,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 </div>
                 <div className="single-choice-row">
                   <div>
-                    Knows and understands the impacts of its activities on the
+                  5.2 - Knows and understands the impacts of its activities on the
                     environment (such as emission of pollutants, soil erosion,
                     consumption of raw material, energy, water, fuel, among
                     others).
@@ -538,7 +538,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 </div>
                 {understandTheImpacts === "yes" && (
                   <div className="single-choice-row">
-                    <div>If so, are these impacts measured and managed?</div>
+                    <div>5.2.1 - If so, are these impacts measured and managed?</div>
                     <label
                       className="vision-checkbox-field w-clearfix w-radio"
                       style={{ marginLeft: "30px" }}
@@ -633,7 +633,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 )}
                 <div className="single-choice-row">
                   <div>
-                    Seeks to use materials or processes that cause less damage
+                  5.3 - Seeks to use materials or processes that cause less damage
                     to the environment.
                   </div>
                   <label
@@ -733,7 +733,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 </div>
                 <div className="single-choice-row">
                   <div>
-                    Seeks to use local material(s) and service(s) for its
+                  5.4 - Seeks to use local material(s) and service(s) for its
                     operation
                   </div>
                   <label
@@ -831,7 +831,7 @@ const Seller_Environmental = ({ nextPage }) => {
                   <div
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <div>If so, to what extent (%)</div>
+                    <div>5.4.1 - If so, to what extent (%)</div>
                     <input
                       type="text"
                       onChange={(e) =>
@@ -849,7 +849,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 )}
                 <div className="single-choice-row">
                   <div>
-                    Is able to identify and quantify the environmental impacts
+                  5.5 - Is able to identify and quantify the environmental impacts
                     it is avoiding when compared to a traditional
                     production/service offering process.{" "}
                   </div>
@@ -951,7 +951,7 @@ const Seller_Environmental = ({ nextPage }) => {
                   >
                     <div>
                       {" "}
-                      If so, to what extent (% and kg/unit) is the use <br /> of
+                      5.5.1 - If so, to what extent (% and kg/unit) is the use <br /> of
                       plastic reduced?
                     </div>
                     <input
@@ -976,7 +976,7 @@ const Seller_Environmental = ({ nextPage }) => {
                   >
                     <div>
                       {" "}
-                      If so, to what extent (% and kg/unit) is the use <br /> of
+                      5.5.2 - If so, to what extent (% and kg/unit) is the use <br /> of
                       raw material reduced?
                     </div>
                     <input
@@ -1001,7 +1001,7 @@ const Seller_Environmental = ({ nextPage }) => {
                   >
                     <div>
                       {" "}
-                      If so, to what extent (% and m3/unit) is the use <br />
+                      5.5.3 - If so, to what extent (% and m3/unit) is the use <br />
                       of water reduced?
                     </div>
                     <input
@@ -1026,7 +1026,7 @@ const Seller_Environmental = ({ nextPage }) => {
                   >
                     <div>
                       {" "}
-                      If so, to what extent (% and kWh/unit) is the use <br />{" "}
+                      5.5.4 - If so, to what extent (% and kWh/unit) is the use <br />{" "}
                       of energy reduced?
                     </div>
                     <input
@@ -1051,7 +1051,7 @@ const Seller_Environmental = ({ nextPage }) => {
                   >
                     <div>
                       {" "}
-                      If so, to what extent (% and kWh/unit) is the use <br />{" "}
+                      5.5.5 - If so, to what extent (% and kWh/unit) is the use <br />{" "}
                       of renewable energy employed in?
                     </div>
                     <input
@@ -1076,7 +1076,7 @@ const Seller_Environmental = ({ nextPage }) => {
                   >
                     <div>
                       {" "}
-                      If so, to what extent (% and kgCO2 eq/unit) is
+                      5.5.6 - If so, to what extent (% and kgCO2 eq/unit) is
                       <br /> the GHG emission reduced?
                     </div>
                     <input
@@ -1097,7 +1097,7 @@ const Seller_Environmental = ({ nextPage }) => {
 
                 <div className="single-choice-row">
                   <div>
-                    Recycles or reuses scrap materials from its production
+                  5.6 - Recycles or reuses scrap materials from its production
                     processes.
                   </div>
                   <label
@@ -1202,8 +1202,7 @@ const Seller_Environmental = ({ nextPage }) => {
                   >
                     <div>
                       {" "}
-                      If so, to what extent (% and kgCO2 eq/unit) is <br /> the
-                      GHG emission reduced?
+                      5.6.1 - If so, to what extent
                     </div>
                     <input
                       type="text"
@@ -1220,7 +1219,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 )}
                 <div className="single-choice-row">
                   <div>
-                    Manufactures product(s) that after use phase can be
+                  5.7 - Manufactures product(s) that after use phase can be
                     recyclable or be reused for other purposes
                   </div>
                   <label
@@ -1318,7 +1317,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 </div>
                 <div className="single-choice-row">
                   <div>
-                    Discuss partnerships with suppliers aiming to return to the
+                  5.8 - Discuss partnerships with suppliers aiming to return to the
                     manufacturer of discarded materials (such as expired
                     products, used tires, batteries, etc.).
                   </div>
@@ -1415,7 +1414,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 </div>
                 <div className="single-choice-row">
                   <div>
-                    - Promotes customers' understanding of business-related
+                  5.9 - Promotes customers' understanding of business-related
                     environmental issue(s) through promotional or educational
                     activities.
                   </div>
@@ -1522,7 +1521,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 </div>
                 <div className="single-choice-row">
                   <div>
-                    Requires suppliers and service providers to provide
+                  5.10 -  Requires suppliers and service providers to provide
                     comprehensive information and data about their environmental
                     practices.
                   </div>
@@ -1629,7 +1628,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 </div>
                 <div className="single-choice-row">
                   <div>
-                    Communicate and share knowledge with suppliers on customers'
+                  5.11 - Communicate and share knowledge with suppliers on customers'
                     demands and expectation on environmental performance.
                   </div>
                   <label
@@ -1747,7 +1746,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 </div>
                 <div className="single-choice-row">
                   <div>
-                    Use some alternative for plastic packaging, giving
+                  5.12 - Use some alternative for plastic packaging, giving
                     preference to biodegradable, reusable or recyclable
                     materials.
                   </div>
@@ -1848,7 +1847,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 </div>
                 <div className="single-choice-row">
                   <div>
-                    Uses a sustainable delivery process (e.g., uses bicycles,
+                  5.13 - Uses a sustainable delivery process (e.g., uses bicycles,
                     electric vehicles, shipping software for efficient package
                     settings or offsets shipping emissions)
                   </div>
@@ -1949,7 +1948,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 </div>
                 <div className="single-choice-row">
                   <div>
-                    Gives appropriate final destination for waste that requires
+                  5.14 - Gives appropriate final destination for waste that requires
                     specific treatment, such as batteries, oils, tires and
                     hospital waste, among others.
                   </div>
@@ -2049,11 +2048,11 @@ const Seller_Environmental = ({ nextPage }) => {
                   </label>
                 </div>
                 <div className="single-choice-row">
-                  <div>Practices on its facilities:</div>
+                  <div>5.15 - Practices on its facilities:</div>
                 </div>
                 <div className="single-choice-row">
                   <div>
-                    Selective waste collection (e.g., labeled containers for
+                  5.15.1 - Selective waste collection (e.g., labeled containers for
                     paper, glass, metal, plastic and organic material)
                   </div>
                   <label
@@ -2155,7 +2154,7 @@ const Seller_Environmental = ({ nextPage }) => {
                   <div
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <div> If so, to what extent (%)?</div>
+                    <div>5.15.1.1 - If so, to what extent (%)?</div>
                     <input
                       type="text"
                       onChange={(e) =>
@@ -2173,7 +2172,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 )}
                 <div className="single-choice-row">
                   <div>
-                    Savings on paper consumption (such as using the front and
+                  5.15.2 - Savings on paper consumption (such as using the front and
                     back of sheets).
                   </div>
                   <label
@@ -2275,7 +2274,7 @@ const Seller_Environmental = ({ nextPage }) => {
                   <div
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <div> If so, to what extent (%)?</div>
+                    <div>5.15.2.1 - If so, to what extent (%)?</div>
                     <input
                       type="text"
                       onChange={(e) =>
@@ -2293,7 +2292,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 )}
                 <div className="single-choice-row">
                   <div>
-                    Reduction of energy consumption (through, for example,
+                  5.15.3 - Reduction of energy consumption (through, for example,
                     improved daylighting, lower energy consumption electronics,
                     device to cut power when the device is not in use, etc.).
                   </div>
@@ -2403,7 +2402,7 @@ const Seller_Environmental = ({ nextPage }) => {
                     className="mb-20"
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <div>If so, to what extent (%)?</div>
+                    <div>5.15.3.1 - If so, to what extent (%)?</div>
                     <input
                       type="text"
                       onChange={(e) =>
@@ -2421,7 +2420,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 )}
 
                 <div className="single-choice-row">
-                  <div>The use of some renewable energy source</div>
+                  <div>5.15.4 - The use of some renewable energy source</div>
                   <label
                     className="vision-checkbox-field w-clearfix w-radio"
                     style={{ marginLeft: "30px" }}
@@ -2519,7 +2518,7 @@ const Seller_Environmental = ({ nextPage }) => {
                   <div
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <div>If so, to what extent (%)?</div>
+                    <div>5.15.4.1 - If so, to what extent (%)?</div>
                     <input
                       type="text"
                       onChange={(e) =>
@@ -2537,7 +2536,7 @@ const Seller_Environmental = ({ nextPage }) => {
                 )}
                 <div className="single-choice-row">
                   <div>
-                    Reduction of water consumption (by installing faucets with
+                  5.15.5 - Reduction of water consumption (by installing faucets with
                     automatic closing and discharges with reduced flow, by using
                     rainwater for industrial activities, etc.).
                   </div>
@@ -2644,7 +2643,7 @@ const Seller_Environmental = ({ nextPage }) => {
                   <div
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <div>If so, to what extent (%)?</div>
+                    <div>5.15.5.1 - If so, to what extent (%)?</div>
                     <input
                       type="text"
                       onChange={(e) =>
