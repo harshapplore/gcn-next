@@ -9,6 +9,7 @@
     "test": "npm run build && npm run start"
   },
   "dependencies": {
+    "@mui/material": "^5.0.2",
     "@reduxjs/toolkit": "^1.6.0",
     "@szhsin/react-menu": "^2.1.0",
     "axios": "^0.21.1",

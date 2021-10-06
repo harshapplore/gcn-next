@@ -32,7 +32,7 @@ const CompensationChoices = ({ total, charityCode, setCharityCode, charityError,
                     <div className="shop-product-price medium mt30">{usePriceFormatter(compPrice)}</div>
                 </div>
                 <div className="greyborder pd40">
-                    {charityError && <span className="red" style={{color: "red"}}>{charityError}</span>}
+                    {charityError && <span className="red" style={{ color: "red" }}>{charityError}</span>}
                     <div>
                         From the {usePriceFormatter(finalTotal)}, {usePriceFormatter(total - co2CompensationPrice)}  goes to the vendor and {usePriceFormatter(compPrice)} go to the project
                         you choose:
@@ -49,7 +49,7 @@ const CompensationChoices = ({ total, charityCode, setCharityCode, charityError,
                                         width={170}
                                         height={100}
                                         alt=""
-                                        style={{paddingTop: 0,objectFit: "cover"}}
+                                        style={{ paddingTop: 0, objectFit: "cover" }}
                                         className="greybg flexauto mr-20"
                                     />
                                     <div className="shop-product-price medium mb0">{project.name}</div>
@@ -64,7 +64,7 @@ const CompensationChoices = ({ total, charityCode, setCharityCode, charityError,
                             </div>
                         )
                     })}
-                </div> 
+                </div>
             </div>
             <div className="container greenborder mt30 mb-40">
                 <div className="flex baseline mb-40">
