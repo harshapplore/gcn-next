@@ -33,7 +33,7 @@ const Governance_Management_Financial = ({
             <div className="assessment-spacer"></div>
 
             <div className="single-choice-row">
-                <div>Makes its financial planning and provides alternatives for the maintenance of its activities in times of falling demand for its products or services</div>
+                <div>3.2.1 - Makes its financial planning and provides alternatives for the maintenance of its activities in times of falling demand for its products or services</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${financialPlan === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -77,7 +77,7 @@ const Governance_Management_Financial = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Manage its financial performance with control tools such as budget reviews, sales price and cash flow analysis.</div>
+                <div>3.2.2 - Manage its financial performance with control tools such as budget reviews, sales price and cash flow analysis.</div>
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${financialPerformance === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
@@ -120,7 +120,7 @@ const Governance_Management_Financial = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>It monitors its management through indicators from its different areas, such as Human Resources and Sales, among others.</div>
+                <div>3.2.3 - It monitors its management through indicators from its different areas, such as Human Resources and Sales, among others.</div>
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${monitoringManagement === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
@@ -171,7 +171,7 @@ const Governance_Management_Financial = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Discloses information about its management, presenting financial and non-financial information</div>
+                <div>3.2.4 - Discloses information about its management, presenting financial and non-financial information</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${discloseInfo === "yes" ? " w--redirected-checked" : ""}`}></div>

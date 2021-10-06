@@ -38,7 +38,7 @@ const Governance_Management_Innovation = ({
 
 
             <div className="single-choice-row">
-                <div>Reviews its processes to ensure greater efficiency in delivering its products or services</div>
+                <div>3.3.1 - Reviews its processes to ensure greater efficiency in delivering its products or services</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${efficiency === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -82,7 +82,7 @@ const Governance_Management_Innovation = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Establishes criteria to guarantee the quality of its products or services.</div>
+                <div>3.3.2 - Establishes criteria to guarantee the quality of its products or services.</div>
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${qualityOfProduct === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
@@ -125,7 +125,7 @@ const Governance_Management_Innovation = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Continuously improves its portfolio of products or services, aiming to increase consumer satisfaction.</div>
+                <div>3.3.3 - Continuously improves its portfolio of products or services, aiming to increase consumer satisfaction.</div>
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${improvedProtfolio === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
@@ -176,7 +176,7 @@ const Governance_Management_Innovation = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Innovates its product or service portfolio, increasing the share of items that have synergy with sustainability and that generate benefits in one of its dimensions (economic-financial, social, environmental or ethical).</div>
+                <div>3.3.4 - Innovates its product or service portfolio, increasing the share of items that have synergy with sustainability and that generate benefits in one of its dimensions (economic-financial, social, environmental or ethical).</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${benefitInItsDimensions === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -220,7 +220,7 @@ const Governance_Management_Innovation = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Has a dedicated research and development team to drive business innovation</div>
+                <div>3.3.5 - Has a dedicated research and development team to drive business innovation</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${RND === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -264,7 +264,7 @@ const Governance_Management_Innovation = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Somehow involves its customers in the design of its products/services</div>
+                <div>3.3.6 - Somehow involves its customers in the design of its products/services</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${involvingCustomers === "yes" ? " w--redirected-checked" : ""}`}></div>
