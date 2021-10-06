@@ -29,193 +29,6 @@ const data = {
   initials: ["Mr.", "Mrs.", "Ms.", "Miss"],
 };
 
-// const ProductImage2 = ({ url, isMain, setMain, removeImage }) => {
-//   return (
-//     <div>
-//       <div className="shop-img-link">
-//         <a className="shop-delete w-inline-block cursor" onClick={removeImage}>
-//           <img src="/images/clear-black-24-dp.svg" loading="lazy" alt="Close" />
-//         </a>
-//         <img
-//           src={url}
-//           loading="lazy"
-//           sizes="(max-width: 479px) 46vw, 150px"
-//           alt="Handcrafted stuff"
-//           className="back-img"
-//         />
-//         <CheckBox
-//           type="secondary"
-//           text="Main"
-//           value={isMain}
-//           setValue={setMain}
-//         />
-//       </div>
-//     </div>
-//   );
-// };
-
-// const AddImageBlock = ({
-//   product,
-//   setProduct,
-//   filesData,
-//   setFilesData,
-//   main,
-//   setMain,
-// }) => {
-//   const { ref: inputRef, ...imageData } = useImageInput();
-//   const [imageDataTracker, setImageDataTracker] = useState(imageData);
-
-//   const {
-//     ref: multiInputRef,
-//     data: imagesData,
-//     dataRef,
-//   } = useMultiImageInput();
-
-//   const [error, setError] = useState("");
-
-//   console.log(imageData);
-
-//   useEffect(() => {
-//     if (!imageData.url) return;
-
-//     if (!(imageData.width >= 512 && imageData.height >= 512)) {
-//       setError(
-//         "Product Image should be greater than 512 pixels on both sides."
-//       );
-
-//       setTimeout(() => setError(""), 5000);
-//       return;
-//     }
-
-//     if (imageData.size > 5240000) {
-//       setError("Product Image cannot be larger than 5 mb.");
-//       setTimeout(() => setError(""), 5000);
-//       return;
-//     }
-
-//     setImageDataTracker(imageData);
-//     setFilesData([...(filesData || []), imageData]);
-//   }, [JSON.stringify(imageData)]);
-
-//   useEffect(() => {
-//     if (!imagesData.length) return;
-
-//     const imagesDataFiltered = imagesData.filter(
-//       (image) => image.height > 512 && image.width > 512 && image.size < 5240000
-//     );
-
-//     setFilesData([...filesData, ...imagesData]);
-//   }, [JSON.stringify(imagesData)]);
-
-//   return (
-//     <div className="product-add-block">
-
-//       <div className="flex left mb-40">
-//         {product.images &&
-//           product.images.length > 0 &&
-//           product.images.map((data, index) => (
-//             <ProductImage2
-//               key={"image-" + index}
-//               url={data.url}
-//               removeImage={() =>
-//                 setProduct({
-//                   ...product,
-//                   images: [
-//                     ...product.images.slice(0, index),
-//                     ...product.images.slice(index + 1),
-//                   ],
-//                 })
-//               }
-//               isMain={main.type === "image" && main.index === index}
-//               setMain={() =>
-//                 setMain({
-//                   type: "image",
-//                   index,
-//                 })
-//               }
-//             />
-//           ))}
-
-//         {filesData &&
-//           filesData.length > 0 &&
-//           filesData.map((data, index) => (
-//             <ProductImage2
-//               key={"image-" + index}
-//               url={data.url}
-//               removeImage={() =>
-//                 setFilesData([
-//                   ...filesData.slice(0, index),
-//                   ...filesData.slice(index + 1),
-//                 ])
-//               }
-//               isMain={main.type === "file" && main.index === index}
-//               setMain={() => setMain({ type: "file", index })}
-//             />
-//           ))}
-
-//         <a
-//           className="shop-img-link w-inline-block"
-//           onClick={() => triggerInput(inputRef)}
-//         >
-//           <input
-//             ref={inputRef}
-//             type="file"
-//             className="hidden-input"
-//           // onChange={(e) => setFiles([...files, e.target.files[0]])}
-//           />
-//           <div className="new-img-wrapper cursor">
-//             <img
-//               src="/images/expand-more-black-24-dp.svg"
-//               loading="lazy"
-//               alt="icon"
-//               className="mb-10"
-//             />
-//             <div>Add image</div>
-//           </div>
-//         </a>
-//       </div>
-
-//       {error && (
-//         <div className="mb-10">
-//           {" "}
-//           <ErrorInput message={error} />{" "}
-//         </div>
-//       )}
-
-//       <a
-//         className="button icon blue w-inline-block mb-10"
-//         onClick={() => triggerInput(multiInputRef)}
-//       >
-//         <div className="button-icon w-embed">
-//           <svg
-//             xmlns="http://www.w3.org/2000/svg"
-//             enableBackground="new 0 0 24 24"
-//             height="24px"
-//             viewBox="0 0 24 24"
-//             width="24px"
-//             fill="currentColor"
-//           >
-//             <g>
-//               <rect fill="none" height={24} width={24} />
-//             </g>
-//             <g>
-//               <path d="M18,15v3H6v-3H4v3c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2v-3H18z M7,9l1.41,1.41L11,7.83V16h2V7.83l2.59,2.58L17,9l-5-5L7,9z" />
-//             </g>
-//           </svg>
-//         </div>
-//         <input
-//           ref={multiInputRef}
-//           type="file"
-//           multiple
-//           className="hidden-input"
-//         />
-//         <div className="text-block">Bulk Upload</div>
-//       </a>
-//     </div>
-//   );
-// };
-
-
 
 const Seller_Basic_Info = ({ nextPage }) => {
   const { seller, user } = useSelector((state) => state.user);
@@ -1045,6 +858,64 @@ const Seller_Basic_Info = ({ nextPage }) => {
                             No
                           </span>
                         </label>
+                        <label className="checkbox-field mb-0 w-clearfix w-radio">
+                          <div
+                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${certificate === "considering or planning"
+                              ? " w--redirected-checked"
+                              : ""
+                              }`}
+                          ></div>
+                          <input
+                            value={certificate}
+                            checked={certificate === "considering or planning"}
+                            onChange={() => setCertificate("considering or planning")}
+                            type="checkbox"
+                            data-name="Label/Certification"
+                            id="No-4"
+                            name="Label-Certification"
+                            required=""
+                            style={{
+                              opacity: 0,
+                              position: "absolute",
+                              zIndex: -1,
+                            }}
+                          />
+                          <span
+                            htmlFor="No-4"
+                            className="checkbox-label w-form-label"
+                          >
+                            Considering or Planning
+                          </span>
+                        </label>
+                        <label className="checkbox-field mb-0 w-clearfix w-radio">
+                          <div
+                            className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${certificate === "not applicable"
+                              ? " w--redirected-checked"
+                              : ""
+                              }`}
+                          ></div>
+                          <input
+                            value={certificate}
+                            checked={certificate === "not applicable"}
+                            onChange={() => setCertificate("not applicable")}
+                            type="checkbox"
+                            data-name="Label/Certification"
+                            id="No-4"
+                            name="Label-Certification"
+                            required=""
+                            style={{
+                              opacity: 0,
+                              position: "absolute",
+                              zIndex: -1,
+                            }}
+                          />
+                          <span
+                            htmlFor="No-4"
+                            className="checkbox-label w-form-label"
+                          >
+                            Not applicable
+                          </span>
+                        </label>
                       </div>
 
                       {/* <AddImageBlock
@@ -1140,84 +1011,6 @@ const Seller_Basic_Info = ({ nextPage }) => {
                             }
                             id="certificates"
                           />
-                          {/* <input
-                            type="file"
-                            style={{ display: "none" }}
-                            onChange={(e) =>
-                              setCertificateTwo(e.target.files[0])
-                            }
-                            id="certificatetwo"
-                          />
-                          {addCertificates && (
-                            <div className="account-form-1">
-                              <input
-                                type="text"
-                                className="input-x w-input"
-                                htmlFor="256"
-                                value={certificateTwoName}
-                                name="Name-Certificate"
-                                data-name="Name Certificate"
-                                onChange={(e) =>
-                                  setCertificateTwoName(
-                                    e.target.value
-                                  )
-                                }
-                                placeholder="Name Certificate *"
-                                id="Name-Certificate-2"
-                                required=""
-                              />
-                              <label htmlFor="certificatetwo" className="button cursor icon blue w-inline-block">
-                                <div className="button-icon w-embed">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                  >
-                                    <g fill="currentcolor" fillRule="evenodd">
-                                      <path
-                                        d="M 0,0 H 24 V 24 H 0 Z"
-                                        fill="none"
-                                      ></path>
-                                      <path
-                                        d="M17 8l-1.41 1.41L17.17 11H9v2h8.17l-1.58 1.58L17 16l4-4-4-4zM5 5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h7v-2H5V5z"
-                                        transform="rotate(-90 12 12)"
-                                      ></path>
-                                    </g>
-                                  </svg>
-                                </div>
-
-                                <div className="cursor">
-                                  Upload Certificate (png., jpg., pdf.)
-                                </div>
-                              </label>
-                              <a className="shop-delete w-inline-block cursor" onClick={() => {
-                                setCertificateTwoName("")
-                                setCertificateTwo("")
-                              }}>
-                                <img src="/images/clear-black-24-dp.svg" loading="lazy" alt="Close" />
-                              </a>
-                            </div>
-                          )}
-                          <label
-                            className="add-element"
-                            htmlFor="certificatetwo"
-                            style={{ cursor: "pointer" }}
-                          >
-                            <img
-                              src="../images/add-black-24-dp.svg"
-                              loading="lazy"
-                              width="24"
-                              height="24"
-                              alt="Add"
-                              className="shop-product-list-add-icon"
-                            />
-                            <div
-                              className="delivery-country-text"
-                              onClick={addCertificate}
-                            >
-                              Add Certificate
-                            </div>
-                          </label> */}
                         </>
                       )}
                     </div>
