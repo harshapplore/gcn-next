@@ -66,7 +66,29 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
       router.push("/");
     }
   }, [sellerInfo]);
+  useEffect(() => {
+    if (seller.shop) {
 
+      setFreeShippingFrom(seller.shop.freeDelivery)
+      setAllowShippingToPackingStation(seller.shop.pickUp)
+      setCO2Neutral(seller.shop.co2NeutralDelivery)
+      setFreeShippingStart(seller.shop.freeDeliveryAmount)
+      setFreeShippingCurrency(seller.shop.freeDeliveryCurrency)
+
+      if (seller.shop.shipping[0]) {
+
+        setCost0to1Kg(seller.shop.shipping[0].weights ? seller.shop.shipping[0].weights[0].cost : "")
+        setCost1to5Kg(seller.shop.shipping[0].weights ? seller.shop.shipping[0].weights[1].cost : "")
+        setCost5to10Kg(seller.shop.shipping[0].weights ? seller.shop.shipping[0].weights[2].cost : "")
+        setcostMoreThan10Kg(seller.shop.shipping[0].weights ? seller.shop.shipping[0].weights[3].cost : "")
+        setCost0to1KgInt(seller.shop.internationalShipping[0] ? seller.shop.internationalShipping[0].weights[0].cost : "")
+        setCost1to5KgInt(seller.shop.internationalShipping[0] ? seller.shop.internationalShipping[0].weights[1].cost : "")
+        setCost5to10KgInt(seller.shop.internationalShipping[0] ? seller.shop.internationalShipping[0].weights[2].cost : "")
+        setcostMoreThan10KgInt(seller.shop.internationalShipping[0] ? seller.shop.internationalShipping[0].weights[3].cost : "")
+      }
+    }
+
+  }, [seller]);
   const validate = () => {
     const err = [];
 
@@ -256,9 +278,8 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                               <div className="input-x input-x--flex">
                                 {!editCost0to1Kg ? (
                                   <div
-                                    className={`${
-                                      !editCost0to1Kg ? "" : " hidden"
-                                    }`}
+                                    className={`${!editCost0to1Kg ? "" : " hidden"
+                                      }`}
                                   >
                                     {cost0to1Kg ? cost0to1Kg : "Delivery cost"}
                                   </div>
@@ -311,9 +332,8 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                               <div className="input-x input-x--flex">
                                 {!editCost1to5Kg ? (
                                   <div
-                                    className={`${
-                                      !editCost1to5Kg ? "" : " hidden"
-                                    }`}
+                                    className={`${!editCost1to5Kg ? "" : " hidden"
+                                      }`}
                                   >
                                     {cost1to5Kg ? cost1to5Kg : "Delivery cost"}
                                   </div>
@@ -366,9 +386,8 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                               <div className="input-x input-x--flex">
                                 {!editCost5to10Kg ? (
                                   <div
-                                    className={`${
-                                      !editCost5to10Kg ? "" : " hidden"
-                                    }`}
+                                    className={`${!editCost5to10Kg ? "" : " hidden"
+                                      }`}
                                   >
                                     {cost5to10Kg
                                       ? cost5to10Kg
@@ -422,9 +441,8 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                               <div className="input-x input-x--flex">
                                 {!editcostMoreThan10Kg ? (
                                   <div
-                                    className={`${
-                                      !editcostMoreThan10Kg ? "" : " hidden"
-                                    }`}
+                                    className={`${!editcostMoreThan10Kg ? "" : " hidden"
+                                      }`}
                                   >
                                     {costMoreThan10Kg
                                       ? costMoreThan10Kg
@@ -520,9 +538,8 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                               <div className="input-x input-x--flex">
                                 {!editCost0to1KgInt ? (
                                   <div
-                                    className={`${
-                                      !editCost0to1KgInt ? "" : " hidden"
-                                    }`}
+                                    className={`${!editCost0to1KgInt ? "" : " hidden"
+                                      }`}
                                   >
                                     {cost0to1KgInt
                                       ? cost0to1KgInt
@@ -577,9 +594,8 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                               <div className="input-x input-x--flex">
                                 {!editCost1to5KgInt ? (
                                   <div
-                                    className={`${
-                                      !editCost1to5KgInt ? "" : " hidden"
-                                    }`}
+                                    className={`${!editCost1to5KgInt ? "" : " hidden"
+                                      }`}
                                   >
                                     {cost1to5KgInt
                                       ? cost1to5KgInt
@@ -634,9 +650,8 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                               <div className="input-x input-x--flex">
                                 {!editCost5to10KgInt ? (
                                   <div
-                                    className={`${
-                                      !editCost5to10KgInt ? "" : " hidden"
-                                    }`}
+                                    className={`${!editCost5to10KgInt ? "" : " hidden"
+                                      }`}
                                   >
                                     {cost5to10KgInt
                                       ? cost5to10KgInt
@@ -690,9 +705,8 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                               <div className="input-x input-x--flex">
                                 {!editcostMoreThan10KgInt ? (
                                   <div
-                                    className={`${
-                                      !editcostMoreThan10KgInt ? "" : " hidden"
-                                    }`}
+                                    className={`${!editcostMoreThan10KgInt ? "" : " hidden"
+                                      }`}
                                   >
                                     {costMoreThan10KgInt
                                       ? costMoreThan10KgInt
@@ -770,9 +784,8 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                       <div className="shipping-general-options">
                         <label className="w-checkbox checkbox-field mb-0">
                           <div
-                            className={`w-checkbox-input w-checkbox-input--inputType-custom checkbox ${
-                              freeShippingFrom && "w--redirected-checked"
-                            }`}
+                            className={`w-checkbox-input w-checkbox-input--inputType-custom checkbox ${freeShippingFrom && "w--redirected-checked"
+                              }`}
                           ></div>
                           <input
                             type="checkbox"
@@ -823,10 +836,9 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                       <div className="shipping-general-options">
                         <label className="w-checkbox checkbox-field mb-0">
                           <div
-                            className={`w-checkbox-input w-checkbox-input--inputType-custom checkbox ${
-                              allowShippingToPackingStation &&
+                            className={`w-checkbox-input w-checkbox-input--inputType-custom checkbox ${allowShippingToPackingStation &&
                               "w--redirected-checked"
-                            }`}
+                              }`}
                           ></div>
                           <input
                             type="checkbox"

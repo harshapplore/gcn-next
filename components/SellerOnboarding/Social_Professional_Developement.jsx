@@ -36,7 +36,7 @@ const Social_Professional_Developement = ({
             </div>
             <div className="assessment-spacer"></div>
             <div className="single-choice-row">
-                <div>Provides training to employees on skills that prepare them for future assignments and career development</div>
+                <div>4.2.1 - Provides training to employees on skills that prepare them for future assignments and career development</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${trainingToEmployee === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -80,7 +80,7 @@ const Social_Professional_Developement = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Values and encourages the professional development of its employees</div>
+                <div>4.2.2 - Values and encourages the professional development of its employees</div>
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${valuesAndEncourages === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
@@ -123,7 +123,7 @@ const Social_Professional_Developement = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Subsidizes courses for employees.</div>
+                <div>4.2.3 - Subsidizes courses for employees.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${subsidizeCourse === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -167,7 +167,7 @@ const Social_Professional_Developement = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Provides incentives including career-growth opportunities, bonuses, stock options or profit sharing to high-caliber talent</div>
+                <div>4.2.4 - Provides incentives including career-growth opportunities, bonuses, stock options or profit sharing to high-caliber talent</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${incentiveRelated === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -211,7 +211,7 @@ const Social_Professional_Developement = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Knows the degree of satisfaction of its staff</div>
+                <div>4.2.5 - Knows the degree of satisfaction of its staff</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${degreeOfSatisfaction === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -255,7 +255,7 @@ const Social_Professional_Developement = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>The company's administrators - partners, owners, directors and managers - invest in their own training, improving their technical and business management knowledge.</div>
+                <div>4.2.6 - The company's administrators - partners, owners, directors and managers - invest in their own training, improving their technical and business management knowledge.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${adminsSoftSkills === "yes" ? " w--redirected-checked" : ""}`}></div>

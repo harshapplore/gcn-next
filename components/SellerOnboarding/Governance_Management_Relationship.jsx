@@ -517,7 +517,7 @@ const Governance_Management_Relationship = ({
                 </div>}
 
             <div className="single-choice-row">
-                <div>The company adopts purchase criteria that take into account the guarantee of origin, ensuring environmentally correct and socially fair production.</div>
+                <div>3.4.7 - The company adopts purchase criteria that take into account the guarantee of origin, ensuring environmentally correct and socially fair production.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${purchaseCriteria === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -561,7 +561,7 @@ const Governance_Management_Relationship = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Establishes in its contracts with suppliers' clauses that require compliance with laws and regulations:</div>
+                <div>3.4.8 - Establishes in its contracts with suppliers' clauses that require compliance with laws and regulations:</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${contractWithSupplier === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -605,7 +605,7 @@ const Governance_Management_Relationship = ({
                 </label>
             </div>
             {contractWithSupplier === "yes" && <div className="single-choice-row">
-                <div>Labour</div>
+                <div>3.4.8.1 - Labour</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${labour === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -649,7 +649,7 @@ const Governance_Management_Relationship = ({
                 </label>
             </div>}
             {contractWithSupplier === "yes" && <div className="single-choice-row">
-                <div>Tax</div>
+                <div>3.4.8.2 - Tax</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${tax === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -693,7 +693,7 @@ const Governance_Management_Relationship = ({
                 </label>
             </div>}
             {contractWithSupplier === "yes" && <div className="single-choice-row">
-                <div>Sanitary</div>
+                <div>3.4.8.3 - Sanitary</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${sanitary === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -737,7 +737,7 @@ const Governance_Management_Relationship = ({
                 </label>
             </div>}
             {contractWithSupplier === "yes" && <div className="single-choice-row">
-                <div>Environmental</div>
+                <div>3.4.8.4 - Environmental</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${environmental === "yes" ? " w--redirected-checked" : ""}`}></div>
