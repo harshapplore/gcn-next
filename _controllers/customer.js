@@ -213,7 +213,22 @@ export const changePassword = async (currentPassword, password) => {
 };
 
 export const sendEmail = async (sendTo,subject, text) => {
+  console.log({sendTo,subject, text})
   const res = await authAxios()({
+    url: "/users/sendEmail",
+    method: "POST",
+    data: {
+      sendTo,
+      subject,
+      text
+    },
+  });
+console.log(res)
+  return res.data;
+};
+export const sendEmailReg = async (sendTo,subject, text) => {
+  console.log({sendTo,subject, text})
+  const res = await axios()({
     url: "/users/sendEmail",
     method: "POST",
     data: {

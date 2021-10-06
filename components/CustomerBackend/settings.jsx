@@ -20,6 +20,9 @@ const Settings = () => {
     const dispatch = useDispatch()
     const [name, setName] = React.useState('');
     const [confirmName, setConfirmName] = React.useState('');
+    const [loading, setLoading] = React.useState(false);
+    const [regionLoading, setRegionLoading] = React.useState(false);
+
 
     const [email, setEmail] = React.useState('');
     const [confirmEmail, setConfirmEmail] = React.useState('');
@@ -145,6 +148,7 @@ const Settings = () => {
 
     const saveRegion = async (e) => {
         e.preventDefault();
+        setRegionLoading(true)
         const data = {
             language,
             currency,
@@ -156,6 +160,7 @@ const Settings = () => {
             data
         });
         console.log(response);
+        setRegionLoading(false)
     }
     const deleteAccount = (e) => {
         e.preventDefault()
@@ -191,7 +196,9 @@ const Settings = () => {
         }
     }
     const saveBilingAddress = async (e) => {
+        
         e.preventDefault()
+        setLoading(true)
         const billData = {
             fName,
             lName,
@@ -222,6 +229,8 @@ const Settings = () => {
 
         });
         console.log(response);
+        setLoading(false)
+        // location.reload()
     }
 
     // const saveDeliveryAddress = async(e) => {
@@ -539,7 +548,9 @@ const Settings = () => {
                             </div>
                             <div className="checkboxwrapper">
                                 <div className="flex mgt-30 buttonwrapper">
-                                    <div onClick={saveBilingAddress} className="button blue mr-10 orange">Save Changes</div>
+
+                                    {loading ? <div className="button blue mr-10 orange">Loading...</div>:
+                                    <div onClick={saveBilingAddress} className="button blue mr-10 orange">Save Changes</div>}
                                     {/* <a href="#" className="button blue mr-10 secondary orange nobg">Dele Adress</a> */}
                                 </div>
                             </div>
@@ -570,8 +581,10 @@ const Settings = () => {
                                 <option value={region && region}>{region || "Select a Region"}</option>
                                 <option value="Europe">Europe</option>
                                 <option value="North America">North America</option>
-                            </select></div>
-                        <div onClick={saveRegion} className="button blue mr-10 orange">Save Changes</div>
+                            </select>
+                            </div>
+                        {regionLoading ? <div className="button blue mr-10 orange">loading...</div> :
+                        <div onClick={saveRegion} className="button blue mr-10 orange">Save Changes</div>}
                     </form>
                     <div className="w-form-done">
                         <div>Thank you! Your submission has been received!</div>

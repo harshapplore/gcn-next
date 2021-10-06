@@ -226,7 +226,9 @@ const View = () => {
           <div className="overline-text">Green Fashion Shop</div>
         </div>
       </div>
-
+      {filters.search &&
+        <div style={{ textAlign: "center",marginBottom:"20px" }} >Search Results : Showing Results for '{filters.search}'</div>
+      }
       <div className="container">
         <div className="flex-2">
           <div className="shop-filter popup-mobile mt-40">
