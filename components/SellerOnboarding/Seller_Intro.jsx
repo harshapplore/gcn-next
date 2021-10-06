@@ -43,22 +43,22 @@ const Seller_Intro = ({ nextPage }) => {
     const { seller } = useSelector((state) => state.user);
     const [sellerName, setSellerName] = useState()
     useEffect(() => {
-       if(seller.user)
-       setSellerName(seller.user.name)
+        if (seller.user)
+            setSellerName(seller.user.name)
     }, [seller])
 
-   
+
     const submit = async (e) => {
         e.preventDefault();
-        nextPage(); 
+        nextPage();
     };
-    
+
     return (
         <div className="page-section">
             <div className="container">
                 <div className="heading-wrapper mb-40">
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
                     {/* <br/> */}
                     <h1 className="headline-2 mb-10"> Hello {sellerName} , let's get started!  </h1>
                     <div className="overline-text mb-40">{data.subheading}</div>
@@ -67,17 +67,28 @@ const Seller_Intro = ({ nextPage }) => {
                         <p>{data.p2}</p>
                         <p>{data.p3}</p>
                         <ol start="" role="list">
-                            {data.listtabs && data.listtabs.map((tab, index) => <li key={Math.floor(Math.random())+20}>{tab}</li>)}
+                            {data.listtabs && data.listtabs.map((tab, index) => <li key={Math.floor(Math.random()) + 20}>{tab}</li>)}
                         </ol>
                         <p>{data.p4}</p>
                         <p>{data.p5}</p>
                         <p>{data.p6}</p>
+                        <ol>
+                        <li>1 yes;</li>
+                        <li>2 no;</li>
+                        <li>3 considering or planning to implement;</li>
+                        <li>4 not applicable.</li>
+                        </ol>
+
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
                         <p>{data.p7}</p>
 
                         <ol start="" role="list">
                             {data.listanswers && data.listanswers.map((answer) => {
-                                
-                                <li key={Math.floor(Math.random())+100}>{answer}</li>
+
+                                <li key={Math.floor(Math.random()) + 100}>{answer}</li>
                             })
                             }
                         </ol>
@@ -86,10 +97,10 @@ const Seller_Intro = ({ nextPage }) => {
                     </div>
                 </div>
                 <div className="headline-5 mb-40">
-                <p>{data.p10}</p>
+                    <p>{data.p10}</p>
                 </div>
                 <div className="center">
-                <div className="button blue" onClick={submit}>Start questionnaire</div>
+                    <div className="button blue" onClick={submit}>Start questionnaire</div>
                 </div>
             </div>
         </div>

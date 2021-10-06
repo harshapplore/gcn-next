@@ -149,7 +149,8 @@ console.log(response)
                   <div className="center">Not applicable</div>
                 </div>
                 <div className="assessment-spacer"></div>
-                
+                <ol>
+                  <li>
                 <div className="single-choice-row">
                   <div>Prepares its strategic plan.</div>
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
@@ -201,7 +202,10 @@ console.log(response)
                     <span htmlFor="Yes-5" className="hidden w-form-label">not applicable</span>
                   </label>
                 </div>
-                {strategicPlan === "yes" && <div className="single-choice-row">
+                </li>
+                {strategicPlan === "yes" && 
+                <li>
+                <div className="single-choice-row">
                   <div>If so, do the objectives and targets consider one or more aspects of sustainability?</div>
 
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
@@ -252,7 +256,9 @@ console.log(response)
                       style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
                     <span htmlFor="Yes-5" className="hidden w-form-label">not applicable</span>
                   </label>
-                </div>}
+                </div>
+                </li>
+                }
                 {SMV === "yes" && <div className="single-choice-row">
                   <div>If so, is it periodically revised?</div>
 
@@ -409,6 +415,7 @@ console.log(response)
                     <span htmlFor="Yes-5" className="hidden w-form-label">not applicable</span>
                   </label>
                 </div>}
+                </ol>
                 <textarea
                   value={companyBrief}
                   onChange={(e) => setCompanyBrief(e.target.value)}
