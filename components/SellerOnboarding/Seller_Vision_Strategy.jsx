@@ -40,6 +40,9 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
   const [companyBrief, setCompanyBrief] = useState("")
   const [sellerName, setSellerName] = useState("")
   const [topError, setTopErrors] = useState("");
+  const [integreteSustainabity, setIntegreteSustainabity] = useState("");
+  const [analyzeRisk, setAnalyzeRisk] = useState("");
+  const [riskManaged, setRiskManaged] = useState("");
 
 
 
@@ -63,12 +66,17 @@ const Seller_Vision_Strategy = ({ nextPage }) => {
 console.log(visionAndStrategy)
   const validate = () => {
     const err = [];
-
+    
+    analyzeRisk
+    
+    !SMV ? err.push(`Please select strategy, mission & vision`) : "";
     !strategicPlan  ? err.push(`Please select the strategic plan`) : "";
-    strategicPlan=== "yes" &&  !SMV ? err.push(`Please select strategy, mission & vision`) : "";
-    SMV === "yes" && !isPeriodicallyRevised ? err.push(`Please select 'periodically revised'`) : "";
+    strategicPlan === "yes" && !isPeriodicallyRevised ? err.push(`Please select 'periodically revised'`) : "";
     isPeriodicallyRevised === "yes" && !objectivesAndGoals ? err.push(`Please select objectives and goals`) : "";
     objectivesAndGoals === "yes" && !objectivesAndGoalsSustainabilty ? err.push(`Please select the aspects of sustainability`) : "";
+    !integreteSustainabity  ? err.push(`Please select the sustainability integration`) : "";
+    !analyzeRisk  ? err.push(`Please select the Analyze of risk`) : "";
+    analyzeRisk === "yes" &&  !riskManaged ? err.push(`Please select Managing the risk`) : "";
 
     setErrors(err);
 
@@ -88,12 +96,15 @@ console.log(visionAndStrategy)
       return;
     } 
     
-    visionAndStrategy[0].answer = strategicPlan
-    visionAndStrategy[1].answer = SMV
+    visionAndStrategy[0].answer = SMV
+    visionAndStrategy[1].answer = strategicPlan
     visionAndStrategy[2].answer = isPeriodicallyRevised
     visionAndStrategy[3].answer = objectivesAndGoals
     visionAndStrategy[4].answer = objectivesAndGoalsSustainabilty
-    visionAndStrategy[5].answer = companyBrief
+    visionAndStrategy[5].answer = integreteSustainabity
+    visionAndStrategy[6].answer = analyzeRisk
+    visionAndStrategy[7].answer = riskManaged
+    visionAndStrategy[8].answer = companyBrief
     // const data = {
     //   visionAndStrategy
     // }
@@ -149,64 +160,8 @@ console.log(response)
                   <div className="center">Not applicable</div>
                 </div>
                 <div className="assessment-spacer"></div>
-                <ol>
-                  <li>
                 <div className="single-choice-row">
-                  <div>Prepares its strategic plan.</div>
-                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
-                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${strategicPlan === "yes" ? " w--redirected-checked" : ""}`}></div>
-                    <input
-                      type="checkbox"
-                      onChange={() => setStrategicPlan("yes")}
-                      value={strategicPlan}
-                      checked={strategicPlan === "yes"}
-                      data-name="Prepares its strategic plan."
-                      id="Yes-2" name="Prepares-its-strategic-plan" required=""
-                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
-                    <span htmlFor="Yes-5" className="hidden w-form-label">Yes</span>
-                  </label>
-                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
-                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${strategicPlan === "no" ? " w--redirected-checked" : ""}`}></div>
-                    <input
-                      type="checkbox"
-                      onChange={() => setStrategicPlan("no")}
-                      value={strategicPlan}
-                      checked={strategicPlan === "no"}
-                      data-name="Prepares its strategic plan."
-                      id="Yes-2" name="Prepares-its-strategic-plan" required=""
-                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
-                    <span htmlFor="Yes-5" className="hidden w-form-label">Yes</span>
-                  </label>
-                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
-                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${strategicPlan === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
-                    <input
-                      type="checkbox"
-                      onChange={() => setStrategicPlan("considering or planning")}
-                      value={strategicPlan}
-                      checked={strategicPlan === "considering or planning"}
-                      data-name="Prepares its strategic plan."
-                      id="Yes-2" name="Prepares-its-strategic-plan" required=""
-                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
-                    <span htmlFor="Yes-5" className="hidden w-form-label">considering or planning</span>
-                  </label>
-                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
-                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${strategicPlan === "not applicable" ? " w--redirected-checked" : ""}`}></div>
-                    <input
-                      type="checkbox"
-                      onChange={() => setStrategicPlan("not applicable")}
-                      value={strategicPlan}
-                      checked={strategicPlan === "not applicable"}
-                      data-name="Prepares its strategic plan."
-                      id="Yes-2" name="Prepares-its-strategic-plan" required=""
-                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
-                    <span htmlFor="Yes-5" className="hidden w-form-label">not applicable</span>
-                  </label>
-                </div>
-                </li>
-                {strategicPlan === "yes" && 
-                <li>
-                <div className="single-choice-row">
-                  <div>If so, do the objectives and targets consider one or more aspects of sustainability?</div>
+                  <div>2.1 - Has defined its mission statement, vision and values.?</div>
 
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${SMV === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -257,10 +212,60 @@ console.log(response)
                     <span htmlFor="Yes-5" className="hidden w-form-label">not applicable</span>
                   </label>
                 </div>
-                </li>
-                }
-                {SMV === "yes" && <div className="single-choice-row">
-                  <div>If so, is it periodically revised?</div>
+                <div className="single-choice-row">
+                  <div>2.2 -  Prepares its strategic plan.</div>
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${strategicPlan === "yes" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="checkbox"
+                      onChange={() => setStrategicPlan("yes")}
+                      value={strategicPlan}
+                      checked={strategicPlan === "yes"}
+                      data-name="Prepares its strategic plan."
+                      id="Yes-2" name="Prepares-its-strategic-plan" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">Yes</span>
+                  </label>
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${strategicPlan === "no" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="checkbox"
+                      onChange={() => setStrategicPlan("no")}
+                      value={strategicPlan}
+                      checked={strategicPlan === "no"}
+                      data-name="Prepares its strategic plan."
+                      id="Yes-2" name="Prepares-its-strategic-plan" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">Yes</span>
+                  </label>
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${strategicPlan === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="checkbox"
+                      onChange={() => setStrategicPlan("considering or planning")}
+                      value={strategicPlan}
+                      checked={strategicPlan === "considering or planning"}
+                      data-name="Prepares its strategic plan."
+                      id="Yes-2" name="Prepares-its-strategic-plan" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">considering or planning</span>
+                  </label>
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${strategicPlan === "not applicable" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="checkbox"
+                      onChange={() => setStrategicPlan("not applicable")}
+                      value={strategicPlan}
+                      checked={strategicPlan === "not applicable"}
+                      data-name="Prepares its strategic plan."
+                      id="Yes-2" name="Prepares-its-strategic-plan" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">not applicable</span>
+                  </label>
+                </div>
+                
+                {strategicPlan === "yes" && <div className="single-choice-row">
+                  <div>2.2.1 - If so, is it periodically revised?</div>
 
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${isPeriodicallyRevised === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -311,8 +316,8 @@ console.log(response)
                     <span htmlFor="Yes-5" className="hidden w-form-label">not applicable</span>
                   </label>
                 </div>}
-                {isPeriodicallyRevised === "yes" && <div className="single-choice-row">
-                  <div>If so, does it present objectives and goals?</div>
+                {isPeriodicallyRevised === "yes"  && strategicPlan === "yes" && <div className="single-choice-row">
+                  <div>2.2.2 - If so, does it present objectives and goals?</div>
 
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${objectivesAndGoals === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -364,7 +369,7 @@ console.log(response)
                   </label>
                 </div>}
                 {objectivesAndGoals === "yes" && <div className="single-choice-row">
-                  <div>If so, do the objectives and targets consider one or more aspects of sustainability?</div>
+                  <div>2.2.2.1 - If so, do the objectives and targets consider one or more aspects of sustainability?</div>
 
                   <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${objectivesAndGoalsSustainabilty === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -415,7 +420,162 @@ console.log(response)
                     <span htmlFor="Yes-5" className="hidden w-form-label">not applicable</span>
                   </label>
                 </div>}
-                </ol>
+                <div className="single-choice-row">
+                <div>2.3 - Integrates sustainability aspects into your decision-making processes.</div>
+
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${integreteSustainabity === "yes" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="checkbox"
+                      onChange={() => setIntegreteSustainabity("yes")}
+                      value={integreteSustainabity}
+                      checked={integreteSustainabity === "yes"}
+                      data-name="If so, do the objectives and targets consider one or more aspects of sustainability?"
+                      id="Yes-2" name="If-so-do-the-objectives-and-targets-consider-one-or-more-aspects-of-sustainability" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">Yes</span>
+                  </label>
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${integreteSustainabity === "no" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="checkbox"
+                      onChange={() => setIntegreteSustainabity("no")}
+                      value={integreteSustainabity}
+                      checked={integreteSustainabity === "no"}
+                      data-name="If so, do the objectives and targets consider one or more aspects of sustainability?"
+                      id="Yes-2" name="If-so-do-the-objectives-and-targets-consider-one-or-more-aspects-of-sustainability" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">Yes</span>
+                  </label>
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${integreteSustainabity === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="checkbox"
+                      onChange={() => setIntegreteSustainabity("considering or planning")}
+                      value={integreteSustainabity}
+                      checked={integreteSustainabity === "considering or planning"}
+                      data-name="If so, do the objectives and targets consider one or more aspects of sustainability?"
+                      id="Yes-2" name="If-so-do-the-objectives-and-targets-consider-one-or-more-aspects-of-sustainability" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">considering or planning</span>
+                  </label>
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${integreteSustainabity === "not applicable" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="checkbox"
+                      onChange={() => setIntegreteSustainabity("not applicable")}
+                      value={integreteSustainabity}
+                      checked={integreteSustainabity === "not applicable"}
+                      data-name="If so, do the objectives and targets consider one or more aspects of sustainability?"
+                      id="Yes-2" name="If-so-do-the-objectives-and-targets-consider-one-or-more-aspects-of-sustainability" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">not applicable</span>
+                  </label>
+                </div>
+                <div className="single-choice-row">
+                <div>2.4 - Analyzes the risks (strategic, financial, regulatory, operational or reputational) of its business.</div>
+
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${analyzeRisk === "yes" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="checkbox"
+                      onChange={() => setAnalyzeRisk("yes")}
+                      value={analyzeRisk}
+                      checked={analyzeRisk === "yes"}
+                      data-name="If so, do the objectives and targets consider one or more aspects of sustainability?"
+                      id="Yes-2" name="If-so-do-the-objectives-and-targets-consider-one-or-more-aspects-of-sustainability" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">Yes</span>
+                  </label>
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${analyzeRisk === "no" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="checkbox"
+                      onChange={() => setAnalyzeRisk("no")}
+                      value={analyzeRisk}
+                      checked={analyzeRisk === "no"}
+                      data-name="If so, do the objectives and targets consider one or more aspects of sustainability?"
+                      id="Yes-2" name="If-so-do-the-objectives-and-targets-consider-one-or-more-aspects-of-sustainability" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">Yes</span>
+                  </label>
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${analyzeRisk === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="checkbox"
+                      onChange={() => setAnalyzeRisk("considering or planning")}
+                      value={analyzeRisk}
+                      checked={analyzeRisk === "considering or planning"}
+                      data-name="If so, do the objectives and targets consider one or more aspects of sustainability?"
+                      id="Yes-2" name="If-so-do-the-objectives-and-targets-consider-one-or-more-aspects-of-sustainability" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">considering or planning</span>
+                  </label>
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${analyzeRisk === "not applicable" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="checkbox"
+                      onChange={() => setAnalyzeRisk("not applicable")}
+                      value={analyzeRisk}
+                      checked={analyzeRisk === "not applicable"}
+                      data-name="If so, do the objectives and targets consider one or more aspects of sustainability?"
+                      id="Yes-2" name="If-so-do-the-objectives-and-targets-consider-one-or-more-aspects-of-sustainability" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">not applicable</span>
+                  </label>
+                </div>
+                {analyzeRisk === "yes" && <div className="single-choice-row">
+                <div>2.4.1 - If so, are these risks managed?</div>
+
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${riskManaged === "yes" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="checkbox"
+                      onChange={() => setRiskManaged("yes")}
+                      value={riskManaged}
+                      checked={riskManaged === "yes"}
+                      data-name="If so, do the objectives and targets consider one or more aspects of sustainability?"
+                      id="Yes-2" name="If-so-do-the-objectives-and-targets-consider-one-or-more-aspects-of-sustainability" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">Yes</span>
+                  </label>
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${riskManaged === "no" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="checkbox"
+                      onChange={() => setRiskManaged("no")}
+                      value={riskManaged}
+                      checked={riskManaged === "no"}
+                      data-name="If so, do the objectives and targets consider one or more aspects of sustainability?"
+                      id="Yes-2" name="If-so-do-the-objectives-and-targets-consider-one-or-more-aspects-of-sustainability" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">Yes</span>
+                  </label>
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${riskManaged === "considering or planning" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="checkbox"
+                      onChange={() => setRiskManaged("considering or planning")}
+                      value={riskManaged}
+                      checked={riskManaged === "considering or planning"}
+                      data-name="If so, do the objectives and targets consider one or more aspects of sustainability?"
+                      id="Yes-2" name="If-so-do-the-objectives-and-targets-consider-one-or-more-aspects-of-sustainability" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">considering or planning</span>
+                  </label>
+                  <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
+                    <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${riskManaged === "not applicable" ? " w--redirected-checked" : ""}`}></div>
+                    <input
+                      type="checkbox"
+                      onChange={() => setRiskManaged("not applicable")}
+                      value={riskManaged}
+                      checked={riskManaged === "not applicable"}
+                      data-name="If so, do the objectives and targets consider one or more aspects of sustainability?"
+                      id="Yes-2" name="If-so-do-the-objectives-and-targets-consider-one-or-more-aspects-of-sustainability" required=""
+                      style={{ opacity: 0, position: "absolute", zIndex: -1 }} />
+                    <span htmlFor="Yes-5" className="hidden w-form-label">not applicable</span>
+                  </label>
+                </div>}
                 <textarea
                   value={companyBrief}
                   onChange={(e) => setCompanyBrief(e.target.value)}

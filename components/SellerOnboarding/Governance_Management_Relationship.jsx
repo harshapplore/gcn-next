@@ -59,7 +59,7 @@ const Governance_Management_Relationship = ({
 
 
             <div className="single-choice-row">
-                <div>Has a formal communication channel with its customers and suppliers, such as a suggestion box, phone number or e-mail to manage questions or complaints.</div>
+                <div>3.4.1 - Has a formal communication channel with its customers and suppliers, such as a suggestion box, phone number or e-mail to manage questions or complaints.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${communicationChannel === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -103,7 +103,7 @@ const Governance_Management_Relationship = ({
                 </label>
             </div>
             {communicationChannel === "yes" && <div className="single-choice-row">
-                <div>Answers or clarifies the questions received.</div>
+                <div>3.4.1.1 - Answers or clarifies the questions received.</div>
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${answerReceived === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
@@ -146,7 +146,7 @@ const Governance_Management_Relationship = ({
                 </label>
             </div>}
             {communicationChannel === "yes" && <div className="single-choice-row">
-                <div>Stipulates goals and deadlines to solve the identified problems.</div>
+                <div>3.4.1.2 - Stipulates goals and deadlines to solve the identified problems.</div>
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${goalAndDeadline === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
@@ -197,7 +197,7 @@ const Governance_Management_Relationship = ({
                 </label>
             </div>}
             {communicationChannel === "yes" && <div className="single-choice-row">
-                <div>Analyzes the doubts, suggestions and complaints received and uses them as a tool to improve its activities.</div>
+                <div>3.4.1.3 - Analyzes the doubts, suggestions and complaints received and uses them as a tool to improve its activities.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${doubtAnalysis === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -241,7 +241,7 @@ const Governance_Management_Relationship = ({
                 </label>
             </div>}
             <div className="single-choice-row">
-                <div>The products or communication materials always contain clear instructions on how to contact the company, such as a mailing address, telephone number, website or e-mail.</div>
+                <div>3.4.2 - The products or communication materials always contain clear instructions on how to contact the company, such as a mailing address, telephone number, website or e-mail.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${productInfo === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -285,7 +285,7 @@ const Governance_Management_Relationship = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>Carries out a satisfaction survey among its customers at regular intervals to, based on the results, implement improvements in its products/services, including pre- and post-sales services, with transparency and ethics in relations.</div>
+                <div>3.4.3 - Carries out a satisfaction survey among its customers at regular intervals to, based on the results, implement improvements in its products/services, including pre- and post-sales services, with transparency and ethics in relations.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${satisfactionSurvey === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -329,7 +329,7 @@ const Governance_Management_Relationship = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>The company knows who its main suppliers are.</div>
+                <div>3.4.5 - The company knows who its main suppliers are.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${supplierDetails === "yes" ? " w--redirected-checked" : ""}`}></div>

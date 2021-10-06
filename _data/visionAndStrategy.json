@@ -1,10 +1,10 @@
 [
     {
-        "question": "Prepares its strategic plan ?",
+        "question": "Has defined its mission statement, vision and values.",
         "answer": ""
     },
     {
-        "question": "If so, do the objectives and targets consider one or more aspects of sustainability?",
+        "question": "Prepares its strategic plan ?",
         "answer": ""
     },
     {
@@ -17,6 +17,18 @@
     },
     {
         "question": "If so, do the objectives and targets consider one or more aspects of sustainability?",
+        "answer": ""
+    },
+    {
+        "question": "Integrates sustainability aspects into your decision-making processes.",
+        "answer": ""
+    },
+    {
+        "question": "Analyzes the risks (strategic, financial, regulatory, operational or reputational) of its business.",
+        "answer": ""
+    },
+    {
+        "question": "If so, are these risks managed?",
         "answer": ""
     },
     {

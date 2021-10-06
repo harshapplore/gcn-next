@@ -14,7 +14,8 @@ import OrdersList from "./OrdersList";
 import Favorites from "./Favorites";
 
 import { FAVORITES, ORDER_LIST, ACCOUNT_SETTINGS } from "./routes";
-import Settings from "./Settings";
+// import Settings from "./Settings";
+import NewSettings from "./NewSettings";
 
 const CustomerBackend = () => {
   const router = useRouter();
@@ -125,7 +126,8 @@ const CustomerBackend = () => {
                 {activeTab === 0 && <Favorites />}
                 {activeTab === 1 && !orderId && <OrdersList />}
                 {activeTab === 1 && orderId && <Order orderId={orderId}/>}
-                {activeTab === 2 && <Settings />}
+                {/* {activeTab === 2 && <Settings />} */}
+                {activeTab === 2 && <NewSettings />}
               </div>
             </div>
           </div>
