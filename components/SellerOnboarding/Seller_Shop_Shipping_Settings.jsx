@@ -194,6 +194,83 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
         "International shipping details updated successfully"
       );
   };
+
+  const nationalShippingDelete =async (e) =>{
+    e.preventDefault();
+    setCost0to1Kg("")
+    setCost1to5Kg("")
+    setCost5to10Kg("")
+    setcostMoreThan10Kg("")
+    const data = {
+      country: "interNational",
+      weights:
+        [{
+          category: "0 to 1Kg",
+          cost: 0,
+          currency,
+        },
+        {
+          category: "1 to 5Kg",
+          cost: 0,
+          currency,
+        }, {
+          category: "5 to 10Kg",
+          cost: 0,
+          currency,
+        }, {
+          category: "More than 10Kg",
+          cost: 0,
+          currency,
+        }
+        ]
+    }
+    const res = await authAxios()({
+      url: `/shops/${seller.shop.id} `,
+      method: "PUT",
+      data: { shipping: [data] }
+    });
+    console.log(res.data)
+    if (res.data)
+      setNationalShippingMessage("National shipping details deleted successfully")
+  }
+  const interNationalShippingDelete =async (e) =>{
+    e.preventDefault();
+    setCost0to1KgInt("")
+    setCost1to5KgInt("")
+    setCost5to10KgInt("")
+    setcostMoreThan10KgInt("")
+    const data = {
+      country: "interNational",
+      weights:
+        [{
+          category: "0 to 1Kg",
+          cost: 0,
+          currency,
+        },
+        {
+          category: "1 to 5Kg",
+          cost: 0,
+          currency,
+        }, {
+          category: "5 to 10Kg",
+          cost: 0,
+          currency,
+        }, {
+          category: "More than 10Kg",
+          cost: 0,
+          currency,
+        }
+        ]
+    }
+    const res = await authAxios()({
+      url: `/shops/${seller.shop.id} `,
+      method: "PUT",
+      data: { internationalShipping: [data] }
+    });
+    console.log(res.data)
+    if (res.data)
+      setInterNationalShippingMessage("International shipping details deleted successfully")
+  }
   const submit = async (e) => {
     e.preventDefault();
 
@@ -505,7 +582,7 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                               >
                                 Save Changes
                               </div>
-                              <div className="button blue secondary">
+                              <div onClick={nationalShippingDelete} className="button blue secondary">
                                 Delete
                               </div>
                             </div>
@@ -768,7 +845,7 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                               >
                                 Save Changes
                               </div>
-                              <div href="#" className="button blue secondary">
+                              <div onClick={interNationalShippingDelete} className="button blue secondary">
                                 Delete
                               </div>
                             </div>

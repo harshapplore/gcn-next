@@ -14,7 +14,7 @@ import cartContext, { CartContext } from "./cart.context";
 
 import { getCart, loadAddress, saveAddress } from "@/_methods/cart";
 import countries from '@/_data/countries.json'
-import { sendEmail } from "@/_controllers/customer";
+import { sendEmail, sendEmailReg } from "@/_controllers/customer";
 import authAxios, { axios } from "@/setups/axios";
 import { useSelector } from "react-redux";
 
@@ -190,7 +190,7 @@ console.log(sellerEmail)
 
         saveAddress("shipping", shipping);
     }, [shipping]);
-
+console.log(billing)
     const next = () => {
         const billValid = validate(billing, "billing");
 
@@ -207,7 +207,14 @@ console.log(sellerEmail)
                 sendEmail(item,"Order received", "order received ")
 
             })
+            if(customer.user)
             sendEmail(customer.user.email,"Order Placed Successfully", "order placed successfully")
+
+            if(!customer.user)
+            sendEmailReg(billing.email,"Order Placed Successfully", "order placed successfully")
+
+
+
         }
     };
 

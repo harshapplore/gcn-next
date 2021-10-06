@@ -6,8 +6,12 @@ import SuccessInput from "@/shared/Input/SuccessInput";
 
 import { changePassword } from "@/_controllers/user";
 import error from "@/slices/error";
+import { axios } from "@/setups/axios";
+import { useSelector } from "react-redux";
 
 const Password = () => {
+  const { seller } = useSelector((state) => state.seller);
+
   const [_data, _setData] = useState({});
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -34,19 +38,39 @@ const Password = () => {
 
     return true;
   };
-
+  console.log(seller)
   const changePasswordHandler = async () => {
     if (!validate()) return;
-
     setLoading(true);
+    const response = await axios()({
+      url: "/auth/local",
+      method: "POST",
+      data: {
+        identifier: seller.user.email,
+        password: _data.currentPassword,
+      }
+    }).catch((error) => {
+      console.log(error, error.response);
 
-    const res = await changePassword(_data.currentPassword, _data.password);
+      // const errors = {};
+      // errors.NotMatch("Please enter correct password")
+      setErrors("Please enter correct password")
 
-    console.log("res", res);
+      return;
+    })
+    console.log(response)
+    if (!response) {
+      setErrors({ notMatch: "Please enter correct password" })
+    } else {
+      const res = await changePassword(_data.currentPassword, _data.password);
 
-    setSuccess(res.message);
+      console.log("res", res);
 
-    setTimeout(() => setSuccess(""), 2000);
+      setSuccess(res.message);
+
+      setTimeout(() => setSuccess(""), 2000);
+    }
+
 
     setLoading(false);
   };
@@ -69,6 +93,7 @@ const Password = () => {
             setValue={(value) => _setData({ ..._data, currentPassword: value })}
             error={errors.currentPassword}
           />
+          {errors.notMatch && <div style={{marginBottom:"20px"}}>{errors.notMatch}</div>}
 
           <TextInput
             placeholder="New Password*"
