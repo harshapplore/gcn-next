@@ -373,7 +373,7 @@ const Governance_Management_Relationship = ({
                 </label>
             </div>
             {supplierDetails === "yes" && <div className="single-choice-row">
-                <div>If so, does the company make a survey of critical suppliers, considering a possible impact on the interruption of its own products or services?</div>
+                <div>3.4.5.1 - If so, does the company make a survey of critical suppliers, considering a possible impact on the interruption of its own products or services?</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${criticalSupplySurvey === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -417,7 +417,7 @@ const Governance_Management_Relationship = ({
                 </label>
             </div>}
             {supplierDetails === "yes" && <div className="single-choice-row">
-                <div>If so, does the company have alternatives to keep its deliveries or services even if there is an interruption by a supplier?</div>
+                <div>3.4.5.2 - If so, does the company have alternatives to keep its deliveries or services even if there is an interruption by a supplier?</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${alternateDeliveryOption === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -461,7 +461,7 @@ const Governance_Management_Relationship = ({
                 </label>
             </div>}
             <div className="single-choice-row">
-                <div>Prioritizes purchasing from local suppliers (within 150 km radius).</div>
+                <div>3.4.6 - Prioritizes purchasing from local suppliers (within 150 km radius).</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${priorityOfLocalSupplier === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -506,7 +506,7 @@ const Governance_Management_Relationship = ({
             </div>
             {priorityOfLocalSupplier === "yes" &&
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
-                    <div>If so, to what extent (%)</div>
+                    <div>3.4.6.1 - If so, to what extent (%)</div>
                     <input type="text"
                         onChange={(e => setpriorityOfLocalSupplierPercentage(e.target.value))}
                         value={priorityOfLocalSupplierPercentage}
