@@ -24,7 +24,7 @@ const Governance_Management_Integrity = ({
             </div>
             <div className="assessment-spacer"></div>
             <div className="single-choice-row">
-                <div>The company's directors and managers act directly in creating a culture of integrity.</div>
+                <div>3.1.1 - The company's directors and managers act directly in creating a culture of integrity.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${directorAct === "yes" ? " w--redirected-checked" : ""}`}></div>
@@ -68,7 +68,7 @@ const Governance_Management_Integrity = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>There is constant updating of the assessment of your exposure to the risk of being held responsible for irregularities or unlawful acts against the public administration.</div>
+                <div>3.1.2 - There is constant updating of the assessment of your exposure to the risk of being held responsible for irregularities or unlawful acts against the public administration.</div>
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${responsibleForIrregularities === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
@@ -111,7 +111,7 @@ const Governance_Management_Integrity = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>The company sets out principles of business conduct expected from employees</div>
+                <div>3.1.3 - The company sets out principles of business conduct expected from employees</div>
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${principleOfBusinessConduct === "yes" ? " w--redirected-checked" : ""}`}></div>
                     <input
@@ -162,7 +162,7 @@ const Governance_Management_Integrity = ({
                 </label>
             </div>
             <div className="single-choice-row">
-                <div>There are whistleblowing channels for employees to report suspicious, illegal or dishonest behavior in business without fear of punishment and retribution.</div>
+                <div>3.1.4 - There are whistleblowing channels for employees to report suspicious, illegal or dishonest behavior in business without fear of punishment and retribution.</div>
 
                 <label className="vision-checkbox-field w-clearfix w-radio" style={{ marginLeft: "30px" }}>
                     <div className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${channelForEmployee === "yes" ? " w--redirected-checked" : ""}`}></div>
