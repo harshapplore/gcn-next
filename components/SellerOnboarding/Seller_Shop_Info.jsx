@@ -56,10 +56,10 @@ const Seller_Shop_Info = ({ nextPage }) => {
 	useEffect(() => {
 		if (seller.shop) {
 			setOrganizationName(seller.shop.companyName);
-			setName(seller.basicInformationAnswers.name);
+			setName(seller.user.name);
 			setCEO(seller.basicInformationAnswers.jobTitle);
 			setPhone(seller.basicInformationAnswers.mobile);
-			setEmail(seller.basicInformationAnswers.email);
+			setEmail(seller.user.email);
 			setInitials(seller.basicInformationAnswers.initials);
 		}
 	}, [seller]);
