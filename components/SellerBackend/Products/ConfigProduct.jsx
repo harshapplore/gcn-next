@@ -107,7 +107,7 @@ const AddImageBlock = ({
     }
 
     if (imageData.size > 5240000) {
-      setError("Product Image cannot be larger than 5 mb.");
+      setError("Product Image cannot be larger than 1 mb.");
       setTimeout(() => setError(""), 5000);
       return;
     }
@@ -137,7 +137,7 @@ const AddImageBlock = ({
           Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc
           ut sem vitae risus tristique posuere.
           <br /> <br />
-          <li> Image size should be less than 5 mb </li>
+          <li> Image size should be less than 1 mb </li>
           <li> Image should be greater than 512 pixels on both sides. </li>
         </p>
       </div>

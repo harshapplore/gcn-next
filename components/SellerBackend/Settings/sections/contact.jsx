@@ -18,12 +18,12 @@ const Contact = () => {
 
   const [_joinDate, _setJoinDate] = useState();
   const [_data, _setData] = useState({
-    name: user.name,
-    phone:seller.phone,
-    contactEmail:seller.shop ? seller.shop.contactEmail : ""  ,
-    orderManagementEmail:seller.shop ? seller.shop.orderManagementEmail : "",
-    returnsEmail:seller.shop ? seller.shop.returnsEmail : "",
-    customerServiceEmail:seller.shop ? seller.shop.customerServiceEmail : ""
+    name: "",
+    phone:"",
+    contactEmail: ""  ,
+    orderManagementEmail: "",
+    returnsEmail: "",
+    customerServiceEmail:""
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -34,7 +34,16 @@ const Contact = () => {
     _setJoinDate(new Date(user.createdAt));
   }, []);
   useEffect(() => {
-    if (user && seller) ;
+    if (seller && user ) {
+      _setData({
+        name: user.name,
+        phone:seller.basicInformationAnswers ? seller.basicInformationAnswers.mobile :"",
+        contactEmail:seller.shop ? seller.shop.contactEmail : ""  ,
+        orderManagementEmail:seller.shop ? seller.shop.orderManagementEmail : "",
+        returnsEmail:seller.shop ? seller.shop.returnsEmail : "",
+        customerServiceEmail:seller.shop ? seller.shop.customerServiceEmail : ""
+      })
+    }
     
   }, [seller,user]);
   console.log(seller)
@@ -140,7 +149,7 @@ const Contact = () => {
             placeholder={
               seller.orderManagementEmail || "Email Order Management"
             }
-            value={_data.orderMangementEmail}
+            value={_data.orderManagementEmail}
             setValue={(value) =>
               _setData({ ..._data, orderManagementEmail: value })
             }

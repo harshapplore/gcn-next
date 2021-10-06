@@ -4,7 +4,13 @@ export function useImageInput() {
   const [_data, setData] = useState({});
 
   const inputRef = useRef();
-
+  if(_data.size > 1000000)
+  {
+       alert("Please add image below 1mb")
+    setData({})
+  }
+  
+console.log(_data)
   useEffect(() => {
     if (!inputRef) return;
 
