@@ -156,8 +156,8 @@ const Seller_Shop_Info = ({ nextPage }) => {
 			// images: response
 		};
 		const res = await authAxios()({
-			url: `/shops`,
-			method: "POST",
+			url: `/shops/${sellerResponse.data.shop.id}`,
+			method: "PUT",
 			data: data,
 		});
 		const rs = await authAxios()({
