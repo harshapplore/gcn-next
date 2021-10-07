@@ -404,3 +404,9 @@ cursor: pointer;
   list-style: none;
 }
 
+.plan-blur{
+pointer-events: none;
+opacity: 0.5;
+backdrop-filter: blur(10px);
+z-index: 999;
+}

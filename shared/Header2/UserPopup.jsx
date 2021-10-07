@@ -44,8 +44,8 @@ const UserPopup = () => {
                                         if (user.qaStatus == "pending") {
 
                                         }
+                                        router.push(SELLER_MAIN + "/products");
                                     }
-                                    router.push(SELLER_MAIN + "/products");
                                     if (user.type === "customer") router.push(CUSTOMER_MAIN);
                                 }}
                             >

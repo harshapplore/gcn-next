@@ -462,7 +462,7 @@ const ConfigProduct = () => {
 
               <Select
                 choices={categories.map((cat) => cat.name)}
-                value={""}
+                value={product.description ||""}
                 placeholder={
                   (categories &&
                     categories.reduce((a, c) => {
@@ -470,7 +470,7 @@ const ConfigProduct = () => {
 
                       return a + "";
                     }, "")) ||
-                  "Category"
+                  "Select Category"
                 }
                 setValue={(value) =>
                   setProduct({ ...product, category: categories[value].id })
@@ -667,7 +667,7 @@ const ConfigProduct = () => {
             <div className="mb-20">
               <label className="mb-20">Colors</label>
               <div className="spacer-10" />
-              <div className="flex flex-wrap flex-grow-1 max-content ml-10">
+              <div className="flex flex-wrap  max-content ml-10">
                 {filtersList.colors &&
                   filtersList.colors.map((color, index) => (
                     <CheckBox

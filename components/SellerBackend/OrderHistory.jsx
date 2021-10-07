@@ -55,11 +55,11 @@ const OrderHistory = () => {
       const sellerEmail = orders.map(item => item.user && item.user.email)
       console.log(sellerEmail)
       // sendEmail("testerapplore301@yopmail.com","User Registered Successfully", "User registerd")
-      sellerEmail.map(item => {
-        sendEmail(item, "Order received", "order received ")
+      // sellerEmail.map(item => {
+      //   sendEmail(item, "Order received", "order received ")
 
-      })
-      console.log(orders)
+      // })
+      // console.log(orders)
 
       // sendEmail(customer.user.email,"Order Placed Successfully", "order placed successfully")
 

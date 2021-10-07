@@ -22,7 +22,7 @@ const About = () => {
       <div className="page-section pb-0 wf-section">
         <div className="container">
           <h1 className="mb-50">About Green Cloud Nine</h1>
-          <div className="about-content-wrapper">
+          <div className="">
             <img
               src="images/bild-header2x.jpg"
               loading="lazy"
@@ -35,19 +35,20 @@ const About = () => {
             />
             <div className="left-60">
               <p className="lead-text mb-20">
-                Wir wollen den Übergang zu einer gerechteren und
-                umweltfreundlicheren Wirtschaft und Gesellschaft beschleunigen.
-                Bei jedem Einkauf auf unserem Marktplatz ersetzen wir unfaire,
-                verschwenderische und umweltschädliche Produkte durch
-                nachhaltige Äquivalente.
+                Green Cloud Nine is an eco-conscious marketplace,  on a mission to make sustainability mainstream. That means, to make sustainable products available and affordable to everyone, so they become the norm and not the exception.
+                Our values
               </p>
-              <p className="mb-40">
+              {/* <p className="mb-40">
                 Wir glauben, dass Nachhaltigkeit die Regel und nicht die
                 Ausnahme sein sollte. Deshalb möchte Green Cloud Nine nicht nur
                 ein Einkaufszentrum sein, sondern eine starke globale
                 Gemeinschaft nachhaltiger Unternehmen und Verbraucher, die
                 wirklich etwas bewirken.
-              </p>
+              </p> */}
+            </div>
+            <div>
+              <h3>Our values</h3>
+              <p>We believe that Sustainability should be the rule and not the exception, that is why Green Cloud Nine does not just want to be a place to shop but a strong global community of sustainable companies and consumers that really make a difference. </p>
             </div>
           </div>
         </div>

@@ -25,23 +25,39 @@ const Seller_Price_Plan = ({ nextPage }) => {
 
     const submit = async (e) => {
         e.preventDefault();
+  
         
-        plan === "bonsai" && setPlanType("bonsai") 
-        plan === "oak" && setPlanType("oak")
-        if (!validate()) return;
-        if(planType !== ""){
         const response = await authAxios()({
           url: `sellers/${seller.id}`,
           method: "PUT",
           data: {
-              planType,
+              planType: "beta",
           },
       });
       console.log(response)
       if(response)
       nextPage();
-    }
+    
     };
+    // const submit = async (e) => {
+    //     e.preventDefault();
+        
+    //     plan === "bonsai" && setPlanType("bonsai") 
+    //     plan === "oak" && setPlanType("oak")
+    //     if (!validate()) return;
+    //     if(planType !== ""){
+    //     const response = await authAxios()({
+    //       url: `sellers/${seller.id}`,
+    //       method: "PUT",
+    //       data: {
+    //           planType,
+    //       },
+    //   });
+    //   console.log(response)
+    //   if(response)
+    //   nextPage();
+    // }
+    // };
     
 
     return (
@@ -50,7 +66,7 @@ const Seller_Price_Plan = ({ nextPage }) => {
           <div className="heading-wrapper mb-50">
             <h1 className="headline-2 mb-10">Choose your pricing plan</h1>
           </div>
-          <div className="pricing-plan-wrapper">
+          <div className="plan-blur pricing-plan-wrapper">
           
             <div className={`pricing-item ${plan==="bonsai" ? "selected" : ""}`}>
               <h2 className="pricing-heading" onClick={()=> setPlan("bonsai")}>Bonsai</h2>
@@ -67,11 +83,11 @@ const Seller_Price_Plan = ({ nextPage }) => {
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. </p>
             </div>
           </div>
-          <div style={{marginRight:"40px"}} className="button blue mr-40  mb-60" onClick={submit}>Continue </div>                            
+          <div style={{marginRight:"40px"}} className=" plan-blur button blue mr-40  mb-60" onClick={submit}>Continue </div>                            
                                       
           <div className="div-block-3">
             <div className="headline-5 mr-40">Not sure yet? Try our beta version</div>
-            <a href="#" className="button orange">Try Beta Version</a>
+            <div onClick={submit}  className="button orange">Try Beta Version</div>
           </div>
         </div>
       </div>
