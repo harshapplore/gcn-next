@@ -179,6 +179,7 @@ const Register = ({ close }) => {
                                             error={errors.terms}
                                         />
                                     </div>
+                                    <div className="cursor" style={{textDecoration:"underline",marginBottom:"10px"}} onClick={() => router.push("/terms-and-conditions")}> Terms and conditions</div>
                                     <div className="center">
                                         <input
                                             type="submit"

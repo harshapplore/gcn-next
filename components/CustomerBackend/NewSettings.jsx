@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUser } from "@/slices/user";
+import SuccessInput from "@/shared/Input/SuccessInput";
 import { changeEmail, changeName, changePassword } from '@/_controllers/customer';
-import authAxios from '@/setups/axios';
+import authAxios, { axios } from '@/setups/axios';
 import router from "next/router";
 import ErrorInput from "@/shared/Input/Error";
 
 
 import { saveAddress } from '@/_methods/cart';
 import { fetchCustomer } from '@/slices/customer';
+import Password from '../SellerBackend/Settings/sections/password';
 
 //settings
 
@@ -22,6 +24,10 @@ const Settings = () => {
     const [confirmName, setConfirmName] = React.useState('');
     const [loading, setLoading] = React.useState(false);
     const [regionLoading, setRegionLoading] = React.useState(false);
+    const [passwordLoading, setPasswordLoading] = React.useState(false);
+    const [success, setSuccess] = React.useState("");
+    const [deliveryDetMessage, setDeliveryDetMessage] = React.useState("");
+    const [regionMessage, setRegionMessage] = React.useState("");
 
 
     const [email, setEmail] = React.useState('');
@@ -39,11 +45,15 @@ const Settings = () => {
     const [streetAddress, setStreetAddress] = React.useState('');
     const [city, setCity] = React.useState('');
     const [postalCode, setPostalCode] = React.useState('');
-    const [vat, setvat] = React.useState(0);
+    // const [vat, setvat] = React.useState("");
+    const [billingEmail, setBillingEmail] = React.useState("");
+    const [billingPhone, setBillingPhone] = React.useState("");
+    const [billingEmailDel, setBillingEmailDel] = React.useState("");
+    const [billingPhoneDel, setBillingPhoneDel] = React.useState("");
     const [streetAddressDel, setStreetAddressDel] = React.useState('');
     const [cityDel, setCityDel] = React.useState('');
     const [postalCodeDel, setPostalCodeDel] = React.useState('');
-    const [vatDel, setvatDel] = React.useState(0);
+    // const [vatDel, setvatDel] = React.useState(0);
     // const [ad,setAd]=React.useState([])
     const [deleteUser, setDeleteUser] = React.useState("");
     const [language, setLanguage] = React.useState("");
@@ -65,11 +75,15 @@ const Settings = () => {
             setStreetAddress(customer.user.addressAccount && customer.user.addressAccount[0].streetAddress)
             setCity(customer.user.addressAccount && customer.user.addressAccount[0].city)
             setPostalCode(customer.user.addressAccount && customer.user.addressAccount[0].postalCode)
-            setvat(customer.user.addressAccount && customer.user.addressAccount[0].vat)
+            // setvat(customer.user.addressAccount && customer.user.addressAccount[0].vat)
+            setBillingEmail(customer.user.addressAccount && customer.user.addressAccount[0].billingEmail)
+            setBillingPhone(customer.user.addressAccount && customer.user.addressAccount[0].billingPhone)
+            setBillingEmailDel(customer.user.addressAccount && customer.user.addressAccount[1].billingEmailDel)
+            setBillingPhoneDel(customer.user.addressAccount && customer.user.addressAccount[1].billingPhoneDel)
             setStreetAddressDel(customer.user.addressAccount && customer.user.addressAccount[1].streetAddressDel)
             setCityDel(customer.user.addressAccount && customer.user.addressAccount[1].cityDel)
             setPostalCodeDel(customer.user.addressAccount && customer.user.addressAccount[1].postalCodeDel)
-            setvatDel(customer.user.addressAccount && customer.user.addressAccount[1].vatDel)
+            // setvatDel(customer.user.addressAccount && customer.user.addressAccount[1].vatDel)
             setLanguage(customer.user.language && customer.user.language)
             setRegion(customer.user.region && customer.user.region)
             setCurrency(customer.user.currency && customer.user.currency)
@@ -98,6 +112,20 @@ const Settings = () => {
         setErrors(errors);
         return true;
     };
+    const passwordValidate = () => {
+        const errors = {};
+        // if (!password)
+        //     errors.password = "Please provide password";
+        if (!currPassword)
+            errors.password = "Please provide current password";
+
+        // if (!confirmPassword)
+        //     errors.confirmEmail = "Please provide password to confirm";
+        // if (password !== confirmPassword)
+        //     errors.passwordMatch = "Password is not matching";
+        setErrors(errors);
+        return true;
+    };
 
     const attemptNameChange = async (e) => {
 
@@ -118,7 +146,7 @@ const Settings = () => {
                 dispatch(fetchUser())
                 console.log(res)
                 setNameMessage("Name updated successfully")
-                location.reload()
+                // location.reload()
             }
         }
     }
@@ -140,7 +168,7 @@ const Settings = () => {
                 dispatch(fetchUser())
                 console.log(res)
                 setEmailMessage("Email updated successfully")
-                location.reload()
+                // location.reload()
             }
         }
 
@@ -160,6 +188,7 @@ const Settings = () => {
             data
         });
         console.log(response);
+        setRegionMessage("Details Updated successfully")
         setRegionLoading(false)
     }
     const deleteAccount = (e) => {
@@ -186,17 +215,64 @@ const Settings = () => {
             router.push("/")
         }, 2000)
     }
-    const attemptPasswordChange = () => {
-        if (password === confirmPassword) {
-            changePassword(currPassword, password)
-                .then(res => {
-                    console.log(res);
-                    dispatch(fetchUser())
-                })
+    const attemptPasswordChange = async (e) => {
+        e.preventDefault();
+        // if (!currPassword) return
+        if (!passwordValidate()) {
+            return
         }
+        let errors = {}
+        console.log(currPassword)
+        console.log(customer.user.email)
+        const response = await axios()({
+            url: "/auth/local",
+            method: "POST",
+            data: {
+                identifier: customer.user.email,
+                password: currPassword,
+            }
+        }).catch((error) => {
+            console.log(error, error.response);
+            // setErrors("Please enter correct password")
+            // return;
+        })
+        console.log(response)
+        if (!password && !confirmPassword || password !== confirmPassword) {
+            errors.password = "Please provide password";
+
+            errors.confirmEmail = "Please provide password to confirm";
+            errors.passwordMatch = "Password is not matching";
+            setErrors(errors)
+
+        }
+        if (response && response.data && response.data.jwt) {
+           
+            const res = await changePassword(currPassword, password);
+
+            console.log("res", res);
+
+            setSuccess(res.message);
+
+            setTimeout(() => setSuccess(""), 2000);
+
+        }
+        else{
+            errors.currPassword="Please provide current password"
+            setErrors(errors)
+        }
+
+
+
+        // if (password === confirmPassword) {
+        //     changePassword(currPassword, password)
+        //         .then(res => {
+        //             console.log(res);
+        //             dispatch(fetchUser())
+        //         })
+        // }
     }
     const saveBilingAddress = async (e) => {
-        
+
         e.preventDefault()
         setLoading(true)
         const billData = {
@@ -207,7 +283,9 @@ const Settings = () => {
             streetAddress,
             city,
             postalCode,
-            vat,
+            // vat,
+            billingEmail,
+            billingPhone,
             type: "Billing",
             user: customer.user.id
         }
@@ -216,7 +294,9 @@ const Settings = () => {
             streetAddressDel,
             cityDel,
             postalCodeDel,
-            vatDel,
+            // vatDel,
+            billingPhoneDel,
+            billingEmailDel,
             type: "Delivery",
             user: customer.user.id
         }
@@ -229,6 +309,7 @@ const Settings = () => {
 
         });
         console.log(response);
+        setDeliveryDetMessage("Details updated successfully")
         setLoading(false)
         // location.reload()
     }
@@ -314,16 +395,26 @@ const Settings = () => {
                     </div>
                     <div className="w-form">
                         <form id="wf-form-Change-Password" name="wf-form-Change-Password" data-name="Change Password">
-                            <h4 className="subtitle-2 mb-10">Change Password</h4><input type="password" className="input-x mb-15 w-input" maxLength={256} name="Current-Password" data-name="Current Password" placeholder="Current Password *" id="Current-Password" required value={currPassword} onChange={(e) => setCurrPassword(e.target.value)} />
+                            <h4 className="subtitle-2 mb-10">Change Password</h4>
+                            <input type="password" className="input-x mb-15 w-input" maxLength={256} name="Current-Password" data-name="Current Password" placeholder="Current Password *" id="Current-Password" required value={currPassword} onChange={(e) => setCurrPassword(e.target.value)} />
+                            {errors.currPassword && <div style={{ marginTop: "20px" }} ><ErrorInput message={errors.currPassword} /></div>}
+
                             <div className="input-x input-x--flex mb-15">
                                 <input type="password" className="input-x__input-field w-input" maxLength={256} name="New-Password" data-name="New Password" placeholder="New Password *" id="New-Password" required value={password} onChange={(e) => setPassword(e.target.value)} />
                                 {/* <div onClick={setPassworShow(!passwordShow)}  className="input-ext__show">Show</div> */}
                             </div>
                             <div className="input-x input-x--flex mb-30">
                                 <input type="password" className="input-x__input-field w-input" maxLength={256} name="Confirm-New-Password" data-name="Confirm New Password" placeholder="Confirm New Password *" id="Confirm-New-Password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-                            {/* <div onClick={setCPassworShow(!cPasswordShow)}  className="input-ext__show">Show</div> */}
+                                {/* <div onClick={setCPassworShow(!cPasswordShow)}  className="input-ext__show">Show</div> */}
                             </div>
-                            <div onClick={() => attemptPasswordChange()} className="button blue mr-10 orange">Save Changes</div>
+                            {/* {errors.passwordNotMatch && <div style={{ marginBottom: "20px" }}>{errors.passwordNotMatch}</div>} */}
+                            {errors.password && <div style={{ marginTop: "20px" }} ><ErrorInput message={errors.password} /></div>}
+                            {errors.confirmPassword && <div style={{ marginTop: "20px" }} ><ErrorInput message={errors.confirmPassword} /></div>}
+                            {errors.passwordMatch && <div style={{ marginTop: "20px" }} ><ErrorInput message={errors.passwordMatch} /></div>}
+                            {errors.notMatch && <div style={{ marginTop: "20px" }} ><ErrorInput message={errors.notMatch} /></div>}
+                            <div>{success &&
+                                <SuccessInput message={success} />}</div>
+                            <div onClick={(e) => attemptPasswordChange(e)} className="button blue mr-10 orange">Save Changes</div>
                         </form>
                         <div className="w-form-done" />
                         <div className="w-form-fail" />
@@ -356,7 +447,7 @@ const Settings = () => {
                             </div>
                             <div className="input-x input-x--flex mb-30"><input type="text" className="input-x__input-field w-input" maxLength={256} name="Confirm-New-mail" data-name="Confirm New mail" placeholder="Confirm New E-Mail *" id="Confirm-New-mail" required value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} />
                             </div>
-                            <div onClick={(e)=>attemptEmailChange(e)} className="button blue mr-10 orange">Save Changes</div>
+                            <div onClick={(e) => attemptEmailChange(e)} className="button blue mr-10 orange">Save Changes</div>
                         </form>
                         {emailMessage && <div>{emailMessage}</div>}
 
@@ -457,7 +548,7 @@ const Settings = () => {
                                     id="Postal-2" />
 
                             </div>
-                            <div id="w-node-_67795e38-907f-2326-d21b-0f5a7a3c1b56-6fa6f585" className="input-x input-x--flex align-top">
+                            {/* <div id="w-node-_67795e38-907f-2326-d21b-0f5a7a3c1b56-6fa6f585" className="input-x input-x--flex align-top">
                                 <input
                                     type="number"
                                     className="input-x__input-field dark w-input"
@@ -467,6 +558,32 @@ const Settings = () => {
                                     name="VAT-3"
                                     data-name="VAT 3"
                                     placeholder="VAT"
+                                    id="VAT-3" />
+
+                            </div> */}
+                            <div id="w-node-_67795e38-907f-2326-d21b-0f5a7a3c1b56-6fa6f585" className="input-x input-x--flex align-top">
+                                <input
+                                    type="email"
+                                    className="input-x__input-field dark w-input"
+                                    maxLength={256}
+                                    value={billingEmail}
+                                    onChange={e => setBillingEmail(e.target.value)}
+                                    name="VAT-3"
+                                    data-name="VAT 3"
+                                    placeholder="Billing Email"
+                                    id="VAT-3" />
+
+                            </div>
+                            <div id="w-node-_67795e38-907f-2326-d21b-0f5a7a3c1b56-6fa6f585" className="input-x input-x--flex align-top">
+                                <input
+                                    type="number"
+                                    className="input-x__input-field dark w-input"
+                                    maxLength={256}
+                                    value={billingPhone}
+                                    onChange={e => setBillingPhone(e.target.value)}
+                                    name="VAT-3"
+                                    data-name="VAT 3"
+                                    placeholder="Billing Phone"
                                     id="VAT-3" />
 
                             </div>
@@ -533,9 +650,9 @@ const Settings = () => {
                                     id="Postal-2" />
 
                             </div>
-                            <div id="w-node-_67795e38-907f-2326-d21b-0f5a7a3c1b56-6fa6f585" className="input-x input-x--flex align-top">
+                            {/* <div  className="input-x input-x--flex align-top">
                                 <input
-                                    type="number"
+                                    type="text"
                                     className="input-x__input-field dark w-input"
                                     maxLength={256}
                                     value={vatDel}
@@ -544,13 +661,39 @@ const Settings = () => {
                                     data-name="VAT 3"
                                     placeholder="VAT"
                                     id="VAT-3" />
+                            </div> */}
+                            <div className="input-x input-x--flex align-top">
+                                <input
+                                    type="email"
+                                    className="input-x__input-field dark w-input"
+                                    maxLength={256}
+                                    value={billingEmailDel}
+                                    onChange={e => setBillingEmailDel(e.target.value)}
+                                    name="VAT-3"
+                                    data-name="VAT 3"
+                                    placeholder="Delivery Email"
+                                    id="VAT-3" />
 
                             </div>
+                            <div  className="input-x input-x--flex align-top">
+                                <input
+                                    type="number"
+                                    className="input-x__input-field dark w-input"
+                                    maxLength={256}
+                                    value={billingPhoneDel}
+                                    onChange={e => setBillingPhoneDel(e.target.value)}
+                                    name="VAT-3"
+                                    data-name="VAT 3"
+                                    placeholder="Delivery Phone"
+                                    id="VAT-3" />
+
+                            </div>
+                            {deliveryDetMessage && <div><SuccessInput message={deliveryDetMessage} /></div> }
                             <div className="checkboxwrapper">
                                 <div className="flex mgt-30 buttonwrapper">
 
-                                    {loading ? <div className="button blue mr-10 orange">Loading...</div>:
-                                    <div onClick={saveBilingAddress} className="button blue mr-10 orange">Save Changes</div>}
+                                    {loading ? <div className="button blue mr-10 orange">Loading...</div> :
+                                        <div onClick={saveBilingAddress} className="button blue mr-10 orange">Save Changes</div>}
                                     {/* <a href="#" className="button blue mr-10 secondary orange nobg">Dele Adress</a> */}
                                 </div>
                             </div>
@@ -582,9 +725,10 @@ const Settings = () => {
                                 <option value="Europe">Europe</option>
                                 <option value="North America">North America</option>
                             </select>
-                            </div>
+                        </div>
+                        {regionMessage && <div><SuccessInput message={regionMessage} /></div> }
                         {regionLoading ? <div className="button blue mr-10 orange">loading...</div> :
-                        <div onClick={saveRegion} className="button blue mr-10 orange">Save Changes</div>}
+                            <div onClick={saveRegion} className="button blue mr-10 orange">Save Changes</div>}
                     </form>
                     <div className="w-form-done">
                         <div>Thank you! Your submission has been received!</div>
