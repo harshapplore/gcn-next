@@ -27,6 +27,7 @@ const Settings = () => {
     const [passwordLoading, setPasswordLoading] = React.useState(false);
     const [success, setSuccess] = React.useState("");
     const [deliveryDetMessage, setDeliveryDetMessage] = React.useState("");
+    const [regionMessage, setRegionMessage] = React.useState("");
 
 
     const [email, setEmail] = React.useState('');
@@ -44,7 +45,7 @@ const Settings = () => {
     const [streetAddress, setStreetAddress] = React.useState('');
     const [city, setCity] = React.useState('');
     const [postalCode, setPostalCode] = React.useState('');
-    const [vat, setvat] = React.useState("");
+    // const [vat, setvat] = React.useState("");
     const [billingEmail, setBillingEmail] = React.useState("");
     const [billingPhone, setBillingPhone] = React.useState("");
     const [billingEmailDel, setBillingEmailDel] = React.useState("");
@@ -52,7 +53,7 @@ const Settings = () => {
     const [streetAddressDel, setStreetAddressDel] = React.useState('');
     const [cityDel, setCityDel] = React.useState('');
     const [postalCodeDel, setPostalCodeDel] = React.useState('');
-    const [vatDel, setvatDel] = React.useState(0);
+    // const [vatDel, setvatDel] = React.useState(0);
     // const [ad,setAd]=React.useState([])
     const [deleteUser, setDeleteUser] = React.useState("");
     const [language, setLanguage] = React.useState("");
@@ -74,7 +75,7 @@ const Settings = () => {
             setStreetAddress(customer.user.addressAccount && customer.user.addressAccount[0].streetAddress)
             setCity(customer.user.addressAccount && customer.user.addressAccount[0].city)
             setPostalCode(customer.user.addressAccount && customer.user.addressAccount[0].postalCode)
-            setvat(customer.user.addressAccount && customer.user.addressAccount[0].vat)
+            // setvat(customer.user.addressAccount && customer.user.addressAccount[0].vat)
             setBillingEmail(customer.user.addressAccount && customer.user.addressAccount[0].billingEmail)
             setBillingPhone(customer.user.addressAccount && customer.user.addressAccount[0].billingPhone)
             setBillingEmailDel(customer.user.addressAccount && customer.user.addressAccount[1].billingEmailDel)
@@ -82,7 +83,7 @@ const Settings = () => {
             setStreetAddressDel(customer.user.addressAccount && customer.user.addressAccount[1].streetAddressDel)
             setCityDel(customer.user.addressAccount && customer.user.addressAccount[1].cityDel)
             setPostalCodeDel(customer.user.addressAccount && customer.user.addressAccount[1].postalCodeDel)
-            setvatDel(customer.user.addressAccount && customer.user.addressAccount[1].vatDel)
+            // setvatDel(customer.user.addressAccount && customer.user.addressAccount[1].vatDel)
             setLanguage(customer.user.language && customer.user.language)
             setRegion(customer.user.region && customer.user.region)
             setCurrency(customer.user.currency && customer.user.currency)
@@ -187,6 +188,7 @@ const Settings = () => {
             data
         });
         console.log(response);
+        setRegionMessage("Details Updated successfully")
         setRegionLoading(false)
     }
     const deleteAccount = (e) => {
@@ -281,7 +283,7 @@ const Settings = () => {
             streetAddress,
             city,
             postalCode,
-            vat,
+            // vat,
             billingEmail,
             billingPhone,
             type: "Billing",
@@ -292,7 +294,7 @@ const Settings = () => {
             streetAddressDel,
             cityDel,
             postalCodeDel,
-            vatDel,
+            // vatDel,
             billingPhoneDel,
             billingEmailDel,
             type: "Delivery",
@@ -546,7 +548,7 @@ const Settings = () => {
                                     id="Postal-2" />
 
                             </div>
-                            <div id="w-node-_67795e38-907f-2326-d21b-0f5a7a3c1b56-6fa6f585" className="input-x input-x--flex align-top">
+                            {/* <div id="w-node-_67795e38-907f-2326-d21b-0f5a7a3c1b56-6fa6f585" className="input-x input-x--flex align-top">
                                 <input
                                     type="number"
                                     className="input-x__input-field dark w-input"
@@ -558,7 +560,7 @@ const Settings = () => {
                                     placeholder="VAT"
                                     id="VAT-3" />
 
-                            </div>
+                            </div> */}
                             <div id="w-node-_67795e38-907f-2326-d21b-0f5a7a3c1b56-6fa6f585" className="input-x input-x--flex align-top">
                                 <input
                                     type="email"
@@ -648,7 +650,7 @@ const Settings = () => {
                                     id="Postal-2" />
 
                             </div>
-                            <div  className="input-x input-x--flex align-top">
+                            {/* <div  className="input-x input-x--flex align-top">
                                 <input
                                     type="text"
                                     className="input-x__input-field dark w-input"
@@ -659,7 +661,7 @@ const Settings = () => {
                                     data-name="VAT 3"
                                     placeholder="VAT"
                                     id="VAT-3" />
-                            </div>
+                            </div> */}
                             <div className="input-x input-x--flex align-top">
                                 <input
                                     type="email"
@@ -724,6 +726,7 @@ const Settings = () => {
                                 <option value="North America">North America</option>
                             </select>
                         </div>
+                        {regionMessage && <div><SuccessInput message={regionMessage} /></div> }
                         {regionLoading ? <div className="button blue mr-10 orange">loading...</div> :
                             <div onClick={saveRegion} className="button blue mr-10 orange">Save Changes</div>}
                     </form>

@@ -37,7 +37,7 @@ const Contact = () => {
     if (seller && user ) {
       _setData({
         name: user.name,
-        phone:seller.basicInformationAnswers ? seller.basicInformationAnswers.mobile :"",
+        phone:seller.phone ? seller.phone : (seller.basicInformationAnswers ? seller.basicInformationAnswers.mobile :""),
         contactEmail:seller.shop ? seller.shop.contactEmail : ""  ,
         orderManagementEmail:seller.shop ? seller.shop.orderManagementEmail : "",
         returnsEmail:seller.shop ? seller.shop.returnsEmail : "",
@@ -83,6 +83,8 @@ const Contact = () => {
     if (!validate()) return;
 
     setLoading(true);
+
+    console.log(_data)
 
     const seller = await putSeller(sellerId, _data);
 
