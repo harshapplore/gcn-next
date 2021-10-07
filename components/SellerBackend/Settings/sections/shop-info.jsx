@@ -15,6 +15,7 @@ const ShopInfo = () => {
 
   const [_shop, _setShop] = useState({});
   const [_data, _setData] = useState({});
+  const [region, setRegion] = useState({});
 
   const [loading, setLoading] = useState(false);
 
@@ -23,7 +24,7 @@ const ShopInfo = () => {
       _setShop({});
       return;
     }
-
+    setRegion(seller.user.region)
     _setShop(seller.shop);
   }, [seller.shop]);
 
@@ -86,7 +87,7 @@ const ShopInfo = () => {
             setValue={(value) => _setData({ ..._data, vat: value })}
           />
           <TextInput
-            placeholder={_shop.region || seller.user.region || "Region"}
+            placeholder={_shop.region || region || "Region"}
             value={_data.region || ""}
             setValue={(value) => _setData({ ..._data, region: value })}
           />
