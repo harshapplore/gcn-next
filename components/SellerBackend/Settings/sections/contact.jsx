@@ -107,7 +107,7 @@ const Contact = () => {
         </div>
         <div>
           <div className="label">Current Phone Number</div>
-          <div>{seller.phone}</div>
+          <div>{seller.phone || _data.phone}</div>
         </div>
         <div>
           <div className="label">Membership since</div>
