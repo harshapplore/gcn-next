@@ -249,7 +249,7 @@ const CartShopView = ({ goToShipping }) => {
             { price: 0, delivery: 0, vat: 0 }
         );
 
-        setTotalPrice(total.price + (total.vat ? total.vat : 0));
+        setTotalPrice(total.price);
         setTotalDelivery(total.delivery);
         setVat(total.vat);
     }, [shopsMeta]);
@@ -265,7 +265,7 @@ const CartShopView = ({ goToShipping }) => {
     }, [toggles.co2Compensation, JSON.stringify(total)]);
 
     useEffect(() => {
-        setTotal(totalPrice + totalDelivery + co2Compensation);
+        setTotal(totalPrice + totalDelivery + co2Compensation+ vat);
     }, [totalPrice, totalDelivery, co2Compensation]);
 
     const [charityCode, setCharityCode] = useState(false);
@@ -368,7 +368,7 @@ const CartShopView = ({ goToShipping }) => {
                         )}
                     </div>
                     <div className="total-wrapper">
-                        <div className="medium">Total Price: € {totalPrice - vat}</div>
+                        <div className="medium">Total Price: € {totalPrice}</div>
                         <div>Packaging & Shipping : € {totalDelivery}</div>
                         <div className="medium"> VAT :{usePriceFormatter(vat)}</div>
                         {co2Compensation > 0 && (

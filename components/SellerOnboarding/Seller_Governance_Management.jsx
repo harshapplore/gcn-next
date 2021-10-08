@@ -391,6 +391,7 @@ const Seller_Governance_Management = ({ nextPage }) => {
           {/* <br /> */}
           <h1 className="headline-2 mb-10">Hello {sellerName} , let's get started!</h1>
           <div className="overline-text mb-40">{data.subheading}</div>
+          <ProgressBar />
           <div className="single-choice-row headline">
             <div className="subtitle-2"> 3.1 Integrity Program</div>
           </div>
@@ -401,7 +402,6 @@ const Seller_Governance_Management = ({ nextPage }) => {
             <p>{data.p4}</p>
             <p>{data.p5}</p>
           </div>
-          <ProgressBar />
 
           <div className="settings-block" id="governance">
             <h3 className="headline-5 mb-50">Governance and Management</h3>

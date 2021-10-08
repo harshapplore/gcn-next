@@ -26,17 +26,20 @@ import OrderHistory from "./OrderHistory";
 import Settings from "./Settings";
 
 import { scrollToElement } from "@/utils/scroll";
+import { route } from "next/dist/server/router";
 
 const SellerBackend = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { seller } = useSelector((state) => state.user);
 
+  console.log(seller)
   const [activePage, setActivePage] = useState();
   const [activeAction, setActiveAction] = useState();
 
   useEffect(() => {
     if (!seller.id) dispatch(fetchSeller());
+    // if (!seller.shop.id) route.push("/")
   }, []);
 
   useEffect(() => {

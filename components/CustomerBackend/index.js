@@ -128,6 +128,7 @@ const CustomerBackend = () => {
                 {activeTab === 1 && orderId && <Order orderId={orderId}/>}
                 {/* {activeTab === 2 && <Settings />} */}
                 {activeTab === 2 && <NewSettings />}
+                {/* {activeTab === 2 && "Hello world"} */}
               </div>
             </div>
           </div>

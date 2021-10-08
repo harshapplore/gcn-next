@@ -5,8 +5,11 @@ import Nav from "@/shared/Nav2";
 import Footer from "@/shared/Footer";
 
 import View from "./View";
+import { useSelector } from "react-redux";
 
 const SellerInfo = () => {
+  const { user } = useSelector((state) => state.user);
+
   return (
     <>
       <Head>

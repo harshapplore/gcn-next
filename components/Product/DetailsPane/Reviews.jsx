@@ -66,14 +66,14 @@ console.log(product)
             <Rating rating={0} />
           </div>
         </div>
-        <div className="div-block-11 flex">
+        {/* <div className="div-block-11 flex">
           <div className="text-block-6 border-right-grey cursor no-select">
             Product Reviews
-          </div>
+          </div> */}
           {/* <div className="text-block-7 text-block-6 bold cursor no-select">
             Shop Reviews
           </div> */}
-        </div>
+        {/* </div> */}
       </div>
       {productReview && productReview.map(review =>
         <div key={review.id} className="reviewcontainer flex flexleft">

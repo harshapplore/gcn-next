@@ -56,6 +56,7 @@ export const getSubTotalPrice = (products) => {
 };
 
 export const getSubTotalDelivery = (products) => {
+  console.log(products)
     let shop = products.length ? (products[0].shop ? products[0].shop : false)  : false
     if(shop.shipping) {
         
@@ -92,7 +93,11 @@ export const calculateVat = ({
   destinationCountry,
   amount,
 }) => { 
-
+    console.log({
+      domesticCountry,
+      destinationCountry,
+      amount,
+    })
     let vat = countries.filter(val => val.name == domesticCountry)
     if(vat.length > 0) {
         let vatValue = vat[0].vat;

@@ -72,18 +72,18 @@ const Seller_Intro = ({ nextPage }) => {
                         <p>{data.p4}</p>
                         <p>{data.p5}</p>
                         <p>{data.p6}</p>
+                        <p>{data.p7}</p>
                         <ol>
-                        <li>1 yes;</li>
-                        <li>2 no;</li>
-                        <li>3 considering or planning to implement;</li>
-                        <li>4 not applicable.</li>
+                        <li>yes;</li>
+                        <li>no;</li>
+                        <li>considering or planning to implement;</li>
+                        <li>not applicable.</li>
                         </ol>
 
                         <p></p>
                         <p></p>
                         <p></p>
                         <p></p>
-                        <p>{data.p7}</p>
 
                         <ol start="" role="list">
                             {data.listanswers && data.listanswers.map((answer) => {

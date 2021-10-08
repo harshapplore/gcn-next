@@ -18,6 +18,7 @@ const CompensationChoices = ({ total, charityCode, setCharityCode, charityError,
 
     useEffect(async () => {
         let data = await getCharityProjects();
+        console.log(data)
         setState(data)
     }, [])
     const compPrice = co2CompensationPrice;
