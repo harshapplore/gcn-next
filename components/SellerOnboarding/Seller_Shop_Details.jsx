@@ -118,8 +118,8 @@ const Seller_Shop_Details = ({ nextPage }) => {
             data: data
         });
         setLoading(false)
-        window.location.assign("http://localhost:3000/seller/settings")
-        // window.location.assign("https://app.greencloudnine.com/seller/settings")
+        // window.location.assign("http://localhost:3000/seller/settings")
+        window.location.assign("https://app.greencloudnine.com/seller/settings")
         // router.push("/seller/products")
     };
     return (

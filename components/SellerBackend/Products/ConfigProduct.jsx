@@ -460,7 +460,7 @@ const ConfigProduct = () => {
                 />
               </div>
 
-              <Select
+              {/* <Select
                 choices={categories.map((cat) => cat.name)}
                 value={product.description ||""}
                 placeholder={
@@ -469,7 +469,24 @@ const ConfigProduct = () => {
                       if (c.id === product.category) return a + c.name;
 
                       return a + "";
-                    }, ""))
+                    }, "") || "Select Category")
+                }
+                setValue={(value) =>
+                  setProduct({ ...product, category: categories[value].id })
+                }
+                error={errors.category}
+              /> */}
+              <Select
+                choices={categories.map((cat) => cat.name)}
+                value={""}
+                placeholder={
+                  (categories &&
+                    categories.reduce((a, c) => {
+                      if (c.id === product.category) return a + c.name;
+
+                      return a + "";
+                    }, "")) ||
+                  "Select Category"
                 }
                 setValue={(value) =>
                   setProduct({ ...product, category: categories[value].id })

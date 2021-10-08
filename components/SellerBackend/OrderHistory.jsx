@@ -149,7 +149,7 @@ const OrderHistory = () => {
                         </div>
                         <div>
                           <div className="light">Delivered to</div>
-                          <div className="rubik">{billingAddress?.name}, {billingAddress?.streetAddress}, {billingAddress?.city}, {billingAddress?.postalCode}, {billingAddress?.country}</div>
+                          <div className="rubik">{billingAddress?.name}, {billingAddress?.streetAddress},<br/> {billingAddress?.city}, {billingAddress?.postalCode}, {billingAddress?.country}</div>
                         </div>
                         <div className="light mgt50 mb-10">Items</div>
                         {snaps?.products?.map(product => {
