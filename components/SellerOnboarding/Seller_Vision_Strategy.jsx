@@ -131,6 +131,7 @@ console.log(response)
           {/* <br /> */}
           <h1 className="headline-2 mb-10"> Hello {sellerName} , let's get started! </h1>
           <div className="overline-text mb-40">{data.subheading}</div>
+          <ProgressBar />
 
           <div className=" mb-40  w-richtext">
             <p><strong>{data.q1}</strong></p>
@@ -144,7 +145,6 @@ console.log(response)
             <p><strong>{data.q3}</strong></p>
             <p>{data.p4}</p>
           </div>
-          <ProgressBar />
 
           <div className="settings-block" id="vision">
             <h3 className="headline-5 mb-50">Vision and Strategy</h3>

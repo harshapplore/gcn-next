@@ -395,7 +395,7 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                                 onChange={(e) => setCurrency(e.target.value)}
                                 className="input-x input-x--select w-select"
                               >
-                                <option value="EUR">EUR</option>
+                                {/* <option value="EUR">EUR</option> */}
                                 {currencyOptions &&
                                   currencyOptions.map((option) => (
                                     <option key={option} value={option}>
@@ -449,7 +449,7 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                                 onChange={(e) => setCurrency(e.target.value)}
                                 className="input-x input-x--select w-select"
                               >
-                                <option value="EUR">EUR</option>
+                                {/* <option value="EUR">EUR</option> */}
                                 {currencyOptions &&
                                   currencyOptions.map((option) => (
                                     <option key={option} value={option}>
@@ -504,7 +504,7 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                                 onChange={(e) => setCurrency(e.target.value)}
                                 className="input-x input-x--select w-select"
                               >
-                                <option value="EUR">EUR</option>
+                                {/* <option value="EUR">EUR</option> */}
                                 {currencyOptions &&
                                   currencyOptions.map((option) => (
                                     <option key={option} value={option}>
@@ -562,7 +562,7 @@ const Seller_Shop_Shipping_Settings = ({ nextPage }) => {
                                 onChange={(e) => setCurrency(e.target.value)}
                                 className="input-x input-x--select w-select"
                               >
-                                <option value="EUR">EUR</option>
+                                {/* <option value="EUR">EUR</option> */}
                                 {currencyOptions &&
                                   currencyOptions.map((option) => (
                                     <option key={option} value={option}>

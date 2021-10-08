@@ -194,7 +194,7 @@ const OrderHistory = () => {
                                     setStatus(e.target.value)
                                   }}
                                 >
-                                  {order.status && <option value={order.status}>{order.status}</option>}
+                                  {/* {order.status && <option value={order.status}>{order.status}</option>} */}
                                   <option value={order.status === "Processing" ? order.status : "Processing"}>Processing</option>
                                   <option value={order.status === "Dispatched" ? order.status : "Dispatched"}>Dispatched</option>
                                   <option value={order.status === "Out_For_Delivery" ? order.status : "Out_For_Delivery"}>Out for delivery</option>

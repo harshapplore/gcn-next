@@ -8,9 +8,12 @@ import router from "next/router";
 import ErrorInput from "@/shared/Input/Error";
 
 
+
+
 import { saveAddress } from '@/_methods/cart';
 import { fetchCustomer } from '@/slices/customer';
 import Password from '../SellerBackend/Settings/sections/password';
+import { scrollToElement } from '@/utils/scroll';
 
 //settings
 
@@ -246,7 +249,7 @@ const Settings = () => {
 
         }
         if (response && response.data && response.data.jwt) {
-           
+
             const res = await changePassword(currPassword, password);
 
             console.log("res", res);
@@ -256,8 +259,8 @@ const Settings = () => {
             setTimeout(() => setSuccess(""), 2000);
 
         }
-        else{
-            errors.currPassword="Please provide current password"
+        else {
+            errors.currPassword = "Please provide current password"
             setErrors(errors)
         }
 
@@ -338,21 +341,29 @@ const Settings = () => {
             <div className="flex">
                 <h2 className="headline-4 mb-30">My Account Settings</h2>
                 <div className="settings-nav">
-                    <a href="#" className="settings-link current orange"> Password &amp; E-Mail</a>
-                    <a href="#" className="settings-link">Billing &amp; Delivery Adress</a>
-                    <a href="#" className="settings-link">Payment &amp; Preferences</a>
-                    <a href="#" className="settings-link">Delete Account</a>
+                    <div onClick={() => scrollToElement("#passwordAndEmail")} className="cursor settings-link current orange"> Password &amp; E-Mail</div>
+                    <div onClick={() => scrollToElement("#billing")} className="cursor settings-link">Billing &amp; Delivery Adress</div>
+                    <div onClick={() => scrollToElement("#preferences")} className="cursor settings-link">Payment &amp; Preferences</div>
+                    <div onClick={() => scrollToElement("#deleteAcct")} className="cursor settings-link">Delete Account</div>
                 </div>
             </div>
 
             <div className="settings-block">
                 <h3 className="headline-5 mb-30">About me</h3>
-                <div className="account-form-2">
+                <div className="account-form-2" id="passwordAndEmail">
                     <div>
                         <div className="label">Current Name</div>
                         <div>{customer.user?.name}</div>
                         <div className="label mgt-20">Membership since</div>
-                        <div>01.01.2021</div>
+                        <div>
+                            {new Date(customer.createdAt) &&
+                                new Date(customer.createdAt).getDate() +
+                                "." +
+                                (new Date(customer.createdAt).getMonth() < 10 ? "0" : "") +
+                                Number(new Date(customer.createdAt).getMonth()) +
+                                "." +
+                                new Date(customer.createdAt).getFullYear()}
+                        </div>
                     </div>
                     <div className="w-form">
                         <form id="wf-form-Change-Password" name="wf-form-Change-Password" data-name="Change Password">
@@ -386,12 +397,19 @@ const Settings = () => {
                     </div>
                 </div>
             </div>
-            <div className="settings-block">
+            <div className="settings-block" >
                 <h3 className="headline-5 mb-30">Password</h3>
                 <div className="account-form-2">
                     <div>
                         <div className="label">Last Changed</div>
-                        <div>01.01.2021</div>
+                        <div>
+                            {customer.user && new Date(customer.user.updatedAt) &&
+                            new Date(customer.user.updatedAt).getDate() +
+                            "." +
+                            (new Date(customer.user.updatedAt).getMonth() < 10 ? "0" : "") +
+                            Number(new Date(customer.user.updatedAt).getMonth()) +
+                            "." +
+                            new Date(customer.user.updatedAt).getFullYear()}</div>
                     </div>
                     <div className="w-form">
                         <form id="wf-form-Change-Password" name="wf-form-Change-Password" data-name="Change Password">
@@ -460,7 +478,7 @@ const Settings = () => {
                 </div>
             </div>
 
-            <div className="settings-block">
+            <div className="settings-block" id="billing">
                 <div className="account-current-data">
                     <div>
                         <div className="uppercase">BILLING&nbsp;ADDRESS</div>
@@ -610,7 +628,6 @@ const Settings = () => {
                 <div className="w-form">
                     <form id="wf-form-Change-Shop-Information" name="wf-form-Change-Shop-Information" data-name="Change Shop Information">
                         <div className="account-form-1">
-
                             <div className="input-x input-x--flex">
                                 <input
                                     type="text"
@@ -622,7 +639,6 @@ const Settings = () => {
                                     data-name="Street Adress 4"
                                     placeholder="Street adress"
                                     id="Street-adress-4" />
-
                             </div>
                             <div className="input-x input-x--flex">
                                 <input
@@ -635,7 +651,6 @@ const Settings = () => {
                                     data-name="City 4"
                                     placeholder="City"
                                     id="City-4" />
-
                             </div>
                             <div className="input-x input-x--flex">
                                 <input
@@ -648,7 +663,6 @@ const Settings = () => {
                                     data-name="Postal 2"
                                     placeholder="Postal Code"
                                     id="Postal-2" />
-
                             </div>
                             {/* <div  className="input-x input-x--flex align-top">
                                 <input
@@ -662,7 +676,7 @@ const Settings = () => {
                                     placeholder="VAT"
                                     id="VAT-3" />
                             </div> */}
-                            <div className="input-x input-x--flex align-top">
+                            <div className="input-x input-x--flex">
                                 <input
                                     type="email"
                                     className="input-x__input-field dark w-input"
@@ -673,9 +687,8 @@ const Settings = () => {
                                     data-name="VAT 3"
                                     placeholder="Delivery Email"
                                     id="VAT-3" />
-
                             </div>
-                            <div  className="input-x input-x--flex align-top">
+                            <div className="input-x input-x--flex">
                                 <input
                                     type="number"
                                     className="input-x__input-field dark w-input"
@@ -686,18 +699,17 @@ const Settings = () => {
                                     data-name="VAT 3"
                                     placeholder="Delivery Phone"
                                     id="VAT-3" />
-
                             </div>
-                            {deliveryDetMessage && <div><SuccessInput message={deliveryDetMessage} /></div> }
+                        </div>
+                            {deliveryDetMessage && <div><SuccessInput message={deliveryDetMessage} /></div>}
                             <div className="checkboxwrapper">
-                                <div className="flex mgt-30 buttonwrapper">
+                                <div className="flex">
 
                                     {loading ? <div className="button blue mr-10 orange">Loading...</div> :
                                         <div onClick={saveBilingAddress} className="button blue mr-10 orange">Save Changes</div>}
                                     {/* <a href="#" className="button blue mr-10 secondary orange nobg">Dele Adress</a> */}
                                 </div>
                             </div>
-                        </div>
                     </form>
                     <div className="w-form-done" />
                     <div className="w-form-fail" />
@@ -705,8 +717,8 @@ const Settings = () => {
                 <div className="settings-spacer" />
             </div>
 
-            <div className="settings-block">
-                <h3 className="headline-5 mb-30">Preferences</h3>
+            <div className="settings-block" id="preferences">
+                <h3 className="headline-5 mb-30" >Preferences</h3>
                 <div className="w-form">
                     <form id="wf-form-Change-Contact-Information" name="wf-form-Change-Contact-Information" data-name="Change Contact Information">
                         <div className="account-form-1 pref_form">
@@ -726,7 +738,7 @@ const Settings = () => {
                                 <option value="North America">North America</option>
                             </select>
                         </div>
-                        {regionMessage && <div><SuccessInput message={regionMessage} /></div> }
+                        {regionMessage && <div><SuccessInput message={regionMessage} /></div>}
                         {regionLoading ? <div className="button blue mr-10 orange">loading...</div> :
                             <div onClick={saveRegion} className="button blue mr-10 orange">Save Changes</div>}
                     </form>
@@ -738,8 +750,8 @@ const Settings = () => {
                     </div>
                 </div>
             </div>
-            <div className="settings-block">
-                <h3 className="headline-5 mb-30">Delete Account</h3>
+            <div className="settings-block" id="deleteAcct">
+                <h3 className="headline-5 mb-30" >Delete Account</h3>
                 <div className="delete-question">What happens to my Account if I delete it?</div>
                 <div className="delete-account">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
