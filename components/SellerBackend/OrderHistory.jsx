@@ -180,9 +180,15 @@ const OrderHistory = () => {
                               <div className="rubik">Credit Card</div>
                             </div>
                           </div>
-                          <div style={{ marginBottom: "20px" }}>
-                            <div className="light">Pick Up</div>
-                            <div className="rubik">{order.pickUpOrder ? "Pickup Enabled" : "Not Applicable"}</div>
+                          <div className="flex flex100 mb-30">
+                            <div className="mgr90">
+                              <div className="light">Pick Up</div>
+                              <div className="rubik">{order.pickUpOrder ? "Pickup Enabled" : "Not Applicable"}</div>
+                            </div>
+                            <div>
+                              <div className="light">Gift</div>
+                              <div className="rubik">{order.gift ? (order.giftMessage ? order.giftMessage : "No message") : "Not Applicable"}</div>
+                            </div>
                           </div>
                           <div className="w-form" style={{ width: "100%" }}>
                             <div id="email-form" name="email-form" data-name="Email Form" className="flex-order" >
