@@ -35,9 +35,10 @@ export const registerUser = async (
     const roleResponse = await putRole(response.data.jwt, role, dispatch);
 
     if (roleResponse) {
-      localStorage.setItem("data", roleResponse);
+      localStorage.setItem("data", JSON.stringify(roleResponse));
       return roleResponse;
     }
+
   }
 };
 

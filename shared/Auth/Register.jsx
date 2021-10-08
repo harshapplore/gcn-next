@@ -59,7 +59,7 @@ const Register = ({ close }) => {
         }
 
         const res = await registerUser(data, data.type, dispatch);
-        console.log(res)
+        console.log(res);
         if (res) {
             setSuccess(true);
             if (data.type === "seller") {
