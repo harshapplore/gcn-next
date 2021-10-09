@@ -10,6 +10,7 @@ export const filterConverter = (data) => {
     pickUp,
     freeDelivery,
     sale,
+    shopNames,
     deliversTo,
     ...rest
   } = data;
@@ -23,6 +24,8 @@ export const filterConverter = (data) => {
   if (deliversTo && deliversTo.length) newData.deliversTo = deliversTo;
 
   if (freeDelivery) newData.freeDelivery = freeDelivery;
+
+  if (shopNames && shopNames.length) newData.shopNames = shopNames;
 
   if (price && price.length > 0) {
     if (price.length === 1) {
@@ -107,19 +110,17 @@ export const queryBuilder = ({
     `shop: {
     ${shopName ? `name: ${JSON.stringify(shopName)}` : ""}
     ${shopLocation ? `` : ""}
-    ${
-      (deliversTo || deliveryTime) &&
-      `shipping{
+    ${(deliversTo || deliveryTime) &&
+    `shipping{
       ${deliversTo ? `country_in: ${JSON.stringify(deliversTo)}` : ""}
       ${freeDelivery ? `freeDelivery: ${freeDelivery}` : ""}
       ${pickUp ? `pickUp: ${pickUp}` : ""}
-      ${
-        deliveryTime
-          ? `{
+      ${deliveryTime
+      ? `{
         deliveryTime_in: ${JSON.stringify(deliveryTime)}
       }`
-          : ""
-      }
+      : ""
+    }
       }`
     }`;
 
@@ -153,7 +154,7 @@ export const queryBuilder = ({
 };
 
 export const filterQuery = `
-  query test($sustainability: [String], $colors: [String], $price_lt: Float, $price_gt: Float, $shopName: String, $sortBy: String, $category: String, $freeDelivery: Boolean, $sale: Boolean, $pickUp: Boolean, $deliversTo: [String], $deliveryTime: String, $shopLocation: String, $search: String, $tags: [String]) {
+  query test($sustainability: [String], $colors: [String], $price_lt: Float, $price_gt: Float, $shopName: String, $shopNames: [String], $sortBy: String, $category: String, $freeDelivery: Boolean, $sale: Boolean, $pickUp: Boolean, $deliversTo: [String], $deliveryTime: String, $shopLocation: String, $search: String, $tags: [String]) {
     products(where: {
       name_contains: $search
       sustainability_in: $sustainability
@@ -167,6 +168,7 @@ export const filterQuery = `
       },
       shop: {
         name: $shopName
+        name_in: $shopNames
         country: $shopLocation
         freeDelivery: $freeDelivery
         pickUp: $pickUp

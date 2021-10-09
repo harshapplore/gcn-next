@@ -31,13 +31,24 @@ const TopFilter = ({ filters, setFilters, shopView }) => {
         setValue={(value) => setFilters({ ...filters, sustainability: value })}
       />
 
-      {!shopView && <FilterDropdown
+      {/* {!shopView && <CheckDropdown
         choices={(shopsData && shopsData.shops.map((shop) => shop.name)) || []}
         placeholder="Shop"
         value={filters.brand}
         width="200px"
         setValue={(value) => setFilters({ ...filters, brand: value })}
-      /> }
+      /> } */}
+
+      {!shopView && (
+        <CheckDropdown
+          choices={shopsData?.shops?.map((shop) => shop.name)}
+          placeholder="Shop"
+          value={filters.shopNames || []}
+          setValue={(shopNames) =>
+            setFilters({ ...filters, shopNames })
+          }
+        />
+      )}
 
       <CheckDropdown
         choices={__filters.price}
