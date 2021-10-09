@@ -14,6 +14,8 @@ import { addToFavorites, deleteFavorite } from "@/_controllers/customer";
 import { urqlClient } from "@/setups/urql";
 import { filterQuery, filterConverter } from "@/_methods/filters";
 
+import AppLoader from "@/utils/AppLoader/AppLoader";
+
 const Rating = ({ rating }) => {
   let filled = rating;
   let empty = 5 - rating;
@@ -171,7 +173,11 @@ const View = () => {
   const [products, setProducts] = useState([]);
   const [filters, setFilters] = useState({});
 
+  const [loadingProducts, setLoadingProducts] = useState(false);
+
   useEffect(async () => {
+    setLoadingProducts(true);
+
     const products = await getProducts();
 
     if (router.query.filters) {
@@ -187,8 +193,11 @@ const View = () => {
         const results = await urqlClient.query(filterQuery, data).toPromise();
 
         setProducts(results.data && results.data.products);
+        setLoadingProducts(false);
         return;
       }
+
+      setLoadingProducts(false);
     }
 
     setProducts(products);
@@ -226,9 +235,11 @@ const View = () => {
           <div className="overline-text">Green Fashion Shop</div>
         </div>
       </div>
-      {filters.search &&
-        <div style={{ textAlign: "center",marginBottom:"20px" }} >Search Results : Showing Results for '{filters.search}'</div>
-      }
+      {filters.search && (
+        <div style={{ textAlign: "center", marginBottom: "20px" }}>
+          Search Results : Showing Results for '{filters.search}'
+        </div>
+      )}
       <div className="container">
         <div className="flex-2">
           <div className="shop-filter popup-mobile mt-40">
@@ -341,17 +352,32 @@ const View = () => {
                 <TopFilter filters={filters} setFilters={setFilters} />
               </div>
             </div>
-            <div className="flex left-4">
-              {products &&
-                products.length > 0 &&
-                products.map((product, index) => (
-                  <ShopItem
-                    key={"pro" + index}
-                    product={product}
-                    favorites={favoriteItems}
-                  />
-                ))}
-            </div>
+
+            {loadingProducts && (
+              <div className="">
+                <AppLoader />
+              </div>
+            )}
+
+            {!loadingProducts && !products?.length && (
+              <div className="flex left-4">
+                No products currently available. Please visit later.
+              </div>
+            )}
+
+            {!loadingProducts && (
+              <div className="flex left-4">
+                {products &&
+                  products.length > 0 &&
+                  products.map((product, index) => (
+                    <ShopItem
+                      key={"pro" + index}
+                      product={product}
+                      favorites={favoriteItems}
+                    />
+                  ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
