@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import styles from './style.module.css'
 
-import { getOrder } from "@/_controllers/customer";
+import { getOrder, sendEmail } from "@/_controllers/customer";
 import { getShop } from "@/_controllers/shop";
 import { dateFormatter } from "@/_hooks/dateFormatter";
 import { usePriceFormatter } from "@/_hooks/usePriceFormatter";
@@ -13,6 +13,7 @@ import RatingInput from "@/shared/Input/Rating";
 import TextArea from "@/shared/Input/TextArea";
 import Button from "@/shared/Button";
 import Modal from 'react-modal';
+import authAxios from "@/setups/axios";
 
 const Product = ({ product, shopName }) => {
     return (
@@ -220,29 +221,45 @@ const Order = (props) => {
 
                                             {(snaps.Status != "Cancelled" && snaps.Status != "Delivered" && snaps.Status != "Product Reviewed") &&
                                                 <React.Fragment>
-                                                    {loading == snaps?.shop._id
+                                                    {order.status !== "Cancelled" &&  (loading == snaps?.shop._id 
                                                         ?
                                                         <button
-                                                            href="#"
+                                                            
                                                             className="button red lowercase block w-button">
                                                             Loading...
                                                         </button>
                                                         :
                                                         <button
-                                                            href="#"
+                                                           
                                                             className="button red lowercase block w-button"
-                                                            onClick={() => {
+                                                            onClick={async() => {
                                                                 setLoading(snaps?.shop._id);
-                                                                cancelOrder({
-                                                                    orderId: order?._id,
-                                                                    shopId: snaps?.shop._id,
-                                                                    Status: "Cancelled"
-                                                                })
+                                                                const response = await authAxios()({
+                                                                    url: `/orders/${order.id}`,
+                                                                    method: "PUT",
+                                                                    data:{
+                                                                        status:"Cancelled"
+                                                                    }
+                                                                  });
+                                                                  console.log(response)
+                                                                  if(response.data)
+                                                                  {
+                                                                       response.data.products.map(async product =>{
+                                                                        const response = await authAxios()({
+                                                                            url: `/users/${product.seller.user}`,
+                                                                            method: "GET",
+                                                                          });
+
+                                                                          console.log(response)
+                                                                          sendEmail(response.data.email, "Order Cancelled", "Order Cencelled ")
+                                                                      })
+                                                                  }
                                                                 setTimeout(() => {
                                                                     props.getOrders();
                                                                 }, 1000);
+                                                                setLoading("")
                                                             }}
-                                                        >Cancel Order</button>}
+                                                        >Cancel Order</button>)}
                                                 </React.Fragment>}
                                         </div>
                                     </div>

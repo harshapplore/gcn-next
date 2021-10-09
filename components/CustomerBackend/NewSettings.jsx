@@ -6,7 +6,7 @@ import { changeEmail, changeName, changePassword } from '@/_controllers/customer
 import authAxios, { axios } from '@/setups/axios';
 import router from "next/router";
 import ErrorInput from "@/shared/Input/Error";
-
+import countries from '../../_data/countries.json'
 
 
 
@@ -342,7 +342,7 @@ const Settings = () => {
                 <h2 className="headline-4 mb-30">My Account Settings</h2>
                 <div className="settings-nav">
                     <div onClick={() => scrollToElement("#passwordAndEmail")} className="cursor settings-link current orange"> Password &amp; E-Mail</div>
-                    <div onClick={() => scrollToElement("#billing")} className="cursor settings-link">Billing &amp; Delivery Adress</div>
+                    <div onClick={() => scrollToElement("#billing")} className="cursor settings-link">Billing &amp; Delivery Address</div>
                     <div onClick={() => scrollToElement("#preferences")} className="cursor settings-link">Payment &amp; Preferences</div>
                     <div onClick={() => scrollToElement("#deleteAcct")} className="cursor settings-link">Delete Account</div>
                 </div>
@@ -440,25 +440,25 @@ const Settings = () => {
                 </div>
             </div>
             <div className="settings-block">
-                <h3 className="headline-5 mb-30">My E-Mail Adress</h3>
+                <h3 className="headline-5 mb-30">My E-Mail Address</h3>
                 <div className="account-form-2">
                     <div>
-                        <div className="label">Current E-Mail Adress</div>
+                        <div className="label">Current E-Mail Address</div>
                         <div>{customer.user?.email}</div>
                         <div className="label mgt-20">Status</div>
                         <div>{customer.user?.confirmed ? "Confirmed" : "Unconfirmed"}</div>
                     </div>
                     <div className="w-form">
                         <form id="wf-form-Change-Password" name="wf-form-Change-Password" data-name="Change Password">
-                            <h4 className="subtitle-2 mb-10">Change E-Mail Adress</h4>
+                            <h4 className="subtitle-2 mb-10">Change E-Mail Address</h4>
                             <input
                                 type="text"
                                 className="input-x mb-15 w-input"
                                 maxLength={256}
-                                name="Current-E-Mail-Adress"
-                                data-name="Current E-Mail Adress"
+                                name="Current-E-Mail-Address"
+                                data-name="Current E-Mail Address"
                                 placeholder="Current E-Mail *"
-                                id="Current-E-Mail-Adress"
+                                id="Current-E-Mail-Address"
                                 value={customer.user?.email || email}
                                 required />
                             <div className="input-x input-x--flex mb-15"><input type="text" className="input-x__input-field w-input" maxLength={256} name="New-Mail-2" data-name="New Mail 2" placeholder="New E-Mail *" id="New-Mail" required value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -534,10 +534,10 @@ const Settings = () => {
                                     maxLength={256}
                                     value={streetAddress}
                                     onChange={e => setStreetAddress(e.target.value)}
-                                    name="Street-adress-4"
-                                    data-name="Street Adress 4"
-                                    placeholder="Street adress"
-                                    id="Street-adress-4" />
+                                    name="Street-Address-4"
+                                    data-name="Street Address 4"
+                                    placeholder="Street Address"
+                                    id="Street-Address-4" />
 
                             </div>
                             <div className="input-x input-x--flex">
@@ -608,7 +608,7 @@ const Settings = () => {
                             {/* <div className="checkboxwrapper">
                                 <div className="flex mgt-30 buttonwrapper"> */}
                             {/* <div onClick={saveBilingAddress} className="button blue mr-10 orange">Save Changes</div> */}
-                            {/* <a href="#" className="button blue mr-10 secondary orange nobg">Dele Adress</a> */}
+                            {/* <a href="#" className="button blue mr-10 secondary orange nobg">Dele Address</a> */}
                             {/* </div> */}
                             {/* </div>  */}
                         </div>
@@ -635,10 +635,10 @@ const Settings = () => {
                                     maxLength={256}
                                     value={streetAddressDel}
                                     onChange={e => setStreetAddressDel(e.target.value)}
-                                    name="Street-adress-4"
-                                    data-name="Street Adress 4"
-                                    placeholder="Street adress"
-                                    id="Street-adress-4" />
+                                    name="Street-Address-4"
+                                    data-name="Street Address 4"
+                                    placeholder="Street Address"
+                                    id="Street-Address-4" />
                             </div>
                             <div className="input-x input-x--flex">
                                 <input
@@ -707,7 +707,7 @@ const Settings = () => {
 
                                     {loading ? <div className="button blue mr-10 orange">Loading...</div> :
                                         <div onClick={saveBilingAddress} className="button blue mr-10 orange">Save Changes</div>}
-                                    {/* <a href="#" className="button blue mr-10 secondary orange nobg">Dele Adress</a> */}
+                                    {/* <a href="#" className="button blue mr-10 secondary orange nobg">Dele Address</a> */}
                                 </div>
                             </div>
                     </form>
@@ -734,8 +734,9 @@ const Settings = () => {
                             </select>
                             <select name="Region" onChange={e => setRegion(e.target.value)} data-name="Region" id="Region" required className="input-x input-x--select w-select">
                                 <option value={region && region}>{region || "Select a Region"}</option>
-                                <option value="Europe">Europe</option>
-                                <option value="North America">North America</option>
+                                {countries && countries.map(country=> <option key={country} value={country}>{country}</option>)}
+                                
+                                {/* <option value="North America">North America</option> */}
                             </select>
                         </div>
                         {regionMessage && <div><SuccessInput message={regionMessage} /></div>}

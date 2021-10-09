@@ -87,7 +87,7 @@ const Footer = () => {
                 ))}
             </div>
             <div className="footer-column">
-              <div className="footer-heading">GC9</div>
+              <div className="footer-heading">Info</div>
               <a
                 className="footer-link w-inline-block cursor"
                 onClick={() => router.push("/about")}
@@ -98,13 +98,20 @@ const Footer = () => {
                 className="footer-link w-inline-block cursor"
                 onClick={() => router.push("/seller-info")}
               >
-                <div>Sell Products</div>
+                <div>How it works</div>
               </a>
               <a className="footer-link w-inline-block">
                 <div>Policies</div>
               </a>
+              <a className="cursor footer-link w-inline-block"
+              onClick={() => router.push("/faq")}>
+                <div>FAQs</div>
+              </a>
+              <a className="cursor footer-link w-inline-block">
+                <div>Contact</div>
+              </a>
             </div>
-            <div className="footer-column">
+            {/* <div className="footer-column">
               <div className="footer-heading">Info</div>
               <a
                 className="footer-link w-inline-block"
@@ -118,7 +125,7 @@ const Footer = () => {
               >
                 <div>For sellers</div>
               </a>
-            </div>
+            </div> */}
             <div className="footer-column last">
               <div>
                 <span className="medium">Green Cloud Nine e.U.</span>
@@ -139,7 +146,7 @@ const Footer = () => {
       <div className="page-section footer-bar">
         <div className="container w-clearfix">
           <div className="footer-bar-content">
-            <a className="footer-inline-link">Terms of Service</a>
+            <a className="footer-inline-link" href="https://app.greencloudnine.com/terms-and-conditions" target="_blank">Terms of Service</a>
             <div className="footer-inline-link-divider">|</div>
             <a className="footer-inline-link">Privacy Policy</a>
             <div className="footer-inline-link-divider">|</div>

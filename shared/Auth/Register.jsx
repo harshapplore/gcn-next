@@ -156,7 +156,7 @@ const Register = ({ close }) => {
                                     )} */}
                                     <SelectForRegister
                                         choices={countries}
-                                        placeholder="Europe"
+                                        placeholder="Albania"
                                         value={data.region}
                                         setValue={(value) => setData({ ...data, region: value })}
                                         error={errors.region}

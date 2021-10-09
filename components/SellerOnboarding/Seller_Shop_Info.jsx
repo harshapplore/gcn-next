@@ -8,6 +8,8 @@ import Message from "@/shared/Message";
 
 import user, { fetchSeller } from "@/slices/user";
 import router from "next/router";
+import countries from '../../_data/countries.json'
+
 
 const Seller_Shop_Info = ({ nextPage }) => {
 	const { seller } = useSelector((state) => state.user);
@@ -42,8 +44,8 @@ const Seller_Shop_Info = ({ nextPage }) => {
 	const [loading, setLoading] = useState(false);
 	const dispatch = useDispatch();
 	useEffect(() => {
-		console.log("SELLER INFO");
-		console.log(sellerInfo.seller.qaStatus);
+		// console.log("SELLER INFO");
+		// console.log(sellerInfo.seller.qaStatus);
 		if (
 			sellerInfo &&
 			sellerInfo.seller &&
@@ -61,6 +63,14 @@ const Seller_Shop_Info = ({ nextPage }) => {
 			setPhone(seller.basicInformationAnswers.mobile);
 			setEmail(seller.user.email);
 			setInitials(seller.basicInformationAnswers.initials);
+			setCurrency(seller.shop.currency)
+			setLanguage(seller.shop.language)
+			setRegion(seller.shop.region)
+			setContactPhone(seller.phone)
+			setContactEmail(seller.shop.contactEmail)
+			setOrderEmail(seller.shop.orderManagementEmail)
+			setReturnEmail(seller.shop.returnsEmail)
+			setCustomerServiceEmail(seller.shop.customerServiceEmail)
 		}
 	}, [seller]);
 
@@ -145,13 +155,14 @@ const Seller_Shop_Info = ({ nextPage }) => {
 			data: ibankData,
 		});
 		const data = {
-			phone: contactPhone,
+			
 			contactEmail,
 			orderManagementEmail: orderEmail,
 			returnsEmail: returnEmail,
 			customerServiceEmail: customerServiceEmail,
 			// iban: IBAN,
 			language,
+			region,
 			currency,
 			// images: response
 		};
@@ -164,6 +175,7 @@ const Seller_Shop_Info = ({ nextPage }) => {
 			url: `/sellers/${seller.id}`,
 			method: "PUT",
 			data: {
+				phone: contactPhone,
 				shop: res.data._id,
 			},
 		});
@@ -202,9 +214,8 @@ const Seller_Shop_Info = ({ nextPage }) => {
 											<div className="assessment-radios">
 												<label className="checkbox-field mb-0 w-clearfix w-radio">
 													<div
-														className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-															initials === "Mr." ? " w--redirected-checked" : ""
-														}`}
+														className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${initials === "Mr." ? " w--redirected-checked" : ""
+															}`}
 													></div>
 													<input
 														type="radio"
@@ -231,11 +242,10 @@ const Seller_Shop_Info = ({ nextPage }) => {
 												</label>
 												<label className="checkbox-field mb-0 w-clearfix w-radio">
 													<div
-														className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-															initials === "Mrs."
-																? " w--redirected-checked"
-																: ""
-														}`}
+														className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${initials === "Mrs."
+															? " w--redirected-checked"
+															: ""
+															}`}
 													></div>
 													<input
 														type="radio"
@@ -261,9 +271,8 @@ const Seller_Shop_Info = ({ nextPage }) => {
 												</label>
 												<label className="checkbox-field mb-0 w-clearfix w-radio">
 													<div
-														className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-															initials === "Ms." ? " w--redirected-checked" : ""
-														}`}
+														className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${initials === "Ms." ? " w--redirected-checked" : ""
+															}`}
 													></div>
 													<input
 														type="radio"
@@ -289,11 +298,10 @@ const Seller_Shop_Info = ({ nextPage }) => {
 												</label>
 												<label className="checkbox-field mb-0 w-clearfix w-radio">
 													<div
-														className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${
-															initials === "Miss"
-																? " w--redirected-checked"
-																: ""
-														}`}
+														className={`w-form-formradioinput w-form-formradioinput--inputType-custom radio-button w-radio-input  ${initials === "Miss"
+															? " w--redirected-checked"
+															: ""
+															}`}
 													></div>
 													<input
 														type="radio"
@@ -416,7 +424,7 @@ const Seller_Shop_Info = ({ nextPage }) => {
 											<div className="input-x input-x--flex">
 												{!editEmail ? (
 													<div className={`${!editEmail ? "" : " hidden"}`}>
-														{email ? email : "name"}
+														{email ? email : "example@email.com"}
 													</div>
 												) : (
 													<input
@@ -644,15 +652,15 @@ const Seller_Shop_Info = ({ nextPage }) => {
 													onChange={(e) => setLanguage(e.target.value)}
 													className="input-x input-x--select w-select"
 												>
-													<option value="">Select a Language</option>
-													<option value="de">Deutsch</option>
-													<option value="en">English</option>
+													<option value={language ? language : ""}>{language ? language : "Select a Language"}</option>
+													<option value="deutsch">Deutsch</option>
+													<option value="english">English</option>
 												</select>
 												<select
 													onChange={(e) => setCurrency(e.target.value)}
 													className="input-x input-x--select w-select"
 												>
-													<option value="">Select a Currency</option>
+													<option value={currency ? currency : ""}>{currency ? currency : "Select a Currency"}</option>
 													<option value="EUR">€ (EUR)</option>
 													<option value="USD">$ (USD)</option>
 												</select>
@@ -660,9 +668,10 @@ const Seller_Shop_Info = ({ nextPage }) => {
 													onChange={(e) => setRegion(e.target.value)}
 													className="input-x input-x--select w-select"
 												>
-													<option value="">Select a Region</option>
-													<option value="Europe">Europe</option>
-													<option value="North America">North America</option>
+													<option value={region ? region : ""}>{region ? region : "Select a Region"}</option>
+													{/* <option value="Europe">Europe</option> */}
+													{countries && countries.map(country => <option key={country} value={country}>{country}</option>)}
+													{/* <option value="North America">North America</option> */}
 												</select>
 											</div>
 										</div>

@@ -39,7 +39,7 @@ const SellerBackend = () => {
 
   useEffect(() => {
     if (!seller.id) dispatch(fetchSeller());
-    if (!seller.shop) router.push("/")
+    // if (!seller.shop) router.push("/")
   }, []);
 
   useEffect(() => {

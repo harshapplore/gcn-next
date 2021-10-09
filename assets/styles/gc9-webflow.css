@@ -362,6 +362,7 @@ label {
   text-decoration: none;
   text-transform: uppercase;
 }
+
 .lowercase {
     text-transform: capitalize;
 }

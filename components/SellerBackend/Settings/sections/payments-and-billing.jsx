@@ -160,11 +160,11 @@ const Payments = () => {
               <div className="label">Current Business Plan</div>
               <div>Bonsai</div>
             </div>
-            :
-            <div>
-              <div className="label">Current Business Plan</div>
-              <div>Oak</div>
-            </div>}
+              :
+              <div>
+                <div className="label">Current Business Plan</div>
+                <div>Oak</div>
+              </div>}
           </div>
           <div className="plan-details w-richtext">
             <p>
@@ -175,19 +175,19 @@ const Payments = () => {
               <li>€ 0,20 listing fee per item</li>
               <li>max. 15 items</li>
             </ul>
-            :
-            <ul role="list">
-              <li>12% commission fee on all transactions</li>
-              <li>€ 29 per month</li>
-              <li>Unlimited listings</li>
-            </ul>
+              :
+              <ul role="list">
+                <li>12% commission fee on all transactions</li>
+                <li>€ 29 per month</li>
+                <li>Unlimited listings</li>
+              </ul>
             }
           </div>
           <a
             id="w-node-f58e9903-c090-0e6b-e66d-899582061220-0db831b0"
             className="button blue"
             style={{ height: "50px" }}
-            onClick={() => router.push("/seller-onboarding/pricing-plan") }
+            onClick={() => router.push("/seller-onboarding/pricing-plan")}
           >
             Change my plan
           </a>
@@ -205,19 +205,17 @@ const Payments = () => {
               <div>01.02.2021</div>
             </div>
           </div>
-        </div>
-        <div className="account-form-1">
 
-          <input
-            onChange={(e) => setCompanyName(e.target.value)}
-            value={companyName}
-            type="text"
-            className="input-x mb-15 w-input"
-            maxLength="256"
-            placeholder="Name or Company Name *"
-            required=""
-          />
-          <div className="account-form-1">
+          <div className="account-form-1-seller-billing">
+            <input
+              onChange={(e) => setCompanyName(e.target.value)}
+              value={companyName}
+              type="text"
+              className="input-x mb-15 w-input"
+              maxLength="256"
+              placeholder="Name or Company Name *"
+              required=""
+            />
             <input
               onChange={(e) => setStreetAddress(e.target.value)}
               value={streetAddress}

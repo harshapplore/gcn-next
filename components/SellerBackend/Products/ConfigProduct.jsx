@@ -393,6 +393,9 @@ const ConfigProduct = () => {
     await save();
 
     setLoading({ save: false });
+    location.assign("http://localhost:3000/seller/products");
+    // location.assign("https://app.greencloudnine.com/seller/products");
+
   };
 
   const handleNext = async () => {

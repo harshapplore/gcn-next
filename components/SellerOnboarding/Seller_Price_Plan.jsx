@@ -86,7 +86,7 @@ const Seller_Price_Plan = ({ nextPage }) => {
           <div style={{marginRight:"40px"}} className=" plan-blur button blue mr-40  mb-60" onClick={submit}>Continue </div>                            
                                       
           <div className="div-block-3">
-            <div className="headline-5 mr-40">Not sure yet? Try our beta version</div>
+            <div className="headline-5 mr-40">We are launching soon! Thank you for taking part in our beta test!</div>
             <div onClick={submit}  className="button orange">Try Beta Version</div>
           </div>
         </div>
