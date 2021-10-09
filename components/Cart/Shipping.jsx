@@ -97,12 +97,9 @@ const Shipping = ({ checkout, loading }) => {
   const { shipping, billing, setShipping, setBilling } =
     useContext(cartContext);
 
-  const [errors, setErrors] = useState({
-    billing: {},
-    shipping: {},
-  });
+  const [billingErrors, setBillingErrors] = useState({});
+  const [shippingErrors, setShippingErrors] = useState({});
 
-  console.log(shipping);
   useEffect(() => {
     const billing = loadAddress("billing");
     let newShipping = loadAddress("shipping");
@@ -119,7 +116,23 @@ const Shipping = ({ checkout, loading }) => {
     });
   }, []);
 
-  const validate = (data, key) => {
+  useEffect(() => {
+    if (!billing) return;
+
+    if (!Object.keys(billing).length) return;
+
+    saveAddress("billing", billing);
+  }, [billing]);
+
+  useEffect(() => {
+    if (!shipping) return;
+
+    if (!Object.keys(shipping).length) return;
+
+    saveAddress("shipping", shipping);
+  }, [shipping]);
+
+  const validate = async (data, key) => {
     const err = {};
 
     if (!data.name) err.name = "Name cannot be empty.";
@@ -140,40 +153,19 @@ const Shipping = ({ checkout, loading }) => {
     if (data.postalCode && !isPostalCode(data.postalCode))
       err.postalCode = "Please provide a valid postal code.";
 
-    const errorList = { ...errors };
+    if(key === "billing") setBillingErrors(err);
+    if(key === "shipping") setShippingErrors(err);
 
-    errorList[key] = err;
-
-    setErrors(errorList);
-
-    console.log(key, err, errorList);
-    console.log(billing, shipping);
-
-    if (Object.keys(errorList[key]).length) return false;
+    if (Object.keys(err).length) return false;
 
     return true;
   };
 
-  useEffect(() => {
-    if (!billing) return;
+  const next = async () => {
+    const billValid = await validate(billing, "billing");
 
-    if (!Object.keys(billing).length) return;
-
-    saveAddress("billing", billing);
-  }, [billing]);
-
-  useEffect(() => {
-    if (!shipping) return;
-
-    if (!Object.keys(shipping).length) return;
-
-    saveAddress("shipping", shipping);
-  }, [shipping]);
-  console.log(billing);
-  const next = () => {
-    const billValid = validate(billing, "billing");
-
-    const shipValid = shipping.sameAsBilling || validate(shipping, "shipping");
+    const shipValid =
+      shipping.sameAsBilling || (await validate(shipping, "shipping"));
 
     if (!billValid || !shipValid) return;
 
@@ -195,7 +187,7 @@ const Shipping = ({ checkout, loading }) => {
             data={billing}
             setData={setBilling}
             shipping={shipping}
-            errors={errors.billing || []}
+            errors={billingErrors || {}}
           />
         </div>
         <div className="flex-child-45">
@@ -210,7 +202,7 @@ const Shipping = ({ checkout, loading }) => {
               name="Delivery Address"
               data={shipping}
               setData={setShipping}
-              errors={errors.shipping || []}
+              errors={shippingErrors|| {}}
             />
           )}
         </div>

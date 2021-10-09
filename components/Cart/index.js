@@ -102,6 +102,8 @@ const Cart = () => {
       const productsList = await Promise.all(products);
 
       setProducts(productsList);
+
+      setProducts(cart);
     } else setProducts([]);
   }, [cart]);
 
@@ -133,34 +135,34 @@ const Cart = () => {
     if(shopsMeta.length) setShopsMeta(shopsMeta);
   }, [products]);
 
-  // useEffect(async () => {
-  //   if (!shops || !shops.length) return;
+  useEffect(async () => {
+    if (!shops || !shops.length) return;
 
-  //   const products = getProductView(shops);
+    const products = getProductView(shops);
 
-  //   saveCart(products);
+    saveCart(products);
 
-  //   const savedShopMeta = getShopsMeta();
+    // const savedShopMeta = getShopsMeta();
 
-  //   const shopsMeta = shops.map((shop) => {
-  //     const price = getSubTotalPrice(shop.products);
-  //     const delivery = getSubTotalDelivery(shop.products);
+    // const shopsMeta = shops.map((shop) => {
+    //   const price = getSubTotalPrice(shop.products);
+    //   const delivery = getSubTotalDelivery(shop.products);
 
-  //     const index = savedShopMeta.findIndex(
-  //       (meta) => shop.shopId === meta.shopId
-  //     );
+    //   const index = savedShopMeta.findIndex(
+    //     (meta) => shop.shopId === meta.shopId
+    //   );
 
-  //     return {
-  //       shopId: shop.shopId,
-  //       pickUp: index !== -1 ? savedShopMeta[index].pickUp : false,
-  //       price,
-  //       delivery,
-  //       subtotal: price + delivery,
-  //     };
-  //   });
+    //   return {
+    //     shopId: shop.shopId,
+    //     pickUp: index !== -1 ? savedShopMeta[index].pickUp : false,
+    //     price,
+    //     delivery,
+    //     subtotal: price + delivery,
+    //   };
+    // });
 
-  //   setShopsMeta(shopsMeta);
-  // }, [shops]);
+    // setShopsMeta(shopsMeta);
+  }, [shops]);
 
   useEffect(() => {
     if (!shopsMeta || !shopsMeta.length) return;
