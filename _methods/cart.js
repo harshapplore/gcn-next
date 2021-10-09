@@ -24,9 +24,9 @@ export const addToCart = (product) => {
 
   console.log("Cart", typeof cart);
 
-  const index = cart.findIndex((item) => item.id === product.id);
+  const index = cart.findIndex((item) => item.id === product.id && item.color === product.color && item.size === product.size);
 
-  if (index >= 0 && cart[index].color === product.color) {
+  if (index >= 0) {
     return saveCart([
       ...cart.slice(0, index),
       { ...cart[index], quantity: cart[index].quantity + 1 },
@@ -93,7 +93,7 @@ export const saveAddress = (type, address) => {
     throw new Error("Address cannot be empty");
 
   localStorage.setItem(type, JSON.stringify(address));
-  
+
   return JSON.parse(localStorage.getItem(type));
 };
 
