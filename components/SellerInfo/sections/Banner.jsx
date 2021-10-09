@@ -16,7 +16,7 @@ const Banner = () => {
       />
       <div className="container">
         <div className="home-banner-content" onClick={() => setShowAuth(true)}>
-          <a className="button blue w-button">Start selling now</a>
+          <a className="button blue w-button">Register Now</a>
         </div>
       </div>
       {showAuth && <AuthForm close={() => setShowAuth(false)} />}

@@ -46,14 +46,6 @@ const Pricing = () => {
                           tristique.{" "}
                         </p>
                       </div>
-                      <div className="center">
-                        <input
-                          type="submit"
-                          defaultValue="Select"
-                          data-wait="Please wait..."
-                          className="button blue w-button"
-                        />
-                      </div>
                     </div>
                   </div>
                   <div className="swiper-slide">
@@ -78,14 +70,6 @@ const Pricing = () => {
                           elit. Suspendisse varius enim in eros elementum
                           tristique.{" "}
                         </p>
-                      </div>
-                      <div className="center">
-                        <input
-                          type="submit"
-                          defaultValue="Select"
-                          data-wait="Please wait..."
-                          className="button blue w-button"
-                        />
                       </div>
                     </div>
                   </div>

@@ -607,7 +607,7 @@ const ConfigProduct = () => {
                 <div>
                   <div className="mb-10">
                     <Radio
-                      text="Shoe Sizes (UK)"
+                      text="Shoe Sizes (EU)"
                       value={product.sizesCategory === "shoe"}
                       setValue={(value) =>
                         value

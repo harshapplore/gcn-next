@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
+import TikTokSVGIcon from "@/assets/icons/tiktok.svg";
+
 const CategoryBlock = ({ name, action }) => {
   return (
     <a className="footer-link w-inline-block cursor" onClick={action}>
@@ -48,6 +50,13 @@ const Footer = () => {
               >
                 <img
                   src="/images/facebook-black-24-dp.svg"
+                  loading="lazy"
+                  alt="Facebook"
+                />
+              </a>
+              <a className="social-icon last w-inline-block cursor" href="https://tiktok.com/@greencloudnine">
+                <img
+                  src={TikTokSVGIcon.src}
                   loading="lazy"
                   alt="Facebook"
                 />
@@ -103,22 +112,15 @@ const Footer = () => {
               <a className="footer-link w-inline-block">
                 <div>Policies</div>
               </a>
+              <a href="/faq" className="footer-link w-inline-block">
+                <div>FAQ</div>
+              </a>
             </div>
             <div className="footer-column">
-              <div className="footer-heading">Info</div>
-              <a
-                className="footer-link w-inline-block"
-                onClick={() => router.push("/help")}
-              >
-                <div>For buyers</div>
-              </a>
-              <a
-                className="footer-link w-inline-block"
-                onClick={() => router.push("/help")}
-              >
-                <div>For sellers</div>
-              </a>
+              &nbsp;
             </div>
+            
+            
             <div className="footer-column last">
               <div>
                 <span className="medium">Green Cloud Nine e.U.</span>
@@ -130,7 +132,7 @@ const Footer = () => {
                 Österreich
                 <br />
                 <br />
-                <a className="footer-link">info@greencloudnine.com</a>
+                <a className="footer-link" href="mailto:info@greencloudnine.com">info@greencloudnine.com</a>
               </div>
             </div>
           </div>
