@@ -56,55 +56,54 @@ export const getSubTotalPrice = (products) => {
 };
 
 export const getSubTotalDelivery = (products) => {
-    let shop = products.length ? (products[0].shop ? products[0].shop : false)  : false
-    if(shop.shipping) {
-        
-        let totalWeight = 0;
-        products.forEach(val => {
-            totalWeight += val.weight * val.quantity
-        })
- 
-        let shippingPrice = 0;
-        shop.shipping.forEach(val => {
-            if (val.country == "National") {
-                val.weights.forEach(weight => {
-                    if (totalWeight < 1 && weight.category == "0 to 1Kg") {
-                        shippingPrice = weight.cost;
-                    } else if ((totalWeight >= 1 && totalWeight < 5) && weight.category == "1 to 5Kg") {
-                        shippingPrice = weight.cost;
-                    } else if ((totalWeight >= 5 && totalWeight < 10) && weight.category == "5 to 10Kg") {
-                        shippingPrice = weight.cost;
-                    } else if (totalWeight >= 10 && weight.category == "More than 10Kg") {
-                        shippingPrice = weight.cost;
-                    }
-                })
-            }
-        })
+  let shop = products.length ? (products[0].shop ? products[0].shop : false) : false
+  if (shop.shipping) {
 
-        return shippingPrice;
-    } else {
-        return 0;
-    } 
+    let totalWeight = 0;
+    products.forEach(val => {
+      totalWeight += val.weight * val.quantity
+    })
+
+    let shippingPrice = 0;
+    shop.shipping.forEach(val => {
+      if (val.country == "National") {
+        val.weights.forEach(weight => {
+          if (totalWeight < 1 && weight.category == "0 to 1Kg") {
+            shippingPrice = weight.cost;
+          } else if ((totalWeight >= 1 && totalWeight < 5) && weight.category == "1 to 5Kg") {
+            shippingPrice = weight.cost;
+          } else if ((totalWeight >= 5 && totalWeight < 10) && weight.category == "5 to 10Kg") {
+            shippingPrice = weight.cost;
+          } else if (totalWeight >= 10 && weight.category == "More than 10Kg") {
+            shippingPrice = weight.cost;
+          }
+        })
+      }
+    })
+
+    return shippingPrice;
+  } else {
+    return 0;
+  }
 };
 
 export const calculateVat = ({
   domesticCountry,
   destinationCountry,
   amount,
-}) => { 
+}) => {
 
-    let vat = countries.filter(val => val.name == domesticCountry)
-    if(vat.length > 0) {
-        let vatValue = vat[0].vat;
-        let finalAmount = ((vatValue / 100) * amount);
-        return finalAmount;
-    } else {
-        return 0;
-    } 
+  // console.log(domesticCountry, destinationCountry, amount);
+
+  let vat = countries.filter(val => val.name == domesticCountry)
+
+  console.log(vat);
+
+  if (vat.length > 0) {
+    let vatRate = vat[0].vat;
+    let finalAmount = (((vatRate*amount) / 100));
+    return finalAmount;
+  } else {
+    return 0;
+  }
 };
-
-/* Shop Meta Data Generator */
-
-// export const getShopMeta = () => {
-//   const
-// }

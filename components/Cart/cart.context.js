@@ -12,6 +12,7 @@ const initialValue = {
   totalPrice: 0,
   totalDelivery: 0,
   co2Compensation: 0,
+  vat: 0,
   total: 0,
 
   setShops: () => {},
@@ -25,6 +26,7 @@ const initialValue = {
   setTotalPrice: () => {},
   setTotalDelivery: () => {},
   setCo2Compensation: () => {},
+  setVat: () => {},
   setTotal: () => {},
 };
 
