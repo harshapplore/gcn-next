@@ -107,7 +107,7 @@ const Footer = () => {
               onClick={() => router.push("/faq")}>
                 <div>FAQs</div>
               </a>
-              <a className="cursor footer-link w-inline-block">
+              <a href="mailto:info@greencloudnine.com" className="cursor footer-link w-inline-block">
                 <div>Contact</div>
               </a>
             </div>

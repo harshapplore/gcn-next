@@ -175,10 +175,10 @@ const OrderHistory = () => {
                               <div className="light">Order placed</div>
                               <div className="rubik">{new Date(order?.createdAt).toString().substr(0, 15)}</div>
                             </div>
-                            <div>
+                            {/* <div>
                               <div className="light">Payment Method</div>
                               <div className="rubik">Credit Card</div>
-                            </div>
+                            </div> */}
                           </div>
                           <div className="flex flex100 mb-30">
                             <div className="mgr90">

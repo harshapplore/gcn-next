@@ -21,6 +21,7 @@ import { addToCart } from "@/_methods/cart";
 
 import ImagesWrapper from "./ImagesWrapper";
 import MoreProducts from "./MoreProducts";
+import Footer from "@/shared/Footer";
 
 const ProductDetail = () => {
     const router = useRouter();
@@ -367,6 +368,7 @@ console.log(user)
                     </div> */}
                 </div>
             </div>
+            <Footer/>
         </>
     );
 };
