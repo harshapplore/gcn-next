@@ -28,8 +28,9 @@ const Seller_Nav = () => {
         }
     }, []);
 
-    const aboutCurrent = router.query.section === "get-started" || "basic-info" || "vision-strategy" || "governance-and-management" || "social" || "environment" ? "progress__step--current" : ""
-    const priceCurrent = router.query.section === "pricing-intro" ||"pricing-plan" ? "progress__step--current" : ""
+    const aboutCurrent = router.query.section === "get-started" && "basic-info" || "vision-strategy" || "governance-and-management" || "social" || "environment" ? "progress__step--current" : ""
+    const priceCurrent = router.query.section === "pricing-intro" ||"pricing-plan" || "pricing-billing" ? "progress__step--current" : ""
+    const shopCurrent = router.query.section === "shop-info" ||"terms-and-conditions" || "shipping-details" || "shop-details" ? "progress__step--current": ""
     return (
         <>
             <div className="progress-bar">
@@ -39,7 +40,7 @@ const Seller_Nav = () => {
                     <div className={`progress__step ${priceCurrent}`}>Pricing plan</div>
                     <div className="icon-24 icon-24--progress"><img src="../images/expand-more-black-24-dp_1.svg" loading="lazy" width="9" height="13" alt="Next" />
                     </div>
-                    <div className="progress__step" >Create Shop</div>
+                    <div className={`progress__step ${shopCurrent}`} >Create Shop</div>
                 </div>
             </div>
         </>

@@ -195,13 +195,13 @@ const Seller_Basic_Info = ({ nextPage }) => {
           <h1 className="headline-2 mb-10">Hello {sellerName} , let's get started! </h1>
           <div className="overline-text mb-40">{data.subheading}</div>
 
+            <ProgressBar />
           <h3 className="headline-5 mb-50">Please fill out the entire form in one session, since progress will be lost otherwise.</h3>
 
           <div className=" mb-40  w-richtext">
-            <p>{data.p1}</p>
-            <p>{data.p2}</p>
+            {/* <p>{data.p1}</p>
+            <p>{data.p2}</p> */}
           </div>
-          <ProgressBar />
           <div className="settings-block" id="basicInfo">
             <h3 className="headline-5 mb-50">Basic Information</h3>
             <div className="w-form">

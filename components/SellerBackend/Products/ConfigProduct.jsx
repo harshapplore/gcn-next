@@ -469,8 +469,7 @@ const ConfigProduct = () => {
                       if (c.id === product.category) return a + c.name;
 
                       return a + "";
-                    }, "")) ||
-                  "Select Category"
+                    }, ""))
                 }
                 setValue={(value) =>
                   setProduct({ ...product, category: categories[value].id })
