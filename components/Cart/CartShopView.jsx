@@ -24,6 +24,7 @@ import {
 import DeleteIcon from "@/assets/icons/delete.svg";
 import countries from "@/_data/countriesList.json";
 import { usePriceFormatter } from "@/_hooks/usePriceFormatter";
+import { BILLING } from "../SellerBackend/routes";
 
 const __countries = countries.map((val) => val.name);
 
@@ -196,7 +197,9 @@ const CartShopView = ({ goToShipping }) => {
     total,
     setTotal,
     shipping,
+    billing,
     setShipping,
+    setBilling,
   } = useContext(CartContext);
 
   /*
@@ -301,7 +304,10 @@ const CartShopView = ({ goToShipping }) => {
               placeholder="Ship To"
               choices={__countries}
               value={shipping.country}
-              setValue={(country) => setShipping({ ...shipping, country })}
+              setValue={(country) => {
+                setShipping({ ...shipping, country });
+                setBilling({ ...billing, country });
+              }}
             />
             {shippingError && (
               <span style={{ color: "red", marginTop: 5, fontSize: 12 }}>

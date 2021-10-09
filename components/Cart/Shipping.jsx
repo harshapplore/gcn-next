@@ -65,8 +65,8 @@ const Input = ({ data, setData, errors, shipping }) => {
 
         <TextInput
           // choices={countries}
-          placeholder={shipping?.country}
-          value={shipping?.country}
+          placeholder={data?.country}
+          value={data?.country}
           disabled
           setValue={(value) => {}}
         />
@@ -153,8 +153,8 @@ const Shipping = ({ checkout, loading }) => {
     if (data.postalCode && !isPostalCode(data.postalCode))
       err.postalCode = "Please provide a valid postal code.";
 
-    if(key === "billing") setBillingErrors(err);
-    if(key === "shipping") setShippingErrors(err);
+    if (key === "billing") setBillingErrors(err);
+    if (key === "shipping") setShippingErrors(err);
 
     if (Object.keys(err).length) return false;
 
@@ -202,7 +202,8 @@ const Shipping = ({ checkout, loading }) => {
               name="Delivery Address"
               data={shipping}
               setData={setShipping}
-              errors={shippingErrors|| {}}
+              shipping={shipping}
+              errors={shippingErrors || {}}
             />
           )}
         </div>
