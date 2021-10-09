@@ -96,7 +96,7 @@ const Footer = () => {
                 ))}
             </div>
             <div className="footer-column">
-              <div className="footer-heading">GC9</div>
+              <div className="footer-heading">Info</div>
               <a
                 className="footer-link w-inline-block cursor"
                 onClick={() => router.push("/about")}
@@ -107,7 +107,7 @@ const Footer = () => {
                 className="footer-link w-inline-block cursor"
                 onClick={() => router.push("/seller-info")}
               >
-                <div>Sell Products</div>
+                <div>How it works</div>
               </a>
               <a className="footer-link w-inline-block">
                 <div>Policies</div>
@@ -141,7 +141,7 @@ const Footer = () => {
       <div className="page-section footer-bar">
         <div className="container w-clearfix">
           <div className="footer-bar-content">
-            <a className="footer-inline-link">Terms of Service</a>
+            <a className="footer-inline-link" href="https://app.greencloudnine.com/terms-and-conditions" target="_blank">Terms of Service</a>
             <div className="footer-inline-link-divider">|</div>
             <a className="footer-inline-link">Privacy Policy</a>
             <div className="footer-inline-link-divider">|</div>

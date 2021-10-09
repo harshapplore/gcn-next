@@ -393,6 +393,9 @@ const ConfigProduct = () => {
     await save();
 
     setLoading({ save: false });
+    location.assign("http://localhost:3000/seller/products");
+    // location.assign("https://app.greencloudnine.com/seller/products");
+
   };
 
   const handleNext = async () => {
@@ -460,7 +463,7 @@ const ConfigProduct = () => {
                 />
               </div>
 
-              <Select
+              {/* <Select
                 choices={categories.map((cat) => cat.name)}
                 value={product.description ||""}
                 placeholder={
@@ -469,7 +472,24 @@ const ConfigProduct = () => {
                       if (c.id === product.category) return a + c.name;
 
                       return a + "";
-                    }, ""))
+                    }, "") || "Select Category")
+                }
+                setValue={(value) =>
+                  setProduct({ ...product, category: categories[value].id })
+                }
+                error={errors.category}
+              /> */}
+              <Select
+                choices={categories.map((cat) => cat.name)}
+                value={""}
+                placeholder={
+                  (categories &&
+                    categories.reduce((a, c) => {
+                      if (c.id === product.category) return a + c.name;
+
+                      return a + "";
+                    }, "")) ||
+                  "Select Category"
                 }
                 setValue={(value) =>
                   setProduct({ ...product, category: categories[value].id })

@@ -149,7 +149,7 @@ const OrderHistory = () => {
                         </div>
                         <div>
                           <div className="light">Delivered to</div>
-                          <div className="rubik">{billingAddress?.name}, {billingAddress?.streetAddress}, {billingAddress?.city}, {billingAddress?.postalCode}, {billingAddress?.country}</div>
+                          <div className="rubik">{billingAddress?.name}, {billingAddress?.streetAddress},<br/> {billingAddress?.city}, {billingAddress?.postalCode}, {billingAddress?.country}</div>
                         </div>
                         <div className="light mgt50 mb-10">Items</div>
                         {snaps?.products?.map(product => {
@@ -175,10 +175,10 @@ const OrderHistory = () => {
                               <div className="light">Order placed</div>
                               <div className="rubik">{new Date(order?.createdAt).toString().substr(0, 15)}</div>
                             </div>
-                            <div>
+                            {/* <div>
                               <div className="light">Payment Method</div>
                               <div className="rubik">Credit Card</div>
-                            </div>
+                            </div> */}
                           </div>
                           <div className="flex flex100 mb-30">
                             <div className="mgr90">

@@ -14,9 +14,9 @@ export const SelectForRegister = ({
         value={value}
         onChange={(e) => setValue(e.target.value)}
       >
-        <option value={placeholder}> {placeholder} </option>
+        {/* <option value={placeholder}> {placeholder} </option> */}
         {choices.map((choice, index) => (
-          <option key={choice} value={index}>
+          <option key={choice} value={choice}>
             {choice}
           </option>
         ))}

@@ -24,7 +24,7 @@ const Nav2 = () => {
   useEffect(() => {
     if (!categories.length) dispatch(fetchCategories());
   }, []);
-
+console.log(router)
   useEffect(() => {
     const { filters } = router.query;
 
@@ -61,7 +61,7 @@ const Nav2 = () => {
           ))}
       </div>
       <div className="promise-wrapper" onClick={() => router.push("/about")}>
-        <a className="nav-link promise w-inline-block">
+         <a className={`nav-link  promise w-inline-block ${router.asPath === "/about" && "current"}`}>
           <img
             src="/images/spa-black-24-dp.svg"
             loading="lazy"

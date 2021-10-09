@@ -134,6 +134,10 @@ const Shipping_Settings = ({ nextPage }) => {
     if (res.data)
       setNationalShippingMessage("National shipping details updated successfully")
 
+      setTimeout(()=>{
+        location.reload()
+      },1000)
+
   }
 
   const nationalShippingDelete =async (e) =>{
@@ -247,7 +251,9 @@ const Shipping_Settings = ({ nextPage }) => {
     console.log(res.data)
     if (res.data)
       setInterNationalShippingMessage("International shipping details updated successfully")
-
+      setTimeout(()=>{
+        location.reload()
+      },1000)
   }
   const submit = async (e) => {
     e.preventDefault();

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import styles from "./style.module.css";
 
-import { getOrder } from "@/_controllers/customer";
+import { getOrder, sendEmail } from "@/_controllers/customer";
 import { getShop } from "@/_controllers/shop";
 import { dateFormatter } from "@/_hooks/dateFormatter";
 import { usePriceFormatter } from "@/_hooks/usePriceFormatter";

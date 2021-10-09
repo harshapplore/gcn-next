@@ -29,7 +29,7 @@ import { scrollToElement } from "@/utils/scroll";
 import { route } from "next/dist/server/router";
 
 const SellerBackend = () => {
-  const router = useRouter();
+  const router = useRouter()
   const dispatch = useDispatch();
   const { seller } = useSelector((state) => state.user);
 
@@ -39,7 +39,7 @@ const SellerBackend = () => {
 
   useEffect(() => {
     if (!seller.id) dispatch(fetchSeller());
-    // if (!seller.shop.id) route.push("/")
+    // if (!seller.shop) router.push("/")
   }, []);
 
   useEffect(() => {

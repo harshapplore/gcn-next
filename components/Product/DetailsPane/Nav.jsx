@@ -44,7 +44,7 @@ const Nav = () => {
                 key={"tab-" + index}
                 className={
                   "nav-link-shop w-inline-block" +
-                  (index === activeTab ? " current" : "")
+                  (!query.tab && index===0 && "current" || index === activeTab ? " current" : "")
                 }
                 onClick={() =>
                   router.push(`/product/${query.id}?tab=${tab.key}`)
