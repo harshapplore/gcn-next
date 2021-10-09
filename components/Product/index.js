@@ -12,6 +12,7 @@ import Header from "@/shared/Header2";
 import Nav from "@/shared/Nav2";
 import Fetcher from "@/shared/Fetcher";
 import AuthForm from "@/shared/Auth/AuthForm";
+import Footer from "@/shared/Footer";
 
 import Button from "@/shared/Button";
 import Dropdown from "@/shared/Input/Dropdown";
@@ -21,6 +22,7 @@ import { addToCart } from "@/_methods/cart";
 
 import ImagesWrapper from "./ImagesWrapper";
 import MoreProducts from "./MoreProducts";
+import AppLoader from "@/utils/AppLoader/AppLoader";
 
 const ProductDetail = () => {
     const router = useRouter();
@@ -40,22 +42,24 @@ const ProductDetail = () => {
     const { favoriteItems } = useSelector(
         (state) => state.favorites
     );
-    const [isCustomer,setIsCutomer] = useState(false);
-    const [isSeller,setIsSeller] = useState(false);
+    const [isCustomer, setIsCutomer] = useState(false);
+    const [isSeller, setIsSeller] = useState(false);
 
     useEffect(async () => {
         const { id } = router.query;
 
         if (id) {
+            setLoading(true);
             const product = await getProduct(id);
             setProduct(product);
+            setLoading(false);
         }
     }, [router]);
 
     useEffect(() => {
         dispatch(fetchFavoriteItems(customer.id));
     }, [customer])
-console.log(user)
+
     useEffect(() => {
         if (user.type == "customer") {
             setIsCutomer(true)
@@ -64,7 +68,7 @@ console.log(user)
             setIsSeller(true)
         }
 
-    },[user])
+    }, [user])
 
     const validated = () => {
         let error = "";
@@ -102,7 +106,7 @@ console.log(user)
             router.push("/cart");
         }, 1000);
     };
-    
+
 
     const _isFavorite = favoriteItems?.filter(fav => product?._id == fav.productId).length > 0;
 
@@ -132,33 +136,36 @@ console.log(user)
                 <title> {product.name} | Green Cloud Nine</title>
             </Head>
             <Header nav={<Nav />} />
-            <div className="page-section">
+
+            {loading && <AppLoader />}
+
+            {!loading && <div className="page-section">
                 <div className="container w-clearfix">
                     <ImagesWrapper images={product.images} />
 
                     <div className="product-info-wrapper">
                         <div className="mb-20">
-                            <div className="flex align-items-center" style={{position: "relative"}}>
+                            <div className="flex align-items-center" style={{ position: "relative" }}>
                                 <h1 className="item-heading no-select">{product.name}</h1>
                                 {isCustomer && <a
                                     className="potw-like active w-inline-block cursor"
                                     onClick={toggleFavorites}
                                 >
-                                {_isFavorite && (
+                                    {_isFavorite && (
+                                        <img
+                                            src="/images/favorite-border-black-24-dp-2.svg"
+                                            loading="lazy"
+                                            width={25}
+                                            alt="Like"
+                                            className="orange-heart"
+                                        />
+                                    )}
                                     <img
-                                        src="/images/favorite-border-black-24-dp-2.svg"
+                                        src="/images/favorite-border-black-24-dp_1.svg"
                                         loading="lazy"
-                                        width={25}
                                         alt="Like"
-                                        className="orange-heart"
+                                        className="heart"
                                     />
-                                )}
-                                <img
-                                    src="/images/favorite-border-black-24-dp_1.svg"
-                                    loading="lazy"
-                                    alt="Like"
-                                    className="heart"
-                                />
                                 </a>}
                             </div>
                             <div
@@ -171,7 +178,7 @@ console.log(user)
                             </div>
                         </div>
                         <div className="item-product-price mb-40 no-select">
-                            € {product.price } <span className="exclusiveVat">(exclusive vat)</span>
+                            € {product.price} <span className="exclusiveVat">(exclusive vat)</span>
                         </div>
 
                         <div>
@@ -251,16 +258,16 @@ console.log(user)
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>}
 
-            <DetailsPane product={product} />
+            {!loading && <DetailsPane product={product} />}
 
             <div className="page-section">
                 <div className="container">
                     <div className="heading-wrapper mb-40">
                         <h2>You may also like ...</h2>
                     </div>
-                    {product.shop && <MoreProducts shop={product.shop && product.shop.name}/>}
+                    {product.shop && <MoreProducts shop={product.shop && product.shop.name} />}
 
                     {/* <div className="flex">
                         <div className="flex-child-32">
@@ -367,6 +374,8 @@ console.log(user)
                     </div> */}
                 </div>
             </div>
+
+            <Footer />
         </>
     );
 };
