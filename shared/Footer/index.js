@@ -91,7 +91,7 @@ const Footer = () => {
                   <CategoryBlock
                     key={"cat" + index}
                     name={category.name}
-                    action={() => router.push(`/category/${category.id}`)}
+                    action={() => router.push(`/products?filters={"category":"${category.id}"}`)}
                   />
                 ))}
             </div>
@@ -119,8 +119,8 @@ const Footer = () => {
             <div className="footer-column">
               &nbsp;
             </div>
-            
-            
+
+
             <div className="footer-column last">
               <div>
                 <span className="medium">Green Cloud Nine e.U.</span>
