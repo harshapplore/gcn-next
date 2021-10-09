@@ -341,11 +341,11 @@ const CartShopView = ({ goToShipping }) => {
       <div className="container">
         <div className="flex mb-40">
           <div className="checkout-additional">
-            <Toggle2
+            {products?.length > 0 && <Toggle2
               name="This order is a gift."
               value={gift.gift}
               setValue={(value) => setGift({ ...gift, gift: value })}
-            />
+            />}
 
             {gift.gift && (
               <div className="w-form">
