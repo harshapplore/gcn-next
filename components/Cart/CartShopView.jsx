@@ -257,7 +257,8 @@ const CartShopView = ({ goToShipping }) => {
 
   useEffect(() => {
     console.log(totalPrice, totalDelivery, co2Compensation, vat);
-    const total = totalPrice + totalDelivery + co2Compensation + (vat ? vat : 0);
+    const total =
+      totalPrice + totalDelivery + co2Compensation + (vat ? vat : 0);
 
     setTotal(total);
   }, [totalPrice, totalDelivery, co2Compensation, vat]);
@@ -288,8 +289,12 @@ const CartShopView = ({ goToShipping }) => {
       <div className="container">
         <div className="mb-40 flex flex-align-center flex-space-between">
           <h1 id="select-country">
-            {shops.reduce((a, c) => a + c.products.length, 0)} items in your
-            cart.
+            {console.log(shops)}
+            {shops.reduce(
+              (a, c) => a + c.products?.reduce((a, c) => a + c.quantity, 0),
+              0
+            )}
+            &nbsp;items in your cart.
           </h1>
           <div>
             <Dropdown
@@ -341,11 +346,13 @@ const CartShopView = ({ goToShipping }) => {
       <div className="container">
         <div className="flex mb-40">
           <div className="checkout-additional">
-            {products?.length > 0 && <Toggle2
-              name="This order is a gift."
-              value={gift.gift}
-              setValue={(value) => setGift({ ...gift, gift: value })}
-            />}
+            {products?.length > 0 && (
+              <Toggle2
+                name="This order is a gift."
+                value={gift.gift}
+                setValue={(value) => setGift({ ...gift, gift: value })}
+              />
+            )}
 
             {gift.gift && (
               <div className="w-form">
