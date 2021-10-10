@@ -686,7 +686,7 @@ const ConfigProduct = () => {
             <div className="mb-20">
               <label className="mb-20">Colors</label>
               <div className="spacer-10" />
-              <div className="flex flex-wrap  max-content ml-10">
+              <div className="flex flex-wrap  max-content ml-10 colors-content">
                 {filtersList.colors &&
                   filtersList.colors.map((color, index) => (
                     <CheckBox

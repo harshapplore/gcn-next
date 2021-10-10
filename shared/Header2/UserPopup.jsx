@@ -44,7 +44,7 @@ const UserPopup = () => {
             <div className="icon-nav-popup-spacer" />
 
             {(user.type == "customer" ||
-              (seller.qaStatus == "approved" && seller.shop)) && (
+            (seller.qaStatus == "approved" && seller.shop)) && (
               <a
                 className="nav-link account w-inline-block cursor"
                 onClick={() => {
