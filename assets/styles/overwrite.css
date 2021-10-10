@@ -468,7 +468,15 @@ z-index: 999;
     justify-content: center;
     border-radius: 100%;
 }
-
+.colors-content {
+    display: flex;
+    justify-content: flex-start;
+    margin: 10px -10px;
+}
+.colors-content label{ 
+    margin: 0px !important;
+    margin: 10px !important;
+}
 
 @media only screen and (max-width: 700px) {
     /* .about-us-back-img {
