@@ -17,6 +17,7 @@ import { BASE_ROUTE, PRODUCTS, ADD_ACTION, EDIT_ACTION } from "../routes";
 
 import { fetchShopProducts } from "@/slices/shop";
 import { addProduct, deleteProduct, putProduct } from "@/_controllers/product";
+import { PRODUCT_SAMPLE_FILE } from "@/config/constants";
 
 const ProductCard = ({ id, product }) => {
   const router = useRouter();
@@ -407,12 +408,7 @@ const Products = ({ filters, setFilters }) => {
           </form>
         </div>
         <div className="mb-0 mr-7 w-form">
-          {/* <FilterDropdown
-            choices={__filters.sortBy}
-            placeholder="Sort By"
-            value={filters.sortBy}
-            setValue={(value) => setFilters({ ...filters, sortBy: value })}
-          /> */}
+           
           <form id="email-form-3" name="email-form-3" data-name="Email Form 3">
             <select
               id="field-2"
@@ -468,7 +464,18 @@ const Products = ({ filters, setFilters }) => {
             </svg>
           </div>
         </a>
+
+
+        <button style={{
+            marginLeft: 10,
+            padding: 12,
+            borderRadius: 2
+        }}
+            onClick={() => window.open(PRODUCT_SAMPLE_FILE)}
+        >Download Sample File</button>
       </div>
+
+
 
       {view === "card" && (
         <>

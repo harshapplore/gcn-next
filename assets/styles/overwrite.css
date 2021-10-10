@@ -164,10 +164,6 @@ a{
   display: absolute;
   z-index: 1000;
 }
-
-
-/* Product Styles  (components/Products/Slider) */
-
 .slider-container {
   display: block;
 }
@@ -477,7 +473,10 @@ z-index: 999;
     margin: 0px !important;
     margin: 10px !important;
 }
-
+.resetButton {
+    display: flex;
+    justify-content: space-between;
+}
 @media only screen and (max-width: 700px) {
     /* .about-us-back-img {
         height: 40vh;

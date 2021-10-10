@@ -71,7 +71,15 @@ const Sidebar = ({ filters, setFilters, shopView }) => {
             })}
         </div>
       )}
+    
+      <div className="resetButton">
+          Reset All:
 
+          <button 
+            onClick={() => router.push("/products")}
+          >Reset</button>
+      </div>
+      <br />
       <div className="shop-select-text first">Delivers to:</div>
       <div className="mb-20">
         <CheckDropdown

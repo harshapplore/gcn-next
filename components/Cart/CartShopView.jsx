@@ -91,7 +91,7 @@ const CartItem = ({ product, shop, qty, setQty }) => {
         </div>
         <div className="pt-30">
           <div className="shop-product-price">
-            € {product.price * product.quantity}
+            {usePriceFormatter(product.price * product.quantity)}
           </div>
         </div>
       </div>
@@ -158,8 +158,8 @@ const CartShop = ({ shopId, products, setProducts, shopMeta, setShopMeta }) => {
           setValue={(value) => setShopMeta({ ...shopMeta, pickUp: value })}
         />
         <div>
-          <div className="medium">Subtotal (excl. VAT): € {shopMeta.price}</div>
-          <div>Packaging & Shipping: € {shopMeta.delivery} </div>
+            <div className="medium">Subtotal (excl. VAT): {usePriceFormatter(shopMeta.price)}</div>
+            <div>Packaging &amp; Shipping: {usePriceFormatter(shopMeta.delivery)} </div>
           <div>VAT: {usePriceFormatter(shopMeta.vat)}</div>
           <div>2-3 days</div>
         </div>
@@ -376,13 +376,13 @@ const CartShopView = ({ goToShipping }) => {
             )}
           </div>
           <div className="total-wrapper">
-            <div className="medium">Total Price: € {totalPrice}</div>
-            <div>Packaging & Shipping : € {totalDelivery}</div>
+            <div className="medium">Total Price: {usePriceFormatter(totalPrice)}</div>
+            <div>Packaging &amp; Shipping : {usePriceFormatter(totalDelivery)}</div>
             <div className="medium"> VAT :{usePriceFormatter(vat)}</div>
             {co2Compensation > 0 && (
-              <div>CO2 compensation : € {co2Compensation}</div>
+                <div>CO2 compensation : {usePriceFormatter(co2Compensation)}</div>
             )}
-            <div>Order Total: € {total}</div>
+            <div>Order Total: {usePriceFormatter(total)}</div>
           </div>
         </div>
 
