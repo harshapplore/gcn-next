@@ -5,12 +5,17 @@ import Login from "./Login";
 
 import { loginUser, registerUser, putRole } from "@/_controllers/auth";
 
-const Form = ({ close }) => {
+const Form = ({ close,type }) => {
   const [showForm, setShowForm] = useState("login");
 
   const showLoginForm = () => setShowForm("login");
   const showRegisterForm = () => setShowForm("register");
 
+  useEffect(() => {
+    if(type) {
+        setShowForm(type)
+    }
+  },[type])
   return (
     <>
       {showForm === "login" && (

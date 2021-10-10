@@ -5,8 +5,7 @@ export function isEmail(email) {
 }
 
 export function isPhone(phone) {
-  const phoneRgx = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-  return phone.match(phoneRgx);
+  return phone.split(" ").join("").length > 9
 }
 
 export function isPostalCode(code) {
