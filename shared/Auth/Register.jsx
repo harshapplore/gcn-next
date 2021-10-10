@@ -39,7 +39,8 @@ const Register = ({ close }) => {
         if (!data.password) err.password = "Password cannot be empty.";
         if (data.password && data.password.length < 6) err.password = "Password length must be atleast 6 characters";
         
-        if (!data.name) err.name = "Name cannot be empty.";
+        if (!data.firstName) err.firstName = "Name cannot be empty.";
+        if (!data.lastName) err.lastName = "Name cannot be empty.";
 
         if (!data.region) err.region = "Please Select a region";
         if (!data.terms) err.terms = "Please Accept Terms before proceeding";
@@ -118,12 +119,20 @@ const Register = ({ close }) => {
                                     <TextInput
                                         type="text"
                                         className="text-field w-input"
-                                        placeholder="Name"
-                                        value={data.name}
-                                        setValue={(value) => setData({ ...data, name: value })}
-                                        error={errors.name}
+                                        placeholder="First Name"
+                                        value={data.firstName}
+                                        setValue={(value) => setData({ ...data, firstName: value,name: value + " " + data.lastName })}
+                                        error={errors.firstName}
                                     />
 
+                                    <TextInput
+                                        type="text"
+                                        className="text-field w-input"
+                                        placeholder="Last Name"
+                                        value={data.lastName}
+                                        setValue={(value) => setData({ ...data, lastName: value, name: data.firstName + " " + value })}
+                                        error={errors.lastName}
+                                    />
                                     <TextInput
                                         type="text"
                                         className="text-field w-input"
