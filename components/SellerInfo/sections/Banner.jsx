@@ -19,7 +19,7 @@ const Banner = () => {
           <a className="button blue w-button">Register Now</a>
         </div>
       </div>
-      {showAuth && <AuthForm close={() => setShowAuth(false)} />}
+          {showAuth && <AuthForm close={() => setShowAuth(false)} type="register"/>}
     </div>
   );
 };

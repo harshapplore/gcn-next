@@ -67,7 +67,7 @@ const SellerOnboarding = () => {
   return (
     <>
       <Head>
-        <title> Seller Onboarding | Greeen Cloud Nine </title>
+        <title> Seller Onboarding | Green Cloud Nine </title>
       </Head>
       <Header nav={<Seller_Nav />} />
       {activePageIndex === 0 && <Seller_Intro nextPage={nextPage} />}

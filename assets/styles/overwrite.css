@@ -164,10 +164,6 @@ a{
   display: absolute;
   z-index: 1000;
 }
-
-
-/* Product Styles  (components/Products/Slider) */
-
 .slider-container {
   display: block;
 }
@@ -449,4 +445,40 @@ z-index: 999;
   grid-template-columns: 1fr 1fr;
   -ms-grid-rows: auto;
   grid-template-rows: auto;
+}
+
+.badge-icon {
+    position: relative;
+}
+.badge-icon span {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background-color: var(--primary);
+    color: white;
+    font-size: 10px;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+}
+.colors-content {
+    display: flex;
+    justify-content: flex-start;
+    margin: 10px -10px;
+}
+.colors-content label{ 
+    margin: 0px !important;
+    margin: 10px !important;
+}
+.resetButton {
+    display: flex;
+    justify-content: space-between;
+}
+@media only screen and (max-width: 700px) {
+    /* .about-us-back-img {
+        height: 40vh;
+    } */
 }

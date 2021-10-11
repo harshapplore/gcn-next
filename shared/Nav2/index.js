@@ -59,6 +59,7 @@ console.log(router)
               active={activeIndex === index}
             />
           ))}
+          
       </div>
       <div className="promise-wrapper" onClick={() => router.push("/about")}>
          <a className={`nav-link  promise w-inline-block ${router.asPath === "/about" && "current"}`}>

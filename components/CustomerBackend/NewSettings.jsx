@@ -70,8 +70,12 @@ const Settings = () => {
 
     useEffect(() => {
         dispatch(fetchCustomer())
-        if (customer.user) {
+    },[])
 
+    useEffect(() => {
+        console.log("USER DATA")
+        console.log(customer.user)
+        if (customer.user) {
             setfName(customer.user.addressAccount && customer.user.addressAccount[0].fName)
             setlName(customer.user.addressAccount && customer.user.addressAccount[0].lName)
             setCompany(customer.user.addressAccount && customer.user.addressAccount[0].company)
@@ -91,7 +95,7 @@ const Settings = () => {
             setRegion(customer.user.region && customer.user.region)
             setCurrency(customer.user.currency && customer.user.currency)
         }
-    }, [])
+    }, [customer.user])
 
     const nameValidate = () => {
         const errors = {};
