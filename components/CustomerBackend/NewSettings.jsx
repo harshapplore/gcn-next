@@ -202,11 +202,7 @@ const Settings = () => {
                 url: `users/${customer.user.id}`,
                 method: "DELETE",
             });
-            //   const deleteShop = await authAxios()({
-            //     url: `shops/${seller.shop.id}`,
-            //     method: "DELETE",
-            //   });
-            console.log(deleteResponse)
+
             if (deleteResponse) {
                 localStorage.removeItem("token")
                 localStorage.removeItem("data")
@@ -354,7 +350,7 @@ const Settings = () => {
                     <div>
                         <div className="label">Current Name</div>
                         <div>{customer.user?.name}</div>
-                        <div className="label mgt-20">Membership since</div>
+                        <div className="label mgt-20">Member Since</div>
                         <div>
                             {new Date(customer.createdAt) &&
                                 new Date(customer.createdAt).getDate() +
